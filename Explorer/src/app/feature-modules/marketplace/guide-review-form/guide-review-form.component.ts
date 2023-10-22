@@ -17,16 +17,18 @@ export class GuideReviewFormComponent implements OnChanges{
 
   constructor(private service: MarketplaceService) { }
 
+  comment: string | undefined = '';
+
   selectedRating: number = 0;
   onTextChanged(): void {
-    if(this.shouldEdit) this.guideRev.comment = this.guideReviewForm.value.comment ?? undefined;
+    if(this.shouldEdit) this.comment = this.guideReviewForm.value.comment ?? undefined;
   }
   setRating(rating: number): void {
     if(this.shouldEdit){
       this.selectedRating = rating;
       const gr: GuideReview = {
         rating: this.selectedRating,
-        comment: this.guideRev.comment,
+        comment: this.comment,
 
         userId: 0,
         guideId: 0,
@@ -73,7 +75,7 @@ export class GuideReviewFormComponent implements OnChanges{
       userId: this.user,
       guideId: 3,//todo
       rating: this.guideReviewForm.value.rating || 0,
-      comment: this.guideReviewForm.value.comment || '',
+      comment: this.comment || '',
       submissionDate:new Date(Date.now())
     }
 
@@ -92,7 +94,7 @@ export class GuideReviewFormComponent implements OnChanges{
       userId: this.user,
       guideId: 3,//todo
       rating: this.guideReviewForm.value.rating || 0,
-      comment: this.guideReviewForm.value.comment || '',
+      comment: this.comment || '',
       submissionDate:new Date(Date.now())
     }
     guideReview.id = this.guideRev.id;
