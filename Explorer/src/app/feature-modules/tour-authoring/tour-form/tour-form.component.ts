@@ -12,6 +12,8 @@ import { takeUntil } from 'rxjs';
   styleUrls: ['./tour-form.component.css'],
 })
 export class TourFormComponent {
+  difficultyLevels = Object.values(DifficultyLevel);
+
   constructor(private service: TourService) {}
 
   tourForm = new FormGroup({
@@ -27,8 +29,8 @@ export class TourFormComponent {
       name: this.tourForm.value.name || '',
       description: this.tourForm.value.description || '',
       status: Status.Draft,
-      difficultyLevel: this.tourForm.value.difficulytLevel as DifficultyLevel,
-      id: 1,
+      difficultyLevel: DifficultyLevel.Hard,
+
       price: 0,
     };
 
