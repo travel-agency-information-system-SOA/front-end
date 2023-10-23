@@ -4,6 +4,8 @@ export interface Tour {
   price: number;
   status: Status;
   difficultyLevel: DifficultyLevel;
+  guideId: number;
+  tags: string[];
 }
 
 export enum Status {

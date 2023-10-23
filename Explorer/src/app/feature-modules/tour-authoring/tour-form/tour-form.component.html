@@ -16,6 +16,15 @@
       ></textarea>
     </mat-form-field>
 
+    <mat-form-field>
+      <mat-label>Difficulty Level</mat-label>
+      <mat-select formControlName="difficulytLevel">
+        <mat-option *ngFor="let level of difficultyLevels" [value]="level">{{
+          level
+        }}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
     <button mat-raised-button type="submit" color="primary" (click)="addTour()">
       Add tour
     </button>
