@@ -5,8 +5,11 @@ import { LoginComponent } from '../auth/login/login.component';
 import { EquipmentComponent } from 'src/app/feature-modules/administration/equipment/equipment.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+
 import { TourPointsComponent } from 'src/app/feature-modules/tour-authoring/tour-points/tour-points.component';
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
+import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour-object/tour-object.component';
+import { MapComponent } from 'src/app/shared/map/map.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,6 +22,8 @@ const routes: Routes = [
   },
   { path: 'tour', component: TourComponent, canActivate: [AuthGuard] },
   {path:'tourPoint',  component: TourPointsComponent, canActivate: [AuthGuard],}
+  { path: 'objects', component: TourObjectComponent},
+
 ];
 
 @NgModule({
