@@ -17,7 +17,7 @@
                 <tr *ngFor="let gr of guideReviews">
                     <td>{{gr.rating}}</td>
                     <td>{{gr.comment}}</td>
-                    <td>{{gr.submissionDate | date:'dd.MM.yyyy. hh:mm'}}</td>
+                    <td>{{gr.submissionDate | date:'dd.MM.yyyy. HH:mm'}}</td>
                     <td>
                         <button color="accent" (click)="onDeleteClicked(gr)" mat-icon-button>
                             <mat-icon>delete</mat-icon>
