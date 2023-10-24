@@ -20,6 +20,9 @@
             <td>{{ t.status }}</td>
             <td>{{ t.price }}</td>
             <td>{{ t.difficultyLevel }}</td>
+            <td>
+              <button (click)="openEquipmentDialog(t)">Add equipment</button>
+            </td>
           </tr>
         </tbody>
       </table>
