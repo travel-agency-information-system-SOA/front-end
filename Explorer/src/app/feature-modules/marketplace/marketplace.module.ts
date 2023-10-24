@@ -20,14 +20,15 @@ import { MatTableModule } from "@angular/material/table";
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
-  ],
-  exports: [
-    GuideReviewComponent
     ReactiveFormsModule,
     MatSelectModule,
-    MatTableModule,
+    ReactiveFormsModule,
     FormsModule,
+    MatTableModule
+  ],
+  exports: [
+    GuideReviewComponent,
+    
     PreferencesComponent
   ]
 })

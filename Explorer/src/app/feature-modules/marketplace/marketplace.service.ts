@@ -27,7 +27,7 @@ export class MarketplaceService {
 
   deleteGuideReview(guideReview: GuideReview):  Observable<GuideReview> {
     return this.http.delete<GuideReview>(environment.apiHost + 'review/guideReview/' + guideReview.id);
-
+  }
   getPreferences(): Observable<PagedResults<Preferences>> {
     return this.http.get<PagedResults<Preferences>>(environment.apiHost + 'marketplace/preferences');
   }
