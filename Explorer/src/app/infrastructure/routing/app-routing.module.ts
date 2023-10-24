@@ -6,6 +6,8 @@ import { EquipmentComponent } from 'src/app/feature-modules/administration/equip
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
 import { AccountComponent } from 'src/app/feature-modules/administration/account/account.component';
+import { GuideReviewComponent } from 'src/app/feature-modules/marketplace/guide-review/guide-review.component';
+import { PreferencesComponent } from "../../feature-modules/marketplace/preferences/preferences.component";
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -13,6 +15,9 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],}
+  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
+  {path: 'guideReview', component: GuideReviewComponent, canActivate: [AuthGuard]},
+  {path: 'preferences', component: PreferencesComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
