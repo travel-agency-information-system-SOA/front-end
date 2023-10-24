@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, provideZoneChangeDetection } from '@angular/core';
+
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { TourPoint } from './model/tourPoints.model';
 import { TourObject } from './model/tourObject.model';
+
 import { environment } from 'src/env/environment';
 
 @Injectable({
@@ -11,6 +14,7 @@ import { environment } from 'src/env/environment';
 export class TourAuthoringService {
 
   constructor(private http: HttpClient) { }
+
 
   getObjects(): Observable<PagedResults<TourObject>> {
     const list = this.http.get<PagedResults<TourObject>>(environment.apiHost + 'administration/object');
@@ -29,4 +33,5 @@ export class TourAuthoringService {
   addObject(obj: TourObject): Observable<TourObject>{
     return this.http.post<TourObject>(environment.apiHost + 'administration/object', obj);
   }
+
 }

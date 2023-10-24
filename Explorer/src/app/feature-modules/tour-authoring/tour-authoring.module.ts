@@ -1,26 +1,36 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+import { TourComponent } from './tour/tour.component';
+import { TourFormComponent } from './tour-form/tour-form.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatSelectModule } from '@angular/material/select';
+import { TourPointsComponent } from './tour-points/tour-points.component';
+import { TourPointFormComponent } from './tour-point-form/tour-point-form.component';
+import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { TourObjectComponent } from './tour-object/tour-object.component';
 import { ObjectFormComponent } from './object-form/object-form.component';
-import { MaterialModule } from 'src/app/infrastructure/material/material.module';
-import { ReactiveFormsModule } from '@angular/forms';
+
 import { SharedModule } from 'src/app/shared/shared.module';
 
-
 @NgModule({
-  declarations: [
-    TourObjectComponent,
-    ObjectFormComponent
-  ],
+  declarations: [TourComponent, TourFormComponent, TourPointsComponent,
+    TourPointFormComponent, TourObjectComponent,
+    ObjectFormComponent],
   imports: [
     CommonModule,
-    MaterialModule,
+    MatFormFieldModule,
+    MatInputModule,
     ReactiveFormsModule,
+    MatSelectModule,
+    MaterialModule,
     SharedModule
   ],
-  exports: [
-    TourObjectComponent,
-    ObjectFormComponent
-  ]
+
+  exports: [TourComponent, TourPointsComponent,   TourObjectComponent,
+    ObjectFormComponent],
+
 })
-export class TourAuthoringModule { }
+export class TourAuthoringModule {}
