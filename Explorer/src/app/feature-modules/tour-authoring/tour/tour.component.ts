@@ -35,7 +35,7 @@ export class TourComponent implements OnInit {
       next: (result: PagedResults<Tour>) => {
         this.tour = result.results;
         this.tourCounter = result.totalCount;
-        console.log('Sadržaj result.results:', result.results); // Dodajte ovu liniju
+        console.log('Sadržaj result.results:', result.results); 
 
         const tourIds = this.tour.map(tour => tour.id);
         console.log('ID-jevi tura:', tourIds);

@@ -1,5 +1,6 @@
-export interface Equipment {
+export interface EquipmentTour {
     id?:number;
     idTour?: number;
-    idEqipment?: number;
+    equipmentId?: number;
+    selected: boolean;
 }
