@@ -1,5 +1,20 @@
-p {
-    margin-left: 10px;
-    margin-top: 10px;
+.landingPage {
+    background-color: pink;
+    margin-left: 16.66%;
+    margin-right: 16.66%;
     font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.b3 {
+    background-color: greenyellow;
+    display: flex;
+    flex-direction: row;
+}
+
+.k {
+    width: 22.5%;
+    margin: 10px;
 }

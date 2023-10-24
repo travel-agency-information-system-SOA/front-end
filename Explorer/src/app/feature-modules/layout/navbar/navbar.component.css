@@ -8,3 +8,11 @@ div {
     width: auto;
     margin-left: auto;
 }
+
+::ng-deep .mat-toolbar {
+    position: sticky;
+    z-index: 99999;
+    top:0;
+    width: 100%;
+    overflow: hidden;
+}
