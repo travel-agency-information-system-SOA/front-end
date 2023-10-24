@@ -4,6 +4,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { GuideReview } from './model/guide-review.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
+import { Preferences } from "./model/preferences.model";
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +27,24 @@ export class MarketplaceService {
 
   deleteGuideReview(guideReview: GuideReview):  Observable<GuideReview> {
     return this.http.delete<GuideReview>(environment.apiHost + 'review/guideReview/' + guideReview.id);
+
+  getPreferences(): Observable<PagedResults<Preferences>> {
+    return this.http.get<PagedResults<Preferences>>(environment.apiHost + 'marketplace/preferences');
+  }
+
+  addPreferences(preferences: Preferences): Observable<Preferences> {
+    return this.http.post<Preferences>(environment.apiHost + 'marketplace/preferences', preferences);
+  }
+
+  updatePreferences(preferences: Preferences): Observable<Preferences> {
+    return this.http.put<Preferences>(environment.apiHost + 'marketplace/preferences/' + preferences.id, preferences);
+  }
+
+  deletePreferences(preferences: Preferences): Observable<Preferences> {
+    return this.http.delete<Preferences>(environment.apiHost + 'marketplace/preferences/' + preferences.id);
+  }
+
+  getUserPreferences(id: number): Observable<Preferences> {
+    return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
   }
 }
