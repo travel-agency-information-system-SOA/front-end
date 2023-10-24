@@ -1,9 +1,10 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
-import { PagedResults } from "../../shared/model/paged-results.model";
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { GuideReview } from './model/guide-review.model';
+import { Observable } from 'rxjs';
+import { environment } from 'src/env/environment';
 import { Preferences } from "./model/preferences.model";
-import { environment } from "../../../env/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,21 @@ import { environment } from "../../../env/environment";
 export class MarketplaceService {
 
   constructor(private http: HttpClient) { }
+
+  getGuideReviews(): Observable<PagedResults<GuideReview>> {
+    return this.http.get<PagedResults<GuideReview>>('https://localhost:44333/api/review/guideReview');
+  }
+
+  addGuideReview(guideReview: GuideReview):  Observable<GuideReview> {
+    return this.http.post<GuideReview>(environment.apiHost + 'review/guideReview', guideReview);
+  }
+
+  updateGuideReview(guideReview: GuideReview):  Observable<GuideReview> {
+    return this.http.put<GuideReview>(environment.apiHost + 'review/guideReview/' + guideReview.id, guideReview);
+  }
+
+  deleteGuideReview(guideReview: GuideReview):  Observable<GuideReview> {
+    return this.http.delete<GuideReview>(environment.apiHost + 'review/guideReview/' + guideReview.id);
 
   getPreferences(): Observable<PagedResults<Preferences>> {
     return this.http.get<PagedResults<Preferences>>(environment.apiHost + 'marketplace/preferences');
