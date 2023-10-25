@@ -28,10 +28,7 @@ export class TourComponent implements OnInit {
 
   shouldAddObject: boolean = false;
 
- 
-
   showTourForm: boolean = false;
-
 
   constructor(
     private tokenStorage: TokenStorage,
@@ -99,12 +96,14 @@ export class TourComponent implements OnInit {
     this.selectedTour = tour;
     this.shouldAddPoint = true;
     this.shouldAddObject = false;
+    this.showTourForm = false;
   }
 
-  onAddObj(tour: Tour): void{
+  onAddObj(tour: Tour): void {
     this.selectedTour = tour;
     this.shouldAddObject = true;
     this.shouldAddPoint = false;
+    this.showTourForm = false;
   }
 
   viewMap(idTour: number | undefined): void {
@@ -117,5 +116,7 @@ export class TourComponent implements OnInit {
 
   addTour() {
     this.showTourForm = true;
+    this.shouldAddObject = false;
+    this.shouldAddPoint = false;
   }
 }
