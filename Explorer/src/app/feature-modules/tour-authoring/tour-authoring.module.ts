@@ -14,11 +14,18 @@ import { TourObjectComponent } from './tour-object/tour-object.component';
 import { ObjectFormComponent } from './object-form/object-form.component';
 
 import { SharedModule } from 'src/app/shared/shared.module';
+import { TourMapComponent } from './tour-map/tour-map.component';
 
 @NgModule({
-  declarations: [TourComponent, TourFormComponent, TourPointsComponent,
-    TourPointFormComponent, TourObjectComponent,
-    ObjectFormComponent],
+  declarations: [
+    TourComponent,
+    TourFormComponent,
+    TourPointsComponent,
+    TourPointFormComponent,
+    TourObjectComponent,
+    ObjectFormComponent,
+    TourMapComponent,
+  ],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -26,11 +33,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     MatSelectModule,
     MaterialModule,
-    SharedModule
+    SharedModule,
   ],
 
-  exports: [TourComponent, TourPointsComponent,   TourObjectComponent,
-    ObjectFormComponent],
-
+  exports: [
+    TourComponent,
+    TourPointsComponent,
+    TourObjectComponent,
+    ObjectFormComponent,
+  ],
 })
 export class TourAuthoringModule {}

@@ -10,6 +10,7 @@ import { TourPointsComponent } from 'src/app/feature-modules/tour-authoring/tour
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour-object/tour-object.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
+import { TourMapComponent } from 'src/app/feature-modules/tour-authoring/tour-map/tour-map.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,6 +28,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'objects', component: TourObjectComponent },
+  { path: 'tourMap/${id}', component: TourMapComponent },
 ];
 
 @NgModule({

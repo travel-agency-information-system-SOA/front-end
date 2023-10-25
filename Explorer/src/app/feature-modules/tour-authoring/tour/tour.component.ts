@@ -4,6 +4,7 @@ import { TourService } from '../tour.service';
 import { Tour } from './model/tour.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { TourAuthoringService } from '../tour-authoring.service';
 
 @Component({
   selector: 'xp-tour',
@@ -17,7 +18,7 @@ export class TourComponent implements OnInit {
   tourCounter: number;
 
   constructor(
-    private service: TourService,
+    private service: TourAuthoringService,
     private tokenStorage: TokenStorage
   ) {}
 
