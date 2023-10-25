@@ -22,7 +22,6 @@ export class TourService {
   }
 
   addTour(tour: Tour): Observable<Tour> {
-    console.log(tour);
     return this.http.post<Tour>(
       environment.apiHost + 'administration/tour',
       tour

@@ -23,7 +23,10 @@
             <td>
               <button (click)="onAddPoint(t)" color="primary" mat-icon-button>
                 <mat-icon>add</mat-icon>
-            </button>
+              </button>
+              <button (click)="onAddObj(t)" color="primary" mat-icon-button>
+                <mat-icon>restaurant</mat-icon>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -41,6 +44,7 @@
       <p *ngIf="ANA_PROMENI">🛫 Create tour:</p>
       <xp-tour-form *ngIf="ANA_PROMENI" (tourUpdated)="loadTours()"></xp-tour-form>
     <xp-tour-point-form *ngIf="shouldAddPoint" [tour]="selectedTour"></xp-tour-point-form>
+    <xp-object-form *ngIf="shouldAddObject" [tour]="selectedTour"></xp-object-form>
     <div  class="wrapper-form">
       <p *ngIf="ANA_PROMENI">🛫 Create tour:</p>
       <xp-tour-form *ngIf="ANA_PROMENI">(tourUpdated)="getTourByGuideId()"</xp-tour-form>

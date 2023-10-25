@@ -16,6 +16,7 @@ export class TourComponent implements OnInit {
   pageSize: number = 5;
   tourCounter: number;
   shouldAddPoint: boolean = false;
+  shouldAddObject: boolean = false;
   ANA_PROMENI: boolean = false;
   selectedTour: Tour;
 
@@ -59,5 +60,12 @@ export class TourComponent implements OnInit {
     console.log(tour);
     this.selectedTour = tour;
     this.shouldAddPoint = true;
+    this.shouldAddObject = false;
+  }
+
+  onAddObj(tour: Tour): void{
+    this.selectedTour = tour;
+    this.shouldAddObject = true;
+    this.shouldAddPoint = false;
   }
 }

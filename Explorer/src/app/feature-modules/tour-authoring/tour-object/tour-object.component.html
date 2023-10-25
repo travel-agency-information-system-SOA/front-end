@@ -8,14 +8,16 @@
                     <tr>
                         <th>Name</th>
                         <th>Description</th>
-                        <th></th>
-                        <th></th>
+                        <th>Lat.</th>
+                        <th>Long.</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let obj of tourObject">
                         <td>{{obj.name}}</td>
                         <td>{{obj.description}}</td>
+                        <td>{{obj.latitude}}</td>
+                        <td>{{obj.longitude}}</td>
                         <td>
                             <button color="accent" (click)="deleteObject(obj.id || 0)" mat-icon-button>
                                 <mat-icon>delete</mat-icon>
