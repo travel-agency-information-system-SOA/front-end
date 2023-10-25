@@ -11,7 +11,6 @@ export class AccountComponent implements OnInit{
 
   accounts: Account[] = [];
   selectedAccount: Account;
-  shouldRenderAccountView: boolean = false;
 
   constructor(private service: AdministrationService) { }
 
