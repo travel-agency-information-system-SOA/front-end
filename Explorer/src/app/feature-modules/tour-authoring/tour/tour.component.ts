@@ -4,9 +4,13 @@ import { TourService } from '../tour.service';
 import { Tour } from './model/tour.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+
 import { EquipmentDialogComponent } from '../equipment-dialog/equipment-dialog.component';
 import { EquipmentService } from '../equipment.servise'; 
 import { Equipment } from './model/equipment.model';
+
+import { TourAuthoringService } from '../tour-authoring.service';
+
 
 @Component({
   selector: 'xp-tour',
@@ -24,8 +28,14 @@ export class TourComponent implements OnInit {
   constructor(
     private service: TourService,
     private tokenStorage: TokenStorage,
+      private service: TourAuthoringService,
     private dialog: MatDialog,
-    private equipmentService: EquipmentService // Dodajte EquipmentService
+    private equipmentService: EquipmentService
+  shouldAddPoint: boolean = false;
+  ANA_PROMENI: boolean = false;
+  selectedTour: Tour;
+
+  
   ) {}
 
   loadTours() {
@@ -83,5 +93,11 @@ export class TourComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTours();
+  }
+
+  onAddPoint(tour: Tour) : void {
+    console.log(tour);
+    this.selectedTour = tour;
+    this.shouldAddPoint = true;
   }
 }
