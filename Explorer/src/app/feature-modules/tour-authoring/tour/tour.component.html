@@ -22,9 +22,13 @@
             <td>{{ t.price }}</td>
             <td>{{ t.difficultyLevel }}</td>
             <td>
+
+              <button (click)="openEquipmentDialog(t)">Add equipment</button>
+
               <button (click)="onAddPoint(t)" color="primary" mat-icon-button>
                 <mat-icon>add</mat-icon>
             </button>
+
             </td>
           </tr>
         </tbody>

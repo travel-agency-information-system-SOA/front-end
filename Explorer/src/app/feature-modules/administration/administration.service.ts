@@ -1,3 +1,4 @@
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Equipment } from './model/equipment.model';
@@ -38,3 +39,4 @@ export class AdministrationService {
     );
   }
 }
+
