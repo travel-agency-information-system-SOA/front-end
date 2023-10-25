@@ -8,3 +8,28 @@ div {
 .mat-icon {
     vertical-align: middle;
 }
+
+.form-container {
+    float: left;
+    /* Float the form container to the left */
+    width: 50%;
+    /* Adjust the width as needed */
+    padding: 20px;
+    /* Add padding for spacing */
+    box-sizing: border-box;
+    /* Include padding in the width */
+}
+
+.map-container {
+    display: flex;
+    float: left;
+    width: 200%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}

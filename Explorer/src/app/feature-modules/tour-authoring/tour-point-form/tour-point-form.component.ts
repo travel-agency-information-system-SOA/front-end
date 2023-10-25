@@ -56,9 +56,9 @@ export class TourPointFormComponent implements OnChanges {
 
     
       this.service.addTourPoint(tourPoint).subscribe({
-        next: () => {
-          this.tourPointUpdated.emit();
-          console.log("Tour id: " + this.tour.id);
+
+        next: () => { this.tourPointUpdated.emit() 
+
         }
       });
   }

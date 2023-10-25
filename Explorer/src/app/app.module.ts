@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './feature-modules/layout/layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './infrastructure/material/material.module';
-import { AdministrationModule } from './feature-modules/administration/administration.module';
 import { BlogModule } from './feature-modules/blog/blog.module';
 import { MarketplaceModule } from './feature-modules/marketplace/marketplace.module';
 import { TourAuthoringModule } from './feature-modules/tour-authoring/tour-authoring.module';
@@ -25,7 +24,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     LayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AdministrationModule,
     BlogModule,
     MarketplaceModule,
     TourAuthoringModule,
@@ -33,7 +31,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     AuthModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,
+    FormsModule
   ],
   providers: [
     {

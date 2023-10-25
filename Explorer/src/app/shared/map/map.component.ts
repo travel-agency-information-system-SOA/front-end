@@ -3,6 +3,14 @@ import * as L from 'leaflet';
 import { MapService } from './map.service';
 import 'leaflet-routing-machine';
 
+import { Observable, forkJoin } from 'rxjs';
+
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
+import { TourPoint } from 'src/app/feature-modules/tour-authoring/model/tourPoints.model';
+import { mergeMap } from 'rxjs/operators';
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -10,8 +18,15 @@ import 'leaflet-routing-machine';
 })
 export class MapComponent implements AfterViewInit {
   private map: any;
+  tourId: string;
+  objects: { latitude: number; longitude: number }[];
 
-  constructor(private service: MapService) {}
+  constructor(
+    private service: MapService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private tourAuthoringService: TourAuthoringService
+  ) {}
 
 
   private initMap(): void {
@@ -40,6 +55,37 @@ export class MapComponent implements AfterViewInit {
 
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
+    this.setRoute();
+  }
+
+  ngOnInit() {
+    this.tourAuthoringService.currentTourId.subscribe((tourId) => {
+      this.tourId = tourId;
+    });
+
+    this.tourAuthoringService
+      .getObjInTourByTourId(parseInt(this.tourId))
+      .pipe(
+        mergeMap((objectIds: number[]) => {
+          const objectRequests = objectIds.map((objectId: number) =>
+            this.tourAuthoringService.getObjectById(objectId)
+          );
+
+          return forkJoin(objectRequests);
+        })
+      )
+      .subscribe(
+        (objects: any) => {
+          this.objects = objects;
+          this.objects.forEach((object) => {
+            L.marker([object.latitude, object.longitude]).addTo(this.map);
+          });
+          console.log('Dohvaćeni objekti:', objects);
+        },
+        (error) => {
+          console.error('Greška prilikom dohvatanja objekata:', error);
+        }
+      );
   }
 
   registerOnClick(): void {
@@ -60,6 +106,7 @@ export class MapComponent implements AfterViewInit {
   }
 
   setRoute(): void {
+
     const routeControl = L.Routing.control({
       waypoints: [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)],
       router: L.routing.mapbox(
@@ -67,5 +114,24 @@ export class MapComponent implements AfterViewInit {
         { profile: 'mapbox/walking' }
       ),
     }).addTo(this.map);
+
+    this.tourAuthoringService
+      .getTourPointsByTourId(parseInt(this.tourId))
+      .subscribe((tourData: any) => {
+        const tourPoints = tourData.results;
+
+        const waypoints = tourPoints.map((point: any) =>
+          L.latLng(point.latitude, point.longitude)
+        );
+
+        const routeControl = L.Routing.control({
+          waypoints: waypoints,
+          router: L.routing.mapbox(
+            'pk.eyJ1IjoiYW5hYm9za292aWNjMTgiLCJhIjoiY2xvNHZrNjd2MDVpcDJucnM3M281cjE0OSJ9.y7eV9FmLm7kO_2FtrMaJkg',
+            { profile: 'mapbox/walking' }
+          ),
+        }).addTo(this.map);
+      });
+
   }
 }
