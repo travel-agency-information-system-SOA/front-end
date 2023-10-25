@@ -21,9 +21,12 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'tour', component: TourComponent, canActivate: [AuthGuard] },
-  {path:'tourPoint',  component: TourPointsComponent, canActivate: [AuthGuard],}
-  { path: 'objects', component: TourObjectComponent},
-
+  {
+    path: 'tourPoint',
+    component: TourPointsComponent,
+    canActivate: [AuthGuard],
+  },
+  { path: 'objects', component: TourObjectComponent },
 ];
 
 @NgModule({
