@@ -8,11 +8,15 @@ import { TourObject } from './model/tourObject.model';
 
 import { environment } from 'src/env/environment';
 import { Tour } from './tour/model/tour.model';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TourAuthoringService {
+  private tourIdSource = new BehaviorSubject<string>('');
+  currentTourId = this.tourIdSource.asObservable();
+
   constructor(private http: HttpClient) {}
 
   getObjects(): Observable<PagedResults<TourObject>> {
@@ -34,9 +38,12 @@ export class TourAuthoringService {
       environment.apiHost + 'administration/object/' + object.id,
       object
     );
-}
-  addTourPoint(tourPoint: TourPoint) : Observable<TourPoint> {
-    return this.http.post<TourPoint>(environment.apiHost + 'administration/tourPoint', tourPoint);
+  }
+  addTourPoint(tourPoint: TourPoint): Observable<TourPoint> {
+    return this.http.post<TourPoint>(
+      environment.apiHost + 'administration/tourPoint',
+      tourPoint
+    );
   }
 
   addObject(obj: TourObject): Observable<TourObject> {
@@ -49,13 +56,6 @@ export class TourAuthoringService {
   getTourPoint(): Observable<PagedResults<TourPoint>> {
     return this.http.get<PagedResults<TourPoint>>(
       'https://localhost:44333/api/administration/tourPoint'
-    );
-  }
-
-  addTourPoint(tourPoint: TourPoint): Observable<TourPoint> {
-    return this.http.post<TourPoint>(
-      environment.apiHost + 'administration/tourPoint',
-      tourPoint
     );
   }
 
@@ -88,5 +88,15 @@ export class TourAuthoringService {
       environment.apiHost + 'administration/tour',
       tour
     );
+  }
+
+  getTourPointsByTourId(tourId: number): Observable<TourPoint> {
+    return this.http.get<TourPoint>(
+      `https://localhost:44333/api/administration/tourPoint/${tourId}`
+    );
+  }
+
+  changeTourId(tourId: string) {
+    this.tourIdSource.next(tourId);
   }
 }

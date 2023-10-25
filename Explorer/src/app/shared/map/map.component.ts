@@ -1,6 +1,10 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from './map.service';
+import { HttpClient } from '@angular/common/http';
+import { ActivatedRoute } from '@angular/router';
+import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
+import { TourPoint } from 'src/app/feature-modules/tour-authoring/model/tourPoints.model';
 
 @Component({
   selector: 'app-map',
@@ -9,8 +13,14 @@ import { MapService } from './map.service';
 })
 export class MapComponent implements AfterViewInit {
   private map: any;
+  tourId: string;
 
-  constructor(private service: MapService) {}
+  constructor(
+    private service: MapService,
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private tourAuthoringService: TourAuthoringService
+  ) {}
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -38,6 +48,13 @@ export class MapComponent implements AfterViewInit {
 
     L.Marker.prototype.options.icon = DefaultIcon;
     this.initMap();
+    this.setRoute();
+  }
+
+  ngOnInit() {
+    this.tourAuthoringService.currentTourId.subscribe((tourId) => {
+      this.tourId = tourId;
+    });
   }
 
   registerOnClick(): void {
@@ -54,5 +71,25 @@ export class MapComponent implements AfterViewInit {
       const mp = new L.Marker([lat, lng]).addTo(this.map);
       alert(mp.getLatLng());
     });
+  }
+
+  setRoute(): void {
+    this.tourAuthoringService
+      .getTourPointsByTourId(parseInt(this.tourId))
+      .subscribe((tourData: any) => {
+        const tourPoints = tourData.results;
+
+        const waypoints = tourPoints.map((point: any) =>
+          L.latLng(point.latitude, point.longitude)
+        );
+
+        const routeControl = L.Routing.control({
+          waypoints: waypoints,
+          router: L.routing.mapbox(
+            'pk.eyJ1IjoiYW5hYm9za292aWNjMTgiLCJhIjoiY2xvNHZrNjd2MDVpcDJucnM3M281cjE0OSJ9.y7eV9FmLm7kO_2FtrMaJkg',
+            { profile: 'mapbox/walking' }
+          ),
+        }).addTo(this.map);
+      });
   }
 }

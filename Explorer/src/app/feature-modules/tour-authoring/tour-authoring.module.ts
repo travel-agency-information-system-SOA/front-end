@@ -16,8 +16,8 @@ import { ObjectFormComponent } from './object-form/object-form.component';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EquipmentDialogComponent } from './equipment-dialog/equipment-dialog.component';
-import { FormsModule } from '@angular/forms'; 
-import { MatDialogModule } from '@angular/material/dialog'; 
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { TourMapComponent } from './tour-map/tour-map.component';
 
 @NgModule({
@@ -29,7 +29,7 @@ import { TourMapComponent } from './tour-map/tour-map.component';
     TourObjectComponent,
     ObjectFormComponent,
     TourMapComponent,
-    EquipmentDialogComponent
+    EquipmentDialogComponent,
   ],
 
   imports: [
@@ -40,11 +40,10 @@ import { TourMapComponent } from './tour-map/tour-map.component';
     MatSelectModule,
 
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
 
     MaterialModule,
     SharedModule,
-
   ],
 
   exports: [
