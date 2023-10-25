@@ -2,13 +2,13 @@ import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from './map.service';
 
-import { Observable } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
 import { TourPoint } from 'src/app/feature-modules/tour-authoring/model/tourPoints.model';
-
+import { mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map',
@@ -18,6 +18,7 @@ import { TourPoint } from 'src/app/feature-modules/tour-authoring/model/tourPoin
 export class MapComponent implements AfterViewInit {
   private map: any;
   tourId: string;
+  objects: { latitude: number; longitude: number }[];
 
   constructor(
     private service: MapService,
@@ -59,23 +60,47 @@ export class MapComponent implements AfterViewInit {
     this.tourAuthoringService.currentTourId.subscribe((tourId) => {
       this.tourId = tourId;
     });
+
+    this.tourAuthoringService
+      .getObjInTourByTourId(parseInt(this.tourId))
+      .pipe(
+        mergeMap((objectIds: number[]) => {
+          const objectRequests = objectIds.map((objectId: number) =>
+            this.tourAuthoringService.getObjectById(objectId)
+          );
+
+          return forkJoin(objectRequests);
+        })
+      )
+      .subscribe(
+        (objects: any) => {
+          this.objects = objects;
+          this.objects.forEach((object) => {
+            L.marker([object.latitude, object.longitude]).addTo(this.map);
+          });
+          console.log('Dohvaćeni objekti:', objects);
+        },
+        (error) => {
+          console.error('Greška prilikom dohvatanja objekata:', error);
+        }
+      );
   }
 
-  registerOnClick():  void {
-      this.map.on('click', (e: any) => {
-        const coord = e.latlng;
-        const lat = coord.lat;
-        const lng = coord.lng;
-        this.service.setCoordinates({ lat, lng });
-        this.service.reverseSearch(lat, lng).subscribe((res) => {
-          console.log(res.display_name);
-        });
-        console.log(
-          'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
-        );
-        const mp = new L.Marker([lat, lng]).addTo(this.map);
-        alert(mp.getLatLng());
+  registerOnClick(): void {
+    this.map.on('click', (e: any) => {
+      const coord = e.latlng;
+      const lat = coord.lat;
+      const lng = coord.lng;
+      this.service.setCoordinates({ lat, lng });
+      this.service.reverseSearch(lat, lng).subscribe((res) => {
+        console.log(res.display_name);
       });
+      console.log(
+        'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
+      );
+      const mp = new L.Marker([lat, lng]).addTo(this.map);
+      alert(mp.getLatLng());
+    });
   }
 
   setRoute(): void {
