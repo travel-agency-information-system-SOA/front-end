@@ -2,6 +2,9 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourPoint } from '../model/tourPoints.model';
 import { TourAuthoringService } from '../tour-authoring.service';
+import { Tour } from '../tour/model/tour.model';
+import { TourKeyPoint } from '../model/tourKeyPoints.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-tour-point-form',
@@ -13,6 +16,9 @@ export class TourPointFormComponent implements OnChanges {
   @Output() tourPointUpdated = new EventEmitter<null>();
   @Input() tourPoint: TourPoint;
   @Input() shouldEdit: boolean = false;
+  @Input() shouldAddPoint: boolean = false;
+  @Input() tour: Tour;
+  idTourPoint: number;
 
   constructor(private service: TourAuthoringService) {}
 
@@ -41,11 +47,40 @@ export class TourPointFormComponent implements OnChanges {
       imageUrl: this.tourPointForm.value.imageUrl || ""
     }
 
+
     this.service.addTourPoint(tourPoint).subscribe({
-      next: (_) => {
-        this.tourPointUpdated.emit()
+      next: (response: PagedResults<TourPoint>) => {
+        this.tourPointUpdated.emit();
+        this.idTourPoint= response.results[response.totalCount-1].id || 0;
+        console.log("MOLIM TE RADI: "+ this.idTourPoint);
       }
+      /*next: (response: any) => {
+        const tourPointId = response[1];
+    
+        console.log('New TourPoint Id:', tourPointId);
+    
+        this.tourPointUpdated.emit();
+
+        return tourPointId;
+      }
+      next: (result: PagedResults<TourPoint>) => {
+        var points = result.results;
+        var pointsNum = result.totalCount;
+
+        if (points && pointsNum) {
+          this.idTourPoint = points[pointsNum - 1].id;
+        } else {
+          // Handle the case when points or pointsNum is undefined
+          console.log('Unable to retrieve the idTourPoint');
+        }
+      },
+
+      error(err: any) {
+        console.log(err);
+      }*/
+
     });
+
   }
 
   updateTourPoint() : void {
@@ -62,5 +97,13 @@ export class TourPointFormComponent implements OnChanges {
         this.tourPointUpdated.emit()
       }
     })
+  }
+
+  addPointToTour() : void{
+    this.addTourPoint();
+
+
+    //this.service.addPointToTour(tourKeyPoints).subscribe();
+    
   }
 }

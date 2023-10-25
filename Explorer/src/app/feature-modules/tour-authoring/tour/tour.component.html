@@ -20,6 +20,11 @@
             <td>{{ t.status }}</td>
             <td>{{ t.price }}</td>
             <td>{{ t.difficultyLevel }}</td>
+            <td>
+              <button (click)="onAddPoint(t)" color="primary" mat-icon-button>
+                <mat-icon>add</mat-icon>
+            </button>
+            </td>
           </tr>
         </tbody>
       </table>
@@ -32,9 +37,10 @@
       </div>
     </div>
 
-    <div class="wrapper-form">
-      <p>🛫 Create tour:</p>
-      <xp-tour-form>(tourUpdated)="getTourByGuideId()"</xp-tour-form>
+    <xp-tour-point-form *ngIf="shouldAddPoint" [tour]="selectedTour"></xp-tour-point-form>
+    <div  class="wrapper-form">
+      <p *ngIf="ANA_PROMENI">🛫 Create tour:</p>
+      <xp-tour-form *ngIf="ANA_PROMENI">(tourUpdated)="getTourByGuideId()"</xp-tour-form>
     </div>
   </div>
 </div>

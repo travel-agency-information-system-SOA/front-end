@@ -18,5 +18,6 @@
         </mat-form-field>
         <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addTourPoint()">Done</button>
         <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTourPoint()">Done</button>
+        <button *ngIf="shouldAddPoint" mat-raised-button type="submit" color="primary" (click)="addPointToTour()">Done</button>
     </div>
 </form>

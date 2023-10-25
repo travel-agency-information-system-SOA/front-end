@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourPoint } from './model/tourPoints.model';
 import { environment } from 'src/env/environment';
+import { TourKeyPoint } from './model/tourKeyPoints.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,8 +18,8 @@ export class TourAuthoringService {
     
   }
   
-  addTourPoint(tourPoint: TourPoint) : Observable<TourPoint> {
-    return this.http.post<TourPoint>(environment.apiHost + 'administration/tourPoint', tourPoint)
+  addTourPoint(tourPoint: TourPoint) : Observable<PagedResults<TourPoint>> {
+    return this.http.post<PagedResults<TourPoint>>(environment.apiHost + 'administration/tourPoint', tourPoint);
   }
 
   updateTourPoint(tourPoint: TourPoint) : Observable<TourPoint> {
@@ -27,6 +28,10 @@ export class TourAuthoringService {
 
   deleteTourPoint(tourPoint: TourPoint) : Observable<TourPoint>{
     return this.http.delete<TourPoint>(environment.apiHost + 'administration/tourPoint/' + tourPoint.id);
+  }
+
+  addPointToTour(tourKeyPoint: TourKeyPoint) : Observable<TourKeyPoint>{
+    return this.http.post<TourKeyPoint>(environment.apiHost + 'api/administration/tourkeypoint', tourKeyPoint);
   }
 
 }
