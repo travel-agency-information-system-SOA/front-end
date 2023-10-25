@@ -15,6 +15,13 @@ export class MapService {
     this.coordinateSubject.next(coordinates);
   }
 
+  private coordinateSubject = new BehaviorSubject<{ lat: number; lng: number }>({ lat: 0, lng: 0 });
+  public coordinate$ = this.coordinateSubject.asObservable();
+
+  setCoordinates(coordinates: { lat: number; lng: number }) {
+    this.coordinateSubject.next(coordinates);
+  }
+
   search(street: string): Observable<any> {
     return this.http.get(
       'https://nominatim.openstreetmap.org/search?format=json&q=' + street

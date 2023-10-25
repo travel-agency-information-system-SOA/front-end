@@ -1,6 +1,7 @@
 import { Component, AfterViewInit } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from './map.service';
+import 'leaflet-routing-machine';
 
 import { Observable, forkJoin } from 'rxjs';
 
@@ -26,6 +27,7 @@ export class MapComponent implements AfterViewInit {
     private route: ActivatedRoute,
     private tourAuthoringService: TourAuthoringService
   ) {}
+
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -104,6 +106,15 @@ export class MapComponent implements AfterViewInit {
   }
 
   setRoute(): void {
+
+    const routeControl = L.Routing.control({
+      waypoints: [L.latLng(57.74, 11.94), L.latLng(57.6792, 11.949)],
+      router: L.routing.mapbox(
+        'pk.eyJ1IjoiYW5hYm9za292aWNjMTgiLCJhIjoiY2xvNHZrNjd2MDVpcDJucnM3M281cjE0OSJ9.y7eV9FmLm7kO_2FtrMaJkg',
+        { profile: 'mapbox/walking' }
+      ),
+    }).addTo(this.map);
+
     this.tourAuthoringService
       .getTourPointsByTourId(parseInt(this.tourId))
       .subscribe((tourData: any) => {
@@ -121,5 +132,6 @@ export class MapComponent implements AfterViewInit {
           ),
         }).addTo(this.map);
       });
+
   }
 }
