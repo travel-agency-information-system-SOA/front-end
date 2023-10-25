@@ -31,6 +31,11 @@
               <button (click)="onAddPoint(t)" color="primary" mat-icon-button>
                 <mat-icon>add</mat-icon>
               </button>
+
+              <button (click)="onAddObj(t)" color="primary" mat-icon-button>
+                <mat-icon>restaurant</mat-icon>
+              </button>
+
             </td>
           </tr>
         </tbody>
@@ -45,6 +50,7 @@
       </div>
     </div>
 
+
     <div *ngIf="showTourForm" class="wrapper-form">
       <p>🛫 Create tour:</p>
       <xp-tour-form (tourUpdated)="loadTours()"></xp-tour-form>
@@ -52,6 +58,8 @@
         *ngIf="shouldAddPoint"
         [tour]="selectedTour"
       ></xp-tour-point-form>
+      <xp-object-form *ngIf="shouldAddObject" [tour]="selectedTour"></xp-object-form>
+
     </div>
   </div>
 </div>

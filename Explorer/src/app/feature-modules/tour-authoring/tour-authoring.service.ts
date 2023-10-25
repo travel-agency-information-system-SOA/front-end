@@ -8,7 +8,11 @@ import { TourObject } from './model/tourObject.model';
 
 import { environment } from 'src/env/environment';
 import { Tour } from './tour/model/tour.model';
+
+import { ObjInTour } from './model/objInTour.model';
+
 import { BehaviorSubject } from 'rxjs';
+
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +36,12 @@ export class TourAuthoringService {
       environment.apiHost + 'administration/object/' + id
     );
   }
+/*
+  deleteObjInTour(id: number): Observable<TourObject> {
+    return this.http.delete<TourObject>(
+      environment.apiHost + 'administration/objInTour/' + id
+    );
+  }*/
 
   updateObject(object: TourObject): Observable<TourObject> {
     return this.http.put<TourObject>(
@@ -46,11 +56,16 @@ export class TourAuthoringService {
     );
   }
 
+
   addObject(obj: TourObject): Observable<TourObject> {
     return this.http.post<TourObject>(
       environment.apiHost + 'administration/object',
       obj
     );
+  }
+  
+  addObjInTour(objInTour: ObjInTour): Observable<ObjInTour>{
+    return this.http.post<ObjInTour>(environment.apiHost + 'administration/objInTour', objInTour);
   }
 
   getTourPoint(): Observable<PagedResults<TourPoint>> {
@@ -90,6 +105,7 @@ export class TourAuthoringService {
     );
   }
 
+
   getTourPointsByTourId(tourId: number): Observable<TourPoint> {
     return this.http.get<TourPoint>(
       `https://localhost:44333/api/administration/tourPoint/${tourId}`
@@ -99,4 +115,5 @@ export class TourAuthoringService {
   changeTourId(tourId: string) {
     this.tourIdSource.next(tourId);
   }
+
 }
