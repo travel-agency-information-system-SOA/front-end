@@ -1,12 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MapService {
   constructor(private http: HttpClient) {}
+
+  private coordinateSubject = new BehaviorSubject<{ lat: number; lng: number }>({ lat: 0, lng: 0 });
+  public coordinate$ = this.coordinateSubject.asObservable();
+
+  setCoordinates(coordinates: { lat: number; lng: number }) {
+    this.coordinateSubject.next(coordinates);
+  }
 
   search(street: string): Observable<any> {
     return this.http.get(

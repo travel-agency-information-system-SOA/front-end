@@ -33,13 +33,15 @@ export class TourPointsComponent implements OnInit {
 
   onEditClicked(tourPoint: TourPoint): void {
     this.shouldEdit =true;
+    this.shouldRenderTourPointForm = true;
     this.selectedTourPoint = tourPoint;
   }
 
+  /*
   onAddClicked() : void {
     this.shouldRenderTourPointForm = true;
     this.shouldEdit =false;
-  }
+  }*/
 
   deleteTourPoint(tourPoint: TourPoint) : void {
     this.service.deleteTourPoint(tourPoint).subscribe({
