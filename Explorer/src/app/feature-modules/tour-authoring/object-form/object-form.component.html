@@ -1,5 +1,6 @@
 <form [formGroup]="objectForm">
     <div>
+        <h2>Object info</h2>
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" type="text" />
@@ -22,6 +23,10 @@
             <mat-label>Image url</mat-label>
             <textarea matInput  formControlName="imageUrl" type="text"></textarea>
         </mat-form-field>
+        <h2>Select position of object on map</h2>
+        <div class="map-container">
+            <app-map></app-map>
+        </div>
         <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addObject()" mat-raised-button>Done</button>
         <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateObject()" mat-raised-button>Done</button>
     </div>

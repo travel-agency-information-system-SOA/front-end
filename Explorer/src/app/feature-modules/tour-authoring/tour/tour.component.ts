@@ -6,11 +6,11 @@ import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 import { EquipmentDialogComponent } from '../equipment-dialog/equipment-dialog.component';
-import { EquipmentService } from '../equipment.servise'; 
+import { EquipmentService } from '../equipment.servise';
 import { Equipment } from './model/equipment.model';
 
 import { TourAuthoringService } from '../tour-authoring.service';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-tour',
@@ -25,16 +25,17 @@ export class TourComponent implements OnInit {
   tourCounter: number;
   equipment: Equipment[] = [];
   shouldAddPoint: boolean = false;
-  ANA_PROMENI: boolean = false;
+
+  shouldAddObject: boolean = false;
+
+  showTourForm: boolean = false;
 
   constructor(
     private tokenStorage: TokenStorage,
-      private service: TourAuthoringService,
+    private service: TourAuthoringService,
     private dialog: MatDialog,
-    private equipmentService: EquipmentService
-
-
-  
+    private equipmentService: EquipmentService,
+    private router: Router
   ) {}
 
   loadTours() {
@@ -44,11 +45,10 @@ export class TourComponent implements OnInit {
       next: (result: PagedResults<Tour>) => {
         this.tour = result.results;
         this.tourCounter = result.totalCount;
-        console.log('Sadržaj result.results:', result.results); 
+        console.log('Sadržaj result.results:', result.results);
 
-        const tourIds = this.tour.map(tour => tour.id);
+        const tourIds = this.tour.map((tour) => tour.id);
         console.log('ID-jevi tura:', tourIds);
-
       },
       error(err: any) {
         console.log(err);
@@ -57,12 +57,13 @@ export class TourComponent implements OnInit {
   }
 
   loadEquipment() {
-    this.equipmentService.getEquipment().subscribe((pagedResults: PagedResults<Equipment>) => {
-      this.equipment = pagedResults.results;
-      console.log(this.equipment)
-    });
+    this.equipmentService
+      .getEquipment()
+      .subscribe((pagedResults: PagedResults<Equipment>) => {
+        this.equipment = pagedResults.results;
+        console.log(this.equipment);
+      });
   }
-  
 
   showMoreTours() {
     this.page++;
@@ -76,27 +77,46 @@ export class TourComponent implements OnInit {
 
   openEquipmentDialog(tour: Tour) {
     this.selectedTour = tour;
-    console.log(this.selectedTour)
-    this.loadEquipment(); 
+    console.log(this.selectedTour);
+    this.loadEquipment();
 
     const dialogRef = this.dialog.open(EquipmentDialogComponent, {
       width: '400px',
       data: { selectedTour: tour, equipment: this.equipment },
-      
     });
-    
 
-    dialogRef.afterClosed().subscribe((selectedEquipment: any[]) => {
-    });
+    dialogRef.afterClosed().subscribe((selectedEquipment: any[]) => {});
   }
 
   ngOnInit(): void {
     this.loadTours();
   }
 
-  onAddPoint(tour: Tour) : void {
-    console.log(tour);
+  onAddPoint(tour: Tour): void {
     this.selectedTour = tour;
     this.shouldAddPoint = true;
+    this.shouldAddObject = false;
+    this.showTourForm = false;
+  }
+
+  onAddObj(tour: Tour): void {
+    this.selectedTour = tour;
+    this.shouldAddObject = true;
+    this.shouldAddPoint = false;
+    this.showTourForm = false;
+  }
+
+  viewMap(idTour: number | undefined): void {
+    if (idTour !== undefined) {
+      this.router.navigate([`/tourMap/${idTour}`]);
+    } else {
+      console.error('ID nije definisan.');
+    }
+  }
+
+  addTour() {
+    this.showTourForm = true;
+    this.shouldAddObject = false;
+    this.shouldAddPoint = false;
   }
 }

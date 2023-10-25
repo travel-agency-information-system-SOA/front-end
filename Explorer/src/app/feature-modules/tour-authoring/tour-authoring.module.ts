@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { TourComponent } from './tour/tour.component';
 import { TourFormComponent } from './tour-form/tour-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -16,8 +15,8 @@ import { ObjectFormComponent } from './object-form/object-form.component';
 
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EquipmentDialogComponent } from './equipment-dialog/equipment-dialog.component';
-import { FormsModule } from '@angular/forms'; 
-import { MatDialogModule } from '@angular/material/dialog'; 
+import { FormsModule } from '@angular/forms';
+import { MatDialogModule } from '@angular/material/dialog';
 import { TourMapComponent } from './tour-map/tour-map.component';
 
 @NgModule({
@@ -29,7 +28,7 @@ import { TourMapComponent } from './tour-map/tour-map.component';
     TourObjectComponent,
     ObjectFormComponent,
     TourMapComponent,
-    EquipmentDialogComponent
+    EquipmentDialogComponent,
   ],
 
   imports: [
@@ -44,7 +43,6 @@ import { TourMapComponent } from './tour-map/tour-map.component';
 
     MaterialModule,
     SharedModule,
-
   ],
 
   exports: [

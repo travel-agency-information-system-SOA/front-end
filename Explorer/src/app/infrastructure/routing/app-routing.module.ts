@@ -22,7 +22,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'objects', component: TourObjectComponent },
-  { path: 'tourMap/${id}', component: TourMapComponent },
+  { path: 'tourMap/:id', component: TourMapComponent },
 ];
 
 @NgModule({
