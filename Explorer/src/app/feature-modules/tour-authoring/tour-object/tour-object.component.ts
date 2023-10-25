@@ -24,6 +24,7 @@ export class TourObjectComponent implements OnInit {
   deleteObject(id: number): void{
     this.service.deleteObject(id).subscribe({
       next: () => {
+        //this.service.deleteObjInTour(id).subscribe();
         this.getObjects()
       }
     })
@@ -32,7 +33,6 @@ export class TourObjectComponent implements OnInit {
   getObjects(): void {
     this.service.getObjects().subscribe({
       next: (result: PagedResults<TourObject>) => {
-        console.log('Broj elem', result.totalCount, 'a ti elem su', result.results);
         this.tourObject = result.results;
       },
       error: (err: any) => {
