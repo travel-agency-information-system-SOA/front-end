@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from 
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourPoint } from '../model/tourPoints.model';
 import { TourAuthoringService } from '../tour-authoring.service';
+import { Tour } from '../tour/model/tour.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-tour-point-form',
@@ -13,6 +15,9 @@ export class TourPointFormComponent implements OnChanges {
   @Output() tourPointUpdated = new EventEmitter<null>();
   @Input() tourPoint: TourPoint;
   @Input() shouldEdit: boolean = false;
+  @Input() shouldAddPoint: boolean = false;
+  @Input() tour: Tour;
+  idTourPoint: number;
 
   constructor(private service: TourAuthoringService) {}
 
@@ -33,23 +38,23 @@ export class TourPointFormComponent implements OnChanges {
   })
 
   addTourPoint() : void{
-    console.log(this.tourPointForm.value)
+      const tourPoint: TourPoint = {
+        idTour: this.tour.id || 0,
+        name: this.tourPointForm.value.name || "",
+        description: this.tourPointForm.value.description || "",
+        imageUrl: this.tourPointForm.value.imageUrl || ""
+      };
+      this.service.addTourPoint(tourPoint).subscribe({
+        next: () => { this.tourPointUpdated.emit() 
+        console.log("Tour id: " + this.tour.id);
+        }
+      });
 
-    const tourPoint: TourPoint = {
-      name: this.tourPointForm.value.name || "",
-      description: this.tourPointForm.value.description || "",
-      imageUrl: this.tourPointForm.value.imageUrl || ""
-    }
-
-    this.service.addTourPoint(tourPoint).subscribe({
-      next: (_) => {
-        this.tourPointUpdated.emit()
-      }
-    });
   }
 
   updateTourPoint() : void {
     const tourPoint: TourPoint = {
+      idTour: this.tour.id || 0,
       name: this.tourPointForm.value.name || "",
       description: this.tourPointForm.value.description || "",
       imageUrl: this.tourPointForm.value.imageUrl || ""
@@ -63,4 +68,5 @@ export class TourPointFormComponent implements OnChanges {
       }
     })
   }
+
 }
