@@ -24,16 +24,15 @@ export class TourComponent implements OnInit {
   pageSize: number = 5;
   tourCounter: number;
   equipment: Equipment[] = [];
+  shouldAddPoint: boolean = false;
+  ANA_PROMENI: boolean = false;
 
   constructor(
-    private service: TourService,
     private tokenStorage: TokenStorage,
       private service: TourAuthoringService,
     private dialog: MatDialog,
     private equipmentService: EquipmentService
-  shouldAddPoint: boolean = false;
-  ANA_PROMENI: boolean = false;
-  selectedTour: Tour;
+
 
   
   ) {}

@@ -35,10 +35,7 @@ export class TourAuthoringService {
       object
     );
 }
-  addTourPoint(tourPoint: TourPoint) : Observable<TourPoint> {
-    return this.http.post<TourPoint>(environment.apiHost + 'administration/tourPoint', tourPoint);
-  }
-
+ 
   addObject(obj: TourObject): Observable<TourObject> {
     return this.http.post<TourObject>(
       environment.apiHost + 'administration/object',

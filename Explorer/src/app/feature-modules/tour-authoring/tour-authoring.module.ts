@@ -40,7 +40,7 @@ import { TourMapComponent } from './tour-map/tour-map.component';
     MatSelectModule,
 
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
 
     MaterialModule,
     SharedModule,
