@@ -40,7 +40,7 @@ export class MapComponent implements AfterViewInit {
     this.initMap();
   }
 
- registerOnClick(): void {
+  registerOnClick(): void {
     this.map.on('click', (e: any) => {
       const coord = e.latlng;
       const lat = coord.lat;
@@ -54,7 +54,5 @@ export class MapComponent implements AfterViewInit {
       const mp = new L.Marker([lat, lng]).addTo(this.map);
       alert(mp.getLatLng());
     });
- }
-  
-
+  }
 }

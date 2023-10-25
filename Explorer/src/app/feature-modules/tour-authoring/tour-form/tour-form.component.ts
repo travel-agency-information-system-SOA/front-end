@@ -7,6 +7,7 @@ import { Status } from '../tour/model/tour.model';
 import { takeUntil } from 'rxjs';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { FormBuilder } from '@angular/forms';
+import { TourAuthoringService } from '../tour-authoring.service';
 
 @Component({
   selector: 'xp-tour-form',
@@ -19,7 +20,7 @@ export class TourFormComponent {
   @Output() tourUpdated = new EventEmitter<null>();
 
   constructor(
-    private service: TourService,
+    private service: TourAuthoringService,
     private tokenStorage: TokenStorage
   ) {}
 
