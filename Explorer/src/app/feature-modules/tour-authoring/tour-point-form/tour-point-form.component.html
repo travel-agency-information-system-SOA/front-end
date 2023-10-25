@@ -1,5 +1,6 @@
 <form [formGroup]="tourPointForm">
     <div>
+        <p>Create check point for this tour:</p>
         <mat-form-field>
             <mat-label>Name</mat-label>
             <input matInput formControlName="name" type="text"/>
@@ -18,6 +19,6 @@
         </mat-form-field>
         <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addTourPoint()">Done</button>
         <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTourPoint()">Done</button>
-        <button *ngIf="shouldAddPoint" mat-raised-button type="submit" color="primary" (click)="addPointToTour()">Done</button>
+        <button *ngIf="shouldAddPoint" mat-raised-button type="submit" color="primary" (click)="addTourPoint()">Finish</button>
     </div>
 </form>

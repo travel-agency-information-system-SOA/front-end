@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourPoint } from '../model/tourPoints.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Tour } from '../tour/model/tour.model';
-import { TourKeyPoint } from '../model/tourKeyPoints.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
@@ -39,52 +38,23 @@ export class TourPointFormComponent implements OnChanges {
   })
 
   addTourPoint() : void{
-    console.log(this.tourPointForm.value)
-
-    const tourPoint: TourPoint = {
-      name: this.tourPointForm.value.name || "",
-      description: this.tourPointForm.value.description || "",
-      imageUrl: this.tourPointForm.value.imageUrl || ""
-    }
-
-
-    this.service.addTourPoint(tourPoint).subscribe({
-      next: (response: PagedResults<TourPoint>) => {
-        this.tourPointUpdated.emit();
-        this.idTourPoint= response.results[response.totalCount-1].id || 0;
-        console.log("MOLIM TE RADI: "+ this.idTourPoint);
-      }
-      /*next: (response: any) => {
-        const tourPointId = response[1];
-    
-        console.log('New TourPoint Id:', tourPointId);
-    
-        this.tourPointUpdated.emit();
-
-        return tourPointId;
-      }
-      next: (result: PagedResults<TourPoint>) => {
-        var points = result.results;
-        var pointsNum = result.totalCount;
-
-        if (points && pointsNum) {
-          this.idTourPoint = points[pointsNum - 1].id;
-        } else {
-          // Handle the case when points or pointsNum is undefined
-          console.log('Unable to retrieve the idTourPoint');
+      const tourPoint: TourPoint = {
+        idTour: this.tour.id || 0,
+        name: this.tourPointForm.value.name || "",
+        description: this.tourPointForm.value.description || "",
+        imageUrl: this.tourPointForm.value.imageUrl || ""
+      };
+      this.service.addTourPoint(tourPoint).subscribe({
+        next: () => { this.tourPointUpdated.emit() 
+        console.log("Tour id: " + this.tour.id);
         }
-      },
-
-      error(err: any) {
-        console.log(err);
-      }*/
-
-    });
+      });
 
   }
 
   updateTourPoint() : void {
     const tourPoint: TourPoint = {
+      idTour: this.tour.id || 0,
       name: this.tourPointForm.value.name || "",
       description: this.tourPointForm.value.description || "",
       imageUrl: this.tourPointForm.value.imageUrl || ""
@@ -99,11 +69,4 @@ export class TourPointFormComponent implements OnChanges {
     })
   }
 
-  addPointToTour() : void{
-    this.addTourPoint();
-
-
-    //this.service.addPointToTour(tourKeyPoints).subscribe();
-    
-  }
 }
