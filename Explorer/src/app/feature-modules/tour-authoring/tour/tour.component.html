@@ -37,6 +37,9 @@
       </div>
     </div>
 
+    <div class="wrapper-form">
+      <p>🛫 Create tour:</p>
+      <xp-tour-form (tourUpdated)="loadTours()"></xp-tour-form>
     <xp-tour-point-form *ngIf="shouldAddPoint" [tour]="selectedTour"></xp-tour-point-form>
     <div  class="wrapper-form">
       <p *ngIf="ANA_PROMENI">🛫 Create tour:</p>
