@@ -6,9 +6,11 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class MapService {
-  constructor(private http: HttpClient) { }
-  
-  private coordinateSubject = new BehaviorSubject<{ lat: number; lng: number }>({ lat: 0, lng: 0 });
+  constructor(private http: HttpClient) {}
+
+  private coordinateSubject = new BehaviorSubject<{ lat: number; lng: number }>(
+    { lat: 0, lng: 0 }
+  );
   public coordinate$ = this.coordinateSubject.asObservable();
 
   setCoordinates(coordinates: { lat: number; lng: number }) {
@@ -28,6 +30,11 @@ export class MapService {
   }
 
   getElevation(lat: number, lon: number): Observable<any> {
-    return this.http.get('https://api.open-elevation.com/api/v1/lookup?locations=' + lat + ',' + lon)
+    return this.http.get(
+      'https://api.open-elevation.com/api/v1/lookup?locations=' +
+        lat +
+        ',' +
+        lon
+    );
   }
 }
