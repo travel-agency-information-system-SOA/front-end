@@ -1,0 +1,48 @@
+/* equipment-dialog.component.css */
+
+/* Stil za celu komponentu */
+div {
+    max-width: 400px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    text-align: center;
+  }
+  
+  /* Stil za naslov */
+  h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+  }
+  
+  /* Stil za checkboxove i nazive opreme */
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  label {
+    display: block;
+    cursor: pointer;
+  }
+  
+  /* Stil za dugme Dodaj */
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #0056b3;
+  }
+  
