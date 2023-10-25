@@ -16,6 +16,9 @@ export class TourComponent implements OnInit {
   page: number = 1;
   pageSize: number = 5;
   tourCounter: number;
+  shouldAddPoint: boolean = false;
+  ANA_PROMENI: boolean = false;
+  selectedTour: Tour;
 
   constructor(
     private service: TourAuthoringService,
@@ -51,5 +54,11 @@ export class TourComponent implements OnInit {
   ngOnInit(): void {
     this.loadTours();
     console.log(this.pageSize);
+  }
+
+  onAddPoint(tour: Tour) : void {
+    console.log(tour);
+    this.selectedTour = tour;
+    this.shouldAddPoint = true;
   }
 }
