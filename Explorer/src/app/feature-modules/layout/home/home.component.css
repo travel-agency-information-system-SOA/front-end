@@ -43,3 +43,68 @@
   .top_margin {
         margin-top: 5%;
   }
+
+
+.b4 {
+    position: relative;
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    position: relative;
+}
+
+/* Stilizacija slike */
+img {
+    width: 100%;
+    display: inline-block;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    margin: 40px;
+}
+
+/* Stilizacija preklapajućeg sadržaja */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 70%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: left;
+    /* background: rgba(0, 0, 0, 0.5); */
+    text-align: left;
+     color: #000000; 
+    padding: 20px;
+    margin: 40px;
+}
+
+/* Stilizacija naslova */
+h1 {
+    font-size: 24px;
+}
+
+/* Stilizacija teksta */
+p {
+    font-size: 16px;
+    margin-bottom: 2px;
+}
+
+/* Stilizacija dugmeta */
+button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+   margin-top: 20px;
+    width: 200px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
