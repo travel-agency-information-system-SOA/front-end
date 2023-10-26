@@ -1,7 +1,7 @@
-<div id="equipment">
-    <p>Equipment</p>
+<div id="club">
+    <p>Clubs</p>
     <hr>
-    <div id="equipment-details">
+    <div id="club-details">
     <div>
         <table>
             <thead>
@@ -13,27 +13,27 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let eq of equipment">
-                    <td>{{eq.name}}</td>
-                    <td>{{eq.description}}</td>
+                <tr *ngFor="let cl of club">
+                    <td>{{cl.name}}</td>
+                    <td>{{cl.description}}</td>
+                    <td>{{cl.image}}</td>
                     <td>
-                        <button color="accent" (click)="deleteEquipment(eq.id || 0)" mat-icon-button>
+                        <button (click)="deleteClub(cl)" color="accent" mat-icon-button>
                             <mat-icon>delete</mat-icon>
                         </button>
-                        <button color="primary" (click)="onEditClicked(eq)" mat-icon-button>
+                        <button (click)="onEditClicked(cl)" color="primary" mat-icon-button>
                             <mat-icon>edit</mat-icon>
                         </button>
                     </td>
                 </tr>
-                <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
+                <tr><button (click)="onAddClicked()" color="primary" mat-icon-button>
                     <mat-icon>add</mat-icon>
                 </button></tr>
             </tbody>
         </table>
     </div>
     <div>
-        <xp-equipment-form *ngIf="shouldRenderEquipmentForm" [shouldEdit]="shouldEdit" [equipment]="selectedEquipment" (equimpentUpdated)="getEquipment()"></xp-equipment-form>
+        <xp-club-form *ngIf="shouldRenderClubForm" (clubUpdated)="getClubs()" [club]="selectedClub" [shouldEdit] = "shouldEdit"></xp-club-form>
     </div>
     </div>
 </div>
-

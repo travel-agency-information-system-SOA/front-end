@@ -1,0 +1,25 @@
+<div>
+  <h2>Profile info</h2>
+  <div>
+    <label for="name">Name:</label>
+    <input id="name" [(ngModel)]="userProfile.name" [disabled]="!isEditMode">
+  </div>
+  <div>
+    <label for="surname">Surname:</label>
+    <input id="surname" [(ngModel)]="userProfile.surname" [disabled]="!isEditMode">
+  </div>
+  <div>
+    <label for="profileImage">Profile Image:</label>
+    <input id="profileImage" [(ngModel)]="userProfile.profileImage" [disabled]="!isEditMode">
+    <!--<img [src]="userProfile.profileImage" alt="Profile Image">-->
+  </div>
+  <div>
+    <label for="bio">Bio:</label>
+    <textarea id="bio" [(ngModel)]="userProfile.bio" [disabled]="!isEditMode"></textarea>
+  </div>
+  <div>
+    <label for="quote">Quote:</label>
+    <input id="quote" [(ngModel)]="userProfile.quote" [disabled]="!isEditMode">
+  </div>
+  <button (click)="toggleEditMode()">{{ isEditMode ? 'Save' : 'Edit' }}</button>
+</div>  

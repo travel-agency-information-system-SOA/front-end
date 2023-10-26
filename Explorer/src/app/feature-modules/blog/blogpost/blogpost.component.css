@@ -1,11 +1,11 @@
-#equipment {
+#blog {
     margin-top: 20px;
     margin-left: 20px;
 }
 
-#equipment-details {
+#blog-posts {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 50px;
     align-items: flex-start;
 }

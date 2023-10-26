@@ -1,0 +1,23 @@
+<div class="container">
+<div class="reviews">
+    <h1>My Reviews</h1>
+    <ng-container *ngFor="let review of _observableList| async" >
+        <mat-label>Grade: <span><mat-label>{{review.grade}}</mat-label></span></mat-label>
+        <div>
+        <mat-label>Comment: <span><mat-label>{{review.comment}}</mat-label></span></mat-label>
+        </div>
+        <div *ngFor="let image of review.images" >
+       <img [src]="image" >
+     </div>
+     <div class="button">
+      <button mat-raised-button type="submit" color="primary" (click)="delete(review)" >Delete</button>
+      <button mat-raised-button type="submit" color="primary" (click)="update(review)">Update</button>
+    </div>
+
+    </ng-container>
+   </div>
+
+   <div>
+    <xp-tour-review-form  (addedObject)="getUserReviews()" [reviewForUpdate]="selectedReview"></xp-tour-review-form>
+   </div>
+</div>
