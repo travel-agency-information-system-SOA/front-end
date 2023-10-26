@@ -13,6 +13,7 @@ import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.
 import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour-object/tour-object.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourMapComponent } from 'src/app/feature-modules/tour-authoring/tour-map/tour-map.component';
+import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpost.component';
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 
 const routes: Routes = [
@@ -40,6 +41,7 @@ const routes: Routes = [
     component: PreferencesComponent,
     canActivate: [AuthGuard],
   },
+  {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 

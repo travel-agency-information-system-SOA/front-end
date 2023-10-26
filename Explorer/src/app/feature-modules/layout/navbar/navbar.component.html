@@ -61,6 +61,7 @@
           Manage accounts
         </button>  
             <button *ngIf="user && (user.role === 'tourist' || user.role === 'author')" color="primary" mat-raised-button [routerLink]="['profile']">Profile</button>
+            <button *ngIf="user && user.role === 'tourist'" color="primary" mat-raised-button [routerLink]="['blog']">Blog</button>
       </div>
     </div>
 </mat-toolbar>
