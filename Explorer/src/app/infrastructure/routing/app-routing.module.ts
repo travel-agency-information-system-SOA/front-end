@@ -32,7 +32,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
-  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
+  //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
   {path: 'guideReview', component: GuideReviewComponent, canActivate: [AuthGuard]},
   {path: 'preferences', component: PreferencesComponent, canActivate: [AuthGuard]},
   { path: 'tour', component: TourComponent, canActivate: [AuthGuard] },
@@ -43,7 +43,6 @@ const routes: Routes = [
   },
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
-  // {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
   {path: 'blogPostComment', component: BlogPostCommentComponent, canActivate: [AuthGuard],},
   {path: 'club', component: ClubComponent},
