@@ -147,20 +147,23 @@
 .difficulty {
   font-size: 14px;
   border-radius: 6px;
-  padding: 4px 6px;
+  padding: 2px 4px;
   color: #FFF;
 }
 
 .easy {
-  background-color: green;
+  border: 2px solid green;
+  color: green;
 }
 
 .moderate {
-  background-color: darkorange;
+  border: 2px solid darkorange;
+  color: darkorange;
 }
 
 .difficult {
-  background-color: red;
+  border: 2px solid red;
+  color: red;
 }
 
 .description {
