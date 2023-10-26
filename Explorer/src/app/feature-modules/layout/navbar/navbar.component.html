@@ -1,5 +1,4 @@
 <mat-toolbar color="primary">
-  <div id="buttons">
     <div>
       <p>Explorer</p>
       <div id="buttons">
@@ -31,7 +30,7 @@
           Add tour
         </button>
         <button
-          *ngIf="user && user.role === 'administrator'"
+          *ngIf="user && user.role === 'tourist'"
           color="primary"
           mat-raised-button
           [routerLink]="['equipment']"
@@ -54,7 +53,13 @@
         >
           My preferences
         </button>
+        <button 
+          *ngIf="user && user.role === 'administrator'"
+          color="primary" 
+          mat-raised-button 
+          [routerLink]="['accounts']">
+          Manage accounts
+        </button>  
       </div>
     </div>
-  </div>
 </mat-toolbar>

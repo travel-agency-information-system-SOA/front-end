@@ -4,6 +4,7 @@ import { HomeComponent } from 'src/app/feature-modules/layout/home/home.componen
 import { LoginComponent } from '../auth/login/login.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+import { AccountComponent } from 'src/app/feature-modules/administration/account/account.component';
 import { GuideReviewComponent } from 'src/app/feature-modules/marketplace/guide-review/guide-review.component';
 import { PreferencesComponent } from '../../feature-modules/marketplace/preferences/preferences.component';
 
@@ -25,10 +26,9 @@ const routes: Routes = [
   },
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistrationComponent },
   // {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
+  {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
+
   {
     path: 'guideReview',
     component: GuideReviewComponent,
