@@ -13,6 +13,8 @@ import { TourExecutionModule } from './feature-modules/tour-execution/tour-execu
 import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
+import { MarkdownModule } from 'ngx-markdown';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
 //import { MapComponent } from './shared/map/map.component';
@@ -31,6 +33,7 @@ import { AdministrationModule } from './feature-modules/administration/administr
     TourExecutionModule,
     AuthModule,
     HttpClientModule,
+    MarkdownModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
     AdministrationModule
