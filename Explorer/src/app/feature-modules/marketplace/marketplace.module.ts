@@ -8,10 +8,17 @@ import { PreferencesFormComponent } from './preferences-form/preferences-form.co
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from "@angular/material/select";
 import { MatTableModule } from "@angular/material/table";
+import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
+import { MatInputModule } from '@angular/material/input';
+import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
+
 
 
 @NgModule({
   declarations: [
+
+    TourReviewFormComponent,
+    TourReviewsShowComponent,
     GuideReviewComponent,
     GuideReviewFormComponent,
     PreferencesComponent,
@@ -20,6 +27,9 @@ import { MatTableModule } from "@angular/material/table";
   imports: [
     CommonModule,
     MaterialModule,
+
+    MatInputModule,
+
     ReactiveFormsModule,
     MatSelectModule,
     ReactiveFormsModule,
@@ -30,6 +40,7 @@ import { MatTableModule } from "@angular/material/table";
     GuideReviewComponent,
     
     PreferencesComponent
+
   ]
 })
 export class MarketplaceModule { }
