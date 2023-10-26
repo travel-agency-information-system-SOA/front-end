@@ -31,25 +31,25 @@ export class BlogPostCommentFormComponent implements OnChanges {
   });
 
   addComment(): void {
-    const comment: Partial<BlogPostComment> = {
-      userId: this.tokenStorage.getUserId(),
-      blogId: this.commentForm.value.blogId || 0 , // Convert blogId to a string
+    const comment: BlogPostComment= {
+      userId: this.tokenStorage.getUserId() || 0 ,
+      blogId: this.commentForm.value.blogId || 0 , 
       text: this.commentForm.value.text || "",
       creationTime: new Date(), // Current time
       lastUpdatedTime: new Date(), // Current tim
     }
-    this.service.addComment(comment as BlogPostComment).subscribe({
+    this.service.addComment(comment).subscribe({
       next: () => { this.commentUpdated.emit() }
     });
   }
 
   updateComment(): void {
     const comment: Partial<BlogPostComment> = {
-      userId: 2,
-      blogId: this.commentForm.value.blogId || 0 , // Convert blogId to a string
+      userId: this.tokenStorage.getUserId() || 0 ,
+      blogId: this.commentForm.value.blogId || 0 ,
       text: this.commentForm.value.text || "",
       creationTime: this.comment.creationTime,
-      lastUpdatedTime: new Date(), // Current time
+      lastUpdatedTime: new Date(),
     }
       comment.id = this.comment.id;
 

@@ -13,7 +13,7 @@ export class BlogPostCommentService {
   constructor(private http: HttpClient) { }
 
   getBlogPostComments() : Observable<PagedResults<BlogPostComment>> {
-    return this.http.get<PagedResults<BlogPostComment>>('https://localhost:44333/api/blogPostComment');
+    return this.http.get<PagedResults<BlogPostComment>>(environment.apiHost + 'blogPostComment');
   }
 
   addComment(comment: BlogPostComment): Observable<BlogPostComment> {
