@@ -1,6 +1,5 @@
 export interface Tour {
-
-  id?:number;
+  id?: number;
 
   name: string;
   description: string;
@@ -18,6 +17,6 @@ export enum Status {
 
 export enum DifficultyLevel {
   Easy = 'Easy',
-  Medium = 'Medium',
-  Hard = 'Hard',
+  Medium = 'Moderate',
+  Hard = 'Difficult',
 }

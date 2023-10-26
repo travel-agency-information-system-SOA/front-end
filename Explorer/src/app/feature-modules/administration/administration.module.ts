@@ -4,6 +4,8 @@ import { CommonModule } from '@angular/common';
 //import { EquipmentComponent } from './equipment/equipment.component';
 import { MaterialModule } from 'src/app/infrastructure/material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AppRatingFormComponent } from './app-rating-form/app-rating-form.component';
+import { AppRatingsComponent } from './app-ratings/app-ratings.component';
 import { AccountComponent } from './account/account.component';
 
 import { ProfileComponent } from './profile/profile.component';
@@ -15,7 +17,9 @@ import { FormsModule } from '@angular/forms';
     //EquipmentFormComponent,
     //EquipmentComponent,
     AccountComponent,
-    ProfileComponent
+    ProfileComponent,
+    AppRatingFormComponent,
+    AppRatingsComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +31,9 @@ import { FormsModule } from '@angular/forms';
     //EquipmentComponent,
     //EquipmentFormComponent,
     AccountComponent,
-    ProfileComponent 
+    ProfileComponent,
+    AppRatingsComponent,
+    AppRatingFormComponent
   ]
 })
 export class AdministrationModule { }
