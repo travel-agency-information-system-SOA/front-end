@@ -42,7 +42,7 @@ export class AuthService {
         this.setUser();
       })
     );
-      .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
+      return this.http.post<AuthenticationResponse>(environment.apiHost + 'users', registration)
       .pipe(
         tap((authenticationResponse) => {
           this.tokenStorage.saveAccessToken(

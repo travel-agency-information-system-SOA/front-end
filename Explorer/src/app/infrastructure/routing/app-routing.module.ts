@@ -29,7 +29,7 @@ const routes: Routes = [
   { path: 'tourMap/:id', component: TourMapComponent },
   // {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
-  {path: 'blogPostComment', component: BlogPostCommentComponent, canActivate: [AuthGuard],},,
+  {path: 'blogPostComment', component: BlogPostCommentComponent, canActivate: [AuthGuard],},
 
   {
     path: 'guideReview',
