@@ -1,13 +1,17 @@
-#equipment {
+#accounts {
     margin-top: 20px;
     margin-left: 20px;
 }
 
-#equipment-details {
+#account-details {
     display: flex;
     flex-direction: row;
     gap: 50px;
     align-items: flex-start;
+}
+
+#username {
+    font-weight: bold;
 }
 
 p {
@@ -36,10 +40,6 @@ tbody tr {
     border-bottom: 1px solid #dddddd;
 }
 
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
 tbody tr:last-of-type {
     border-bottom: 2px solid #3f51b5;
 }
@@ -47,4 +47,28 @@ tbody tr:last-of-type {
 tbody tr.active-row {
     font-weight: bold;
     color: #3f51b5;
+}
+
+button.block-btn {
+    width: fit-content;
+    padding: 0px 10px;
+    font-size: 1.3em;
+    text-align: center;
+    border-radius: 40px;
+    border: 1px solid pink;
+}
+
+button.unblock-btn {
+    color: green;
+    width: fit-content;
+    padding: 0px 10px;
+    font-size: 1.3em;
+    text-align: center;
+    border-radius: 40px;
+    border: 1px solid lightgreen;
+}
+
+td.button-collumn {
+    text-align: center;
+    vertical-align: middle;
 }
