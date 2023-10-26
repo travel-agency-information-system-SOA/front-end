@@ -4,6 +4,10 @@ import { HomeComponent } from 'src/app/feature-modules/layout/home/home.componen
 import { LoginComponent } from '../auth/login/login.component';
 import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
+
+import { TourReviewFormComponent } from 'src/app/feature-modules/marketplace/tour-review-form/tour-review-form.component';
+import { TourReviewsShowComponent } from 'src/app/feature-modules/marketplace/tour-reviews-show/tour-reviews-show.component';
+
 import { AccountComponent } from 'src/app/feature-modules/administration/account/account.component';
 import { GuideReviewComponent } from 'src/app/feature-modules/marketplace/guide-review/guide-review.component';
 import { PreferencesComponent } from '../../feature-modules/marketplace/preferences/preferences.component';
@@ -41,6 +45,8 @@ const routes: Routes = [
     component: PreferencesComponent,
     canActivate: [AuthGuard],
   },
+  {path: 'tourReviewForm', component: TourReviewFormComponent},
+  {path:'tourReviewShow', component: TourReviewsShowComponent},
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
