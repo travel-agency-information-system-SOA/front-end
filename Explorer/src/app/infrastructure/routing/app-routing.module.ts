@@ -7,6 +7,8 @@ import { AuthGuard } from '../auth/auth.guard';
 import { RegistrationComponent } from '../auth/registration/registration.component';
 import { GuideReviewComponent } from 'src/app/feature-modules/marketplace/guide-review/guide-review.component';
 import { PreferencesComponent } from "../../feature-modules/marketplace/preferences/preferences.component";
+import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
+import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
 
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
@@ -14,7 +16,9 @@ const routes: Routes = [
   {path: 'register', component: RegistrationComponent},
   {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'guideReview', component: GuideReviewComponent, canActivate: [AuthGuard]},
-  {path: 'preferences', component: PreferencesComponent, canActivate: [AuthGuard]}
+  {path: 'preferences', component: PreferencesComponent, canActivate: [AuthGuard]},
+  {path: 'app-ratings', component: AppRatingsComponent},
+  {path: 'app-rating-form', component: AppRatingFormComponent}
 ];
 
 @NgModule({
