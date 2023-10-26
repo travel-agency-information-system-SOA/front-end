@@ -11,21 +11,26 @@ import { User } from './model/user.model';
 import { Registration } from './model/registration.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  user$ = new BehaviorSubject<User>({username: "", id: 0, role: "" });
+  user$ = new BehaviorSubject<User>({ username: '', id: 0, role: '' });
 
-  constructor(private http: HttpClient,
+  constructor(
+    private http: HttpClient,
     private tokenStorage: TokenStorage,
-    private router: Router) { }
+    private router: Router
+  ) {}
 
   login(login: Login): Observable<AuthenticationResponse> {
     return this.http
       .post<AuthenticationResponse>(environment.apiHost + 'users/login', login)
       .pipe(
         tap((authenticationResponse) => {
-          this.tokenStorage.saveAccessToken(authenticationResponse.accessToken, authenticationResponse.id);
+          this.tokenStorage.saveAccessToken(
+            authenticationResponse.accessToken,
+            authenticationResponse.id
+          );
           this.setUser();
         })
       );
@@ -33,21 +38,23 @@ export class AuthService {
 
   register(registration: Registration): Observable<AuthenticationResponse> {
     return this.http
-    .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
-    .pipe(
-      tap((authenticationResponse) => {
-        this.tokenStorage.saveAccessToken(authenticationResponse.accessToken, authenticationResponse.id);
-        this.setUser();
-      })
-    );
+      .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
+      .pipe(
+        tap((authenticationResponse) => {
+          this.tokenStorage.saveAccessToken(
+            authenticationResponse.accessToken,
+            authenticationResponse.id
+          );
+          this.setUser();
+        })
+      );
   }
 
   logout(): void {
-    this.router.navigate(['/home']).then(_ => {
+    this.router.navigate(['/home']).then((_) => {
       this.tokenStorage.clear();
-      this.user$.next({username: "", id: 0, role: "" });
-      }
-    );
+      this.user$.next({ username: '', id: 0, role: '' });
+    });
   }
 
   checkIfUserExists(): void {
@@ -60,7 +67,7 @@ export class AuthService {
 
   private setUser(): void {
     const jwtHelperService = new JwtHelperService();
-    const accessToken = this.tokenStorage.getAccessToken() || "";
+    const accessToken = this.tokenStorage.getAccessToken() || '';
     const user: User = {
       id: +jwtHelperService.decodeToken(accessToken).id,
       username: jwtHelperService.decodeToken(accessToken).username,
