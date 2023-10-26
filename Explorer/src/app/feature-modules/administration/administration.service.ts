@@ -4,6 +4,7 @@ import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Profile } from './model/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,14 @@ export class AdministrationService {
 
   updateEquipment(equipment: Equipment): Observable<Equipment> {
     return this.http.put<Equipment>(environment.apiHost + 'administration/equipment/' + equipment.id, equipment);
+  }
+
+  getProfile(id: number): Observable<Profile>{
+    return this.http.get<Profile>('https://localhost:44333/api/profile/' + id);
+  }
+
+  updateProfile(profile: Profile, id: number): Observable<Profile>{
+    return this.http.put<Profile>('https://localhost:44333/api/profile/' + id, profile);
   }
 
 }

@@ -22,9 +22,6 @@ export class RegistrationComponent {
     email: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
     password: new FormControl('', [Validators.required]),
-    profileImage: new FormControl('', [Validators.required]),
-    bio: new FormControl('', [Validators.required]),
-    quote: new FormControl(''),
   });
 
   register(): void {
@@ -34,9 +31,6 @@ export class RegistrationComponent {
       email: this.registrationForm.value.email || "",
       username: this.registrationForm.value.username || "",
       password: this.registrationForm.value.password || "",
-      profileImage: this.registrationForm.value.profileImage || "",
-      bio: this.registrationForm.value.bio || "",
-      quote: this.registrationForm.value.quote || "",
     };
 
     if (this.registrationForm.valid) {
