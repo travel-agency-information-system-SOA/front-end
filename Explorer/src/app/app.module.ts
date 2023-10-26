@@ -6,7 +6,6 @@ import { AppComponent } from './app.component';
 import { LayoutModule } from './feature-modules/layout/layout.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './infrastructure/material/material.module';
-import { AdministrationModule } from './feature-modules/administration/administration.module';
 import { BlogModule } from './feature-modules/blog/blog.module';
 import { MarketplaceModule } from './feature-modules/marketplace/marketplace.module';
 import { TourAuthoringModule } from './feature-modules/tour-authoring/tour-authoring.module';
@@ -16,25 +15,28 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { MarkdownModule } from 'ngx-markdown';
 
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AdministrationModule } from './feature-modules/administration/administration.module';
+//import { MapComponent } from './shared/map/map.component';
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     LayoutModule,
     BrowserAnimationsModule,
     MaterialModule,
-    AdministrationModule,
     BlogModule,
     MarketplaceModule,
     TourAuthoringModule,
     TourExecutionModule,
     AuthModule,
     HttpClientModule,
-    MarkdownModule.forRoot()
+    MarkdownModule.forRoot(),
+    ReactiveFormsModule,
+    FormsModule,
+    AdministrationModule
   ],
   providers: [
     {
@@ -43,6 +45,6 @@ import { MarkdownModule } from 'ngx-markdown';
       multi: true,
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
