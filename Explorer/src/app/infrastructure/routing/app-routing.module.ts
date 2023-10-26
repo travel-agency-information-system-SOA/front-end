@@ -18,7 +18,11 @@ import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourMapComponent } from 'src/app/feature-modules/tour-authoring/tour-map/tour-map.component';
 import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpost.component';
+
+import { ClubComponent } from 'src/app/feature-modules/club/club/club.component';
+
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -34,6 +38,7 @@ const routes: Routes = [
   { path: 'tourMap/:id', component: TourMapComponent },
   // {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
+  {path: 'club', component: ClubComponent},
 
   {
     path: 'guideReview',
