@@ -60,6 +60,9 @@
           [routerLink]="['accounts']">
           Manage accounts
         </button>  
+            <button *ngIf="user && (user.role === 'tourist' || user.role === 'author')" color="primary" mat-raised-button [routerLink]="['profile']">Profile</button>
+            <button *ngIf="user && user.role === 'tourist'" color="primary" mat-raised-button [routerLink]="['blog']">Blog</button>
+            <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['club']">Manage clubs</button>
             <button *ngIf="user && user.role === 'tourist'"color="primary" mat-raised-button [routerLink]="['blogPostComment']">Manage comments</button>
       </div>
     </div>

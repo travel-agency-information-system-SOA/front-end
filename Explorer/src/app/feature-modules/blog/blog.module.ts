@@ -11,28 +11,35 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms'; 
 import { MatDialogModule } from '@angular/material/dialog'; 
 import { MatSelectModule } from '@angular/material/select';
+import { MarkdownModule } from 'ngx-markdown';
+import { BlogpostComponent } from './blogpost/blogpost.component';
+import { BlogpostFormComponent } from './blogpost-form/blogpost-form.component';
 
 
 
 @NgModule({
   declarations: [
+    BlogpostComponent,
+    BlogpostFormComponent,
+  
     BlogPostCommentComponent,
     BlogPostCommentFormComponent
   ],
   imports: [
     CommonModule,
-    MatFormFieldModule,
-    MatIconModule,
-    ReactiveFormsModule,
     MatInputModule,
-    MatDialogModule,
+    ReactiveFormsModule,
+    MatIconModule,
+    MarkdownModule.forRoot(),
     MatSelectModule,
-    FormsModule,
+    MaterialModule,
     SharedModule,
-    MaterialModule
+    FormsModule,
+    MatDialogModule
   ],
   exports: [
-    BlogPostCommentComponent
+    BlogpostComponent,
+    BlogpostFormComponent
   ]
 })
 export class BlogModule { }
