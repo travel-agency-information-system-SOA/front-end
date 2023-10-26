@@ -1,17 +1,11 @@
 .landingPage {
     background-color: pink;
-    margin-left: 16.66%;
-    margin-right: 16.66%;
+    margin-left: 12%;
+    margin-right: 12%;
     font-size: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.b3 {
-    background-color: greenyellow;
-    display: flex;
-    flex-direction: row;
 }
 
 .k {
