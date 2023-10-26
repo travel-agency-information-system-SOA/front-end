@@ -49,6 +49,7 @@ export class ClubFormComponent implements OnChanges{
       name: this.clubForm.value.name || "",
       description: this.clubForm.value.description || "",
       image: this.clubForm.value.image || "",
+      ownerId: this.tokenStorage.getUserId()
     }
     club.id = this.club.id;
     this.service.updateClub(club).subscribe({
