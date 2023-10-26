@@ -28,9 +28,13 @@ import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistrationComponent },
+  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegistrationComponent},
+  {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]},
+  {path: 'guideReview', component: GuideReviewComponent, canActivate: [AuthGuard]},
+  {path: 'preferences', component: PreferencesComponent, canActivate: [AuthGuard]},
   { path: 'tour', component: TourComponent, canActivate: [AuthGuard] },
   {
     path: 'tourPoint',
@@ -43,7 +47,6 @@ const routes: Routes = [
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
   {path: 'blogPostComment', component: BlogPostCommentComponent, canActivate: [AuthGuard],},
   {path: 'club', component: ClubComponent},
-
   {
     path: 'guideReview',
     component: GuideReviewComponent,
@@ -55,7 +58,7 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {path: 'tourReviewForm', component: TourReviewFormComponent},
-  {path:'tourReviewShow', component: TourReviewsShowComponent},
+  {path: 'tourReviewShow', component: TourReviewsShowComponent},
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
