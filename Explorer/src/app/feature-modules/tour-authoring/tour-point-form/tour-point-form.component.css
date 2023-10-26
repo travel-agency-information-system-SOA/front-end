@@ -1,0 +1,33 @@
+div {
+  width: 400px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+.mat-icon {
+  vertical-align: middle;
+}
+
+.form-container {
+  float: left; /* Float the form container to the left */
+  width: 50%; /* Adjust the width as needed */
+  padding: 20px; /* Add padding for spacing */
+  box-sizing: border-box; /* Include padding in the width */
+}
+
+.map-container {
+  display: flex;
+  float: left; /* Float the map container to the left */
+  width: 200%; /* Adjust the width as needed */
+  padding: 20px; /* Add padding for spacing */
+  box-sizing: border-box; /* Include padding in the width */
+}
+
+/* Clear the float to prevent other content from wrapping around these containers */
+.clearfix::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+

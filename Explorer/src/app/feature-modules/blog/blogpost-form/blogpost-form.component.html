@@ -1,0 +1,43 @@
+<form [formGroup]="blogPostForm">
+    <div>
+        <mat-form-field>
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" type="text"/>
+        </mat-form-field>
+        <div style="display:flex; flex-direction:row; width: 100%;">
+            <mat-form-field style="width: 100%;">
+                <mat-label>Description</mat-label>
+                <textarea matInput
+                    cdkTextareaAutosize
+                    cdkAutosizeMinRows="6"
+                    placeholder="Enter Markdown..."
+                    formControlName="description"
+                    cdkAutosizeMaxRows="15">
+                </textarea>
+            </mat-form-field>
+            <markdown cdkTextareaAutosize
+            cdkAutosizeMinRows="6" cdkAutosizeMaxRows="15" style="border-style:ridge; width: 100%;" [data]="blogPostForm.get('description')?.value">
+            </markdown>
+        </div>
+        <mat-form-field>
+            <mat-label>Post status</mat-label>
+            <mat-select formControlName="status">
+                <mat-option value="DRAFT">Draft</mat-option>
+                <mat-option value="PUBLISHED">Published</mat-option>
+                <mat-option value="CLOSED">Closed</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Image IDs</mat-label>
+            <input
+              matInput
+              formControlName="imageIDs"
+              type="text"
+              placeholder="Enter image IDs (comma-separated)"
+            />
+        </mat-form-field>
+        
+        <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addBlogPost()">Add</button>
+        <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateBlogPost()">Update</button>
+    </div>
+</form>
