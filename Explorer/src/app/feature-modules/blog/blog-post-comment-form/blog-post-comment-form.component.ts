@@ -32,11 +32,11 @@ export class BlogPostCommentFormComponent implements OnChanges {
 
   addComment(): void {
     const comment: Partial<BlogPostComment> = {
-      userId: 2,
+      userId: this.tokenStorage.getUserId(),
       blogId: this.commentForm.value.blogId || 0 , // Convert blogId to a string
       text: this.commentForm.value.text || "",
       creationTime: new Date(), // Current time
-      lastUpdatedTime: new Date(), // Current time
+      lastUpdatedTime: new Date(), // Current tim
     }
     this.service.addComment(comment as BlogPostComment).subscribe({
       next: () => { this.commentUpdated.emit() }
@@ -48,7 +48,7 @@ export class BlogPostCommentFormComponent implements OnChanges {
       userId: 2,
       blogId: this.commentForm.value.blogId || 0 , // Convert blogId to a string
       text: this.commentForm.value.text || "",
-      creationTime: new Date(), // Current time
+      creationTime: this.comment.creationTime,
       lastUpdatedTime: new Date(), // Current time
     }
       comment.id = this.comment.id;
