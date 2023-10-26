@@ -85,6 +85,7 @@
 .card-content {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   padding: 10px 24px;
 }
 
@@ -144,6 +145,7 @@
   font-weight: bold;
   color: #333;
   text-align: left;
+  margin-top: 12px;
 }
 
 .card-footer {
@@ -191,9 +193,19 @@
   color: red;
 }
 
+.desc-container {
+  overflow: hidden;
+  height: 150px;
+}
+
 .description {
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
   font-size: 14px;
   color: #707070;
   margin: 0 8px 16px 8px;
   text-align: left;
+  overflow: hidden;
+  white-space: pre-wrap;
 }
