@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AppRating } from './model/app-rating.model';
 import { Account } from './model/account.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 import { Profile } from './model/profile.model';
@@ -57,5 +58,14 @@ export class AdministrationService {
   updateProfile(profile: Profile, id: number): Observable<Profile>{
     return this.http.put<Profile>('https://localhost:44333/api/profile/' + id, profile);
   }
+
+  // App ratings
+  getAppRatings(): Observable<PagedResults<AppRating>> {
+    return this.http.get<PagedResults<AppRating>>(environment.apiHost + 'administration/app-ratings')
+  }
+  addAppRating(rating: AppRating): Observable<AppRating> {
+    return this.http.post<AppRating>(environment.apiHost + 'administration/app-ratings', rating);
+  }
+
 
 }

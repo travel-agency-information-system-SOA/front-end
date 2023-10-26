@@ -23,6 +23,8 @@ import { ClubComponent } from 'src/app/feature-modules/club/club/club.component'
 
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 
+import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
+import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -53,7 +55,9 @@ const routes: Routes = [
   {path: 'tourReviewForm', component: TourReviewFormComponent},
   {path:'tourReviewShow', component: TourReviewsShowComponent},
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'app-ratings', component: AppRatingsComponent},
+  {path: 'app-rating-form', component: AppRatingFormComponent}
 ];
 
 @NgModule({
