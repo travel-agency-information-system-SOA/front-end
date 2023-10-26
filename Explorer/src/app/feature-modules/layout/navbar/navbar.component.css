@@ -9,15 +9,15 @@
 @font-face {
     font-family: 'Trip';
     src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
-    font-weight: medium; 
+    font-weight: medium;
     font-style: normal;
     font-display: swap;
 }
 
 @font-face {
     font-family: 'Trip';
-    src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype'); 
-    font-weight: bold; 
+    src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+    font-weight: bold;
     font-style: normal;
     font-display: swap;
 }
@@ -45,9 +45,9 @@ div {
     position: sticky;
     z-index: 9999;
     top:0;
-    width: 66.67%;
-    padding-left: 16.66%;
-    padding-right: 16.66%;
+    width: 76%;
+    padding-left: 12%;
+    padding-right: 12%;
     overflow: hidden;
 
     background-color: #221853;

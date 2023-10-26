@@ -1,8 +1,32 @@
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+  font-weight: medium;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Helvetica Neue", sans-serif;
+  font-family: "Trip", sans-serif;
 }
 
 .body {
@@ -14,7 +38,7 @@
 }
 
 .title {
-  font-size: 36px;
+  font-size: 42px;
   font-weight: bold;
   text-align: center;
   margin-bottom: 56px;
@@ -85,7 +109,7 @@
 
 .tag {
   font-size: 12px;
-  font-weight: 500;
+  font-weight: medium;
   color: #FFF;
   background-color: #E23A55;
   border-radius: 15px;
@@ -115,6 +139,7 @@
 }
 
 .name {
+  font-family: "Trip", "sans-serif";
   font-size: 22px;
   font-weight: bold;
   color: #333;
