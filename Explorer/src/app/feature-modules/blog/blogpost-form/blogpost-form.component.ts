@@ -23,7 +23,10 @@ export class BlogpostFormComponent implements OnChanges {
   ngOnChanges(changes: SimpleChanges): void {
     this.blogPostForm.reset();
     if(this.shouldEdit){
-      this.blogPostForm.patchValue(this.blogPost);
+      this.blogPostForm.patchValue({title: this.blogPost.title || '',
+      description: this.blogPost.description || '',
+      status: this.blogPost.status || 'DRAFT',
+      imageIDs: this.blogPost.imageIDs?.join(', ')});
     }
   }
 
@@ -31,17 +34,25 @@ export class BlogpostFormComponent implements OnChanges {
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     status: new FormControl('DRAFT'),
+    imageIDs: new FormControl(''),
   })
+
 
   addBlogPost(): void{
     console.log(this.blogPostForm.value)
+
+    const imageIDsString = this.blogPostForm.value.imageIDs;
+    const imageIDs = imageIDsString
+      ? imageIDsString.split(',').map(id => Number(id.trim()))
+      : [];
+
 
     const blogPost = {
       id: 0,
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',
       creationDate: new Date(),
-      imageIDs: [0],
+      imageIDs: imageIDs,
       status: this.blogPostForm.value.status || 'DRAFT'
     }
 
@@ -54,12 +65,18 @@ export class BlogpostFormComponent implements OnChanges {
   }
 
   updateBlogPost(): void{
+
+    const imageIDsString = this.blogPostForm.value.imageIDs;
+    const imageIDs = imageIDsString
+      ? imageIDsString.split(',').map(id => Number(id.trim()))
+      : [];
+
     const blogPost = {
       id: this.blogPost.id,
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',
-      creationDate: new Date(),
-      imageIDs: [0],
+      creationDate: this.blogPost.creationDate,
+      imageIDs: imageIDs,
       status: this.blogPostForm.value.status || 'DRAFT'
     }
 

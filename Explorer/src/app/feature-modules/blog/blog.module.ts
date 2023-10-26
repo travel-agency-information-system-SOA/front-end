@@ -8,6 +8,11 @@ import { MatIconModule } from '@angular/material/icon';
 import {  MarkdownModule } from 'ngx-markdown';
 import { MatSelectModule } from '@angular/material/select';
 
+import { MaterialModule } from 'src/app/infrastructure/material/material.module';
+import { SharedModule } from 'src/app/shared/shared.module';
+import { FormsModule } from '@angular/forms'; 
+import { MatDialogModule } from '@angular/material/dialog'; 
+
 
 
 @NgModule({
@@ -21,7 +26,11 @@ import { MatSelectModule } from '@angular/material/select';
     ReactiveFormsModule,
     MatIconModule,
     MarkdownModule.forRoot(),
-    MatSelectModule
+    MatSelectModule,
+    MaterialModule,
+    SharedModule,
+    FormsModule,
+    MatDialogModule
   ],
   exports: [
     BlogpostComponent,

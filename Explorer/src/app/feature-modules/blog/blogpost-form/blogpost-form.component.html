@@ -27,6 +27,15 @@
                 <mat-option value="CLOSED">Closed</mat-option>
             </mat-select>
         </mat-form-field>
+        <mat-form-field>
+            <mat-label>Image IDs</mat-label>
+            <input
+              matInput
+              formControlName="imageIDs"
+              type="text"
+              placeholder="Enter image IDs (comma-separated)"
+            />
+        </mat-form-field>
         
         <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addBlogPost()">Add</button>
         <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateBlogPost()">Update</button>

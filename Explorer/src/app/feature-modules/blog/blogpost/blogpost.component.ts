@@ -39,6 +39,7 @@ export class BlogpostComponent implements OnInit {
 
   onEditClicked(blogPost: BlogPost): void{
     this.selectedBlogPost = blogPost;
+    this.shouldRenderBlogPostForm = true;
     this.shouldEdit = true;
     console.log(blogPost);
   }
