@@ -34,16 +34,16 @@
 .search-button {
     margin-top: 5%;
     padding: 10px 20px;
-    border: none solid #003366;
+    border: none solid #221853;
     border-radius: 20px;
-    background-color: #ffff;
+    background-color: #ffffff;
     color: #000;
     font-size: 16px;
     cursor: pointer;
     width: 900px;
-    display: flex; /* Podešavanje na fleksibilni prikaz */
-    justify-content: space-between; /* Poravnanje sadržaja na levoj i desnoj strani */
-    align-items: center; /* Centralno poravnanje po visini */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
 
 }
 
@@ -53,12 +53,12 @@
 }
 
 .icon-container {
-    margin-right: 10px; /* Dodajte odstupanje sa desne strane ikonice */
+    margin-right: 10px; 
 }
 
 .icon {
-    width: 20px; /* Postavite željenu širinu slike (na primer, 20px) */
-    height: auto; /* Automatsko podešavanje visine */
+    width: 20px; 
+    height: auto; 
 }
 
 
@@ -75,27 +75,28 @@
 
 
 .b4 {
+    font-family: 'Trip';
     position: relative;
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     text-align: center;
     position: relative;
 }
 
-/* Stilizacija slike */
 .img {
+    transform: scaleX(-1);
+    border-radius: 10px;
     width: 100%;
     display: inline-block;
     justify-content: center;
     align-items: center;
     height: auto;
-    margin: 40px;
+    margin: 40px 0;
 }
 
-/* Stilizacija preklapajućeg sadržaja */
 .overlay {
     position: absolute;
-    top: 0;
+    top: 30px;
     left: 0;
     width: 70%;
     height: 70%;
@@ -103,27 +104,30 @@
     flex-direction: column;
     align-items: left;
     justify-content: left;
-    /* background: rgba(0, 0, 0, 0.5); */
     text-align: left;
-     color: #000000; 
+    color: #000000; 
     padding: 20px;
     margin: 40px;
 }
 
-/* Stilizacija naslova */
 .h1 {
-    font-size: 24px;
+    font-family: 'Trip';
+    font-weight: bold;
+    color: white;
+    font-size: 34px;
 }
 
-/* Stilizacija teksta */
 .p {
     font-size: 16px;
+    font-weight: normal;
     margin-bottom: 2px;
+    color: white;
 }
 
-/* Stilizacija dugmeta */
 .button {
-    background-color: #007bff;
+    font-family: 'Trip';
+    font-weight: medium;
+    background-color: #0a83cb;
     color: #fff;
     border: none;
     padding: 10px 20px;
