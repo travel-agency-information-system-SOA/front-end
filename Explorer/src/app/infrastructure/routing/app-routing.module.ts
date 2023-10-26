@@ -18,7 +18,7 @@ import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourMapComponent } from 'src/app/feature-modules/tour-authoring/tour-map/tour-map.component';
 import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpost.component';
-
+import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -45,17 +45,10 @@ const routes: Routes = [
     component: PreferencesComponent,
     canActivate: [AuthGuard],
   },
-  {path: 'home', component: HomeComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegistrationComponent},
-
- // {path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard],},
   {path: 'tourReviewForm', component: TourReviewFormComponent},
-  {path:'tourReviewShow', component: TourReviewsShowComponent}
-
-
-  {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],}
-
+  {path:'tourReviewShow', component: TourReviewsShowComponent},
+  {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({

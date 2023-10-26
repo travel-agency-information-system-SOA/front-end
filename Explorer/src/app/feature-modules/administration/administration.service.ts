@@ -7,6 +7,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Account } from './model/account.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
+import { Profile } from './model/profile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -48,5 +49,13 @@ export class AdministrationService {
     return this.http.put<Account>(environment.apiHost + 'administration/accounts/' + account.userId, account);
   }
 
-}
 
+  getProfile(id: number): Observable<Profile>{
+    return this.http.get<Profile>('https://localhost:44333/api/profile/' + id);
+  }
+
+  updateProfile(profile: Profile, id: number): Observable<Profile>{
+    return this.http.put<Profile>('https://localhost:44333/api/profile/' + id, profile);
+  }
+
+}
