@@ -41,9 +41,9 @@
     font-size: 16px;
     cursor: pointer;
     width: 900px;
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 
 }
 
@@ -53,12 +53,12 @@
 }
 
 .icon-container {
-    margin-right: 10px; 
+    margin-right: 10px;
 }
 
 .icon {
-    width: 20px; 
-    height: auto; 
+    width: 20px;
+    height: auto;
 }
 
 
@@ -105,7 +105,7 @@
     align-items: left;
     justify-content: left;
     text-align: left;
-    color: #000000; 
+    color: #000000;
     padding: 20px;
     margin: 40px;
 }
@@ -133,11 +133,13 @@
     padding: 10px 20px;
     border-radius: 5px;
     cursor: pointer;
-   margin-top: 20px;
+    margin-top: 20px;
     width: 200px;
+    transition: all 0.3s ease;
 }
 
 .button:hover {
-    background-color: #0056b3;
+    background-color: #221853;
+    box-shadow: 0 2px 5px 1px #333333;
 }
 

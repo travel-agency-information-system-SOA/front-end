@@ -9,6 +9,7 @@ import { GuideReviewComponent } from 'src/app/feature-modules/marketplace/guide-
 import { PreferencesComponent } from "../../feature-modules/marketplace/preferences/preferences.component";
 
 const routes: Routes = [
+  {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
