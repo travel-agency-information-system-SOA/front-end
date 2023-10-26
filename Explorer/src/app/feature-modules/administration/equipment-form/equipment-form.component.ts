@@ -23,7 +23,6 @@ export class EquipmentFormComponent implements OnChanges {
       this.equipmentForm.patchValue(this.equipment);
     }
   }
-
   equipmentForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
