@@ -13,6 +13,7 @@ import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.
 import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour-object/tour-object.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourMapComponent } from 'src/app/feature-modules/tour-authoring/tour-map/tour-map.component';
+import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpost.component';
 import { ClubComponent } from 'src/app/feature-modules/club/club/club.component';
 
 const routes: Routes = [
@@ -41,6 +42,10 @@ const routes: Routes = [
     component: PreferencesComponent,
     canActivate: [AuthGuard],
   },
+  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegistrationComponent},
+  {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],}
 ];
 
 @NgModule({
