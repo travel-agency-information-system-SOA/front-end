@@ -6,23 +6,28 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { AccountComponent } from './account/account.component';
 
+import { ProfileComponent } from './profile/profile.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [
     //EquipmentFormComponent,
     //EquipmentComponent,
-    AccountComponent
+    AccountComponent,
+    ProfileComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   exports: [
     //EquipmentComponent,
     //EquipmentFormComponent,
-    AccountComponent
+    AccountComponent,
+    ProfileComponent 
   ]
 })
 export class AdministrationModule { }
