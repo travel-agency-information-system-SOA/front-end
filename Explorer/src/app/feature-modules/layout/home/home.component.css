@@ -1,3 +1,27 @@
+@font-face {
+    font-family: 'Trip';
+    src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Trip';
+    src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+    font-weight: medium;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Trip';
+    src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
 .landingPage {
     background-color: white;
     margin-left: 12%;
@@ -9,7 +33,6 @@
 }
 .search-button {
     margin-top: 5%;
-    margin-bottom: 10%;
     padding: 10px 20px;
     border: none solid #003366;
     border-radius: 20px;
@@ -21,28 +44,34 @@
     display: flex; /* Podešavanje na fleksibilni prikaz */
     justify-content: space-between; /* Poravnanje sadržaja na levoj i desnoj strani */
     align-items: center; /* Centralno poravnanje po visini */
-   
-  }
 
-  .icon-container {
+}
+
+.searchdiv {
+    font-family: 'Trip';
+    font-weight: bold;
+}
+
+.icon-container {
     margin-right: 10px; /* Dodajte odstupanje sa desne strane ikonice */
-  }
-  
-  .icon {
+}
+
+.icon {
     width: 20px; /* Postavite željenu širinu slike (na primer, 20px) */
     height: auto; /* Automatsko podešavanje visine */
-  }
+}
 
 
-  .title {
+.title {
+    font-family: 'Trip';
     font-size: 42px;
     font-weight: bold;
     text-align: center;
     margin-bottom: 56px;
-  }
-  .top_margin {
-        margin-top: 5%;
-  }
+}
+.top_margin {
+    margin-top: 5%;
+}
 
 
 .b4 {
@@ -54,7 +83,7 @@
 }
 
 /* Stilizacija slike */
-img {
+.img {
     width: 100%;
     display: inline-block;
     justify-content: center;
@@ -82,18 +111,18 @@ img {
 }
 
 /* Stilizacija naslova */
-h1 {
+.h1 {
     font-size: 24px;
 }
 
 /* Stilizacija teksta */
-p {
+.p {
     font-size: 16px;
     margin-bottom: 2px;
 }
 
 /* Stilizacija dugmeta */
-button {
+.button {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -104,7 +133,7 @@ button {
     width: 200px;
 }
 
-button:hover {
+.button:hover {
     background-color: #0056b3;
 }
 
