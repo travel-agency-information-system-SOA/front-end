@@ -1,11 +1,14 @@
 
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Equipment } from './model/equipment.model';
+//import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AppRating } from './model/app-rating.model';
+import { Account } from './model/account.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
+import { Profile } from './model/profile.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +16,7 @@ import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 export class AdministrationService {
   constructor(private http: HttpClient) {}
 
-  getEquipment(): Observable<PagedResults<Equipment>> {
+  /*getEquipment(): Observable<PagedResults<Equipment>> {
     return this.http.get<PagedResults<Equipment>>(
       environment.apiHost + 'administration/equipment'
     );
@@ -37,6 +40,32 @@ export class AdministrationService {
       environment.apiHost + 'administration/equipment/' + equipment.id,
       equipment
     );
-  }
-}
+  }*/
 
+  getAccounts(): Observable<Account[]> {
+    return this.http.get<Account[]>(environment.apiHost + 'administration/accounts');
+  }
+
+  changeAccountStatus(account: Account): Observable<Account> {
+    return this.http.put<Account>(environment.apiHost + 'administration/accounts/' + account.userId, account);
+  }
+
+
+  getProfile(id: number): Observable<Profile>{
+    return this.http.get<Profile>('https://localhost:44333/api/profile/' + id);
+  }
+
+  updateProfile(profile: Profile, id: number): Observable<Profile>{
+    return this.http.put<Profile>('https://localhost:44333/api/profile/' + id, profile);
+  }
+
+  // App ratings
+  getAppRatings(): Observable<PagedResults<AppRating>> {
+    return this.http.get<PagedResults<AppRating>>(environment.apiHost + 'administration/app-ratings')
+  }
+  addAppRating(rating: AppRating): Observable<AppRating> {
+    return this.http.post<AppRating>(environment.apiHost + 'administration/app-ratings', rating);
+  }
+
+
+}

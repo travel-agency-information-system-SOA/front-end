@@ -1,10 +1,102 @@
+@font-face {
+    font-family: 'Trip';
+    src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Trip';
+    src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+    font-weight: medium;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Trip';
+    src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
 div {
     width: 100%;
     display: flex;
-    gap: 10px;
+    gap: 1px;
 }
 
 #buttons {
+    height: 100%;
     width: auto;
     margin-left: auto;
+    margin-right: 10px;
+}
+
+.inner {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.custom-toolbar {
+    position: sticky;
+    z-index: 9999;
+    top:0;
+    width: 76%;
+    padding-left: 12%;
+    padding-right: 12%;
+    overflow: hidden;
+
+    background-color: #221853;
+    color: white;
+    height: 60px;
+}
+
+.custom-toolbar button {
+    margin-left: 10px;
+}
+
+p {
+    padding-left: 10px;
+    margin: 0;
+    font-family: 'Trip';
+    font-weight: bold;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+
+.button {
+    margin: 0;
+    height: 100%;
+    font-family: 'Trip';
+    font-weight: medium;
+    font-size: 18px;
+    background-color: #221853;
+    color: #fff;
+    border: none;
+    border-bottom: 5px solid #221853;
+    border-top: 5px solid #221853;
+    cursor: pointer;
+    text-align: center;
+    transition: color 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s, border-color 0.2s;
+    /* border-radius: 5px; */
+}
+
+.button:hover {
+    background-color: #221853;
+    color: #fff;
+    border-bottom: 5px solid white;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+}
+
+.button:focus {
+    outline: none;
+}
+
+.button:active {
+    color: #0a83cb;
 }
