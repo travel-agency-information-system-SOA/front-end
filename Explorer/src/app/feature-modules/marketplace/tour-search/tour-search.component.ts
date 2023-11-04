@@ -15,7 +15,7 @@ export class TourSearchComponent {
   constructor(private service: MarketplaceService, private cordinateService: MapService) {}
 
   searchForm = new FormGroup({
-    range: new FormControl('', [Validators.required]),
+    range: new FormControl('', [Validators.min(0)]),
   });
 
   search(): void {

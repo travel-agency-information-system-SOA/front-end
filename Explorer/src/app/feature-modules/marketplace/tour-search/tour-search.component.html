@@ -2,11 +2,11 @@
     <div class="map-container">
         <app-map></app-map>
     </div>
-    <form [formGroup]="searchForm">
+    <!-- <form [formGroup]="searchForm">
         <mat-form-field>
             <mat-label>Range</mat-label>
-            <input type="number" min="0" id="range" [(ngModel)]="range">
+            <input type="number" min="0" id="range" formControlName="range">
         </mat-form-field>
     </form>
-    <button class="button" *ngIf="true" type="submit" (click)="search()">Search</button>
+    <button class="button" *ngIf="true" type="submit" (click)="search()">Search</button> -->
 </div>
