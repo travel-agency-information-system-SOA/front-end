@@ -27,9 +27,11 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
 
+import { TourSearchComponent } from 'src/app/feature-modules/marketplace/tour-search/tour-search.component';
+
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'home', component: HomeComponent},
+  //{path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
@@ -61,7 +63,8 @@ const routes: Routes = [
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
-  {path: 'app-rating-form', component: AppRatingFormComponent}
+  {path: 'app-rating-form', component: AppRatingFormComponent},
+  { path: 'tourSearch', component: TourSearchComponent}
 ];
 
 @NgModule({

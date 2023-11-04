@@ -1,0 +1,8 @@
+.map-container {
+    display: flex;
+    float: left; /* Float the map container to the left */
+    width: 200%; /* Adjust the width as needed */
+    padding: 20px; /* Add padding for spacing */
+    box-sizing: border-box; /* Include padding in the width */
+  }
+  

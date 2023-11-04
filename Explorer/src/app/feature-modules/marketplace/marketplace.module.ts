@@ -11,30 +11,34 @@ import { MatTableModule } from "@angular/material/table";
 import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
+import { TourSearchComponent } from './tour-search/tour-search.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+
 
 
 
 @NgModule({
   declarations: [
-
     TourReviewFormComponent,
     TourReviewsShowComponent,
     GuideReviewComponent,
     GuideReviewFormComponent,
     PreferencesComponent,
-    PreferencesFormComponent
+    PreferencesFormComponent,
+    TourSearchComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
-
+    SharedModule,
     MatInputModule,
 
     ReactiveFormsModule,
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatTableModule
+    MatTableModule,
+    
   ],
   exports: [
     GuideReviewComponent,
