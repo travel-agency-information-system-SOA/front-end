@@ -1,17 +1,19 @@
-.form-container {
-  float: left; /* Float the form container to the left */
-  width: 50%; /* Adjust the width as needed */
-  padding: 20px; /* Add padding for spacing */
-  box-sizing: border-box; /* Include padding in the width */
+.form-container { /* treba doradit css*/
+  display: flex;
+  justify-content: space-between;
+  margin-top: 690px; /* zbog mape */
+  width: 50%;
+  padding: 20px;
 }
 
 .map-container {
+  margin-top: 30px;
   display: flex;
   flex-direction: column;
-  width: 100%; /* Adjust the width as needed */
+  width: 50%;
+  height: 100px; /* ?mapa je neki overlej kom ne moz visinu opravit */
 }
 
-/* Clear the float to prevent other content from wrapping around these containers */
 .clearfix::after {
   content: "";
   clear: both;

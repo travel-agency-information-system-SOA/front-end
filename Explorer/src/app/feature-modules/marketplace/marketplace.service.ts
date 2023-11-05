@@ -49,7 +49,10 @@ export class MarketplaceService {
     return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
   }
 
-  getToursByLocation(latitude: number, longitude: number, range:number): Observable<Tour> {
-    return this.http.get<Tour>(environment.apiHost+ 'neka/putanja/' + latitude + '/' + longitude + '/' + range);
+  getToursByLocation(latitude: number, longitude: number, range:number): Observable<Tour> { //napravit da gadja pravu putanju
+    //return this.http.get<Tour>(environment.apiHost+ 'neka/putanja/' + latitude + '/' + longitude + '/' + range);
+    return this.http.get<Tour>(
+      `https://localhost:44333/api/administration/tour`
+    ); 
   }
 }

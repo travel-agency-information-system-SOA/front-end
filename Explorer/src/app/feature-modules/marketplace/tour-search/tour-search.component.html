@@ -1,12 +1,17 @@
 <div class="topDiv">
     <div class="map-container">
-        <app-map></app-map>
+        <app-map [saveOnlyLatest]="true"></app-map>
     </div>
-    <!-- <form [formGroup]="searchForm">
-        <mat-form-field>
-            <mat-label>Range</mat-label>
-            <input type="number" min="0" id="range" formControlName="range">
-        </mat-form-field>
+    <form [formGroup]="searchForm">
+        <div class="form-container">
+            <mat-form-field>
+                <mat-label>Range</mat-label>
+                <input matInput formControlName="range" type="number">
+            </mat-form-field>
+            <button class="button" raised-button type="submit" color="primary" (click)="search()">Search</button>
+        </div>
     </form>
-    <button class="button" *ngIf="true" type="submit" (click)="search()">Search</button> -->
+    <div>
+        <!-- odje ubacit prikaz nadjenih tura -->
+    </div>  
 </div>

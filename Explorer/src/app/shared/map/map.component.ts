@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Input } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from './map.service';
 
@@ -18,6 +18,8 @@ import { mergeMap } from 'rxjs/operators';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit {
+  @Input() saveOnlyLatest = false;
+
   private map: any;
   tourId: string;
   objects: { latitude: number; longitude: number }[];
@@ -51,6 +53,7 @@ export class MapComponent implements AfterViewInit {
   ngAfterViewInit(): void {
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+      iconAnchor: [12, 41],
     });
 
     L.Marker.prototype.options.icon = DefaultIcon;
@@ -94,6 +97,16 @@ export class MapComponent implements AfterViewInit {
       const lat = coord.lat;
       const lng = coord.lng;
       this.service.setCoordinates({ lat, lng });
+
+      if (this.saveOnlyLatest) {
+        // ovaj if radi za tour search
+        this.map.eachLayer((layer: any) => {
+          if (layer instanceof L.Marker) {
+            this.map.removeLayer(layer);
+          }
+        });
+      }
+
       this.service.reverseSearch(lat, lng).subscribe((res) => {
         console.log(res.display_name);
       });
@@ -101,7 +114,7 @@ export class MapComponent implements AfterViewInit {
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
       const mp = new L.Marker([lat, lng]).addTo(this.map);
-      alert(mp.getLatLng());
+      if (!this.saveOnlyLatest) alert(mp.getLatLng()); //ovo samo sklanja za tur src post mi smeta
     });
   }
 

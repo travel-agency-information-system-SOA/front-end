@@ -15,7 +15,7 @@ export class TourSearchComponent {
   constructor(private service: MarketplaceService, private cordinateService: MapService) {}
 
   searchForm = new FormGroup({
-    range: new FormControl('', [Validators.min(0)]),
+    range: new FormControl('', [Validators.min(0), Validators.required]),
   });
 
   search(): void {
@@ -27,10 +27,9 @@ export class TourSearchComponent {
       longitude = coordinates.lng;
     });
 
-    
     this.service.getToursByLocation(latitude, longitude, this.range).subscribe({
       next: () => {
-
+          //pokupiti ture koje se dobiju i postavit prikaz da je vidljiv
       }
     });
   }
