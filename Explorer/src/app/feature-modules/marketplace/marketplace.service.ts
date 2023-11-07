@@ -5,6 +5,7 @@ import { GuideReview } from './model/guide-review.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Preferences } from "./model/preferences.model";
+import { Problem } from './model/problem.model';
 
 @Injectable({
   providedIn: 'root'
@@ -47,4 +48,9 @@ export class MarketplaceService {
   getUserPreferences(id: number): Observable<Preferences> {
     return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
   }
+
+  getProblems(): Observable<PagedResults<Problem>> {
+    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'tourist/problem');
+  }
+
 }
