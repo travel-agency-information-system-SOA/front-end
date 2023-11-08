@@ -1,0 +1,14 @@
+<form [formGroup]="commentForm">
+    <div>
+        <mat-form-field>
+            <mat-label>Blog ID</mat-label>
+            <input matInput formControlName="blogId" type="number" required>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-label>Comment Text</mat-label>
+            <textarea matInput formControlName="text" rows="5" required></textarea>        
+        </mat-form-field>
+        <button *ngIf="!shouldEdit" color="primary" type="submit" (click)="addComment()" mat-raised-button>Done</button>
+        <button *ngIf="shouldEdit" color="primary" type="submit" (click)="updateComment()" mat-raised-button>Done</button>
+    </div>
+</form>

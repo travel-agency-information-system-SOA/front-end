@@ -30,6 +30,8 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/leaflet/dist/leaflet.css",
+              "./node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -93,6 +95,8 @@
             ],
             "styles": [
               "@angular/material/prebuilt-themes/indigo-pink.css",
+              "./node_modules/leaflet/dist/leaflet.css",
+              "./node_modules/leaflet-routing-machine/dist/leaflet-routing-machine.css",
               "src/styles.css"
             ],
             "scripts": []
@@ -102,6 +106,6 @@
     }
   },
   "cli": {
-    "analytics": "da94eb4e-4ae5-4b76-94ee-ef7a38ee54ca"
+    "analytics": "f48e66c7-f792-4c40-b527-99a195de3d85"
   }
 }
