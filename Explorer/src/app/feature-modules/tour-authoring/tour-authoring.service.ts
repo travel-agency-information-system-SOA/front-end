@@ -112,8 +112,8 @@ export class TourAuthoringService {
     );
   }
 
-  getObjInTourByTourId(tourId: number): Observable<number[]> {
-    return this.http.get<number[]>(
+  getObjInTourByTourId(tourId: number): Observable<TourObject[]> {
+    return this.http.get<TourObject[]>(
       `https://localhost:44333/api/administration/objInTour/${tourId}`
     );
   }
@@ -124,5 +124,18 @@ export class TourAuthoringService {
   }
   changeTourId(tourId: string) {
     this.tourIdSource.next(tourId);
+  }
+
+  deleteTour(tour: Tour): Observable<Tour> {
+    return this.http.delete<Tour>(
+      environment.apiHost + 'administration/tour/' + tour.id
+    );
+  }
+
+  updateTour(tour: Tour): Observable<Tour> {
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/' + tour.id,
+      tour
+    );
   }
 }

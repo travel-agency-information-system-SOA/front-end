@@ -35,6 +35,16 @@
               <button (click)="onAddObj(t)" color="primary" mat-icon-button>
                 <mat-icon>restaurant</mat-icon>
               </button>
+              <button (click)="deleteTour(t)" color="accent" mat-icon-button>
+                <mat-icon>delete</mat-icon>
+              </button>
+              <button
+                (click)="onEditClicked(t)"
+                color="primary"
+                mat-icon-button
+              >
+                <mat-icon>edit</mat-icon>
+              </button>
             </td>
           </tr>
         </tbody>
@@ -63,6 +73,12 @@
         *ngIf="shouldAddObject"
         [tour]="selectedTour"
       ></xp-object-form>
+      <xp-tour-form
+        *ngIf="shouldRenderTourForm"
+        [tour]="selectedTour"
+        [shouldEdit]="shouldEdit"
+        (tourUpdated)="loadTours()"
+      ></xp-tour-form>
     </div>
   </div>
 </div>
