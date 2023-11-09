@@ -14,6 +14,7 @@ export class TourMapComponent {
   ) {}
 
   ngOnInit() {
+    location.reload;
     this.route.paramMap.subscribe((params) => {
       const idTour = params.get('id');
       if (idTour) {
