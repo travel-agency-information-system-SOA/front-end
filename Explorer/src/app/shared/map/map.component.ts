@@ -1,16 +1,16 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, Input, OnDestroy } from '@angular/core';
 import * as L from 'leaflet';
 import { MapService } from './map.service';
 
 import 'leaflet-routing-machine';
 
-import { Observable, forkJoin } from 'rxjs';
+import { Observable, Subscription, forkJoin } from 'rxjs';
 
 import { HttpClient } from '@angular/common/http';
 import { ActivatedRoute } from '@angular/router';
 import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
 import { TourPoint } from 'src/app/feature-modules/tour-authoring/model/tourPoints.model';
-import { mergeMap } from 'rxjs/operators';
+import { mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map',
@@ -21,6 +21,7 @@ export class MapComponent implements AfterViewInit {
   private map: any;
   tourId: string;
   objects: { latitude: number; longitude: number }[];
+  tourIdSubscription: Subscription | undefined = undefined;
 
   constructor(
     private service: MapService,
@@ -30,62 +31,40 @@ export class MapComponent implements AfterViewInit {
   ) {}
 
   private initMap(): void {
-    this.map = L.map('map', {
-      center: [45.2396, 19.8227],
-      zoom: 13,
-    });
-
-    const tiles = L.tileLayer(
-      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-      {
-        maxZoom: 18,
-        minZoom: 3,
-        attribution:
-          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-      }
-    );
-    tiles.addTo(this.map);
+    this.map = this.service.initMap();
     this.registerOnClick();
   }
 
   ngAfterViewInit(): void {
+    console.log('ngAfterViewInit');
     let DefaultIcon = L.icon({
       iconUrl: 'https://unpkg.com/leaflet@1.6.0/dist/images/marker-icon.png',
+      iconAnchor: [12, 41],
     });
 
     L.Marker.prototype.options.icon = DefaultIcon;
-    this.initMap();
+    setTimeout(() => {
+      this.initMap();
+    }, 0);
     this.setRoute();
+    this.setObjects();
   }
 
   ngOnInit() {
-    this.tourAuthoringService.currentTourId.subscribe((tourId) => {
-      this.tourId = tourId;
-    });
+    if (this.tourIdSubscription != undefined) {
+      this.tourIdSubscription.unsubscribe();
+    }
 
-    this.tourAuthoringService
-      .getObjInTourByTourId(parseInt(this.tourId))
-      .pipe(
-        mergeMap((objectIds: number[]) => {
-          const objectRequests = objectIds.map((objectId: number) =>
-            this.tourAuthoringService.getObjectById(objectId)
-          );
-
-          return forkJoin(objectRequests);
-        })
-      )
-      .subscribe(
-        (objects: any) => {
-          this.objects = objects;
-          this.objects.forEach((object) => {
-            L.marker([object.latitude, object.longitude]).addTo(this.map);
-          });
-          console.log('Dohvaćeni objekti:', objects);
-        },
-        (error) => {
-          console.error('Greška prilikom dohvatanja objekata:', error);
+    this.tourIdSubscription = this.tourAuthoringService.currentTourId.subscribe(
+      (tourId) => {
+        this.tourId = tourId.split('|#$%@$%|')[0];
+        if (tourId.split('|#$%@$%|').length > 1) {
+          if (tourId.split('|#$%@$%|')[1] === 'same') {
+            this.ngAfterViewInit();
+          }
         }
-      );
+      }
+    );
   }
 
   registerOnClick(): void {
@@ -103,6 +82,23 @@ export class MapComponent implements AfterViewInit {
       const mp = new L.Marker([lat, lng]).addTo(this.map);
       alert(mp.getLatLng());
     });
+  }
+
+  setObjects() {
+    this.tourAuthoringService
+      .getObjInTourByTourId(parseInt(this.tourId))
+      .subscribe(
+        (objects: any) => {
+          this.objects = objects;
+          this.objects.forEach((object) => {
+            L.marker([object.latitude, object.longitude]).addTo(this.map);
+          });
+          console.log('Dohvaćeni objekti:', objects);
+        },
+        (error) => {
+          console.error('Greška prilikom dohvatanja objekata:', error);
+        }
+      );
   }
 
   setRoute(): void {

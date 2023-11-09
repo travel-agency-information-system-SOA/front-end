@@ -1,31 +1,55 @@
 <div class="form-container">
-<form [formGroup]="tourPointForm">
+  <form [formGroup]="tourPointForm">
     <div>
-        <p>Create check point for this tour:</p>
-        <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput formControlName="name" type="text"/>
-        </mat-form-field>
-        <mat-form-field>
-          <mat-label>Description</mat-label>
-          <textarea matInput
+      <p>Create check point for this tour:</p>
+      <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput formControlName="name" type="text" />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea
+          matInput
           cdkTextareaAutosize
           cdkAutosizeMinRows="1"
           formControlName="description"
-          cdkAutosizeMaxRows="5"></textarea>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Image url</mat-label>
-            <input matInput formControlName="imageUrl" type="text"/>
-        </mat-form-field>
-        <div class="map-container">
-            <app-map></app-map>
-          </div>
-        <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addTourPoint()">Done</button>
-        <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTourPoint()">Done</button>
-        <button *ngIf="shouldAddPoint" mat-raised-button type="submit" color="primary" (click)="addTourPoint()">Finish</button>
+          cdkAutosizeMaxRows="5"
+        ></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Image url</mat-label>
+        <input matInput formControlName="imageUrl" type="text" />
+      </mat-form-field>
+      <div class="map-container">
+        <app-map></app-map>
+      </div>
+      <button
+        *ngIf="!shouldEdit"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        (click)="addTourPoint()"
+      >
+        Done
+      </button>
+      <button
+        *ngIf="shouldEdit"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        (click)="updateTourPoint()"
+      >
+        Done
+      </button>
+      <button
+        *ngIf="shouldAddPoint"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        (click)="addTourPoint()"
+      >
+        Finish
+      </button>
     </div>
-    
-</form>
+  </form>
 </div>
-
