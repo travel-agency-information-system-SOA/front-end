@@ -49,8 +49,8 @@ export class MarketplaceService {
     return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
   }
 
-  getProblems(): Observable<PagedResults<Problem>> {
-    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'tourist/problem');
+  getGuideProblems(id: number): Observable<PagedResults<Problem>> {
+    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/byGuide/' + id);
   }
 
 }

@@ -18,6 +18,9 @@
                         <td>{{p.priority}}</td>
                         <td>{{p.description}}</td>
                         <td>{{p.time}}</td>
+                        <button color="primary" (click)="onProblemReplay(p)" mat-icon-button>
+                            <mat-icon>replay</mat-icon>
+                        </button>
                     </tr>
                 </tbody>
             </table>
