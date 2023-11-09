@@ -50,6 +50,6 @@ export class MarketplaceService {
   }
 
   getToursByLocation(latitude: number, longitude: number, range:number): Observable<PagedResults<Tour>> {
-    return this.http.get<PagedResults<Tour>>(environment.apiHost+ 'administration/tour/search' + latitude + '/' + longitude + '/' + range);
+    return this.http.get<PagedResults<Tour>>(environment.apiHost+ 'administration/tour/search/' + latitude + '/' + longitude + '/' + range);
   }
 }
