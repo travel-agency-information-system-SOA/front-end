@@ -1,0 +1,15 @@
+<div id="chat">
+    <p>Chat</p>
+    <hr>
+    <div id="problem-details">
+        <div>
+            <table>
+                <tbody>
+                    <tr *ngFor="let m of messages">
+                        <td>{{m.content}}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

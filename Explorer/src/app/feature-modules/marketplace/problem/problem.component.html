@@ -19,14 +19,20 @@
                         <td>{{p.description}}</td>
                         <td>{{p.time}}</td>
                         <button color="primary" (click)="onProblemReplay(p)" mat-icon-button>
-                            <mat-icon>replay</mat-icon>
+                            <mat-icon>reply</mat-icon>
+                        </button>
+                        <button color="primary" (click)="onAllMesagges(p)" mat-icon-button>
+                            <mat-icon>message</mat-icon>
                         </button>
                     </tr>
                 </tbody>
             </table>
         </div>
         <div>
-            <!-- <xp-equipment-form *ngIf="shouldRenderEquipmentForm" [shouldEdit]="shouldEdit" [equipment]="selectedEquipment" (equimpentUpdated)="getEquipment()"></xp-equipment-form> -->
+             <xp-problem-message-form *ngIf="shouldRenderForm" [problem]="selectedProblem" (problemUpdated)="getGuideProblems()"></xp-problem-message-form>
+        </div>
+        <div>
+            <xp-problem-chat *ngIf="shouldRenderChat" [problem]="selectedProblem"></xp-problem-chat>
         </div>
     </div>
 </div>

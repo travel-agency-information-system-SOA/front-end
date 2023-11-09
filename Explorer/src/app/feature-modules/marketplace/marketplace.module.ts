@@ -12,6 +12,8 @@ import { TourReviewFormComponent } from './tour-review-form/tour-review-form.com
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
 import { ProblemComponent } from './problem/problem.component';
+import { ProblemMessageFormComponent } from './problem-message-form/problem-message-form.component';
+import { ProblemChatComponent } from './problem-chat/problem-chat.component';
 
 
 
@@ -24,7 +26,9 @@ import { ProblemComponent } from './problem/problem.component';
     GuideReviewFormComponent,
     PreferencesComponent,
     PreferencesFormComponent,
-    ProblemComponent
+    ProblemComponent,
+    ProblemMessageFormComponent,
+    ProblemChatComponent
   ],
   imports: [
     CommonModule,

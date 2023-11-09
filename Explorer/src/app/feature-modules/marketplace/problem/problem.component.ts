@@ -15,6 +15,9 @@ export class ProblemComponent implements OnInit {
   problem: Problem[] = [];
   selectedProblem: Problem;
   user: User;
+  shouldRenderForm: boolean = false;
+  shouldRenderChat: boolean = false;
+  anyMessages: boolean = false;
 
   constructor(private service: MarketplaceService, private authService: AuthService) { }
 
@@ -22,12 +25,14 @@ export class ProblemComponent implements OnInit {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
-    this.getGuideProblems(this.user.id);
+    this.getGuideProblems();
   } 
 
 
-  getGuideProblems(id: number): void {
-    this.service.getGuideProblems(id).subscribe({
+  getGuideProblems(): void {
+    this.shouldRenderForm = false;
+    this.shouldRenderChat = false;
+    this.service.getGuideProblems(this.user.id).subscribe({
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
       },
@@ -39,6 +44,14 @@ export class ProblemComponent implements OnInit {
 
   onProblemReplay(prob : Problem): void {
     this.selectedProblem = prob;
+    this.shouldRenderForm = true;
+    this.shouldRenderChat = false;
+  }
+
+  onAllMesagges(prob: Problem): void{
+    this.selectedProblem = prob;
+    this.shouldRenderChat = true;
+    this.shouldRenderForm = false;
   }
 
 }
