@@ -60,6 +60,8 @@ export class MarketplaceService {
 
   getMessagesByProblemId(id: number): Observable<PagedResults<ProblemMessage>> {
     return this.http.get<PagedResults<ProblemMessage>>(environment.apiHost + 'administration/message/' + id);
+  getProblems(): Observable<PagedResults<Problem>> {
+    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'tourist/problem');
   }
 
 }

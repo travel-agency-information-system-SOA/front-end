@@ -13,6 +13,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 export class ProblemComponent implements OnInit {
   
   problem: Problem[] = [];
+  
   selectedProblem: Problem;
   user: User;
   shouldRenderForm: boolean = false;
@@ -33,6 +34,18 @@ export class ProblemComponent implements OnInit {
     this.shouldRenderForm = false;
     this.shouldRenderChat = false;
     this.service.getGuideProblems(this.user.id).subscribe({
+      next: (result: PagedResults<Problem>) => {
+        this.problem = result.results;
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    })
+  }
+
+
+  getProblems(): void {
+    this.service.getProblems().subscribe({
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
       },
