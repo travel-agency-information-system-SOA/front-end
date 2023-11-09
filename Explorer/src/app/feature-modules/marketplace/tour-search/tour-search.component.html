@@ -21,9 +21,45 @@
   </form>
 
   </div>
-  <div [ngStyle]="{'display': isListVisible ? 'block' : 'none'}">
-    <!-- odje ubacit prikaz nadjenih tura -->
-    <h1>Search results</h1>
-    <p>{{ brTura }}</p>
+  <div class="tours-view" [ngStyle]="{'display': isListVisible ? 'block' : 'none'}">
+
+    <h1 class="results-title">Search results</h1>
+    <p class="results-number">{{ brTura }}</p>
+
+    <div class="card-wrapper" *ngFor="let tour of tours">
+
+      <div class="card">
+
+        <div class="image-content">
+            <span class="overlay">
+              <p class="tag" *ngFor="let tag of tour.tags | slice:0:3">{{ tag }}</p>
+            </span>
+
+          <div class="card-image">
+            <img src="assets/images/slika1.jpeg" alt="" class="card-img">
+          </div>
+        </div>
+
+        <div class="card-content">
+          <h2 class="name">{{ tour.name }}</h2>
+
+          <div class="desc-container">
+            <p class="description">{{ tour.description }}</p>
+          </div>
+
+          <div class="card-footer">
+            <div class="price">
+              <p class="price-text">Price</p>
+              <p class="price-number">{{ tour.price }}</p>
+            </div>
+
+            <p class="difficulty easy">{{ tour.difficultyLevel }}</p>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
   </div>
 </div>
