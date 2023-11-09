@@ -1,17 +1,29 @@
 <div class="topDiv">
-    <div class="map-container">
-        <app-map [saveOnlyLatest]="true"></app-map>
+  <div class="search-container">
+
+  <div class="map-container">
+    <app-map [saveOnlyLatest]="true"></app-map>
+  </div>
+  <form [formGroup]="searchForm">
+    <div class="form-container">
+      <mat-form-field>
+        <mat-label>Range (km)</mat-label>
+        <input matInput formControlName="range" type="number">
+      </mat-form-field>
+      <div class="coordinates">
+        <p class="p-header">Latitude:</p>
+        <p class="p-value">{{ latitude }}</p>
+        <p class="p-header">Longitude:</p>
+        <p class="p-value">{{ longitude }}</p>
+      </div>
+      <button class="button" raised-button type="submit" (click)="search()">Search</button>
     </div>
-    <form [formGroup]="searchForm">
-        <div class="form-container">
-            <mat-form-field>
-                <mat-label>Range</mat-label>
-                <input matInput formControlName="range" type="number">
-            </mat-form-field>
-            <button class="button" raised-button type="submit" color="primary" (click)="search()">Search</button>
-        </div>
-    </form>
-    <div>
-        <!-- odje ubacit prikaz nadjenih tura -->
-    </div>  
+  </form>
+
+  </div>
+  <div [ngStyle]="{'display': isListVisible ? 'block' : 'none'}">
+    <!-- odje ubacit prikaz nadjenih tura -->
+    <h1>Search results</h1>
+    <p>{{ brTura }}</p>
+  </div>
 </div>

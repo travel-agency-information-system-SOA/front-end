@@ -1,17 +1,47 @@
-.form-container { /* treba doradit css*/
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+  font-weight: medium;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+.topDiv {
+  background-color: white;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.search-container {
   display: flex;
-  justify-content: space-between;
-  margin-top: 690px; /* zbog mape */
-  width: 50%;
-  padding: 20px;
+  width: 100%;
+  margin: 48px;
+  gap: 48px;
 }
 
 .map-container {
-  margin-top: 30px;
-  display: flex;
-  flex-direction: column;
-  width: 50%;
-  height: 100px; /* ?mapa je neki overlej kom ne moz visinu opravit */
+  width: 100%;
+  height: 100%;
+}
+
+::ng-deep .map-container app-map .map-frame #map{
+  height: 70vh;
 }
 
 .clearfix::after {
@@ -20,3 +50,51 @@
   display: table;
 }
 
+.form-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.coordinates {
+  align-self: flex-start;
+  width: 100%;
+  margin: 8px;
+}
+
+.p-header {
+  margin: 0;
+  font-family: 'Trip';
+  font-weight: normal;
+  font-size: 14px;
+}
+
+.p-value {
+  font-family: 'Trip';
+  font-weight: medium;
+  font-size: 16px;
+}
+
+.button {
+  align-self: flex-end;
+  font-family: 'Trip';
+  font-weight: medium;
+  font-size: 18px;
+  background-color: #0a83cb;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 0;
+  height: 48px;
+  width: 100%;
+  transition: all 0.3s ease;
+}
+
+.button:hover {
+  background-color: #221853;
+  box-shadow: 0 2px 5px 1px #333333;
+}
