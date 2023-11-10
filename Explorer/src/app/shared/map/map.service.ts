@@ -17,6 +17,20 @@ export class MapService {
   );
   public coordinate$ = this.coordinateSubject.asObservable();
 
+  private totalDistanceSubject = new BehaviorSubject<number>(0);
+  private totalTimeSubject = new BehaviorSubject<number>(0);
+
+  totalDistance$ = this.totalDistanceSubject.asObservable();
+  totalTime$ = this.totalTimeSubject.asObservable();
+
+  setTotalDistance(distance: number) {
+    this.totalDistanceSubject.next(distance);
+  }
+
+  setTotalTime(time: number) {
+    this.totalTimeSubject.next(time);
+  }
+
   setCoordinates(coordinates: { lat: number; lng: number }) {
     this.coordinateSubject.next(coordinates);
   }
@@ -61,6 +75,7 @@ export class MapService {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
+
     tiles.addTo(this.map);
     this.isMapInitialized = true;
     return this.map;

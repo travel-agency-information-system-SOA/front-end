@@ -12,6 +12,7 @@ import { Tour } from './tour/model/tour.model';
 import { ObjInTour } from './model/objInTour.model';
 
 import { BehaviorSubject } from 'rxjs';
+import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 
 @Injectable({
   providedIn: 'root',
@@ -136,6 +137,17 @@ export class TourAuthoringService {
     return this.http.put<Tour>(
       environment.apiHost + 'administration/tour/' + tour.id,
       tour
+    );
+  }
+
+  setTourCharacteristics(
+    tourId: number,
+    tourCharacteristic: TourCharacteristic
+  ): Observable<Tour> {
+    console.log(tourId);
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/caracteristics/' + tourId,
+      tourCharacteristic
     );
   }
 }
