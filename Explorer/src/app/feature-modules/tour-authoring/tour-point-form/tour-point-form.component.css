@@ -11,7 +11,7 @@ div {
 
 .form-container {
   float: left; /* Float the form container to the left */
-  width: 50%; /* Adjust the width as needed */
+  width: 100%; /* Adjust the width as needed */
   padding: 20px; /* Add padding for spacing */
   box-sizing: border-box; /* Include padding in the width */
 }
@@ -20,6 +20,8 @@ div {
   display: flex;
   float: left; /* Float the map container to the left */
   width: 200%; /* Adjust the width as needed */
+  height: 100%;
+
   padding: 20px; /* Add padding for spacing */
   box-sizing: border-box; /* Include padding in the width */
 }
@@ -30,4 +32,3 @@ div {
   clear: both;
   display: table;
 }
-
