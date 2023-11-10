@@ -60,8 +60,17 @@ export class MarketplaceService {
 
   getMessagesByProblemId(id: number): Observable<PagedResults<ProblemMessage>> {
     return this.http.get<PagedResults<ProblemMessage>>(environment.apiHost + 'administration/message/' + id);
-  getProblems(): Observable<PagedResults<Problem>> {
-    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'tourist/problem');
   }
 
+  getTourstProblems(id: number): Observable<PagedResults<Problem>> {
+    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/byTourist/' + id);
+  }
+
+  updateProblemIsSolved(problem: Problem): Observable<Problem>{
+    return this.http.put<Problem>(environment.apiHost + 'problem/' + problem.id, problem);
+  }
+
+  getUnsolvedProblems(): Observable<PagedResults<Problem>> {
+    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/unsolved');
+  }
 }

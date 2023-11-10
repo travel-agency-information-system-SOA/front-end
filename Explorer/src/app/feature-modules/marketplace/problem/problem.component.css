@@ -49,3 +49,8 @@ tbody tr.active-row {
     font-weight: bold;
     color: #3f51b5;
 }
+
+.solved-row {
+    background-color: lightgreen; /* or any other desired color */
+  }
+  
