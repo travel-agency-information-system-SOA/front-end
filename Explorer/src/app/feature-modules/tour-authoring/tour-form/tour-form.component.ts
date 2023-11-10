@@ -59,6 +59,8 @@ export class TourFormComponent implements OnChanges {
       guideId: this.tokenStorage.getUserId(),
       price: 0,
       tags: ['xzy', 'abc'],
+      tourPoints: [],
+      tourCharacteristics: [],
     };
 
     this.service.addTour(tour).subscribe({
@@ -69,21 +71,21 @@ export class TourFormComponent implements OnChanges {
     });
   }
 
-  updateTour(): void {
-    const tour: Tour = {
-      name: this.tourForm.value.name || '',
-      description: this.tourForm.value.description || '',
-      status: Status.Draft,
-      difficultyLevel: this.tourForm.value.difficulytLevel as DifficultyLevel,
-      guideId: this.tokenStorage.getUserId(),
-      price: 0,
-      tags: ['xzy', 'abc'],
-    };
-    tour.id = this.tour.id;
-    this.service.updateTour(tour).subscribe({
-      next: (_) => {
-        this.tourUpdated.emit();
-      },
-    });
-  }
+  // updateTour(): void {
+  //   const tour: Tour = {
+  //     name: this.tourForm.value.name || '',
+  //     description: this.tourForm.value.description || '',
+  //     status: Status.Draft,
+  //     difficultyLevel: this.tourForm.value.difficulytLevel as DifficultyLevel,
+  //     guideId: this.tokenStorage.getUserId(),
+  //     price: 0,
+  //     tags: ['xzy', 'abc'],
+  //   };
+  //   tour.id = this.tour.id;
+  //   this.service.updateTour(tour).subscribe({
+  //     next: (_) => {
+  //       this.tourUpdated.emit();
+  //     },
+  //   });
+  // }
 }

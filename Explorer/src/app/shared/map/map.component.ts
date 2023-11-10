@@ -22,6 +22,7 @@ export class MapComponent implements AfterViewInit {
   tourId: string;
   objects: { latitude: number; longitude: number }[];
   tourIdSubscription: Subscription | undefined = undefined;
+  routeWaypoints: any[] = [];
 
   constructor(
     private service: MapService,
@@ -80,6 +81,8 @@ export class MapComponent implements AfterViewInit {
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
       const mp = new L.Marker([lat, lng]).addTo(this.map);
+      this.routeWaypoints.push(mp);
+
       alert(mp.getLatLng());
     });
   }
@@ -102,6 +105,8 @@ export class MapComponent implements AfterViewInit {
   }
 
   setRoute(): void {
+    const self = this;
+
     this.tourAuthoringService
       .getTourPointsByTourId(parseInt(this.tourId))
       .subscribe((tourData: any) => {
@@ -118,6 +123,24 @@ export class MapComponent implements AfterViewInit {
             { profile: 'mapbox/walking' }
           ),
         }).addTo(this.map);
+
+        routeControl.on('routesfound', function (e) {
+          var routes = e.routes;
+          var summary = routes[0].summary;
+
+          self.service.setTotalDistance(summary.totalDistance);
+          self.service.setTotalTime(
+            Math.round((summary.totalTime % 3600) / 60)
+          );
+
+          // alert(
+          //   'Total distance is ' +
+          //     summary.totalDistance / 1000 +
+          //     ' km and total time is ' +
+          //     Math.round((summary.totalTime % 3600) / 60) +
+          //     ' minutes'
+          // );
+        });
       });
   }
 }

@@ -33,6 +33,15 @@
         Done
       </button>
       <button
+        *ngIf="!shouldEdit"
+        mat-raised-button
+        type="submit"
+        color="primary"
+        (click)="addTourPoint()"
+      >
+        Get Tour Dharacteristics
+      </button>
+      <button
         *ngIf="shouldEdit"
         mat-raised-button
         type="submit"
