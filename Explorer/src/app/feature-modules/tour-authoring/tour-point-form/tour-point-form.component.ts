@@ -65,6 +65,14 @@ export class TourPointFormComponent implements OnChanges {
       tourPoint.longitude = coordinates.lng;
     });
 
+    this.service.addTourPoint(tourPoint).subscribe({
+      next: () => {
+        this.tourPointUpdated.emit();
+      },
+    });
+  }
+
+  getTourCharacteristic(): void {
     this.mapService.totalDistance$.subscribe((distance) => {
       this.totalDistance = distance;
     });
@@ -73,15 +81,9 @@ export class TourPointFormComponent implements OnChanges {
       this.totalTime = time;
     });
 
-    // this.service.addTourPoint(tourPoint).subscribe({
-    //   next: () => {
-    //     this.tourPointUpdated.emit();
-    //   },
-    // });
-
-    const tourCharacteristic = {
-      distance: this.totalDistance,
-      duration: this.totalTime / 3600,
+    var tourCharacteristic = {
+      distance: Math.round(this.totalDistance),
+      duration: Math.round((this.totalTime % 3600) / 60),
       transportType: TransportType.Walking,
     };
 
@@ -90,7 +92,11 @@ export class TourPointFormComponent implements OnChanges {
         .setTourCharacteristics(this.tour.id, tourCharacteristic)
         .subscribe({
           next: () => {
-            console.log('karaktristike su setovane');
+            console.log('setovano je');
+          },
+          error(err: any) {
+            console.log(tourCharacteristic);
+            console.log(err);
           },
         });
     } else {

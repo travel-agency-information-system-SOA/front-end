@@ -81,7 +81,6 @@ export class MapComponent implements AfterViewInit {
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
       const mp = new L.Marker([lat, lng]).addTo(this.map);
-      this.routeWaypoints.push(mp);
 
       alert(mp.getLatLng());
     });
