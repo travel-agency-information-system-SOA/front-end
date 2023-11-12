@@ -14,6 +14,11 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { MarkdownModule } from 'ngx-markdown';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
@@ -41,6 +46,10 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     FormsModule,
     AdministrationModule,
     SimpleNotificationsModule.forRoot(),
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
   ],
   providers: [
     {

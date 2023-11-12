@@ -68,6 +68,23 @@ export class MarketplaceService {
     return this.http.get<number>(environment.apiHost + 'problem/byUnreadMessages/' + id);
   }
 
-  
+  getTourstProblems(id: number): Observable<PagedResults<Problem>> {
+    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/byTourist/' + id);
+  }
 
+  updateProblemIsSolved(problem: Problem): Observable<Problem>{
+    return this.http.put<Problem>(environment.apiHost + 'problem/' + problem.id, problem);
+  }
+
+  getUnsolvedProblems(): Observable<PagedResults<Problem>> {
+    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/unsolved');
+  }
+
+  addDeadline(problem: Problem): Observable<Problem>{
+    return this.http.put<Problem>(environment.apiHost + 'problem/' + problem.id, problem);
+  }
+
+  deleteProblem(problem: Problem): Observable<Problem> {
+    return this.http.delete<Problem>(environment.apiHost + 'problem/' + problem.id);
+  }
 }
