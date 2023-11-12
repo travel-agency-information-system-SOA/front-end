@@ -25,6 +25,8 @@
 .blog-post-card {
     display: flex;
     border: 1px solid #707070;
+    flex-direction: column; /* Change to column layout */
+    align-items: center;
     border-radius: 8px;
     margin: 10px;
     padding: 10px;
@@ -53,7 +55,8 @@
 .post-content h2 {
     margin-bottom: 5px;
     color: #221853;
-    font-family: 'Trip-Sans-Bold', sans-serif;
+    font-family: 'Trip', sans-serif; /* Updated font-family */
+    font-weight: bold; /* Removed 'sans-serif' */
 }
   
 .image-container {
@@ -67,6 +70,7 @@
     max-height: 200px;
     object-fit: cover;
     border-radius: 4px;
+    transition: transform 0.3s ease;
 }
   
 .nav-arrow {
