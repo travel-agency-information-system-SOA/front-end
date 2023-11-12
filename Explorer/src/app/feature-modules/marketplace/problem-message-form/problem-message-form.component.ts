@@ -3,18 +3,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MarketplaceService } from '../marketplace.service';
 import { Problem } from '../model/problem.model';
 import { ProblemMessage } from '../model/problem-message.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Component({
   selector: 'xp-problem-message-form',
   templateUrl: './problem-message-form.component.html',
   styleUrls: ['./problem-message-form.component.css']
 })
-export class ProblemMessageFormComponent{
+export class ProblemMessageFormComponent implements OnInit{
   
-  constructor(private service: MarketplaceService) { }
+  constructor(private service: MarketplaceService, private authService: AuthService) { }
   
   @Input() problem: Problem;
   @Output() problemUpdated = new EventEmitter<null>();
+  user: User;
+  
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+       this.user = user;
+    });
+  }
 
   problemMessageForm = new FormGroup({
       content: new FormControl('', [Validators.required])
@@ -24,7 +33,8 @@ export class ProblemMessageFormComponent{
     const problem: ProblemMessage = {
       content: this.problemMessageForm.value.content || "",
       isRead: false,
-      idProblem: this.problem.id || 0
+      idProblem: this.problem.id || 0,
+      idSender: this.user.id || 0
     }
 
     this.service.addMessage(problem).subscribe({

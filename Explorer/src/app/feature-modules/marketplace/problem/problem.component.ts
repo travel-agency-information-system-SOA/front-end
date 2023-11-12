@@ -25,7 +25,9 @@ export class ProblemComponent implements OnInit {
     this.authService.user$.subscribe(user => {
       this.user = user;
     });
+
     this.getGuideProblems();
+    
   } 
 
 

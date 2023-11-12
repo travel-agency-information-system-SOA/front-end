@@ -7,6 +7,8 @@ import { environment } from 'src/env/environment';
 import { Preferences } from "./model/preferences.model";
 import { Problem } from './model/problem.model';
 import { ProblemMessage } from './model/problem-message.model';
+import { AdministrationService } from '../administration/administration.service';
+import { Profile } from '../administration/model/profile.model';
 
 @Injectable({
   providedIn: 'root'
@@ -61,5 +63,11 @@ export class MarketplaceService {
   getMessagesByProblemId(id: number): Observable<PagedResults<ProblemMessage>> {
     return this.http.get<PagedResults<ProblemMessage>>(environment.apiHost + 'administration/message/' + id);
   }
+
+  isThereUnreadMessage(id: number): Observable<number> {
+    return this.http.get<number>(environment.apiHost + 'problem/byUnreadMessages/' + id);
+  }
+
+  
 
 }

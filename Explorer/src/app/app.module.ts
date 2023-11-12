@@ -19,6 +19,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
 //import { MapComponent } from './shared/map/map.component';
 import { ClubModule } from './feature-modules/club/club.module';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +39,8 @@ import { ClubModule } from './feature-modules/club/club.module';
     ClubModule,
     ReactiveFormsModule,
     FormsModule,
-    AdministrationModule
+    AdministrationModule,
+    SimpleNotificationsModule.forRoot(),
   ],
   providers: [
     {
