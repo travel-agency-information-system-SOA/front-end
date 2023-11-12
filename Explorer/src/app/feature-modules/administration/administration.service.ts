@@ -9,6 +9,8 @@ import { AppRating } from './model/app-rating.model';
 import { Account } from './model/account.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 import { Profile } from './model/profile.model';
+import { UserPosition } from './model/userPosition.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -65,6 +67,17 @@ export class AdministrationService {
   }
   addAppRating(rating: AppRating): Observable<AppRating> {
     return this.http.post<AppRating>(environment.apiHost + 'administration/app-ratings', rating);
+  }
+
+  addUserPosition(position: UserPosition): Observable<UserPosition>{
+    return this.http.post<UserPosition>(environment.apiHost+'administration/userPosition',position);
+  }
+
+  updateUserPosition(position:UserPosition): Observable<UserPosition> {
+    return this.http.put<UserPosition>(
+      environment.apiHost + 'administration/userPosition/' + position.id,
+      position
+    );
   }
 
 

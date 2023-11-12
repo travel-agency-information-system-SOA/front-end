@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRatingFormComponent } from './app-rating-form/app-rating-form.component';
 import { AppRatingsComponent } from './app-ratings/app-ratings.component';
 import { AccountComponent } from './account/account.component';
+import { UserPositionComponent } from './user-position/user-position.component'; 
 
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     AccountComponent,
     ProfileComponent,
     AppRatingFormComponent,
-    AppRatingsComponent
+    AppRatingsComponent,
+    UserPositionComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     AccountComponent,
     ProfileComponent,
     AppRatingsComponent,
-    AppRatingFormComponent
+    AppRatingFormComponent,
+    UserPositionComponent
   ]
 })
 export class AdministrationModule { }
