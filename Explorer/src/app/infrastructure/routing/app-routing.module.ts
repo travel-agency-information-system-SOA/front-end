@@ -19,6 +19,7 @@ import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourMapComponent } from 'src/app/feature-modules/tour-authoring/tour-map/tour-map.component';
 import { BlogPostCommentComponent } from 'src/app/feature-modules/blog/blog-post-comment/blog-post-comment.component';
 import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpost.component';
+import { BlogComponent } from 'src/app/feature-modules/blog/blog/blog.component';
 
 import { ClubComponent } from 'src/app/feature-modules/club/club/club.component';
 
@@ -58,7 +59,7 @@ const routes: Routes = [
   },
   {path: 'tourReviewForm', component: TourReviewFormComponent},
   {path: 'tourReviewShow', component: TourReviewsShowComponent},
-  {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
+  {path: 'blog', component: BlogComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
   {path: 'app-rating-form', component: AppRatingFormComponent}

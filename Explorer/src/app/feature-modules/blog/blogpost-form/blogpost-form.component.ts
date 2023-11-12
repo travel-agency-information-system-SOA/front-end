@@ -26,7 +26,7 @@ export class BlogpostFormComponent implements OnChanges {
       this.blogPostForm.patchValue({title: this.blogPost.title || '',
       description: this.blogPost.description || '',
       status: this.blogPost.status || 'DRAFT',
-      imageIDs: this.blogPost.imageIDs?.join(', ')});
+      imageURLs: this.blogPost.imageURLs?.join(', ')});
     }
   }
 
@@ -34,16 +34,16 @@ export class BlogpostFormComponent implements OnChanges {
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     status: new FormControl('DRAFT'),
-    imageIDs: new FormControl(''),
+    imageURLs: new FormControl(''),
   })
 
 
   addBlogPost(): void{
     console.log(this.blogPostForm.value)
 
-    const imageIDsString = this.blogPostForm.value.imageIDs;
-    const imageIDs = imageIDsString
-      ? imageIDsString.split(',').map(id => Number(id.trim()))
+    const imageURLsString = this.blogPostForm.value.imageURLs;
+    const imageURLs = imageURLsString
+      ? imageURLsString.split(',').map(url => String(url.trim()))
       : [];
 
 
@@ -52,7 +52,8 @@ export class BlogpostFormComponent implements OnChanges {
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',
       creationDate: new Date(),
-      imageIDs: imageIDs,
+      imageURLs: imageURLs,
+      comments: [],
       status: this.blogPostForm.value.status || 'DRAFT'
     }
 
@@ -66,9 +67,9 @@ export class BlogpostFormComponent implements OnChanges {
 
   updateBlogPost(): void{
 
-    const imageIDsString = this.blogPostForm.value.imageIDs;
-    const imageIDs = imageIDsString
-      ? imageIDsString.split(',').map(id => Number(id.trim()))
+    const imageURLsString = this.blogPostForm.value.imageURLs;
+    const imageURLs = imageURLsString
+      ? imageURLsString.split(',').map(url => String(url.trim()))
       : [];
 
     const blogPost = {
@@ -76,7 +77,8 @@ export class BlogpostFormComponent implements OnChanges {
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',
       creationDate: this.blogPost.creationDate,
-      imageIDs: imageIDs,
+      imageURLs: imageURLs,
+      comments: this.blogPost.comments,
       status: this.blogPostForm.value.status || 'DRAFT'
     }
 

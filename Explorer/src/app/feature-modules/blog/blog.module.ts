@@ -14,6 +14,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MarkdownModule } from 'ngx-markdown';
 import { BlogpostComponent } from './blogpost/blogpost.component';
 import { BlogpostFormComponent } from './blogpost-form/blogpost-form.component';
+import { BlogPostCardComponent } from './blog-post-card/blog-post-card.component';
+import { BlogComponent } from './blog/blog.component';
 
 
 
@@ -23,7 +25,9 @@ import { BlogpostFormComponent } from './blogpost-form/blogpost-form.component';
     BlogpostFormComponent,
   
     BlogPostCommentComponent,
-    BlogPostCommentFormComponent
+    BlogPostCommentFormComponent,
+    BlogPostCardComponent,
+    BlogComponent
   ],
   imports: [
     CommonModule,
