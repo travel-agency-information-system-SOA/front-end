@@ -58,6 +58,10 @@
   align-items: flex-start;
 }
 
+.top-form-comp {
+  align-self: flex-start;
+}
+
 .coordinates {
   align-self: flex-start;
   width: 100%;
@@ -118,6 +122,10 @@
 }
 
 /* Tour cards style */
+.slide-content {
+  border-radius: 10px;
+}
+
 .card-wrapper {
   padding: 36px 0 64px 0;
   display: flex;
@@ -128,7 +136,7 @@
 }
 
 .card {
-  max-width: 450px;
+  max-width: 420px;
   flex: 1;
   border-radius: 10px;
   display: flex;

@@ -6,15 +6,17 @@
   </div>
   <form [formGroup]="searchForm">
     <div class="form-container">
-      <mat-form-field>
-        <mat-label>Range (km)</mat-label>
-        <input matInput formControlName="range" type="number">
-      </mat-form-field>
-      <div class="coordinates">
-        <p class="p-header">Latitude:</p>
-        <p class="p-value">{{ latitude }}</p>
-        <p class="p-header">Longitude:</p>
-        <p class="p-value">{{ longitude }}</p>
+      <div class="top-form-comp">
+        <mat-form-field>
+          <mat-label>Range (km)</mat-label>
+          <input matInput formControlName="range" type="number">
+        </mat-form-field>
+        <div class="coordinates">
+          <p class="p-header">Latitude:</p>
+          <p class="p-value">{{ latitude }}</p>
+          <p class="p-header">Longitude:</p>
+          <p class="p-value">{{ longitude }}</p>
+        </div>
       </div>
       <button class="button" raised-button type="submit" (click)="search()">Search</button>
     </div>
@@ -26,9 +28,10 @@
     <h1 class="results-title">Search results</h1>
     <p class="results-number">{{ brTura }}</p>
 
-    <div class="card-wrapper" *ngFor="let tour of tours">
+    <div class="slide-content">
+    <div class="card-wrapper">
 
-      <div class="card">
+      <div class="card" *ngFor="let tour of tours">
 
         <div class="image-content">
             <span class="overlay">
@@ -53,13 +56,16 @@
               <p class="price-number">{{ tour.price }}</p>
             </div>
 
-            <p class="difficulty easy">{{ tour.difficultyLevel }}</p>
+            <p class="difficulty" [ngClass]="{'easy': tour.difficultyLevel === 'Easy', 'moderate': tour.difficultyLevel === 'Moderate', 'difficult': tour.difficultyLevel === 'Difficult'}">
+              {{ tour.difficultyLevel }}
+            </p>
           </div>
 
         </div>
 
       </div>
 
+    </div>
     </div>
   </div>
 </div>
