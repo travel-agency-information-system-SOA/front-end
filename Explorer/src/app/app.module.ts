@@ -18,6 +18,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -50,6 +52,8 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     MatFormFieldModule,
     MatInputModule,
     MatNativeDateModule,
+    MatDialogModule,
+    MatButtonModule,
   ],
   providers: [
     {

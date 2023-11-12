@@ -5,6 +5,11 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { Time } from '@angular/common';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Inject } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+
 
 interface ExtendedProblem extends Problem {
   isUnsolvedForMoreThan5Days?: boolean;
@@ -33,7 +38,7 @@ export class ProblemComponent implements OnInit {
   shouldRenderDeadline: boolean = false;
   
 
-  constructor(private service: MarketplaceService, private authService: AuthService) { }
+  constructor(private service: MarketplaceService, private authService: AuthService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -142,15 +147,37 @@ export class ProblemComponent implements OnInit {
       }
     })
   }
-
+  /*
   deleteProblem(prob: Problem): void {
     this.service.deleteProblem(prob).subscribe({
       next: (_) => {
         this.getUnsolvedProblems();
       } 
     })
-  }
+  }*/
 
+  deleteProblem(prob: Problem): void {
+    // Open the confirmation dialog
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Do you want to turn off this problem because the deadline is missed?',
+      },
+    });
+  
+    // Subscribe to the dialog result
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      // If the user confirms (result is true), proceed with deletion
+      if (result) {
+        this.service.deleteProblem(prob).subscribe({
+          next: (_) => {
+            this.getUnsolvedProblems();
+          }
+        });
+      }
+      // If the user cancels (result is false), do nothing
+    });
+  }
+  
 
   onProblemReplay(prob : Problem): void {
     this.selectedProblem = prob;
@@ -205,3 +232,28 @@ export class ProblemComponent implements OnInit {
   
 }
 
+@Component({
+  selector: 'app-confirmation-dialog',
+  template: `
+    <h2 mat-dialog-title>{{ data.title }}</h2>
+    <div mat-dialog-content>{{ data.message }}</div>
+    <div mat-dialog-actions>
+      <button mat-button (click)="onConfirm()">Yes</button>
+      <button mat-button (click)="onCancel()">No</button>
+    </div>
+  `,
+})
+export class ConfirmationDialog {
+  constructor(
+    public dialogRef: MatDialogRef<ConfirmationDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: { title: string, message: string }
+  ) { }
+
+  onConfirm(): void {
+    this.dialogRef.close(true);
+  }
+
+  onCancel(): void {
+    this.dialogRef.close(false);
+  }
+}
