@@ -14,6 +14,7 @@ import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.
 import { ProblemComponent } from './problem/problem.component';
 import { ProblemMessageFormComponent } from './problem-message-form/problem-message-form.component';
 import { ProblemChatComponent } from './problem-chat/problem-chat.component';
+import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.component';
 
 
 
@@ -28,7 +29,8 @@ import { ProblemChatComponent } from './problem-chat/problem-chat.component';
     PreferencesFormComponent,
     ProblemComponent,
     ProblemMessageFormComponent,
-    ProblemChatComponent
+    ProblemChatComponent,
+    ProblemDeadlineComponent
   ],
   imports: [
     CommonModule,

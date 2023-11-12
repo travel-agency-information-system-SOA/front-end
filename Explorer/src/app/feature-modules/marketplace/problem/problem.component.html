@@ -32,6 +32,12 @@
                         <button *ngIf="isTourist" color="primary" (click)="onProblemReplay(p)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
                             <mat-icon>highlight_off</mat-icon>
                         </button>
+                        <button color="primary" *ngIf="isAdministartor" (click)="addDeadline(p)" mat-icon-button>
+                            <mat-icon>access_alarm</mat-icon>
+                        </button>
+                        <button color="primary" *ngIf="isAdministartor" (click)="deleteProblem(p)" mat-icon- [disabled]="!p.deadlineMissed">
+                            <mat-icon>delete_sweep</mat-icon>
+                        </button>
                     </tr>
                 </tbody>
             </table>
@@ -42,5 +48,9 @@
         <div>
             <xp-problem-chat *ngIf="shouldRenderChat" [problem]="selectedProblem"></xp-problem-chat>
         </div>
+        <div>
+            <xp-problem-deadline *ngIf="shouldRenderDeadline" [problem]="selectedProblem" (problemUpdated)="getUnsolvedProblems()"></xp-problem-deadline>
+        </div>
+
     </div>
 </div>

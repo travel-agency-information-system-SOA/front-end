@@ -8,6 +8,7 @@ import { Time } from '@angular/common';
 
 interface ExtendedProblem extends Problem {
   isUnsolvedForMoreThan5Days?: boolean;
+  deadlineMissed?: boolean;
 }
 
 @Component({
@@ -28,6 +29,8 @@ export class ProblemComponent implements OnInit {
   isSolving: boolean = false;
   disabledRows: number[] = [];
   isTourist: boolean = false;
+  isAdministartor: boolean = false;
+  shouldRenderDeadline: boolean = false;
   
 
   constructor(private service: MarketplaceService, private authService: AuthService) { }
@@ -44,6 +47,7 @@ export class ProblemComponent implements OnInit {
       this.getTourstProblems();
     }
     else if(this.user.role == 'administrator'){
+      this.isAdministartor = true;
       this.getUnsolvedProblems();
     }
     
@@ -56,6 +60,7 @@ export class ProblemComponent implements OnInit {
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
         this.calculateUnsolvedForMoreThan5Days();
+        this.deadlineMissedUnsolved();
       },
       error: (err: any) => {
         console.log(err);
@@ -63,7 +68,28 @@ export class ProblemComponent implements OnInit {
     });
   }
 
-
+  deadlineMissedUnsolved(): void {
+    const currentDate = new Date();
+    this.problem.forEach((problem) => {
+      // Only check for unsolved problems
+      if (!problem.isSolved) {
+        const problemDeadline = this.getDateFromValue(problem.deadline);
+  
+        // Check if the deadline is today
+        if (problemDeadline && this.isSameDate(currentDate, problemDeadline)) {
+          problem.deadlineMissed = true;
+        }
+      }
+    });
+  }
+  
+  private isSameDate(date1: Date, date2: Date): boolean {
+    return (
+      date1.getFullYear() === date2.getFullYear() &&
+      date1.getMonth() === date2.getMonth() &&
+      date1.getDate() === date2.getDate()
+    );
+  }
 
   calculateUnsolvedForMoreThan5Days(): void {
     const currentDate = new Date();
@@ -117,6 +143,14 @@ export class ProblemComponent implements OnInit {
     })
   }
 
+  deleteProblem(prob: Problem): void {
+    this.service.deleteProblem(prob).subscribe({
+      next: (_) => {
+        this.getUnsolvedProblems();
+      } 
+    })
+  }
+
 
   onProblemReplay(prob : Problem): void {
     this.selectedProblem = prob;
@@ -127,6 +161,13 @@ export class ProblemComponent implements OnInit {
   onAllMesagges(prob: Problem): void{
     this.selectedProblem = prob;
     this.shouldRenderChat = true;
+    this.shouldRenderForm = false;
+  }
+
+  addDeadline(prob: Problem): void{
+    this.selectedProblem = prob;
+    this.shouldRenderDeadline = true;
+    this.shouldRenderChat = false;
     this.shouldRenderForm = false;
   }
 
