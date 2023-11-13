@@ -31,5 +31,34 @@ export class BlogComponent {
       }
     })
   }
-
+  getFamousBlogPosts(): void {
+    this.service.getBlogPosts().subscribe({
+      next: (result: PagedResults<BlogPost>) => {
+        this.blogPosts = result.results;
+        this.blogPosts.forEach(post => {
+          console.log(post);
+          post.creationDate = new Date(post.creationDate);
+        });
+        this.blogPosts = this.blogPosts.filter(post => post.status === 'FAMOUS');
+      },
+      error: (err: any) =>{
+        console.log(err);
+      }
+    })
+  }
+  getActiveBlogPosts(): void {
+    this.service.getBlogPosts().subscribe({
+      next: (result: PagedResults<BlogPost>) => {
+        this.blogPosts = result.results;
+        this.blogPosts.forEach(post => {
+          console.log(post);
+          post.creationDate = new Date(post.creationDate);
+        });
+        this.blogPosts = this.blogPosts.filter(post => post.status === 'ACTIVE');
+      },
+      error: (err: any) =>{
+        console.log(err);
+      }
+    })
+  }
 }
