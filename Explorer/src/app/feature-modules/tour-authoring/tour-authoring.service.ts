@@ -138,4 +138,10 @@ export class TourAuthoringService {
       tour
     );
   }
+
+  deleteTourProblem(id: number): Observable<Tour> {
+    return this.http.delete<Tour>(
+      `https://localhost:44333/api/administration/tour/${id}`
+    );
+  }
 }

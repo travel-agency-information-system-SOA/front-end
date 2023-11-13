@@ -36,7 +36,10 @@
                             <mat-icon>access_alarm</mat-icon>
                         </button>
                         <button color="primary" *ngIf="isAdministartor" (click)="deleteProblem(p)" mat-icon- [disabled]="!p.deadlineMissed">
-                            <mat-icon>delete_sweep</mat-icon>
+                            Close problem
+                        </button>
+                        <button color="primary" *ngIf="isAdministartor" (click)="deleteTour(p)" mat-icon- [disabled]="!p.deadlineMissed">
+                            Shut down tour
                         </button>
                     </tr>
                 </tbody>

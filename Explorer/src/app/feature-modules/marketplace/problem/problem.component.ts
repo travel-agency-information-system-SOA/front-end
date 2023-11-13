@@ -9,7 +9,8 @@ import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { forkJoin } from 'rxjs';
 
 interface ExtendedProblem extends Problem {
   isUnsolvedForMoreThan5Days?: boolean;
@@ -38,7 +39,7 @@ export class ProblemComponent implements OnInit {
   shouldRenderDeadline: boolean = false;
   
 
-  constructor(private service: MarketplaceService, private authService: AuthService, private dialog: MatDialog) { }
+  constructor(private service: MarketplaceService, private authService: AuthService, private dialog: MatDialog, private authoringService: TourAuthoringService) { }
 
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
@@ -148,25 +149,78 @@ export class ProblemComponent implements OnInit {
     })
   }
   /*
-  deleteProblem(prob: Problem): void {
-    this.service.deleteProblem(prob).subscribe({
-      next: (_) => {
-        this.getUnsolvedProblems();
-      } 
-    })
+  deleteTour(prob: Problem): void {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Do you want to turn off tour that has this problem because the deadline is missed?',
+      },
+    });
+  
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.authoringService.deleteTourProblem(prob.idTour).subscribe({
+          this.service.deleteProblem(prob).subscribe({
+            next: (_) => {
+              this.getUnsolvedProblems();
+            }
+          })
+          
+        });
+      }
+    });
   }*/
 
-  deleteProblem(prob: Problem): void {
+
+  deleteTour(prob: Problem): void {
     // Open the confirmation dialog
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Do you want to turn off tour that has this problem because the deadline is missed?',
+      },
+    });
+  
+    // Subscribe to the dialog result
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        // Delete tour first
+        this.authoringService.deleteTourProblem(prob.idTour).subscribe({
+          next: (deleteTourResult) => {
+            // Handle the result if needed
+            console.log('Delete Tour Result:', deleteTourResult);
+  
+            // After deleting tour, delete the problem
+            this.service.deleteProblem(prob).subscribe({
+              next: (deleteProblemResult) => {
+                // Handle the result if needed
+                console.log('Delete Problem Result:', deleteProblemResult);
+  
+                // Perform any additional actions after both services are complete
+                this.getUnsolvedProblems();
+              },
+              error: (deleteProblemError) => {
+                // Handle errors if deleting problem fails
+                console.error('Error deleting problem:', deleteProblemError);
+              }
+            });
+          },
+          error: (deleteTourError) => {
+            // Handle errors if deleting tour fails
+            console.error('Error deleting tour:', deleteTourError);
+          }
+        });
+      }
+    });
+  }  
+
+
+  deleteProblem(prob: Problem): void {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         message: 'Do you want to turn off this problem because the deadline is missed?',
       },
     });
   
-    // Subscribe to the dialog result
     dialogRef.afterClosed().subscribe((result: boolean) => {
-      // If the user confirms (result is true), proceed with deletion
       if (result) {
         this.service.deleteProblem(prob).subscribe({
           next: (_) => {
@@ -174,7 +228,6 @@ export class ProblemComponent implements OnInit {
           }
         });
       }
-      // If the user cancels (result is false), do nothing
     });
   }
   

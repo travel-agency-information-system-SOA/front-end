@@ -10,4 +10,5 @@ export interface Problem {
     idGuide: number;
     isSolved: boolean;
     deadline: Date;
+    idTour: number;
 }

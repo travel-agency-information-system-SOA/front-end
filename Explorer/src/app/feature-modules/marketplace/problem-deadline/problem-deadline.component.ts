@@ -45,7 +45,8 @@ export class ProblemDeadlineComponent {
       idTourist: this.problem.idTourist || 0,
       idGuide: this.problem.idGuide || 0,
       isSolved: this.problem.isSolved || false,
-      deadline: selectedDateValue
+      deadline: selectedDateValue,
+      idTour: this.problem.idTour || 0
     };
 
     // Call the service or perform any necessary actions to update the backend
