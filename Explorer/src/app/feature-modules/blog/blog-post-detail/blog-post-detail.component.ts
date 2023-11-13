@@ -4,6 +4,8 @@ import { BlogPost } from '../model/blogpost.model';
 import { BlogPostRating } from '../model/blog-post-rating.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { BlogService } from '../blog.service';
+import { BlogPostComment } from '../model/blog-post-comment.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'xp-blog-post-detail',
@@ -114,6 +116,24 @@ export class BlogPostDetailComponent implements OnInit {
       this.currentImageIndex = (this.currentImageIndex - 1 + (this.post.imageURLs?.length ?? 1)) % (this.post.imageURLs?.length ?? 1);
     }
   }
+
+  commentForm = new FormGroup({
+    text: new FormControl('', [Validators.required]),
+  });
   
+  addComment(): void {
+    const comment: BlogPostComment= {
+      userId: this.tokenStorage.getUserId() || 0 ,
+      blogId: this.post.id,
+      text: this.commentForm.value.text || "",
+      creationTime: new Date(),
+      lastUpdatedTime: new Date(), 
+    }
+    this.post.comments?.push(comment);
+    this.service.addComment(this.post.id, comment).subscribe({
+      next: () => { this.post;}
+    })
+    this.commentForm.reset();
+  }
 
 }
