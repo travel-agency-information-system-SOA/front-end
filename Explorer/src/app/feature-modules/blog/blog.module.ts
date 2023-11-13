@@ -17,6 +17,7 @@ import { BlogpostFormComponent } from './blogpost-form/blogpost-form.component';
 import { BlogPostCardComponent } from './blog-post-card/blog-post-card.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.component';
+import { BlogPostCreationComponent } from './blog-post-creation/blog-post-creation.component';
 
 
 
@@ -29,7 +30,8 @@ import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.com
     BlogPostCommentFormComponent,
     BlogPostCardComponent,
     BlogComponent,
-    BlogPostDetailComponent
+    BlogPostDetailComponent,
+    BlogPostCreationComponent
   ],
   imports: [
     CommonModule,

@@ -21,6 +21,7 @@ import { BlogPostCommentComponent } from 'src/app/feature-modules/blog/blog-post
 import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpost.component';
 import { BlogComponent } from 'src/app/feature-modules/blog/blog/blog.component';
 import { BlogPostDetailComponent } from 'src/app/feature-modules/blog/blog-post-detail/blog-post-detail.component';
+import { BlogPostCreationComponent } from 'src/app/feature-modules/blog/blog-post-creation/blog-post-creation.component';
 
 import { ClubComponent } from 'src/app/feature-modules/club/club/club.component';
 
@@ -28,6 +29,7 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -61,6 +63,7 @@ const routes: Routes = [
   {path: 'tourReviewForm', component: TourReviewFormComponent},
   {path: 'tourReviewShow', component: TourReviewsShowComponent},
   {path: 'blog', component: BlogComponent, canActivate: [AuthGuard],},
+  {path: 'blog/create-post', component: BlogPostCreationComponent, canActivate: [AuthGuard]},
   {path: 'blog/:id', component: BlogPostDetailComponent },
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
