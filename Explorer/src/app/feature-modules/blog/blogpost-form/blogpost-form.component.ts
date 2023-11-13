@@ -54,6 +54,7 @@ export class BlogpostFormComponent implements OnChanges {
       creationDate: new Date(),
       imageURLs: imageURLs,
       comments: [],
+      ratings: [],
       status: this.blogPostForm.value.status || 'DRAFT'
     }
 
@@ -79,6 +80,7 @@ export class BlogpostFormComponent implements OnChanges {
       creationDate: this.blogPost.creationDate,
       imageURLs: imageURLs,
       comments: this.blogPost.comments,
+      ratings: this.blogPost.ratings,
       status: this.blogPostForm.value.status || 'DRAFT'
     }
 
