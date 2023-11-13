@@ -3,7 +3,18 @@
     margin: 0 auto;
     padding: 20px;
   }
+.blogs {
+  align-items: center;
+}
 
   .posts-container {
     margin-top: 20px;
+  }
+  .title {
+    color: black;
+    font-family: 'Trip', sans-serif; /* Updated font-family */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 38px;
+    font-size: 42px;
   }

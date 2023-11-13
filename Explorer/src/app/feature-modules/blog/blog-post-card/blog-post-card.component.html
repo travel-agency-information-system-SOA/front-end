@@ -1,19 +1,21 @@
 <div class="blog-post-card">
-    <div class="post-content">
-      <h2>{{ post.title }}</h2>
-      <div *ngIf="post.imageURLs != null && post.imageURLs.length >= 1; else descriptionSection">
-        <div class="image-container">
-            <button *ngIf="showNavArrows" class="nav-arrow" (click)="prevImage()">
-                <i class="fas fa-arrow-left"></i>
-            </button>
-            <img class="post-image" [src]="currentImage" alt="Post Image">
-            <button *ngIf="showNavArrows" class="nav-arrow" (click)="nextImage()">
-                <i class="fas fa-arrow-right"></i>
-            </button>
-        </div>
-      </div>
+  <div class="post-content">
+      <h2 (click)="navigateToDetail(post)" class="title" >{{ post.title }}</h2>
+      <hr class="line-divider"> <!-- Add this line divider -->
+      <ng-container *ngIf="post.imageURLs != null && post.imageURLs.length >= 1; else descriptionSection">
+        <button *ngIf="showNavArrows" class="nav-arrow left" (click)="prevImage()">
+            <mat-icon>arrow_back</mat-icon>
+        </button> 
+        <div class="image-container"> 
+              <img class="post-image" [src]="currentImage" alt="Post Image">
+          </div>
+        <button *ngIf="showNavArrows" class="nav-arrow right" (click)="nextImage()">
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </ng-container>
+
       <ng-template #descriptionSection>
-        <p class="description">{{ post.description }}</p>
+          <p class="description">{{ post.description }}</p>
       </ng-template>
-    </div>
+  </div>
 </div>

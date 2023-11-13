@@ -1,0 +1,50 @@
+<div class="blog-detail">
+    <div class="vote-buttons">
+        <button class="upvote" [class.active]="isUpvoted" (click)="upvote()">
+          <mat-icon>arrow_upward</mat-icon>
+        </button>
+        <span class="vote-count"></span>
+        <button class="downvote">
+          <mat-icon>arrow_downward</mat-icon>
+        </button>
+      </div>
+    <div class="post-header">
+      <h2>{{ post.title }}</h2>
+    </div>
+  
+    <div class="post-content">
+      <p>{{ post.description }}</p>
+      <!-- Add other properties as needed -->
+  
+      <!-- Example: Displaying images if available -->
+      <ng-container *ngIf="post.imageURLs != null && post.imageURLs.length >= 1;">
+        <button *ngIf="showNavArrows" class="nav-arrow left" (click)="prevImage()">
+            <mat-icon>arrow_back</mat-icon>
+        </button> 
+        <div class="image-container"> 
+              <img class="post-image" [src]="currentImage" alt="Post Image">
+          </div>
+        <button *ngIf="showNavArrows" class="nav-arrow right" (click)="nextImage()">
+            <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </ng-container>
+      <div class="comments-section">
+        <h3>Comments</h3>
+    
+        <div *ngIf="post.comments && post.comments.length > 0">
+          <div class="comment" *ngFor="let comment of post.comments">
+            <p class="comment-text">{{ comment.text }}</p>
+            <p class="comment-metadata">
+              Created on {{ comment.creationTime | date: 'medium' }}
+              | Last updated on {{ comment.lastUpdatedTime | date: 'medium' }}
+            </p>
+          </div>
+        </div>
+    
+        <div *ngIf="!post.comments || post.comments.length === 0">
+          <p>No comments yet.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>

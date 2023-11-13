@@ -1,5 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { BlogPost } from '../model/blogpost.model';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'xp-blog-post-card',
@@ -8,6 +10,9 @@ import { BlogPost } from '../model/blogpost.model';
 })
 
 export class BlogPostCardComponent {
+
+  constructor(private router: Router) {}
+
   @Input() post: BlogPost;
   currentImageIndex: number = 0;
 
@@ -29,5 +34,9 @@ export class BlogPostCardComponent {
     if (this.showNavArrows) {
       this.currentImageIndex = (this.currentImageIndex - 1 + (this.post.imageURLs?.length ?? 1)) % (this.post.imageURLs?.length ?? 1);
     }
+  }
+
+  navigateToDetail(post: BlogPost) {
+    this.router.navigate(['/blog', post.id], { queryParams: { post: JSON.stringify(post) } });
   }
 }
