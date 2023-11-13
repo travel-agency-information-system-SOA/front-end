@@ -1,0 +1,18 @@
+<div>
+    <h1>Give us Your feedback!</h1>
+    <div *ngFor="let tour of tours" class="tour-card">
+        <h1 (click)="rateTour(tour)">Rate the tour <mat-icon class="star-icon">star</mat-icon> </h1>
+        <div class="card-content">
+            <mat-label>Name: <span>{{tour.name}}</span></mat-label>
+            <div>
+                <mat-label>Description: <span>{{tour.description}}</span></mat-label>
+            </div>
+            <div>
+                <mat-label>Price: <span>{{tour.price}}</span></mat-label>
+            </div>
+            <div>
+                <mat-label>Difficulty Level: <span>{{tour.difficultyLevel}}</span></mat-label>
+            </div>
+        </div>
+    </div>
+</div>
