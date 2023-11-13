@@ -15,7 +15,9 @@
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['blog']">Blog</button>
 
             <button class="button" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tour']">Add tour</button>
-                    
+            
+            <button class="button" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['privateTourPoints']">Private tour points</button>
+
             <button class="button" *ngIf="user && (user.role === 'tourist' || user.role === 'author')" raised-button [routerLink]="['app-rating-form']">Rate the App</button>
             <button class="button" *ngIf="user && (user.role === 'tourist' || user.role === 'author')"  raised-button [routerLink]="['profile']">Profile</button>
 

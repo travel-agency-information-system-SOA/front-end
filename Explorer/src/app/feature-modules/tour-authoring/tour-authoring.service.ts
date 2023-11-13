@@ -13,6 +13,7 @@ import { ObjInTour } from './model/objInTour.model';
 
 import { BehaviorSubject } from 'rxjs';
 import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
+import { TourPointRequest } from '../administration/model/tourpoint-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -72,7 +73,7 @@ export class TourAuthoringService {
 
   getTourPoint(): Observable<PagedResults<TourPoint>> {
     return this.http.get<PagedResults<TourPoint>>(
-      'https://localhost:44333/api/administration/tourPoint'
+      environment.apiHost + 'administration/tourPoint'
     );
   }
 
@@ -95,7 +96,7 @@ export class TourAuthoringService {
     pageSize: number
   ): Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(
-      `https://localhost:44333/api/administration/tour/${userId}?page=${page}&pageSize=${pageSize}`
+      environment.apiHost + `administration/tour/${userId}?page=${page}&pageSize=${pageSize}`
     );
   }
 
@@ -109,18 +110,18 @@ export class TourAuthoringService {
 
   getTourPointsByTourId(tourId: number): Observable<TourPoint> {
     return this.http.get<TourPoint>(
-      `https://localhost:44333/api/administration/tourPoint/${tourId}`
+      environment.apiHost + `administration/tourPoint/${tourId}`
     );
   }
 
   getObjInTourByTourId(tourId: number): Observable<TourObject[]> {
     return this.http.get<TourObject[]>(
-      `https://localhost:44333/api/administration/objInTour/${tourId}`
+      environment.apiHost + `administration/objInTour/${tourId}`
     );
   }
   getObjectById(id: number): Observable<TourObject> {
     return this.http.get<TourObject>(
-      `https://localhost:44333/api/administration/object/${id}`
+      environment.apiHost + `administration/object/${id}`
     );
   }
   changeTourId(tourId: string) {
@@ -150,4 +151,5 @@ export class TourAuthoringService {
       tourCharacteristic
     );
   }
+ 
 }

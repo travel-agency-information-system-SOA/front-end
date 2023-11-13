@@ -9,6 +9,7 @@ import { AppRating } from './model/app-rating.model';
 import { Account } from './model/account.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 import { Profile } from './model/profile.model';
+import { TourPointRequest } from './model/tourpoint-request.model';
 
 @Injectable({
   providedIn: 'root',
@@ -67,5 +68,13 @@ export class AdministrationService {
     return this.http.post<AppRating>(environment.apiHost + 'administration/app-ratings', rating);
   }
 
+  sendPublicTourPointrequest(tourPointId:number, authorId:number): Observable<TourPointRequest>{
+    return this.http.post<TourPointRequest>(environment.apiHost + 'tourist/publicTourPointRequest/createRequest/' + tourPointId + '/' + authorId, null);
+  }
 
+  getAllTourPointRequests(): Observable<PagedResults<TourPointRequest>> {
+    return this.http.get<PagedResults<TourPointRequest>>(environment.apiHost + `tourist/publicTourPointRequest`);
+  }
+
+  
 }
