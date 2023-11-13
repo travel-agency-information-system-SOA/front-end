@@ -3,6 +3,7 @@ import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { MarketPlaceService } from '../market-place.service';
 import { MarketplaceService } from '../marketplace.service';
 import { Router } from '@angular/router';
+import { ReviewTour } from './ReviewTour.model';
 
 @Component({
   selector: 'xp-tours-show',
@@ -11,17 +12,17 @@ import { Router } from '@angular/router';
 })
 export class ToursShowComponent {
 
-  tours: Tour[]=[];
-
+  tours:ReviewTour [];
+  averageGrade: number;
   constructor(private marketplaceService: MarketplaceService, private router: Router){
     this.getAllTours();
+    
   }
 
   getAllTours(){
     this.marketplaceService.getAllTours().subscribe({
       next: (response)=>{
         this.tours=response.results;
-        console.log("Ture:", this.tours);
       },
       error:(error)=>{
         console.log(error);
@@ -29,8 +30,18 @@ export class ToursShowComponent {
     })
   }
 
-  rateTour(tour: Tour){
+  rateTour(tour: ReviewTour){
+    
     this.router.navigate(['/tourReviewForm', tour.id])
   }
 
+  calculateAverageGrade(tour:ReviewTour){
+    const reviews= tour.tourReviews;
+    if (reviews.length === 0) {
+     return  0;
+    }
+    const totalRating = reviews.reduce((sum, review) => sum + review.grade, 0);
+    const averageRating = totalRating / reviews.length;
+    return averageRating;
+  }
 }

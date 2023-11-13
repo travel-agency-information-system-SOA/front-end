@@ -13,6 +13,9 @@
             <div>
                 <mat-label>Difficulty Level: <span>{{tour.difficultyLevel}}</span></mat-label>
             </div>
+            <div>
+                <p>Average Rating: {{ calculateAverageGrade(tour).toFixed(2) || 'N/A' }}</p>
+            </div>
         </div>
     </div>
 </div>

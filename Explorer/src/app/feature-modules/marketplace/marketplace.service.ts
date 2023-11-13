@@ -7,6 +7,7 @@ import { environment } from 'src/env/environment';
 import { Preferences } from "./model/preferences.model";
 import { TourReview } from './model/tourReview.model';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
+import { ReviewTour } from './tours-show/ReviewTour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -65,7 +66,7 @@ export class MarketplaceService {
   updateReview(tourReview: TourReview): Observable<TourReview>{
     return this.http.put<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id, tourReview);
   }
-  getAllTours():Observable<PagedResults<Tour>> {
-    return this.http.get<PagedResults<Tour>>(environment.apiHost+ 'administration/tour/allTours');
+  getAllTours():Observable<PagedResults<ReviewTour>> {
+    return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
   }
 }
