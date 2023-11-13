@@ -7,15 +7,18 @@
             <button class="button" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['equipment']">Manage equipment (!)</button>
             <button class="button" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['accounts']">Manage accounts</button>  
             <button class="button" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['app-ratings']">All App Ratings</button>
+            <button class="button" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['problems']">Unsolved problems</button>
 
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['preferences']">My preferences</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['guideReview']">Review Guide</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['blogPostComment']">Manage comments</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['club']">Manage clubs</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['blog']">Blog</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['problems']">Solve problems</button>
 
             <button class="button" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tour']">Add tour</button>
-                    
+            <button class="button" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['problems']">Replay on problems</button>
+
             <button class="button" *ngIf="user && (user.role === 'tourist' || user.role === 'author')" raised-button [routerLink]="['app-rating-form']">Rate the App</button>
             <button class="button" *ngIf="user && (user.role === 'tourist' || user.role === 'author')"  raised-button [routerLink]="['profile']">Profile</button>
 

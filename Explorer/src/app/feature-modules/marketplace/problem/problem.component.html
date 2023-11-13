@@ -1,0 +1,59 @@
+<div id="problem">
+    <p>Problem</p>
+    <hr>
+    <div id="problem-details">
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Category</th>
+                        <th>Priority</th>
+                        <th>Description</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of problem; let i = index" [ngStyle]="{
+                        'background-color': p.isSolved ? 'lightgreen' : (p.isUnsolvedForMoreThan5Days ? 'red' : 'white')
+                      }">
+                        <td>{{p.category}}</td>
+                        <td>{{p.priority}}</td>
+                        <td>{{p.description}}</td>
+                        <td>{{p.time}}</td>
+                        <button color="primary" (click)="onProblemReplay(p)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
+                            <mat-icon>reply</mat-icon>
+                        </button>
+                        <button color="primary" (click)="onAllMesagges(p)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
+                            <mat-icon>message</mat-icon>
+                        </button>
+                        <button *ngIf="isTourist" color="primary" (click)="solveProblem(p, i)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
+                            <mat-icon>done_all</mat-icon>
+                        </button>
+                        <button *ngIf="isTourist" color="primary" (click)="onProblemReplay(p)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
+                            <mat-icon>highlight_off</mat-icon>
+                        </button>
+                        <button color="primary" *ngIf="isAdministartor" (click)="addDeadline(p)" mat-icon-button>
+                            <mat-icon>access_alarm</mat-icon>
+                        </button>
+                        <button color="primary" *ngIf="isAdministartor" (click)="deleteProblem(p)" mat-icon- [disabled]="!p.deadlineMissed">
+                            Close problem
+                        </button>
+                        <button color="primary" *ngIf="isAdministartor" (click)="deleteTour(p)" mat-icon- [disabled]="!p.deadlineMissed">
+                            Shut down tour
+                        </button>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div>
+             <xp-problem-message-form *ngIf="shouldRenderForm" [problem]="selectedProblem" (problemUpdated)="getGuideProblems()"></xp-problem-message-form>
+        </div>
+        <div>
+            <xp-problem-chat *ngIf="shouldRenderChat" [problem]="selectedProblem"></xp-problem-chat>
+        </div>
+        <div>
+            <xp-problem-deadline *ngIf="shouldRenderDeadline" [problem]="selectedProblem" (problemUpdated)="getUnsolvedProblems()"></xp-problem-deadline>
+        </div>
+
+    </div>
+</div>
