@@ -1,7 +1,9 @@
-import { TourPoint } from '../../model/tourPoints.model';
-import { TourCharacteristic } from './tourCharacteristic.model';
+import { TourPoint } from "../../tour-authoring/model/tourPoints.model";
+import { TourCharacteristic } from "../../tour-authoring/tour/model/tourCharacteristic.model";
+import { TourReview } from "../model/tourReview.model";
 
-export interface Tour {
+
+export interface ReviewTour {
   id?: number;
 
   name: string;
@@ -13,12 +15,12 @@ export interface Tour {
   tags: string[];
   tourPoints: TourPoint[];
   tourCharacteristics: TourCharacteristic[];
+  tourReviews: TourReview[];
 }
 
 export enum Status {
   Draft = 'Draft',
-  Archived = 'Archived',
-  Published = 'Published',
+  InProgress = 'InProgress',
 }
 
 export enum DifficultyLevel {

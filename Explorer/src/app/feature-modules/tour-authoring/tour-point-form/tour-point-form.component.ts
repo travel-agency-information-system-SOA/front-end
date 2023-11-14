@@ -1,34 +1,57 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges} from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TourPoint } from '../model/tourPoints.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Tour } from '../tour/model/tour.model';
 import { MapService } from 'src/app/shared/map/map.service';
-
+import { TransportType } from '../tour/model/tourCharacteristic.model';
 
 @Component({
   selector: 'xp-tour-point-form',
   templateUrl: './tour-point-form.component.html',
-  styleUrls: ['./tour-point-form.component.css']
+  styleUrls: ['./tour-point-form.component.css'],
 })
-export class TourPointFormComponent implements OnChanges {
-
+export class TourPointFormComponent implements OnChanges, OnInit {
   @Output() tourPointUpdated = new EventEmitter<null>();
   @Input() tourPoint: TourPoint;
   @Input() shouldEdit: boolean = false;
   @Input() shouldAddPoint: boolean = false;
   @Input() tour: Tour;
   idTourPoint: number;
-  elevationData: any; 
+  elevationData: any;
+  totalDistance: number;
+  totalTime: number;
+  yourFormGroup: FormGroup;
 
-  constructor(private service: TourAuthoringService, private cordinateService: MapService) {}
+  constructor(
+    private service: TourAuthoringService,
+    private mapService: MapService,
+    private formBuilder: FormBuilder
+  ) {}
+  ngOnInit(): void {
+    this.yourFormGroup = this.formBuilder.group({
+      selectedTransport: ['walking'],
+    });
+  }
 
-  ngOnChanges(changes: SimpleChanges): void{
+  ngOnChanges(changes: SimpleChanges): void {
     this.tourPointForm.reset();
-    if(this.shouldEdit) {
+    if (this.shouldEdit) {
       this.tourPointForm.patchValue(this.tourPoint);
     }
-    
   }
 
   tourPointForm = new FormGroup({
@@ -36,54 +59,93 @@ export class TourPointFormComponent implements OnChanges {
     description: new FormControl('', [Validators.required]),
     imageUrl: new FormControl('', [Validators.required]),
     latitude: new FormControl(0, [Validators.required]),
-    longitude: new FormControl(0, [Validators.required])
-  })
+    longitude: new FormControl(0, [Validators.required]),
+  });
 
   addTourPoint(): void {
     const tourPoint: TourPoint = {
-      idTour: this.tour.id || 0,
-      name: this.tourPointForm.value.name || "",
-      description: this.tourPointForm.value.description || "",
-      imageUrl: this.tourPointForm.value.imageUrl || "",
+      tourId: this.tour.id || 0,
+
+      name: this.tourPointForm.value.name || '',
+      description: this.tourPointForm.value.description || '',
+      imageUrl: this.tourPointForm.value.imageUrl || '',
       latitude: 0,
-      longitude: 0
+      longitude: 0,
     };
 
-    this.cordinateService.coordinate$.subscribe((coordinates) => {
+    this.mapService.coordinate$.subscribe((coordinates) => {
       tourPoint.latitude = coordinates.lat;
       tourPoint.longitude = coordinates.lng;
     });
 
-    
-      this.service.addTourPoint(tourPoint).subscribe({
-
-        next: () => { this.tourPointUpdated.emit() 
-
-        }
-      });
+    this.service.addTourPoint(tourPoint).subscribe({
+      next: () => {
+        this.tourPointUpdated.emit();
+        this.service.emitTourPointAdded();
+      },
+    });
   }
-  updateTourPoint() : void {
-    const tourPoint: TourPoint = {
-      idTour: this.tourPoint.idTour || 0,
-      name: this.tourPointForm.value.name || "",
-      description: this.tourPointForm.value.description || "",
-      imageUrl: this.tourPointForm.value.imageUrl || "",
-      latitude: 0,
-      longitude: 0
+
+  getTourCharacteristic(): void {
+    this.mapService.totalDistance$.subscribe((distance) => {
+      this.totalDistance = distance;
+    });
+
+    this.mapService.totalTime$.subscribe((time) => {
+      this.totalTime = time;
+    });
+
+    var tourCharacteristic = {
+      distance: this.totalDistance,
+      duration: (this.totalTime % 3600) / 60,
+      transportType: this.yourFormGroup.value.selectedTransport,
+    };
+
+    if (this.tour.id !== undefined) {
+      this.service
+        .setTourCharacteristics(this.tour.id, tourCharacteristic)
+        .subscribe({
+          next: () => {
+            console.log('setovano je');
+          },
+          error(err: any) {
+            console.log(tourCharacteristic);
+            console.log(err);
+          },
+        });
+    } else {
+      console.error('Nema dostupnog ID-ja za turu.');
     }
+  }
+  updateTourPoint(): void {
+    const tourPoint: TourPoint = {
+      tourId: this.tourPoint.tourId || 0,
+
+      name: this.tourPointForm.value.name || '',
+      description: this.tourPointForm.value.description || '',
+      imageUrl: this.tourPointForm.value.imageUrl || '',
+      latitude: 0,
+      longitude: 0,
+    };
 
     tourPoint.id = this.tourPoint.id;
 
-    this.cordinateService.coordinate$.subscribe((coordinates) => {
+    this.mapService.coordinate$.subscribe((coordinates) => {
       tourPoint.latitude = coordinates.lat;
       tourPoint.longitude = coordinates.lng;
     });
 
     this.service.updateTourPoint(tourPoint).subscribe({
       next: (_) => {
-        this.tourPointUpdated.emit()
-      }
-    })
+        this.tourPointUpdated.emit();
+      },
+    });
   }
 
+  onTransportChange() {
+    this.mapService.setTransportMode(
+      this.yourFormGroup.value.selectedTransport
+    );
+    this.service.emitTransportTypeChanged();
+  }
 }
