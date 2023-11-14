@@ -8,6 +8,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 import { FormControl, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { AdministrationService } from '../../administration/administration.service';
+import { Router } from '@angular/router';
 
 
 //import { MapComponent } from 'src/app/shared/map/map.component';
@@ -27,7 +28,7 @@ export class ActiveTourComponent implements OnChanges{
  // tourExecution:TourExecution
   constructor(private service:TourExecutionService,
               private tokenStorage: TokenStorage,
-             
+              private router:Router,
               private administrationService:AdministrationService
              
       ){}
@@ -36,7 +37,7 @@ export class ActiveTourComponent implements OnChanges{
     this.checkUserPosition();
     this.getTourExecutionByUser(this.userId);
    
-    this.updatePosition();
+    //this.updatePosition();
     
     }
 
@@ -87,7 +88,7 @@ export class ActiveTourComponent implements OnChanges{
 
   
 
-  updatePosition(): void{
+  updatePosition(event: MouseEvent): void{
     console.log("usao");
     this.service.updatePosition(1,100, 100)
       .subscribe(
@@ -98,6 +99,17 @@ export class ActiveTourComponent implements OnChanges{
           console.error('Error updating position', error);
         }
       );
+  }
+
+  updateStatusToAbandoned(): void{
+    console.log("cap");
+    this.service.updateStatus(this.activeTour.id,'Abandoned').subscribe(
+      ()=>{
+        console.log('Great');
+      }
+      );
+    //this.updatePosition();
+    this.router.navigate(['/home']);
   }
 
   checkUserPosition(): void {

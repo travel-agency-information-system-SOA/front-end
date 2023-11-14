@@ -20,8 +20,17 @@
     </ul>
 
     <div class="map-container">
-      <app-map [tourIdEx]="tourId"></app-map>
+      <app-map [tourIdEx]="tourId" (click)="updatePosition($event)"></app-map>
     </div>
+    <button
+          
+          mat-raised-button
+          type="submit"
+          color="primary"
+          (click)="updateStatusToAbandoned()"
+        >
+          Aband
+        </button>
   
   </div>
   <div *ngIf="!activeTour">

@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -46,4 +46,11 @@ export class TourExecutionService {
     return this.http.put<any>(url, {});
   }
 
+  updateStatus(tourExecutionId: number, status: string): Observable<TourExecution> {
+   
+    return this.http.put<TourExecution>(
+      environment.apiHost + 'tourExecution/' + tourExecutionId+'/update-status/'+status,
+      tourExecutionId
+    );
+  }
 }
