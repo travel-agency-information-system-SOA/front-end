@@ -9,6 +9,7 @@ import { TourReview } from './model/tourReview.model';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
 import { ReviewTour } from './tours-show/ReviewTour.model';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -51,6 +52,10 @@ export class MarketplaceService {
     return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
   }
 
+
+  getToursByLocation(latitude: number, longitude: number, range:number): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(environment.apiHost+ 'administration/tour/search/' + latitude + '/' + longitude + '/' + range);
+  }
   createReview(tourReview: TourReview): Observable<TourReview>{
     return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview', tourReview);
   }
@@ -68,5 +73,6 @@ export class MarketplaceService {
   }
   getAllTours():Observable<PagedResults<ReviewTour>> {
     return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
+
   }
 }
