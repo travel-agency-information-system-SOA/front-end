@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BlogService } from '../blog.service';
 import { BlogPost } from '../model/blogpost.model';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 
 @Component({
   selector: 'xp-blogpost-form',
@@ -18,7 +19,7 @@ export class BlogpostFormComponent implements OnChanges {
   @Input() blogPost: BlogPost;
   @Input() shouldEdit: boolean = false;
   
-  constructor(private service: BlogService) { }
+  constructor(private service: BlogService, private tokenStorage: TokenStorage) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.blogPostForm.reset();
@@ -49,6 +50,8 @@ export class BlogpostFormComponent implements OnChanges {
 
     const blogPost = {
       id: 0,
+      authorId: this.tokenStorage.getUserId() || 0,
+      authorUsername: null,
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',
       creationDate: new Date(),
@@ -75,6 +78,8 @@ export class BlogpostFormComponent implements OnChanges {
 
     const blogPost = {
       id: this.blogPost.id,
+      authorId: this.blogPost.authorId,
+      authorUsername: this.blogPost.authorUsername,
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',
       creationDate: this.blogPost.creationDate,

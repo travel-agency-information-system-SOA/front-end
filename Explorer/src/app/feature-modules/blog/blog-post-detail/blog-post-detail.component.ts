@@ -13,6 +13,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./blog-post-detail.component.css']
 })
 export class BlogPostDetailComponent implements OnInit {
+  postId: number;
   post: BlogPost;
   @Output() postUpdated = new EventEmitter<null>();
   
@@ -26,10 +27,25 @@ export class BlogPostDetailComponent implements OnInit {
   downvote_count: number = 0;
 
   ngOnInit(): void {
-    this.post = JSON.parse(this.route.snapshot.queryParams['post']);
+    this.route.params.subscribe(params => {
+      this.postId = +params['id'];
+      this.getById(this.postId);
+    });
     this.checkRating();
     this.GetOverallRating();
-    // You can now access properties of the blog post object in this.post
+  }
+
+  getById(blogPostId: number): void{
+    this.service.getById(blogPostId).subscribe({
+      next: (result: BlogPost) => {
+        this.post = result;
+        console.log(this.post);
+        this.post.creationDate = new Date(this.post.creationDate);
+      },
+      error: (err: any) =>{
+        console.log(err);
+      }
+    })
   }
 
   GetOverallRating() {
@@ -152,6 +168,7 @@ export class BlogPostDetailComponent implements OnInit {
   addComment(): void {
     const comment: BlogPostComment= {
       userId: this.tokenStorage.getUserId() || 0 ,
+      username: null,
       blogId: this.post.id,
       text: this.commentForm.value.text || "",
       creationTime: new Date(),

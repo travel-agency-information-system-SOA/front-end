@@ -17,7 +17,6 @@ import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.
 import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour-object/tour-object.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourMapComponent } from 'src/app/feature-modules/tour-authoring/tour-map/tour-map.component';
-import { BlogPostCommentComponent } from 'src/app/feature-modules/blog/blog-post-comment/blog-post-comment.component';
 import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpost.component';
 import { BlogComponent } from 'src/app/feature-modules/blog/blog/blog.component';
 import { BlogPostDetailComponent } from 'src/app/feature-modules/blog/blog-post-detail/blog-post-detail.component';
@@ -49,7 +48,6 @@ const routes: Routes = [
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
-  {path: 'blogPostComment', component: BlogPostCommentComponent, canActivate: [AuthGuard],},
   {path: 'club', component: ClubComponent},
   {
     path: 'guideReview',

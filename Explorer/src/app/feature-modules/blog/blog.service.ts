@@ -18,6 +18,10 @@ export class BlogService {
     return this.http.get<PagedResults<BlogPost>>('https://localhost:44333/api/blog/blogpost');
   }
 
+  getById(blogPostId: number): Observable<BlogPost> {
+    return this.http.get<BlogPost>(environment.apiHost + 'blog/blogpost/' + blogPostId);
+  }
+
   addBlogPost(blogPost: BlogPost): Observable<BlogPost>{
     return this.http.post<BlogPost>(environment.apiHost + 'blog/blogpost', blogPost);
   }

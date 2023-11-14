@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { BlogPostCommentComponent } from './blog-post-comment/blog-post-comment.component';
 import { MatIconModule } from '@angular/material/icon';
-import { BlogPostCommentFormComponent } from './blog-post-comment-form/blog-post-comment-form.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatInputModule } from '@angular/material/input';
@@ -27,9 +25,6 @@ import { BlogPostUpdateComponent } from './blog-post-update/blog-post-update.com
   declarations: [
     BlogpostComponent,
     BlogpostFormComponent,
-  
-    BlogPostCommentComponent,
-    BlogPostCommentFormComponent,
     BlogPostCardComponent,
     BlogComponent,
     BlogPostDetailComponent,
@@ -47,8 +42,7 @@ import { BlogPostUpdateComponent } from './blog-post-update/blog-post-update.com
     MaterialModule,
     SharedModule,
     FormsModule,
-    MatDialogModule,
-    MatButtonModule
+    MatDialogModule
   ],
   exports: [
     BlogpostComponent,

@@ -39,7 +39,7 @@
 
 .blog-post-card:hover,
 .blog-post-card:hover .post-content {
-    transform: scale(1.02);
+    
     border-color: #221853; /* Change the border color on hover */
     border-width: 5px;
 }
@@ -148,3 +148,15 @@
 .rating {
     color: #e23a55;
 }
+
+.author-date-container {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin-right: 10px; /* Adjust as needed */
+  }
+
+  .author, .date {
+    font-size: 0.6em; /* Adjust as needed */
+    /* Add any other styles for author and date */
+  }
