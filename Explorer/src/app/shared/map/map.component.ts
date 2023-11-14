@@ -11,6 +11,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
 import { TourPoint } from 'src/app/feature-modules/tour-authoring/model/tourPoints.model';
 import { mergeMap, tap } from 'rxjs/operators';
+import { AdministrationService } from 'src/app/feature-modules/administration/administration.service';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 
 @Component({
   selector: 'app-map',
@@ -28,7 +30,9 @@ export class MapComponent implements AfterViewInit {
     private service: MapService,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private tourAuthoringService: TourAuthoringService
+    private tourAuthoringService: TourAuthoringService,
+    private administrationService: AdministrationService,
+    private tokenStorage: TokenStorage
   ) {}
 
   private initMap(): void {
@@ -49,6 +53,7 @@ export class MapComponent implements AfterViewInit {
     }, 0);
     this.setRoute();
     this.setObjects();
+    this.setPosition();
   }
 
   ngOnInit() {
@@ -81,6 +86,7 @@ export class MapComponent implements AfterViewInit {
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
       const mp = new L.Marker([lat, lng]).addTo(this.map);
+      
 
       alert(mp.getLatLng());
     });
@@ -141,5 +147,22 @@ export class MapComponent implements AfterViewInit {
           // );
         });
       });
+  }
+
+  setPosition() {
+    
+      this.administrationService.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
+        (result) => {
+          
+         L.marker([result.latitude,result.longitude]).addTo(this.map);
+          
+         
+          // Handle the result as needed
+        },
+        (error) => {
+          console.error('Error fetching user positions:', error);
+          // Handle the error as needed
+        }
+      );
   }
 }
