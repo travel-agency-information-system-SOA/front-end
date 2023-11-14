@@ -18,6 +18,10 @@
         <strong>{{ point.name }}</strong> - {{ point.description }} ({{ point.latitude }}, {{ point.longitude }})
       </li>
     </ul>
+
+    <div class="map-container">
+      <app-map [tourIdEx]="tourId"></app-map>
+    </div>
   
   </div>
   <div *ngIf="!activeTour">

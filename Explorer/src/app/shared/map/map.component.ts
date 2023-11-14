@@ -25,6 +25,8 @@ export class MapComponent implements AfterViewInit {
   objects: { latitude: number; longitude: number }[];
   tourIdSubscription: Subscription | undefined = undefined;
   routeWaypoints: any[] = [];
+  @Input() tourIdEx:number=0;
+  tourIdexS:string
 
   constructor(
     private service: MapService,
@@ -51,9 +53,13 @@ export class MapComponent implements AfterViewInit {
     setTimeout(() => {
       this.initMap();
     }, 0);
+   
+    this.setExecuteRoute();
     this.setRoute();
     this.setObjects();
+    this.setExecuteRoute();
     this.setPosition();
+    
   }
 
   ngOnInit() {
@@ -111,7 +117,7 @@ export class MapComponent implements AfterViewInit {
 
   setRoute(): void {
     const self = this;
-
+    console.log("tourID je "+this.tourId);
     this.tourAuthoringService
       .getTourPointsByTourId(parseInt(this.tourId))
       .subscribe((tourData: any) => {
@@ -164,5 +170,43 @@ export class MapComponent implements AfterViewInit {
           // Handle the error as needed
         }
       );
+  }
+
+  setExecuteRoute(): void {
+    const self = this;
+    this.tourIdexS=this.tourIdEx.toString();
+    console.log("this is tourIdex "+ this.tourIdexS )
+    if(this.tourIdEx>0){
+    this.tourAuthoringService
+      .getTourPointsByTourId(parseInt(this.tourIdexS))
+      .subscribe((tourData: any) => {
+        const tourPoints = tourData.results;
+        const waypoints = tourPoints.map((point: any) =>
+          L.latLng(point.latitude, point.longitude)
+        );
+        const routeControl = L.Routing.control({
+          waypoints: waypoints,
+          router: L.routing.mapbox(
+            'pk.eyJ1IjoiYW5hYm9za292aWNjMTgiLCJhIjoiY2xvNHZrNjd2MDVpcDJucnM3M281cjE0OSJ9.y7eV9FmLm7kO_2FtrMaJkg',
+            { profile: 'mapbox/walking' }
+          ),
+        }).addTo(this.map);
+        routeControl.on('routesfound', function (e) {
+          var routes = e.routes;
+          var summary = routes[0].summary;
+          self.service.setTotalDistance(summary.totalDistance);
+          self.service.setTotalTime(
+            Math.round((summary.totalTime % 3600) / 60)
+          );
+          // alert(
+          //   'Total distance is ' +
+          //     summary.totalDistance / 1000 +
+          //     ' km and total time is ' +
+          //     Math.round((summary.totalTime % 3600) / 60) +
+          //     ' minutes'
+          // );
+        });
+      });
+    }
   }
 }
