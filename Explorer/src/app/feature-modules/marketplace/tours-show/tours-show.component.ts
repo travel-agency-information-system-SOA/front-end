@@ -5,6 +5,7 @@ import { MarketplaceService } from '../marketplace.service';
 import { Router } from '@angular/router';
 import { ReviewTour } from './ReviewTour.model';
 import { TourExecution } from '../model/TourExecution.model';
+import { TourReview } from '../model/tourReview.model';
 
 @Component({
   selector: 'xp-tours-show',
@@ -13,6 +14,7 @@ import { TourExecution } from '../model/TourExecution.model';
 })
 export class ToursShowComponent {
 
+  reviews: TourReview[]=[]
   totalDistance:number;
   percentageCompleted: number;
   pointLongitude:number;
@@ -20,18 +22,24 @@ export class ToursShowComponent {
   longitude: number;
   latitude: number;
   lastActive : Date;
-  tours:ReviewTour [];
+  tours:ReviewTour[];
   executions: TourExecution[]=[];
   averageGrade: number;
   constructor(private marketplaceService: MarketplaceService, private router: Router){
     this.getAllTours();
     this.getExecutions();
+    this.marketplaceService.getAllReviews().subscribe({
+      next:(response)=>{
+        this.reviews=response.results;
+      }
+     })
   }
 
   getAllTours(){
     this.marketplaceService.getAllTours().subscribe({
       next: (response)=>{
         this.tours=response.results;
+        console.log('Response ', response.results)
         console.log('Turee', this.tours);
       },
       error:(error)=>{
@@ -48,10 +56,15 @@ export class ToursShowComponent {
   }
 
   calculateAverageGrade(tour:ReviewTour){
-    const reviews= tour.tourReviews;
+    /*const reviews= tour.tourReviews;
     if (reviews.length === 0) {
      return  0;
     }
+    */
+  
+   const reviews= this.reviews.filter(r=>
+     r.tourId==tour.id
+   )
     const totalRating = reviews.reduce((sum, review) => sum + review.grade, 0);
     const averageRating = totalRating / reviews.length;
     return averageRating;
