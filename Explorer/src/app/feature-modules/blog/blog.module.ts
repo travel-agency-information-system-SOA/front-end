@@ -18,6 +18,8 @@ import { BlogPostCardComponent } from './blog-post-card/blog-post-card.component
 import { BlogComponent } from './blog/blog.component';
 import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.component';
 import { BlogPostCreationComponent } from './blog-post-creation/blog-post-creation.component';
+import { MatButtonModule } from '@angular/material/button';
+import { BlogPostUpdateComponent } from './blog-post-update/blog-post-update.component';
 
 
 
@@ -31,13 +33,15 @@ import { BlogPostCreationComponent } from './blog-post-creation/blog-post-creati
     BlogPostCardComponent,
     BlogComponent,
     BlogPostDetailComponent,
-    BlogPostCreationComponent
+    BlogPostCreationComponent,
+    BlogPostUpdateComponent
   ],
   imports: [
     CommonModule,
     MatInputModule,
     ReactiveFormsModule,
     MatIconModule,
+    MatButtonModule,
     MarkdownModule.forRoot(),
     MatSelectModule,
     MaterialModule,

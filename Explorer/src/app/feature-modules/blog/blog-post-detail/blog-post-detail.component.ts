@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogPost } from '../model/blogpost.model';
 import { BlogPostRating } from '../model/blog-post-rating.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
@@ -14,7 +14,7 @@ export class BlogPostDetailComponent implements OnInit {
   post: BlogPost;
   @Output() postUpdated = new EventEmitter<null>();
   
-  constructor(private service: BlogService, private route: ActivatedRoute,private tokenStorage: TokenStorage) { }
+  constructor(private service: BlogService, private route: ActivatedRoute,private tokenStorage: TokenStorage, private router: Router) { }
 
   currentImageIndex: number = 0;
   isUpvoted: boolean;
@@ -113,6 +113,18 @@ export class BlogPostDetailComponent implements OnInit {
     if (this.showNavArrows) {
       this.currentImageIndex = (this.currentImageIndex - 1 + (this.post.imageURLs?.length ?? 1)) % (this.post.imageURLs?.length ?? 1);
     }
+  }
+
+  navigateToUpdateForm() {
+    this.router.navigate(['/blog/update-post'], { queryParams: { post: JSON.stringify(this.post) } });
+  }
+
+  deletePost(){
+    this.service.deleteBlogPost(this.post).subscribe({
+      next: (_) => {
+        this.router.navigate(['/blog']);
+      }
+    })
   }
   
 

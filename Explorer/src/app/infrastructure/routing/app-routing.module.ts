@@ -29,6 +29,7 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
+import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 
 
 const routes: Routes = [
@@ -64,6 +65,7 @@ const routes: Routes = [
   {path: 'tourReviewShow', component: TourReviewsShowComponent},
   {path: 'blog', component: BlogComponent, canActivate: [AuthGuard],},
   {path: 'blog/create-post', component: BlogPostCreationComponent, canActivate: [AuthGuard]},
+  {path: 'blog/update-post', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
   {path: 'blog/:id', component: BlogPostDetailComponent },
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},

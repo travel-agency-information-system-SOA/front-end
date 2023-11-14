@@ -8,6 +8,14 @@
           <mat-icon>arrow_downward</mat-icon>
         </button>
       </div>
+      <div class="post-actions">
+        <button mat-icon-button color="primary" (click)="navigateToUpdateForm()">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="deletePost()">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     <div class="post-header">
       <h2>{{ post.title }}</h2>
     </div>
