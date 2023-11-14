@@ -1,10 +1,12 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { GuideReview } from './model/guide-review.model';
-import { Observable } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Preferences } from "./model/preferences.model";
+import { TouristEquipment } from './model/touristEquipment.model';
+import { NonNullAssert } from '@angular/compiler';
 import { Problem } from './model/problem.model';
 import { ProblemMessage } from './model/problem-message.model';
 import { AdministrationService } from '../administration/administration.service';
@@ -13,6 +15,7 @@ import { TourReview } from './model/tourReview.model';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
 import { ReviewTour } from './tours-show/ReviewTour.model';
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -54,6 +57,54 @@ export class MarketplaceService {
 
   getUserPreferences(id: number): Observable<Preferences> {
     return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
+  }
+
+  
+ 
+  
+  getAllEquipmet():Observable<PagedResults<Equipment>>{
+    return this.http.get<PagedResults<Equipment>>(environment.apiHost+'administration/equipment');
+  }
+
+  updateTouristEquipment(te:TouristEquipment): Observable<Preferences> {
+    return this.http.put<Preferences>(environment.apiHost + 'tourist/touristEquipment/' + te.id, te);
+  }
+
+
+
+
+
+
+  getTouristEquipment(id: number): Observable<TouristEquipment> {
+    return this.http.get<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/getTouristEquipment/' + id);
+  }
+  createTouristEquipment(id: number): Observable<TouristEquipment> {
+    return this.http.post<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/createTouristEquipment/' + id,null);
+  }
+
+  getMyEquipment(ids:number[]): Observable<Equipment[]> {
+    let params = new HttpParams();
+    for (const id of ids) {
+      params = params.append('ids', id.toString());
+    }
+    
+    return this.http.get<Equipment[]>(environment.apiHost + 'administration/equipment/getTouristEquipment/', { params: params });
+  }
+
+  getOtherEquipment(ids:number[]): Observable<Equipment[]> {
+    let params = new HttpParams();
+    for (const id of ids) {
+      params = params.append('ids', id.toString());
+    }
+    
+    return this.http.get<Equipment[]>(environment.apiHost + 'administration/equipment/getOtherEquipment', { params: params });
+  }
+
+  addToMyEquipment(touristId: number, equipmentId: number): Observable<TouristEquipment> {
+    return this.http.put<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/addToMyEquipment/' + touristId + '/' + equipmentId, null);
+  }
+  removeFromMyEquipment(touristId: number, equipmentId: number): Observable<TouristEquipment> {
+    return this.http.put<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/deleteFromMyEquipment/' + touristId + '/' + equipmentId, null);
   }
 
   getGuideProblems(id: number): Observable<PagedResults<Problem>> {
@@ -120,7 +171,6 @@ export class MarketplaceService {
   }
   getAllTours():Observable<PagedResults<ReviewTour>> {
     return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
-
   }
 
   getPublishedTours(): Observable<PagedResults<Tour>>{
@@ -130,3 +180,5 @@ export class MarketplaceService {
     return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
   }
 }
+  
+
