@@ -1,6 +1,11 @@
 <div class="wrapper">
-  <div class="card-wrapper" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="16px wrap">
+  <div class="card-wrapper" >
+    <div class="card-wrapperB">
+    <button (click)="addTour()">Add tour</button>
+    </div>
+    <div class="tours">
     <div *ngFor="let t of tour" class="card">
+
       <mat-card>
     
         <mat-card-header>
@@ -72,28 +77,32 @@
         
       </div>
         </mat-card-actions>
+       
       </mat-card>
       <div class="wrapper-form">
-        <p *ngIf="showTourForm">🛫 Create tour:</p>
-        <xp-tour-form
-          *ngIf="showTourForm"
-          (tourUpdated)="loadTours()"
-        ></xp-tour-form>
+       
         <xp-tour-point-form
-          *ngIf="shouldAddPoint"
+          *ngIf="shouldAddPoint && selectedTour === t"
           [tour]="selectedTour"
         ></xp-tour-point-form>
         <xp-object-form
-          *ngIf="shouldAddObject"
+          *ngIf="shouldAddObject && selectedTour === t"
           [tour]="selectedTour"
         ></xp-object-form>
         <xp-tour-form
           *ngIf="shouldRenderTourForm"
           [tour]="selectedTour"
-          [shouldEdit]="shouldEdit"
+          [shouldEdit]="shouldEdit && selectedTour === t"
           (tourUpdated)="loadTours()"
         ></xp-tour-form>
       </div>
     </div>
+      
+    </div> 
+    <p *ngIf="showTourForm ">🛫 Create tour:</p>
+    <xp-tour-form
+      *ngIf="showTourForm "
+      (tourUpdated)="loadTours()"
+    ></xp-tour-form>
   </div>
 </div>
