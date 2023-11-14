@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
@@ -75,10 +75,18 @@ export class AdministrationService {
 
   updateUserPosition(position:UserPosition): Observable<UserPosition> {
     return this.http.put<UserPosition>(
-      environment.apiHost + 'administration/userPosition/' + position.id,
+      environment.apiHost + `administration/userPosition/${position.id}`,
       position
     );
   }
 
+  getByUserId(userId: number, page: number, pageSize: number): Observable<UserPosition> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<UserPosition>(environment.apiHost+`administration/userPosition/${userId}`, { params });
+  }
+  
 
 }
