@@ -131,11 +131,22 @@ export class TourAuthoringService {
       environment.apiHost + 'administration/tour/' + tour.id
     );
   }
+  
+  isPublished(tour: Tour): Observable<Tour> {
+    console.log(tour.id)
+
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/publish/' + tour.id,
+      tour
+
+    );}
 
   updateTour(tour: Tour): Observable<Tour> {
     return this.http.put<Tour>(
       environment.apiHost + 'administration/tour/' + tour.id,
       tour
     );
+
+    
   }
 }
