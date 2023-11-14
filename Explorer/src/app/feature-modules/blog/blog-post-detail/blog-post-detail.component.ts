@@ -152,15 +152,8 @@ export class BlogPostDetailComponent implements OnInit {
     this.commentForm.reset();
   }
 
-  showEditDeleteButtons(commentId:number):boolean {
-    if(this.post.comments != null) {
-      for (const comment of this.post.comments) {
-        if(comment.userId == this.tokenStorage.getUserId()) {
-          return true;
-        }
-      }
-    }
-    return false;
+  showEditDeleteButtons(commentuserId:number):boolean {
+    return commentuserId == this.tokenStorage.getUserId();
   }
 
   editComment():void {

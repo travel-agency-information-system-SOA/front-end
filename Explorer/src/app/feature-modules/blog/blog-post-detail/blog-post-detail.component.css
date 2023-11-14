@@ -1,10 +1,35 @@
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+  font-weight: medium;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
 .blog-detail {
   width: 800px; /* Set the width of the component */
   margin: 20px auto; /* Center the component horizontally */
-  border: 1px solid #ccc; /* Add a border */
-  padding: 20px; /* Add padding for better aesthetics */
+  border: 5px solid #ccc; /* Add a border */
+  padding: 10px; /* Add padding for better aesthetics */
   text-align: center; /* Center the title */
   font-family: 'Trip', sans-serif;
+  border-radius: 10px;
 }
 
 .header-container {
@@ -41,17 +66,24 @@
   background-color: white; /* Default color */
   border: none;
   cursor: pointer;
+  border-radius: 50%;
+}
+
+.downvote {
+  margin-bottom: 5px;
 }
 
 .post-description {
   text-align: left; /* Align the description text to the left */
+  margin: 20px;
+  font-size: 15px;
 }
 
 .line-divider {
-  border-top: 2px solid #707070; /* Adjust the color and thickness as needed */
+  border-top: 2px solid #d7d5d5; /* Adjust the color and thickness as needed */
   width: 100%; /* Ensure the line spans the entire width of the container */
   display: block; /* Ensure the line is a block element */
-  margin-top: 1px; /* Adjust the margin as needed */
+  margin-top: 5px; /* Adjust the margin as needed */
   margin-bottom: 1px;
 }
 
@@ -96,7 +128,7 @@ img {
   border-radius: 4px;
   font-size: 34px;
   position: absolute;
-  top: 45%;
+  margin-top: 270px;
   transform: translateY(-50%);
   background-color: white;
 }
@@ -111,6 +143,7 @@ img {
 
 .comments-section {
   margin-top: 20px;
+  border-radius: 20px;
 }
 
 .comments-section h3 {
@@ -120,10 +153,12 @@ img {
 }
 
 .comment {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   padding: 10px;
-  border: 1px solid #ddd;
   border-radius: 8px;
+  width: 600px;
+  border: 5px solid #ccc;
+  margin-top: 10px;
 }
 
 .comment-text {
@@ -132,8 +167,10 @@ img {
 }
 
 .comment-metadata {
-  font-size: 12px;
+  font-size: 10px;
   color: #666;
+  text-align: left;
+  margin-bottom: -20px;
 }
 
 .newCommentText {
@@ -145,19 +182,26 @@ img {
 }
 
 .commentCreation {
-  border: 2px solid black;
+  border: 5px solid #221853;
   padding: 5px;
   display: flex;
   flex-direction: column;
   position: relative;
   margin: 5px;
   font-family: 'Trip', sans-serif;
+  border-radius: 10px;
+  margin-bottom: 30px;
 }
 
 .submit_button {
   align-self: flex-end; /* Align the button to the right within the flex container */
-  margin-top: 5px; /* Add margin to separate the button from the textarea */
+   /* Add margin to separate the button from the textarea */
   font-family: 'Trip', sans-serif;
+  color: white;
+  background-color: #221853;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 15px;
 }
 .delete-button {
   color: red;

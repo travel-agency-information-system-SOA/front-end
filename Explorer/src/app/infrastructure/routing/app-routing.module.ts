@@ -22,7 +22,7 @@ import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpos
 import { BlogComponent } from 'src/app/feature-modules/blog/blog/blog.component';
 
 import { ClubComponent } from 'src/app/feature-modules/club/club/club.component';
-
+import { BlogPostDetailComponent } from 'src/app/feature-modules/blog/blog-post-detail/blog-post-detail.component';
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
@@ -62,7 +62,8 @@ const routes: Routes = [
   {path: 'blog', component: BlogComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
-  {path: 'app-rating-form', component: AppRatingFormComponent}
+  {path: 'app-rating-form', component: AppRatingFormComponent},
+  {path: 'blog/:id', component: BlogPostDetailComponent },
 ];
 
 @NgModule({
