@@ -15,12 +15,18 @@ import { ProblemComponent } from './problem/problem.component';
 import { ProblemMessageFormComponent } from './problem-message-form/problem-message-form.component';
 import { ProblemChatComponent } from './problem-chat/problem-chat.component';
 import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.component';
+import { TourSearchComponent } from './tour-search/tour-search.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+
+
+import { ToursShowComponent } from './tours-show/tours-show.component';
+import { UpdateReviewComponent } from './update-review/update-review.component';
+
 
 
 
 @NgModule({
   declarations: [
-
     TourReviewFormComponent,
     TourReviewsShowComponent,
     GuideReviewComponent,
@@ -30,19 +36,24 @@ import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.co
     ProblemComponent,
     ProblemMessageFormComponent,
     ProblemChatComponent,
-    ProblemDeadlineComponent
+    ProblemDeadlineComponent,
+    TourSearchComponent,
+    ToursShowComponent,
+    UpdateReviewComponent
+
   ],
   imports: [
     CommonModule,
     MaterialModule,
-
+    SharedModule,
     MatInputModule,
 
     ReactiveFormsModule,
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatTableModule
+    MatTableModule,
+    
   ],
   exports: [
     GuideReviewComponent,

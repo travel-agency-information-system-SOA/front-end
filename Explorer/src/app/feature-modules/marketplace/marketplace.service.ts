@@ -9,6 +9,10 @@ import { Problem } from './model/problem.model';
 import { ProblemMessage } from './model/problem-message.model';
 import { AdministrationService } from '../administration/administration.service';
 import { Profile } from '../administration/model/profile.model';
+import { TourReview } from './model/tourReview.model';
+import { Tour } from '../tour-authoring/tour/model/tour.model';
+import { ReviewTour } from './tours-show/ReviewTour.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -95,5 +99,27 @@ export class MarketplaceService {
 
   readMessages(message: ProblemMessage): Observable<void> {
     return this.http.put<void>(environment.apiHost + 'administration/message/' + message.id, message);
+  }
+  getToursByLocation(latitude: number, longitude: number, range:number): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(environment.apiHost+ 'administration/tour/search/' + latitude + '/' + longitude + '/' + range);
+  }
+  createReview(tourReview: TourReview): Observable<TourReview>{
+    return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview', tourReview);
+  }
+
+  getAllReviews():Observable<PagedResults<TourReview>> {
+    return this.http.get<PagedResults<TourReview>>(environment.apiHost+ 'tourist/tourReview');
+  }
+
+  deleteReview(tourReview: TourReview): Observable<TourReview>{
+    return this.http.delete<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id);
+  }
+
+  updateReview(tourReview: TourReview): Observable<TourReview>{
+    return this.http.put<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id, tourReview);
+  }
+  getAllTours():Observable<PagedResults<ReviewTour>> {
+    return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
+
   }
 }

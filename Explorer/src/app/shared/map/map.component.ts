@@ -1,4 +1,6 @@
+
 import { Component, AfterViewInit, Input, OnDestroy } from '@angular/core';
+
 import * as L from 'leaflet';
 import { MapService } from './map.service';
 
@@ -18,6 +20,8 @@ import { mergeMap, tap } from 'rxjs/operators';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit {
+  @Input() saveOnlyLatest = false;
+
   private map: any;
   tourId: string;
   objects: { latitude: number; longitude: number }[];
@@ -102,6 +106,16 @@ export class MapComponent implements AfterViewInit {
       const lat = coord.lat;
       const lng = coord.lng;
       this.service.setCoordinates({ lat, lng });
+
+      if (this.saveOnlyLatest) {
+        // ovaj if radi za tour search
+        this.map.eachLayer((layer: any) => {
+          if (layer instanceof L.Marker) {
+            this.map.removeLayer(layer);
+          }
+        });
+      }
+
       this.service.reverseSearch(lat, lng).subscribe((res) => {
         console.log(res.display_name);
       });
@@ -110,7 +124,10 @@ export class MapComponent implements AfterViewInit {
       );
       const mp = new L.Marker([lat, lng]).addTo(this.map);
 
-      alert(mp.getLatLng());
+      if (!this.saveOnlyLatest) alert(mp.getLatLng()); //ovo samo sklanja za tur src post mi smeta
+
+
+     
     });
   }
 

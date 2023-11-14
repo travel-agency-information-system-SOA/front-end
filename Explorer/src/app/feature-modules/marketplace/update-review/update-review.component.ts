@@ -1,20 +1,18 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { MarketplaceService } from '../marketplace.service';
 import { TourReview } from '../model/tourReview.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
-import { PagedResults } from 'src/app/shared/model/paged-results.model';
-import { MarketplaceService } from '../marketplace.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'xp-tour-review-form',
-  templateUrl: './tour-review-form.component.html',
-  styleUrls: ['./tour-review-form.component.css']
+  selector: 'xp-update-review',
+  templateUrl: './update-review.component.html',
+  styleUrls: ['./update-review.component.css']
 })
+export class UpdateReviewComponent implements OnChanges {
 
-export class TourReviewFormComponent implements OnInit{
-
+  
   id: number;
   @Input()reviewForUpdate : TourReview;
   @Output() addedObject = new EventEmitter<null>();
@@ -42,7 +40,7 @@ export class TourReviewFormComponent implements OnInit{
     username:'',
     role: ''
   }
-/*
+
   ngOnChanges(changes: SimpleChanges){
     console.log("Primlljeni objekat", this.reviewForUpdate.id);
     this.id=this.reviewForUpdate.id;
@@ -52,35 +50,13 @@ export class TourReviewFormComponent implements OnInit{
     });
 
     console.log(this.inputForm.value.comment);
-  }*/
-  constructor(private authService: AuthService, private tourReviewService: MarketplaceService, private activatedRoute: ActivatedRoute, private router: Router){
+  }
+  constructor(private authService: AuthService, private tourReviewService: MarketplaceService, ){
    this.getLoggedInUser();
  
   }
-  ngOnInit(): void {
-   
-    this.activatedRoute.params.subscribe(params => {
-      this.tourReview.tourId = params['id'];
-      });
-  }
-  onSubmit(){
-   this.populateTourReview();
-   console.log("Recenzija",this.tourReview);
-
-   this.tourReviewService.createReview(this.tourReview).subscribe({
-    next: (response)=>{
-      console.log(response);
-      this.addedObject.emit();
-      this.inputForm.reset();
-      this.router.navigate(['/tourReviewShow']);
-    },
-    error: (error)=>{
-      console.log(error);
-    }
-  })
   
-
-  }
+  
     
   getLoggedInUser(){
     this.authService.user$.subscribe(user=>{
@@ -93,13 +69,7 @@ export class TourReviewFormComponent implements OnInit{
     })
   }
 
-  populateTourReview(){
-    this.tourReview.grade= parseFloat(this.inputForm.value.grade || '0');
-    this.tourReview.comment= this.inputForm.value.comment as string;
-    this.tourReview.reviewDate = new Date();
-    this.tourReview.touristId= this.loggedInUser.id;
-    this.tourReview.images= this.inputForm.value.images ? this.inputForm.value.images.split(',') : [];
-  }
+  
 
   onEdit(){
     this.reviewForUpdate.id=this.id;
@@ -108,6 +78,7 @@ export class TourReviewFormComponent implements OnInit{
     this.reviewForUpdate.comment= this.inputForm.value.comment as string;
     console.log("Editovani objekat", this.reviewForUpdate);
     this.update(this.reviewForUpdate);
+    this.inputForm.reset();
     
   }
 
@@ -121,4 +92,4 @@ export class TourReviewFormComponent implements OnInit{
       }
     })
   }
- }
+}
