@@ -12,7 +12,7 @@ import { Profile } from '../administration/model/profile.model';
 import { TourReview } from './model/tourReview.model';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
 import { ReviewTour } from './tours-show/ReviewTour.model';
-
+import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -121,5 +121,12 @@ export class MarketplaceService {
   getAllTours():Observable<PagedResults<ReviewTour>> {
     return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
 
+  }
+
+  getPublishedTours(): Observable<PagedResults<Tour>>{
+    return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/marketplace');
+  }
+  getSelectedTour(id: number): Observable<Tour>{
+    return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
   }
 }

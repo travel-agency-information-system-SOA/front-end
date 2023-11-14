@@ -8,6 +8,7 @@
             <button class="button" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['accounts']">Manage accounts</button>  
             <button class="button" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['app-ratings']">All App Ratings</button>
             <button class="button" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['problems']">Unsolved problems</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'"  raised-button [routerLink]="['marketplace']">Marketplace</button>
 
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['preferences']">My preferences</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['guideReview']">Review Guide</button>

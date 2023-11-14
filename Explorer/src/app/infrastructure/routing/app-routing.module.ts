@@ -31,6 +31,8 @@ import { ProblemComponent } from 'src/app/feature-modules/marketplace/problem/pr
 import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-show/tours-show.component';
 
 import { TourSearchComponent } from 'src/app/feature-modules/marketplace/tour-search/tour-search.component';
+import { TourMarketplaceComponent } from 'src/app/feature-modules/marketplace/tour-marketplace/tour-marketplace.component';
+import { TourDetailsComponent } from 'src/app/feature-modules/marketplace/tour-details/tour-details.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -72,7 +74,8 @@ const routes: Routes = [
   { path: 'tourSearch', component: TourSearchComponent},
 
   {path: 'tours-show', component: ToursShowComponent},
-
+  {path: 'marketplace', component: TourMarketplaceComponent},
+  {path: 'marketplace/:id', component: TourDetailsComponent}
 ];
 
 @NgModule({

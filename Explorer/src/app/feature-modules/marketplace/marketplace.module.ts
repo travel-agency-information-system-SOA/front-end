@@ -22,6 +22,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ToursShowComponent } from './tours-show/tours-show.component';
 import { UpdateReviewComponent } from './update-review/update-review.component';
 
+import { TourMarketplaceComponent } from './tour-marketplace/tour-marketplace.component';
+import { TourDetailsComponent } from './tour-details/tour-details.component';
 
 
 
@@ -39,8 +41,9 @@ import { UpdateReviewComponent } from './update-review/update-review.component';
     ProblemDeadlineComponent,
     TourSearchComponent,
     ToursShowComponent,
-    UpdateReviewComponent
-
+    UpdateReviewComponent,
+    TourMarketplaceComponent,
+    TourDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -57,7 +60,7 @@ import { UpdateReviewComponent } from './update-review/update-review.component';
   ],
   exports: [
     GuideReviewComponent,
-    
+    TourMarketplaceComponent,
     PreferencesComponent
 
   ]
