@@ -157,4 +157,8 @@ export class TourAuthoringService {
     return this.http.post<PublicTourPoint>(
       environment.apiHost + 'administration/publicTourPoint/createPublicTourPoint/' + requestId+ '/' + tourPointId,null);
   }
+  RejectRequest(requestId:number,tourPointId:number):Observable<PublicTourPoint>{
+    return this.http.put<PublicTourPoint>(
+      environment.apiHost + 'tourist/publicTourPointRequest/rejectRequest/' + requestId,null);
+  }
 }

@@ -2,9 +2,12 @@
         <table>
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>Description </th>
-                    <th>Author </th>
+                    <th>Tour point name</th>
+                    <th>Tour point description </th>
+                    <th>Author username </th>
+                    <th>Comment</th>
+                    <th>Accept</th>
+                    <th>Reject</th>
                 </tr>
             </thead>
             <tbody>
@@ -12,11 +15,20 @@
                     <td>{{r.name}}</td>
                     <td>{{r.description}}</td>
                     <td>{{r.username}}</td>
+                    <td> <!-- Polje za unos komentara -->
+                        <input type="text" >
+                    </td>
                     <td>
                         <button (click)="AcceptRequest(r.request)" color="accent" mat-icon-button>
-                            <mat-icon>accept</mat-icon>
+                            <mat-icon>done</mat-icon>
                         </button>
                     </td>
+                    <td>
+                        <button (click)="RejectRequest(r.request)" color="accent" mat-icon-button>
+                            <mat-icon>close</mat-icon>
+                        </button>
+                    </td>
+                   
                 </tr>
             </tbody>
         </table>

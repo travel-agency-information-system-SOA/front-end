@@ -49,6 +49,19 @@ export class PublicTourPointRequestComponent implements OnInit {
       next:(result:PublicTourPoint)=>{
         this.publicTourPoint = result;
         this.getAllRequests();
+        this.bindingList.length = 0; //ovo dodajte i u reject request
+        this.getAllRequests();       // i ovo
+      }
+    })
+  }
+
+  RejectRequest(request:TourPointRequest):void{
+    this.service.RejectRequest(request.id,request.tourPointId).subscribe({
+      next:(result:PublicTourPoint)=>{
+        this.publicTourPoint = result;
+        this.getAllRequests();
+        this.bindingList.length = 0; //ovo dodajte i u reject request
+        this.getAllRequests();       // i ovo
       }
     })
   }
@@ -57,10 +70,8 @@ export class PublicTourPointRequestComponent implements OnInit {
     const observables = this.requests.map(request => this.adminService.getTourPointById(request.tourPointId));
   
     forkJoin(observables).subscribe((results: TourPoint[]) => {
-      this.tourPointsInRequests = results;
-      console.log("Tour pointi:" + this.tourPointsInRequests);
-  
-      this.getRequestsAuthors(); // Poziv sledeće metode
+      this.tourPointsInRequests = results;  
+      this.getRequestsAuthors(); 
     });
   }
 
@@ -69,9 +80,8 @@ export class PublicTourPointRequestComponent implements OnInit {
   
     forkJoin(observables).subscribe((results: User[]) => {
       this.authors = results;
-      console.log("Authors: " + this.authors);
   
-      this.fillBindingList(); // Poziv konačne metode
+      this.fillBindingList(); 
     });
   }
 
