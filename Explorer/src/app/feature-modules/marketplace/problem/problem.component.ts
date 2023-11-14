@@ -26,7 +26,6 @@ interface ExtendedProblem extends Problem {
 })
 export class ProblemComponent implements OnInit {
   
-  //problem: Problem[] = [];
   problem: ExtendedProblem[] = [];
   selectedProblem: Problem;
   user: User;
@@ -88,11 +87,9 @@ export class ProblemComponent implements OnInit {
   deadlineMissedUnsolved(): void {
     const currentDate = new Date();
     this.problem.forEach((problem) => {
-      // Only check for unsolved problems
       if (!problem.isSolved) {
         const problemDeadline = this.getDateFromValue(problem.deadline);
   
-        // Check if the deadline is today
         if (problemDeadline && this.isSameDate(currentDate, problemDeadline)) {
           problem.deadlineMissed = true;
         }
@@ -112,7 +109,6 @@ export class ProblemComponent implements OnInit {
     const currentDate = new Date();
     this.problem.forEach((problem) => {
 
-    //const timeAsDate: Date = problem.time as Date;
     const problemTime = this.getDateFromValue(problem.time);
       
       if (problemTime) {
@@ -168,68 +164,6 @@ export class ProblemComponent implements OnInit {
       }
     })
   }
-  /*
-  deleteTour(prob: Problem): void {
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        message: 'Do you want to turn off tour that has this problem because the deadline is missed?',
-      },
-    });
-  
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        this.authoringService.deleteTourProblem(prob.idTour).subscribe({
-          this.service.deleteProblem(prob).subscribe({
-            next: (_) => {
-              this.getUnsolvedProblems();
-            }
-          })
-          
-        });
-      }
-    });
-  }*/
-
-/*
-  archiveTour(prob: Problem): void {
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        message: 'Do you want to turn off tour that has this problem because the deadline is missed?',
-      },
-    });
-  
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        this.authoringService.getTourByTourId(prob.idTour).subscribe({
-          next: (tour: Tour) => {
-
-            tour.status = Status.Archived;
-            tour.id = prob.idTour;
-            console.log(tour)
-
-            this.authoringService.updateTour(tour).subscribe({
-              next: () => {
-                this.service.deleteProblem(prob).subscribe({
-                  next: (deleteProblemResult) => {
-                    console.log('Delete Problem Result:', deleteProblemResult);
-      
-                    this.getUnsolvedProblems();
-                  },
-                  error: (deleteProblemError) => {
-                    console.error('Error deleting problem:', deleteProblemError);
-                  }
-                });
-              },
-              error: (deleteTourError) => {
-                // Handle errors if deleting tour fails
-                console.error('Error deleting tour:', deleteTourError);
-              }
-            });
-          }
-        })
-      }
-    });
-  }  */
 
   archiveTour(prob: Problem): void {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
@@ -243,7 +177,6 @@ export class ProblemComponent implements OnInit {
         this.authoringService.getTourByTourId(prob.idTour).subscribe({
           next: (tour: Tour) => {
             tour.status = Status.Archived;
-            //tour.id = prob.idTour;
             console.log(tour);
   
             this.authoringService.updateTour(tour).subscribe({
@@ -325,18 +258,14 @@ export class ProblemComponent implements OnInit {
     this.disabledRows.push(index);
     
   
-    // Call a service method to update isSolved in your database
     this.service.updateProblemIsSolved(this.selectedProblem).subscribe(
       () => {
-        // Success callback
         console.log('Problem isSolved updated successfully.');
       },
       (error) => {
-        // Error callback
         console.error('Error updating problem isSolved:', error);
       },
       () => {
-        // This block will execute whether the request is successful or not
         this.isSolving = false;
       
         this.service.getMessagesByProblemId(this.selectedProblem.id || 0).subscribe({

@@ -17,10 +17,9 @@ export class ProblemDeadlineComponent {
   @Output() problemUpdated = new EventEmitter<null>();
 
   selectedDate = new FormControl(new Date());
-  showForm = false; // Initialize as false to hide the form initially
+  showForm = false; 
 
   toggleForm(): void {
-    // Toggle the form visibility
     this.showForm = !this.showForm;
     console.log(this.showForm)
 
