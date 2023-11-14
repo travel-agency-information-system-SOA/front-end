@@ -10,6 +10,7 @@ import { AccountComponent } from './account/account.component';
 
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
+import { PublicTourPointRequestComponent } from './public-tour-point-request/public-tour-point-request.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     AccountComponent,
     ProfileComponent,
     AppRatingFormComponent,
-    AppRatingsComponent
+    AppRatingsComponent,
+    PublicTourPointRequestComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,8 @@ import { FormsModule } from '@angular/forms';
     AccountComponent,
     ProfileComponent,
     AppRatingsComponent,
-    AppRatingFormComponent
+    AppRatingFormComponent,
+    
   ]
 })
 export class AdministrationModule { }

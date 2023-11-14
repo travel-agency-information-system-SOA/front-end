@@ -10,6 +10,7 @@ import { Account } from './model/account.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 import { Profile } from './model/profile.model';
 import { TourPointRequest } from './model/tourpoint-request.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
 
 @Injectable({
   providedIn: 'root',
@@ -76,5 +77,12 @@ export class AdministrationService {
     return this.http.get<PagedResults<TourPointRequest>>(environment.apiHost + `tourist/publicTourPointRequest`);
   }
 
+  getTourPointById(id:number): Observable<TourPoint> {
+    return this.http.get<TourPoint>(environment.apiHost + 'administration/tourPoint/getById/' +id);
+  }
+  getAuthorById(id:number): Observable<User> {
+    return this.http.get<User>(environment.apiHost + `user/getById/` +id);
+  }
+  
   
 }

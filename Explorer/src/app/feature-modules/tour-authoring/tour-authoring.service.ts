@@ -14,6 +14,7 @@ import { ObjInTour } from './model/objInTour.model';
 import { BehaviorSubject } from 'rxjs';
 import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 import { TourPointRequest } from '../administration/model/tourpoint-request.model';
+import { PublicTourPoint } from './model/publicTourPoint.model';
 
 @Injectable({
   providedIn: 'root',
@@ -152,4 +153,8 @@ export class TourAuthoringService {
     );
   }
  
+  AcceptRequest(requestId:number,tourPointId:number):Observable<PublicTourPoint>{
+    return this.http.post<PublicTourPoint>(
+      environment.apiHost + 'administration/publicTourPoint/createPublicTourPoint/' + requestId+ '/' + tourPointId,null);
+  }
 }

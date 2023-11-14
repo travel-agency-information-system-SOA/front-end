@@ -27,6 +27,7 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
 import { PrivateTourPointsComponent } from 'src/app/feature-modules/tour-authoring/private-tour-points/private-tour-points.component';
+import { PublicTourPointRequestComponent } from 'src/app/feature-modules/administration/public-tour-point-request/public-tour-point-request.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -44,6 +45,7 @@ const routes: Routes = [
   },
   {
     path: 'privateTourPoints', component: PrivateTourPointsComponent},
+   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},

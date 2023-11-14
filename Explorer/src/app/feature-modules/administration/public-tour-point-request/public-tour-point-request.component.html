@@ -1,0 +1,23 @@
+ 
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Description </th>
+                    <th>Author </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let r of bindingList">
+                    <td>{{r.name}}</td>
+                    <td>{{r.description}}</td>
+                    <td>{{r.username}}</td>
+                    <td>
+                        <button (click)="AcceptRequest(r.request)" color="accent" mat-icon-button>
+                            <mat-icon>accept</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+   
