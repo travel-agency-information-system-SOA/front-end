@@ -23,7 +23,6 @@ import { BlogPostDetailComponent } from 'src/app/feature-modules/blog/blog-post-
 import { BlogPostCreationComponent } from 'src/app/feature-modules/blog/blog-post-creation/blog-post-creation.component';
 
 import { ClubComponent } from 'src/app/feature-modules/club/club/club.component';
-import { BlogPostDetailComponent } from 'src/app/feature-modules/blog/blog-post-detail/blog-post-detail.component';
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
@@ -64,7 +63,6 @@ const routes: Routes = [
   {path: 'blog', component: BlogComponent, canActivate: [AuthGuard],},
   {path: 'blog/create-post', component: BlogPostCreationComponent, canActivate: [AuthGuard]},
   {path: 'blog/update-post', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
-  {path: 'blog/:id', component: BlogPostDetailComponent },
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
   {path: 'app-rating-form', component: AppRatingFormComponent},
