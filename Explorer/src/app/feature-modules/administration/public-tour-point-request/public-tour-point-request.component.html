@@ -16,15 +16,15 @@
                     <td>{{r.description}}</td>
                     <td>{{r.username}}</td>
                     <td> <!-- Polje za unos komentara -->
-                        <input type="text" >
+                        <input type="text" [(ngModel)]="r.comment">
                     </td>
                     <td>
-                        <button (click)="AcceptRequest(r.request)" color="accent" mat-icon-button>
+                        <button (click)="AcceptRequest(r.request,r.comment)" color="accent" mat-icon-button>
                             <mat-icon>done</mat-icon>
                         </button>
                     </td>
                     <td>
-                        <button (click)="RejectRequest(r.request)" color="accent" mat-icon-button>
+                        <button (click)="RejectRequest(r.request,r.comment)" color="accent" mat-icon-button>
                             <mat-icon>close</mat-icon>
                         </button>
                     </td>

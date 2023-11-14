@@ -21,7 +21,7 @@ export class PublicTourPointRequestComponent implements OnInit {
   publicTourPoint: PublicTourPoint
   tourPointsInRequests: TourPoint[] = []
   authors: User[] = []
-  bindingList: { request: TourPointRequest,name: string, description:string, username:string}[] = []
+  bindingList: { request: TourPointRequest,name: string, description:string, username:string,comment:string}[] = []
 
   constructor( private adminService: AdministrationService,private authService: AuthService,private service:TourAuthoringService){}
 
@@ -44,8 +44,8 @@ export class PublicTourPointRequestComponent implements OnInit {
 
   }
 
-  AcceptRequest(request:TourPointRequest):void{
-    this.service.AcceptRequest(request.id,request.tourPointId).subscribe({
+  AcceptRequest(request:TourPointRequest,comment:string):void{
+    this.service.AcceptRequest(request.id,request.tourPointId,comment).subscribe({
       next:(result:PublicTourPoint)=>{
         this.publicTourPoint = result;
         this.getAllRequests();
@@ -55,8 +55,8 @@ export class PublicTourPointRequestComponent implements OnInit {
     })
   }
 
-  RejectRequest(request:TourPointRequest):void{
-    this.service.RejectRequest(request.id,request.tourPointId).subscribe({
+  RejectRequest(request:TourPointRequest,comment:string):void{
+    this.service.RejectRequest(request.id,comment).subscribe({
       next:(result:PublicTourPoint)=>{
         this.publicTourPoint = result;
         this.getAllRequests();
@@ -86,25 +86,24 @@ export class PublicTourPointRequestComponent implements OnInit {
   }
 
   fillBindingList(): void {
-    console.log("Usao")
-    this.requests.forEach(request=>{
-      console.log("Prva petlja: "+ "Autor:"+ request.authorId + "Tuour point: "+ request.tourPointId)
-      this.tourPointsInRequests.forEach(tp=>{
-        console.log("Druga petlja: " + tp.id)
-        this.authors.forEach(author => {
-          console.log("Autor: " + request.authorId+ " autorId:"+author.id+",,,,tourPoint: " + request.tourPointId + " id ttur pointa: " + tp.id);
-          if(request.authorId === author.id && request.tourPointId === tp.id) {
-            console.log("Autor: " + request.authorId+ " autorId:"+author.id+",,,,tourPoint: " + request.tourPointId + " id ttur pointa: " + tp.id);
-            this.bindingList.push({
-              request: request,
-              name: tp.name,
-              description: tp.description,
-              username: author.username
-            });
-          }
-        })
-      })
-    })
+    console.log("Usao");
+    this.requests.forEach(request => {
+      const tp = this.tourPointsInRequests.find(tp => tp.id === request.tourPointId);
+      const author = this.authors.find(author => author.id === request.authorId);
+  
+      if (tp && author) {
+        console.log("Pronađeni su odgovarajući podaci za zahtjev", request.id);
+        this.bindingList.push({
+          request: request,
+          name: tp.name,
+          description: tp.description,
+          username: author.username,
+          comment: ''
+        });
+      } else {
+        console.log("Nisu pronađeni odgovarajući podaci za zahtjev", request.id);
+      }
+    });
   }
-
+  
 }

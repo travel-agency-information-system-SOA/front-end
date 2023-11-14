@@ -153,12 +153,12 @@ export class TourAuthoringService {
     );
   }
  
-  AcceptRequest(requestId:number,tourPointId:number):Observable<PublicTourPoint>{
+  AcceptRequest(requestId:number,tourPointId:number,comment:string):Observable<PublicTourPoint>{
     return this.http.post<PublicTourPoint>(
-      environment.apiHost + 'administration/publicTourPoint/createPublicTourPoint/' + requestId+ '/' + tourPointId,null);
+      environment.apiHost + 'administration/publicTourPoint/createPublicTourPoint/' + requestId+ '/' + tourPointId+ '/' + comment,null);
   }
-  RejectRequest(requestId:number,tourPointId:number):Observable<PublicTourPoint>{
+  RejectRequest(requestId:number,comment:string):Observable<PublicTourPoint>{
     return this.http.put<PublicTourPoint>(
-      environment.apiHost + 'tourist/publicTourPointRequest/rejectRequest/' + requestId,null);
+      environment.apiHost + 'tourist/publicTourPointRequest/rejectRequest/' + requestId+'/'+comment,null);
   }
 }
