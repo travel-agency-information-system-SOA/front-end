@@ -17,6 +17,29 @@ export class MapService {
   );
   public coordinate$ = this.coordinateSubject.asObservable();
 
+  private totalDistanceSubject = new BehaviorSubject<number>(0);
+  private totalTimeSubject = new BehaviorSubject<number>(0);
+
+  totalDistance$ = this.totalDistanceSubject.asObservable();
+  totalTime$ = this.totalTimeSubject.asObservable();
+  private transportMode: string = 'walking';
+
+  setTransportMode(mode: string) {
+    this.transportMode = mode;
+  }
+
+  setTotalDistance(distance: number) {
+    this.totalDistanceSubject.next(distance);
+  }
+
+  getTransportMode() {
+    return this.transportMode;
+  }
+
+  setTotalTime(time: number) {
+    this.totalTimeSubject.next(time);
+  }
+
   setCoordinates(coordinates: { lat: number; lng: number }) {
     this.coordinateSubject.next(coordinates);
   }
@@ -44,6 +67,7 @@ export class MapService {
 
   initMap(): any {
     if (this.isMapInitialized) {
+      console.log(this.map);
       this.map.remove();
     }
 
@@ -61,6 +85,7 @@ export class MapService {
           '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       }
     );
+
     tiles.addTo(this.map);
     this.isMapInitialized = true;
     return this.map;
