@@ -5,6 +5,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { BlogPost } from './model/blogpost.model';
 import { environment } from 'src/env/environment';
 import { BlogPostRating } from './model/blog-post-rating.model';
+import { BlogPostComment } from './model/blog-post-comment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -33,5 +34,11 @@ export class BlogService {
   }
   removeRating(blogId: number, userId: number): Observable<BlogPost>{
     return this.http.delete<BlogPost>(environment.apiHost + 'blog/blogpost/' + blogId + '/ratings/' + userId );
+  }
+  addComment(id: number, comment: BlogPostComment): Observable<BlogPost> {
+    return this.http.post<BlogPost>(environment.apiHost + 'blog/blogpost/' + id + '/comments', comment);
+  }
+  deleteComment(blogId: number, userId:number, dateTime: Date):Observable<BlogPost> {
+    return this.http.delete<BlogPost>(environment.apiHost + 'blog/blogpost/' +  blogId + '/comments/' + userId + '/' + dateTime );
   }
 }

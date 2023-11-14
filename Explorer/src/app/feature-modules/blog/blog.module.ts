@@ -47,7 +47,8 @@ import { BlogPostUpdateComponent } from './blog-post-update/blog-post-update.com
     MaterialModule,
     SharedModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [
     BlogpostComponent,

@@ -4,6 +4,8 @@ import { BlogPost } from '../model/blogpost.model';
 import { BlogPostRating } from '../model/blog-post-rating.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { BlogService } from '../blog.service';
+import { BlogPostComment } from '../model/blog-post-comment.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'xp-blog-post-detail',
@@ -20,13 +22,29 @@ export class BlogPostDetailComponent implements OnInit {
   isUpvoted: boolean;
   isDownvoted: boolean;
   overall_rating: number = 0;
+  upvote_count:number = 0;
+  downvote_count: number = 0;
 
   ngOnInit(): void {
     this.post = JSON.parse(this.route.snapshot.queryParams['post']);
     this.checkRating();
+    this.GetOverallRating();
     // You can now access properties of the blog post object in this.post
   }
 
+  GetOverallRating() {
+    if(this.post.ratings != null) {
+      for (const rating of this.post.ratings) {
+        if(rating.isPositive) {
+          this.upvote_count++;
+        }
+        else {
+          this.downvote_count++;
+        }
+      }
+      this.overall_rating = this.upvote_count - this.downvote_count;
+    }
+  }
   checkRating() {
     if(this.post.ratings != null) {
        for (const rating of this.post.ratings) {
@@ -126,6 +144,42 @@ export class BlogPostDetailComponent implements OnInit {
       }
     })
   }
-  
 
+  commentForm = new FormGroup({
+    text: new FormControl('', [Validators.required]),
+  });
+  
+  addComment(): void {
+    const comment: BlogPostComment= {
+      userId: this.tokenStorage.getUserId() || 0 ,
+      blogId: this.post.id,
+      text: this.commentForm.value.text || "",
+      creationTime: new Date(),
+      lastUpdatedTime: new Date(), 
+    }
+    this.post.comments?.push(comment);
+    this.service.addComment(this.post.id, comment).subscribe({
+      next: () => { this.postUpdated.emit();}
+    })
+    this.commentForm.reset();
+  }
+
+  showEditDeleteButtons(commentId:number):boolean {
+    if(this.post.comments != null) {
+      for (const comment of this.post.comments) {
+        if(comment.userId == this.tokenStorage.getUserId()) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  editComment():void {
+
+  }
+
+  deleteComment():void {
+      
+  }
 }
