@@ -1,68 +1,99 @@
-<div>
-  <div class="wrapper"><p>Tours</p></div>
+<div class="wrapper">
+  <div class="card-wrapper" fxLayout="row" fxLayout.xs="column" fxLayoutAlign="center start" fxLayoutGap="16px wrap">
+    <div *ngFor="let t of tour" class="card">
+      <mat-card>
+    
+        <mat-card-header>
+          <div class="headerName">
+          <div class="title">
+          <mat-card-title>{{ t.name }}</mat-card-title>
+          <div class="buttons">
+          <button (click)="deleteTour(t)" color="accent" mat-icon-button>
+            <mat-icon>delete</mat-icon>
+          </button>
+          <button
+            (click)="onEditClicked(t)"
+            color="primary"
+            mat-icon-button
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        </div>
+        <div class="status">
+          <mat-card-subtitle>{{ t.status }}</mat-card-subtitle>
 
-  <div class="table-wrapper">
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th>Map</th>
-            <th>Tour name</th>
-            <th>Description</th>
-            <th>Status</th>
-            <th>Price</th>
-            <th>Difficulty level</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let t of tour">
-            <button *ngIf="t.id !== undefined" (click)="viewMap(t.id)">
-              🗺️
-            </button>
+      
+      </div></div>
+        </mat-card-header> 
+       
+        <div class="maindiv">
+        <mat-card-content>
+          <div class="content">
 
-            <td>{{ t.name }}</td>
-            <td>{{ t.description }}</td>
-            <td>{{ t.status }}</td>
-            <td>{{ t.price }}</td>
-            <td>{{ t.difficultyLevel }}</td>
-            <td>
-              <button (click)="openEquipmentDialog(t)">Add equipment</button>
+          <p class="details">🛈 Details</p>
 
-              <button (click)="onAddPoint(t)" color="primary" mat-icon-button>
-                <mat-icon>add</mat-icon>
-              </button>
+          <p class="desc">{{ t.description }}</p>
+        </div>
+        <div class="other">
+          <div>
+            <p class="price-value">{{ t.price }}$</p>
 
-              <button (click)="onAddObj(t)" color="primary" mat-icon-button>
-                <mat-icon>restaurant</mat-icon>
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="button-wrap">
-        <button [disabled]="tourCounter < 1" (click)="showMoreTours()">
-          Show more tours ➡️</button
-        ><button [disabled]="page <= 1" (click)="showLessTours()">
-          ⬅️ Show less tours
-        </button>
-        <button (click)="addTour()">Add tour</button>
+            <div class="difLevel">
+              <mat-card-subtitle [ngClass]="{'easy': t.difficultyLevel === 'Easy', 'medium': t.difficultyLevel === 'Moderate', 'hard': t.difficultyLevel === 'Difficult'}">
+                {{ t.difficultyLevel }}
+              </mat-card-subtitle>
+            </div>
+          </div>
+          
+          <button   *ngIf="t.id !== undefined" mat-button (click)="viewMap(t.id)">
+           🗺️
+          </button>
+        </div>
+        </mat-card-content>
+        
       </div>
-    </div>
+        <mat-card-actions>
+          <div class="definition">
+          <div class="buttons">
+          <button class="equipment"  mat-button (click)="openEquipmentDialog(t)">Add equipment</button>
+          <button (click)="onAddPoint(t)" color="primary" mat-icon-button>
+            <mat-icon>add</mat-icon>
+          </button>
 
-    <div class="wrapper-form">
-      <p *ngIf="showTourForm">🛫 Create tour:</p>
-      <xp-tour-form
-        *ngIf="showTourForm"
-        (tourUpdated)="loadTours()"
-      ></xp-tour-form>
-      <xp-tour-point-form
-        *ngIf="shouldAddPoint"
-        [tour]="selectedTour"
-      ></xp-tour-point-form>
-      <xp-object-form
-        *ngIf="shouldAddObject"
-        [tour]="selectedTour"
-      ></xp-object-form>
+          <button (click)="onAddObj(t)" color="primary" mat-icon-button>
+            <mat-icon>restaurant</mat-icon>
+          </button>
+        </div>
+        <div class="isPublished">
+          <button *ngIf="t.status === 'Published'" mat-button color="white" (click)="archiveTour(t)">Archive</button>
+          <button *ngIf="t.status !== 'Published'" mat-button color="white" (click)="publishTour(t)">Publish</button>
+        </div>
+        
+      </div>
+        </mat-card-actions>
+      </mat-card>
+      <div class="wrapper-form">
+        <p *ngIf="showTourForm">🛫 Create tour:</p>
+        <xp-tour-form
+          *ngIf="showTourForm"
+          (tourUpdated)="loadTours()"
+        ></xp-tour-form>
+        <xp-tour-point-form
+          *ngIf="shouldAddPoint"
+          [tour]="selectedTour"
+        ></xp-tour-point-form>
+        <xp-object-form
+          *ngIf="shouldAddObject"
+          [tour]="selectedTour"
+        ></xp-object-form>
+        <xp-tour-form
+          *ngIf="shouldRenderTourForm"
+          [tour]="selectedTour"
+          [shouldEdit]="shouldEdit"
+          (tourUpdated)="loadTours()"
+        ></xp-tour-form>
+      </div>
     </div>
   </div>
 </div>

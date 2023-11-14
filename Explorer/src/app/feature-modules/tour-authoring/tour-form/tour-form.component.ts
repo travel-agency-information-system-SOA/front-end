@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TourService } from '../tour.service';
 import { Tour } from '../tour/model/tour.model';
@@ -14,15 +21,24 @@ import { TourAuthoringService } from '../tour-authoring.service';
   templateUrl: './tour-form.component.html',
   styleUrls: ['./tour-form.component.css'],
 })
-export class TourFormComponent {
+export class TourFormComponent implements OnChanges {
   difficultyLevels = Object.values(DifficultyLevel);
 
   @Output() tourUpdated = new EventEmitter<null>();
+  @Input() tour: Tour;
+  @Input() shouldEdit: boolean = false;
 
   constructor(
     private service: TourAuthoringService,
     private tokenStorage: TokenStorage
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.tourForm.reset();
+    if (this.shouldEdit) {
+      this.tourForm.patchValue(this.tour);
+    }
+  }
 
   tourForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -43,6 +59,8 @@ export class TourFormComponent {
       guideId: this.tokenStorage.getUserId(),
       price: 0,
       tags: ['xzy', 'abc'],
+      tourPoints: [],
+      tourCharacteristics: [],
     };
 
     this.service.addTour(tour).subscribe({
@@ -52,4 +70,22 @@ export class TourFormComponent {
       },
     });
   }
+
+  // updateTour(): void {
+  //   const tour: Tour = {
+  //     name: this.tourForm.value.name || '',
+  //     description: this.tourForm.value.description || '',
+  //     status: Status.Draft,
+  //     difficultyLevel: this.tourForm.value.difficulytLevel as DifficultyLevel,
+  //     guideId: this.tokenStorage.getUserId(),
+  //     price: 0,
+  //     tags: ['xzy', 'abc'],
+  //   };
+  //   tour.id = this.tour.id;
+  //   this.service.updateTour(tour).subscribe({
+  //     next: (_) => {
+  //       this.tourUpdated.emit();
+  //     },
+  //   });
+  // }
 }

@@ -1,3 +1,5 @@
+import { Tour } from "../../tour-authoring/tour/model/tour.model";
+
 export interface TourReview{
     id: number;
     grade: number;
@@ -7,5 +9,6 @@ export interface TourReview{
     images : string[];
     touristId:number;
     tourId: number;
+    
 
 }

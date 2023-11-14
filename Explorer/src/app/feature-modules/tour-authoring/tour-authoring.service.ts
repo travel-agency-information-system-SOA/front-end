@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourPoint } from './model/tourPoints.model';
@@ -12,6 +12,7 @@ import { Tour } from './tour/model/tour.model';
 import { ObjInTour } from './model/objInTour.model';
 
 import { BehaviorSubject } from 'rxjs';
+import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,9 @@ import { BehaviorSubject } from 'rxjs';
 export class TourAuthoringService {
   private tourIdSource = new BehaviorSubject<string>('');
   currentTourId = this.tourIdSource.asObservable();
+
+  tourPointAdded = new EventEmitter<void>();
+  transportTypeChanged = new EventEmitter<void>();
 
   constructor(private http: HttpClient) {}
 
@@ -112,8 +116,8 @@ export class TourAuthoringService {
     );
   }
 
-  getObjInTourByTourId(tourId: number): Observable<number[]> {
-    return this.http.get<number[]>(
+  getObjInTourByTourId(tourId: number): Observable<TourObject[]> {
+    return this.http.get<TourObject[]>(
       `https://localhost:44333/api/administration/objInTour/${tourId}`
     );
   }
@@ -124,5 +128,48 @@ export class TourAuthoringService {
   }
   changeTourId(tourId: string) {
     this.tourIdSource.next(tourId);
+  }
+
+  deleteTour(tour: Tour): Observable<Tour> {
+    return this.http.delete<Tour>(
+      environment.apiHost + 'administration/tour/' + tour.id
+    );
+  }
+  
+  isPublished(tour: Tour): Observable<Tour> {
+    console.log(tour.id)
+
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/publish/' + tour.id,
+      tour
+
+    );}
+
+  updateTour(tour: Tour): Observable<Tour> {
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/' + tour.id,
+      tour
+    );
+
+    
+  }
+
+  setTourCharacteristics(
+    tourId: number,
+    tourCharacteristic: TourCharacteristic
+  ): Observable<Tour> {
+    console.log(tourId);
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/caracteristics/' + tourId,
+      tourCharacteristic
+    );
+  }
+
+  emitTourPointAdded(): void {
+    this.tourPointAdded.emit();
+  }
+
+  emitTransportTypeChanged(): void {
+    this.transportTypeChanged.emit();
   }
 }
