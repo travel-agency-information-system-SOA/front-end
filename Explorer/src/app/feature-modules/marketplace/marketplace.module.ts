@@ -11,6 +11,8 @@ import { MatTableModule } from "@angular/material/table";
 import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
+import { TourMarketplaceComponent } from './tour-marketplace/tour-marketplace.component';
+import { TourDetailsComponent } from './tour-details/tour-details.component';
 
 
 
@@ -22,7 +24,9 @@ import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.
     GuideReviewComponent,
     GuideReviewFormComponent,
     PreferencesComponent,
-    PreferencesFormComponent
+    PreferencesFormComponent,
+    TourMarketplaceComponent,
+    TourDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +42,7 @@ import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.
   ],
   exports: [
     GuideReviewComponent,
-    
+    TourMarketplaceComponent,
     PreferencesComponent
 
   ]

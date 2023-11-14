@@ -5,6 +5,8 @@ import { GuideReview } from './model/guide-review.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Preferences } from "./model/preferences.model";
+import { Tour } from '../tour-authoring/tour/model/tour.model';
+import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,5 +48,12 @@ export class MarketplaceService {
 
   getUserPreferences(id: number): Observable<Preferences> {
     return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
+  }
+
+  getPublishedTours(): Observable<PagedResults<Tour>>{
+    return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/marketplace');
+  }
+  getSelectedTour(id: number): Observable<Tour>{
+    return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
   }
 }
