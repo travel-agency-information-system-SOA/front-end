@@ -49,6 +49,7 @@ export class UserPositionComponent implements OnChanges {
       (result) => {
         this.userPositions = result;
         console.log(this.userPositions.id);
+        
        
         // Handle the result as needed
       },
