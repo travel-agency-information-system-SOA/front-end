@@ -13,9 +13,12 @@
             <mat-icon>arrow_forward</mat-icon>
         </button>
       </ng-container>
-
       <ng-template #descriptionSection>
           <p class="description">{{ post.description }}</p>
       </ng-template>
+      <div class="author-date-container">
+        <small class="author" *ngIf="post.authorUsername">Posted by u/{{ post.authorUsername }}, </small>
+        <small class="date">{{ post.creationDate | date: 'medium' }}</small>
+      </div>
   </div>
 </div>

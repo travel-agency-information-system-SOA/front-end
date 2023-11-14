@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BlogPost } from '../model/blogpost.model';
 import { BlogService } from '../blog.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'xp-blog',
@@ -11,7 +12,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 export class BlogComponent {
   blogPosts: BlogPost[] = [];
 
-  constructor(private service: BlogService) { }
+  constructor(private service: BlogService, private router: Router) {}
 
   ngOnInit(): void {
     this.getBlogPosts();
@@ -30,6 +31,10 @@ export class BlogComponent {
         console.log(err);
       }
     })
+  }
+
+  navigateToPostCreation() {
+    this.router.navigate(['/blog/create-post']);
   }
 
 }

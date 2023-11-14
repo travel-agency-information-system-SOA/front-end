@@ -37,6 +37,6 @@ export class BlogPostCardComponent {
   }
 
   navigateToDetail(post: BlogPost) {
-    this.router.navigate(['/blog', post.id], { queryParams: { post: JSON.stringify(post) } });
+    this.router.navigate(['/blog/', post.id]);
   }
 }

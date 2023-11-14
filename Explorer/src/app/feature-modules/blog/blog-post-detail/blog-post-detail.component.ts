@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { BlogPost } from '../model/blogpost.model';
 import { BlogPostRating } from '../model/blog-post-rating.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
@@ -13,10 +13,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
   styleUrls: ['./blog-post-detail.component.css']
 })
 export class BlogPostDetailComponent implements OnInit {
+  postId: number;
   post: BlogPost;
   @Output() postUpdated = new EventEmitter<null>();
   
-  constructor(private service: BlogService, private route: ActivatedRoute,private tokenStorage: TokenStorage) { }
+  constructor(private service: BlogService, private route: ActivatedRoute,private tokenStorage: TokenStorage, private router: Router) { }
 
   currentImageIndex: number = 0;
   isUpvoted: boolean;
@@ -26,10 +27,25 @@ export class BlogPostDetailComponent implements OnInit {
   downvote_count: number = 0;
 
   ngOnInit(): void {
-    this.post = JSON.parse(this.route.snapshot.queryParams['post']);
+    this.route.params.subscribe(params => {
+      this.postId = +params['id'];
+      this.getById(this.postId);
+    });
     this.checkRating();
     this.GetOverallRating();
-    // You can now access properties of the blog post object in this.post
+  }
+
+  getById(blogPostId: number): void{
+    this.service.getById(blogPostId).subscribe({
+      next: (result: BlogPost) => {
+        this.post = result;
+        console.log(this.post);
+        this.post.creationDate = new Date(this.post.creationDate);
+      },
+      error: (err: any) =>{
+        console.log(err);
+      }
+    })
   }
 
   GetOverallRating() {
@@ -133,6 +149,18 @@ export class BlogPostDetailComponent implements OnInit {
     }
   }
 
+  navigateToUpdateForm() {
+    this.router.navigate(['/blog/update-post'], { queryParams: { post: JSON.stringify(this.post) } });
+  }
+
+  deletePost(){
+    this.service.deleteBlogPost(this.post).subscribe({
+      next: (_) => {
+        this.router.navigate(['/blog']);
+      }
+    })
+  }
+
   commentForm = new FormGroup({
     text: new FormControl('', [Validators.required]),
   });
@@ -140,6 +168,7 @@ export class BlogPostDetailComponent implements OnInit {
   addComment(): void {
     const comment: BlogPostComment= {
       userId: this.tokenStorage.getUserId() || 0 ,
+      username: null,
       blogId: this.post.id,
       text: this.commentForm.value.text || "",
       creationTime: new Date(),
