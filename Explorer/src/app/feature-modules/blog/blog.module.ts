@@ -17,6 +17,7 @@ import { BlogpostFormComponent } from './blogpost-form/blogpost-form.component';
 import { BlogPostCardComponent } from './blog-post-card/blog-post-card.component';
 import { BlogComponent } from './blog/blog.component';
 import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.component';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -41,7 +42,8 @@ import { BlogPostDetailComponent } from './blog-post-detail/blog-post-detail.com
     MaterialModule,
     SharedModule,
     FormsModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   exports: [
     BlogpostComponent,

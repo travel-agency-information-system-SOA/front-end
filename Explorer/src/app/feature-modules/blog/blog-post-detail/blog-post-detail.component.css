@@ -1,72 +1,81 @@
 .blog-detail {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border: 5px solid black;
-  }
-  
-  /* Style for the post header */
-  .post-header {
-    margin-bottom: 20px;
-  }
-  
-  .post-header h2 {
-    font-size: 24px;
-    margin-bottom: 8px;
-  }
-  
-  .metadata {
-    font-size: 14px;
-    color: #666;
-  }
-  
-.post-header {
-    display: flex;
-    flex-direction: column; /* Change to column layout */
-    align-items: center;
-    border-radius: 8px;
-    margin: 5px;
-    padding: 10px;
+  width: 800px; /* Set the width of the component */
+  margin: 20px auto; /* Center the component horizontally */
+  border: 1px solid #ccc; /* Add a border */
+  padding: 20px; /* Add padding for better aesthetics */
+  text-align: center; /* Center the title */
+  font-family: 'Trip', sans-serif;
 }
 
-  /* Style for the post content */
-  .post-content p {
-    font-size: 16px;
-    line-height: 1.6;
-  }
-
-  .post-content {
-    display: flex;
-    flex-direction: column; /* Set to column layout for post content */
-    align-items: center; /* Center post content horizontally */
-    width: 100%;
-}
-  
-  /* Style for the image container */
-  .image-container {
-    position: relative;
-    display: flex;
-    align-items: center;
-  }
-  
-  img {
-    max-width: 200%;
-    height: auto;
-    border-radius: 8px;
-  }
-
-  .post-image {
-    max-width: 100%;
-    max-height: 200px;
-    object-fit: cover;
-    border-radius: 4px;
-    transition: transform 0.3s ease;
-    margin-top: 15px;
-    margin-bottom: 15px;
+.header-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start; /* Align items to the start (upper left corner) */
+  font-family: 'Trip', sans-serif;
 }
 
+.buttons-part {
+  display: flex;
+  flex-direction: column; /* Align buttons vertically */
+  font-family: 'Trip', sans-serif;
+}
+
+.post-title {
+  flex: 1; /* Take remaining space, pushing title to the top */
+  margin-top: 22px; /* Adjust margin as needed */
+  text-align: left;
+  margin-left: 20px;
+  font-family: 'Trip', sans-serif;
+}
+
+.upvote.active {
+  background-color: #0a83cb; /* Green when active (clicked) */
+}
+
+.downvote.active {
+  background-color: #e23a55; /* Green when active (clicked) */
+}
+
+.upvote,
+.downvote {
+  background-color: white; /* Default color */
+  border: none;
+  cursor: pointer;
+}
+
+.post-description {
+  text-align: left; /* Align the description text to the left */
+}
+
+.line-divider {
+  border-top: 2px solid #707070; /* Adjust the color and thickness as needed */
+  width: 100%; /* Ensure the line spans the entire width of the container */
+  display: block; /* Ensure the line is a block element */
+  margin-top: 1px; /* Adjust the margin as needed */
+  margin-bottom: 1px;
+}
+
+.image-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+img {
+  max-width: 200%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.post-image {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: cover;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
 .nav-arrow mat-icon {
   font-size: 24px; /* Adjust the font size of the material icon */
 }
@@ -92,16 +101,12 @@
   background-color: white;
 }
 
-.upvote.active {
-  background-color: #221853; /* Green when active (clicked) */
-}
-
-
-.upvote,
-.downvote {
-  background-color: white; /* Default color */
-  border: none;
-  cursor: pointer;
+.post-content {
+  display: flex;
+  flex-direction: column; /* Set to column layout for post content */
+  align-items: center; /* Center post content horizontally */
+  width: 100%;
+  font-family: 'Trip', sans-serif;
 }
 
 .comments-section {
@@ -111,6 +116,7 @@
 .comments-section h3 {
   font-size: 20px;
   margin-bottom: 16px;
+  font-family: 'Trip', sans-serif;
 }
 
 .comment {
@@ -122,6 +128,7 @@
 
 .comment-text {
   margin-top: 8px;
+  text-align: left;
 }
 
 .comment-metadata {
@@ -134,6 +141,7 @@
   width: 600px;
   height: 100px;
   font-size: 20px;
+  font-family: 'Trip', sans-serif;
 }
 
 .commentCreation {
@@ -143,17 +151,36 @@
   flex-direction: column;
   position: relative;
   margin: 5px;
+  font-family: 'Trip', sans-serif;
 }
 
 .submit_button {
   align-self: flex-end; /* Align the button to the right within the flex container */
   margin-top: 5px; /* Add margin to separate the button from the textarea */
+  font-family: 'Trip', sans-serif;
 }
-.line-divider {
-  border-top: 2px solid #707070; /* Adjust the color and thickness as needed */
-  width: 100%; /* Ensure the line spans the entire width of the container */
-  display: block; /* Ensure the line is a block element */
-  margin-top: 1px; /* Adjust the margin as needed */
-  margin-bottom: 1px;
+.delete-button {
+  color: red;
+
 }
 
+.edit-button {
+  color: #0a83cb;
+
+}
+
+.comment {
+  position: relative;
+}
+
+.comment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.edit-delete-buttons {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

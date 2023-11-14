@@ -22,13 +22,29 @@ export class BlogPostDetailComponent implements OnInit {
   isUpvoted: boolean;
   isDownvoted: boolean;
   overall_rating: number = 0;
+  upvote_count:number = 0;
+  downvote_count: number = 0;
 
   ngOnInit(): void {
     this.post = JSON.parse(this.route.snapshot.queryParams['post']);
     this.checkRating();
+    this.GetOverallRating();
     // You can now access properties of the blog post object in this.post
   }
 
+  GetOverallRating() {
+    if(this.post.ratings != null) {
+      for (const rating of this.post.ratings) {
+        if(rating.isPositive) {
+          this.upvote_count++;
+        }
+        else {
+          this.downvote_count++;
+        }
+      }
+      this.overall_rating = this.upvote_count - this.downvote_count;
+    }
+  }
   checkRating() {
     if(this.post.ratings != null) {
        for (const rating of this.post.ratings) {
@@ -131,9 +147,27 @@ export class BlogPostDetailComponent implements OnInit {
     }
     this.post.comments?.push(comment);
     this.service.addComment(this.post.id, comment).subscribe({
-      next: () => { this.post;}
+      next: () => { this.postUpdated.emit();}
     })
     this.commentForm.reset();
   }
 
+  showEditDeleteButtons(commentId:number):boolean {
+    if(this.post.comments != null) {
+      for (const comment of this.post.comments) {
+        if(comment.userId == this.tokenStorage.getUserId()) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  editComment():void {
+
+  }
+
+  deleteComment():void {
+      
+  }
 }

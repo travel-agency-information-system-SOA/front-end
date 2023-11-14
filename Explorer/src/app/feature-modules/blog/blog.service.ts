@@ -38,4 +38,7 @@ export class BlogService {
   addComment(id: number, comment: BlogPostComment): Observable<BlogPost> {
     return this.http.post<BlogPost>(environment.apiHost + 'blog/blogpost/' + id + '/comments', comment);
   }
+  deleteComment(blogId: number, userId:number, dateTime: Date):Observable<BlogPost> {
+    return this.http.delete<BlogPost>(environment.apiHost + 'blog/blogpost/' +  blogId + '/comments/' + userId + '/' + dateTime );
+  }
 }
