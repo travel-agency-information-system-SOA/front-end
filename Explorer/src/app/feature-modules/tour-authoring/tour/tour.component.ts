@@ -30,6 +30,9 @@ export class TourComponent implements OnInit {
 
   showTourForm: boolean = false;
 
+  shouldEdit: boolean = false;
+  shouldRenderTourForm: boolean = false;
+
   constructor(
     private tokenStorage: TokenStorage,
     private service: TourAuthoringService,
@@ -48,7 +51,6 @@ export class TourComponent implements OnInit {
         console.log('Sadržaj result.results:', result.results);
 
         const tourIds = this.tour.map((tour) => tour.id);
-        console.log('ID-jevi tura:', tourIds);
       },
       error(err: any) {
         console.log(err);
@@ -94,16 +96,30 @@ export class TourComponent implements OnInit {
 
   onAddPoint(tour: Tour): void {
     this.selectedTour = tour;
+    var emissionString = '';
+    if (this.shouldAddPoint == true) {
+      emissionString = this.selectedTour.id!.toString() + '|#$%@$%|' + 'same';
+    } else {
+      emissionString = this.selectedTour.id!.toString();
+    }
     this.shouldAddPoint = true;
     this.shouldAddObject = false;
     this.showTourForm = false;
+    this.service.changeTourId(emissionString);
   }
 
   onAddObj(tour: Tour): void {
     this.selectedTour = tour;
     this.shouldAddObject = true;
+    var emissionString = '';
+    if (this.shouldAddObject == true) {
+      emissionString = this.selectedTour.id!.toString() + '|#$%@$%|' + 'same';
+    } else {
+      emissionString = this.selectedTour.id!.toString();
+    }
     this.shouldAddPoint = false;
     this.showTourForm = false;
+    this.service.changeTourId(emissionString);
   }
 
   viewMap(idTour: number | undefined): void {
@@ -118,5 +134,22 @@ export class TourComponent implements OnInit {
     this.showTourForm = true;
     this.shouldAddObject = false;
     this.shouldAddPoint = false;
+    this.shouldRenderTourForm = false;
+    this.shouldEdit = false;
+  }
+
+  deleteTour(tour: Tour): void {
+    this.service.deleteTour(tour).subscribe({
+      next: (_) => {
+        this.loadTours();
+      },
+    });
+  }
+
+  onEditClicked(tour: Tour): void {
+    this.shouldEdit = true;
+    this.showTourForm = false;
+    this.shouldRenderTourForm = true;
+    this.selectedTour = tour;
   }
 }

@@ -26,6 +26,7 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
+import { TouristEquipmentComponent } from 'src/app/feature-modules/marketplace/tourist-equipment/tourist-equipment.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -58,6 +59,7 @@ const routes: Routes = [
   },
   {path: 'tourReviewForm', component: TourReviewFormComponent},
   {path: 'tourReviewShow', component: TourReviewsShowComponent},
+  {path: 'tourist-equipment', component: TouristEquipmentComponent},
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},

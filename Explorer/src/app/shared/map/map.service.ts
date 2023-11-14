@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
+import * as L from 'leaflet';
 
 @Injectable({
   providedIn: 'root',
@@ -8,10 +9,27 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class MapService {
   constructor(private http: HttpClient) {}
 
+  map: any;
+  isMapInitialized: boolean = false;
+
   private coordinateSubject = new BehaviorSubject<{ lat: number; lng: number }>(
     { lat: 0, lng: 0 }
   );
   public coordinate$ = this.coordinateSubject.asObservable();
+
+  private totalDistanceSubject = new BehaviorSubject<number>(0);
+  private totalTimeSubject = new BehaviorSubject<number>(0);
+
+  totalDistance$ = this.totalDistanceSubject.asObservable();
+  totalTime$ = this.totalTimeSubject.asObservable();
+
+  setTotalDistance(distance: number) {
+    this.totalDistanceSubject.next(distance);
+  }
+
+  setTotalTime(time: number) {
+    this.totalTimeSubject.next(time);
+  }
 
   setCoordinates(coordinates: { lat: number; lng: number }) {
     this.coordinateSubject.next(coordinates);
@@ -36,5 +54,30 @@ export class MapService {
         ',' +
         lon
     );
+  }
+
+  initMap(): any {
+    if (this.isMapInitialized) {
+      this.map.remove();
+    }
+
+    this.map = L.map('map', {
+      center: [45.2396, 19.8227],
+      zoom: 13,
+    });
+
+    const tiles = L.tileLayer(
+      'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+      {
+        maxZoom: 18,
+        minZoom: 3,
+        attribution:
+          '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      }
+    );
+
+    tiles.addTo(this.map);
+    this.isMapInitialized = true;
+    return this.map;
   }
 }

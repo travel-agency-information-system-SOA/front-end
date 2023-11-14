@@ -1,3 +1,6 @@
+import { TourPoint } from '../../model/tourPoints.model';
+import { TourCharacteristic } from './tourCharacteristic.model';
+
 export interface Tour {
   id?: number;
 
@@ -8,6 +11,8 @@ export interface Tour {
   difficultyLevel: DifficultyLevel;
   guideId: number;
   tags: string[];
+  tourPoints: TourPoint[];
+  tourCharacteristics: TourCharacteristic[];
 }
 
 export enum Status {

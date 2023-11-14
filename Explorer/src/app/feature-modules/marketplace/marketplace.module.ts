@@ -11,6 +11,7 @@ import { MatTableModule } from "@angular/material/table";
 import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
+import { TouristEquipmentComponent } from './tourist-equipment/tourist-equipment.component';
 
 
 
@@ -22,14 +23,13 @@ import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.
     GuideReviewComponent,
     GuideReviewFormComponent,
     PreferencesComponent,
-    PreferencesFormComponent
+    PreferencesFormComponent,
+    TouristEquipmentComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
-
     MatInputModule,
-
     ReactiveFormsModule,
     MatSelectModule,
     ReactiveFormsModule,
