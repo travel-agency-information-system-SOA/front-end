@@ -22,9 +22,18 @@ export class MapService {
 
   totalDistance$ = this.totalDistanceSubject.asObservable();
   totalTime$ = this.totalTimeSubject.asObservable();
+  private transportMode: string = 'walking';
+
+  setTransportMode(mode: string) {
+    this.transportMode = mode;
+  }
 
   setTotalDistance(distance: number) {
     this.totalDistanceSubject.next(distance);
+  }
+
+  getTransportMode() {
+    return this.transportMode;
   }
 
   setTotalTime(time: number) {
@@ -58,6 +67,7 @@ export class MapService {
 
   initMap(): any {
     if (this.isMapInitialized) {
+      console.log(this.map);
       this.map.remove();
     }
 

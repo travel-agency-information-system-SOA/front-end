@@ -11,34 +11,61 @@ import { MatTableModule } from "@angular/material/table";
 import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
+
 import { TouristEquipmentComponent } from './tourist-equipment/tourist-equipment.component';
+
+import { ProblemComponent } from './problem/problem.component';
+import { ProblemMessageFormComponent } from './problem-message-form/problem-message-form.component';
+import { ProblemChatComponent } from './problem-chat/problem-chat.component';
+import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.component';
+import { TourSearchComponent } from './tour-search/tour-search.component';
+import { SharedModule } from 'src/app/shared/shared.module';
+
+
+import { ToursShowComponent } from './tours-show/tours-show.component';
+import { UpdateReviewComponent } from './update-review/update-review.component';
+
+import { TourMarketplaceComponent } from './tour-marketplace/tour-marketplace.component';
+import { TourDetailsComponent } from './tour-details/tour-details.component';
+
 
 
 
 @NgModule({
   declarations: [
-
     TourReviewFormComponent,
     TourReviewsShowComponent,
     GuideReviewComponent,
     GuideReviewFormComponent,
     PreferencesComponent,
     PreferencesFormComponent,
-    TouristEquipmentComponent
+    TouristEquipmentComponent,
+    ProblemComponent,
+    ProblemMessageFormComponent,
+    ProblemChatComponent,
+    ProblemDeadlineComponent,
+    TourSearchComponent,
+    ToursShowComponent,
+    UpdateReviewComponent,
+    TourMarketplaceComponent,
+    TourDetailsComponent
+
   ],
   imports: [
     CommonModule,
     MaterialModule,
+    SharedModule,
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatTableModule
+    MatTableModule,
+    
   ],
   exports: [
     GuideReviewComponent,
-    
+    TourMarketplaceComponent,
     PreferencesComponent
 
   ]

@@ -23,6 +23,18 @@
       <div class="map-container">
         <app-map></app-map>
       </div>
+      <div [formGroup]="yourFormGroup">
+        <label for="transport">Transport mode:</label>
+        <select
+          id="transport"
+          formControlName="selectedTransport"
+          (change)="onTransportChange()"
+        >
+          <option value="walking">🚶Walking</option>
+          <option value="cycling">🚲 Cycling</option>
+          <option value="driving">🚗 Driving</option>
+        </select>
+      </div>
       <button
         *ngIf="!shouldEdit"
         mat-raised-button
