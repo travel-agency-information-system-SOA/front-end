@@ -28,6 +28,7 @@ import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
 import { TourExecutionPositionComponent } from 'src/app/feature-modules/tour-execution/tour-execution-position/tour-execution-position.component';
 import { UserPositionComponent } from 'src/app/feature-modules/administration/user-position/user-position.component';
+import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -65,7 +66,8 @@ const routes: Routes = [
   {path: 'app-ratings', component: AppRatingsComponent},
   {path: 'app-rating-form', component: AppRatingFormComponent},
   {path: 'tour-execution-position', component:TourExecutionPositionComponent},
-  {path: 'user-position',component:UserPositionComponent}
+  {path: 'user-position',component:UserPositionComponent},
+  { path: 'activeTour', component:ActiveTourComponent}
 ];
 
 @NgModule({
