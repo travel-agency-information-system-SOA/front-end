@@ -26,7 +26,11 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
+
+import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-show/tours-show.component';
+
 import { ProblemComponent } from 'src/app/feature-modules/marketplace/problem/problem.component';
+
 
 
 const routes: Routes = [
@@ -58,13 +62,18 @@ const routes: Routes = [
     component: PreferencesComponent,
     canActivate: [AuthGuard],
   },
-  {path: 'tourReviewForm', component: TourReviewFormComponent},
+  {path: 'tourReviewForm/:id', component: TourReviewFormComponent},
   {path: 'tourReviewShow', component: TourReviewsShowComponent},
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
+
+  {path: 'app-rating-form', component: AppRatingFormComponent},
+  {path: 'tours-show', component: ToursShowComponent},
+
   { path: 'app-rating-form', component: AppRatingFormComponent },
   { path: 'problems', component: ProblemComponent}
+
 ];
 
 @NgModule({
