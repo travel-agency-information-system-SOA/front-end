@@ -7,6 +7,7 @@ import { environment } from 'src/env/environment';
 import { Preferences } from "./model/preferences.model";
 import { TouristEquipment } from './model/touristEquipment.model';
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+import { NonNullAssert } from '@angular/compiler';
 
 @Injectable({
   providedIn: 'root'
@@ -68,30 +69,32 @@ export class MarketplaceService {
   getTouristEquipment(id: number): Observable<TouristEquipment> {
     return this.http.get<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/getTouristEquipment/' + id);
   }
-
-  getMyEquipment(ids:number[]): Observable<PagedResults<Equipment>> {
-    let params = new HttpParams();
-    for (const id of ids) {
-      params = params.append('ids', id.toString());
-    }
-    
-    return this.http.get<PagedResults<Equipment>>(environment.apiHost + 'administration/equipment/getTouristEquipment', { params: params });
+  createTouristEquipment(id: number): Observable<TouristEquipment> {
+    return this.http.post<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/createTouristEquipment/' + id,null);
   }
 
-  getOtherEquipment(ids:number[]): Observable<PagedResults<Equipment>> {
+  getMyEquipment(ids:number[]): Observable<Equipment[]> {
     let params = new HttpParams();
     for (const id of ids) {
       params = params.append('ids', id.toString());
     }
     
-    return this.http.get<PagedResults<Equipment>>(environment.apiHost + 'administration/equipment/getOtherEquipment', { params: params });
+    return this.http.get<Equipment[]>(environment.apiHost + 'administration/equipment/getTouristEquipment/', { params: params });
+  }
+
+  getOtherEquipment(ids:number[]): Observable<Equipment[]> {
+    let params = new HttpParams();
+    for (const id of ids) {
+      params = params.append('ids', id.toString());
+    }
+    
+    return this.http.get<Equipment[]>(environment.apiHost + 'administration/equipment/getOtherEquipment', { params: params });
   }
 
   addToMyEquipment(touristId: number, equipmentId: number): Observable<TouristEquipment> {
     return this.http.put<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/addToMyEquipment/' + touristId + '/' + equipmentId, null);
   }
-
-  deleteFromMyEquipment(touristId: number, equipmentId: number): Observable<TouristEquipment> {
+  removeFromMyEquipment(touristId: number, equipmentId: number): Observable<TouristEquipment> {
     return this.http.put<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/deleteFromMyEquipment/' + touristId + '/' + equipmentId, null);
   }
 }
