@@ -172,4 +172,10 @@ export class TourAuthoringService {
   emitTransportTypeChanged(): void {
     this.transportTypeChanged.emit();
   }
+
+  getTourByTourId(id: number): Observable<Tour> {
+    return this.http.get<Tour>(
+      `https://localhost:44333/api/administration/tour/onetour/${id}`
+    );
+  }
 }
