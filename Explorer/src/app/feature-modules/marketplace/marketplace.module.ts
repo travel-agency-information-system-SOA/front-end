@@ -11,8 +11,15 @@ import { MatTableModule } from "@angular/material/table";
 import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
+
 import { ToursShowComponent } from './tours-show/tours-show.component';
 import { UpdateReviewComponent } from './update-review/update-review.component';
+
+import { ProblemComponent } from './problem/problem.component';
+import { ProblemMessageFormComponent } from './problem-message-form/problem-message-form.component';
+import { ProblemChatComponent } from './problem-chat/problem-chat.component';
+import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.component';
+
 
 
 
@@ -25,8 +32,15 @@ import { UpdateReviewComponent } from './update-review/update-review.component';
     GuideReviewFormComponent,
     PreferencesComponent,
     PreferencesFormComponent,
+
     ToursShowComponent,
     UpdateReviewComponent
+
+    ProblemComponent,
+    ProblemMessageFormComponent,
+    ProblemChatComponent,
+    ProblemDeadlineComponent
+
   ],
   imports: [
     CommonModule,
