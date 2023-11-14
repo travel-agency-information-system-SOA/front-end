@@ -35,7 +35,14 @@ export class ProblemChatComponent implements OnChanges{
   getMessages(): void{
     this.service.getMessagesByProblemId(this.problem.id || 0).subscribe({
       next: (result: PagedResults<ProblemMessage>) => {
-        this.messages = result.results;
+          this.messages = result.results;
+          
+          this.messages.forEach(mess => {
+            if (mess.idSender != this.user.id) {
+              mess.isRead = true;
+              this.service.readMessages(mess).subscribe();
+            }
+          });
       }
     })
   }
@@ -60,7 +67,7 @@ export class ProblemChatComponent implements OnChanges{
     const message: ProblemMessage = {
       content: this.messageControl.value || "",
       isRead: false,
-      idProblem: this.problem.id || 0,
+      problemId: this.problem.id || 0,
       idSender: this.user.id || 0
     }
 

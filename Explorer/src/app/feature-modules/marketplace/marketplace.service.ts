@@ -81,6 +81,7 @@ export class MarketplaceService {
   }
 
   addDeadline(problem: Problem): Observable<Problem>{
+    console.log("PORUKE PROBLEMA", problem.problemMessages);
     return this.http.put<Problem>(environment.apiHost + 'problem/' + problem.id, problem);
   }
 
@@ -88,4 +89,11 @@ export class MarketplaceService {
     return this.http.delete<Problem>(environment.apiHost + 'problem/' + problem.id);
   }
 
+  getProblemWithClosestDeadline(id: number): Observable<Problem> {
+    return this.http.get<Problem>(environment.apiHost + 'problem/closestDeadline/' + id);
+  }
+
+  readMessages(message: ProblemMessage): Observable<void> {
+    return this.http.put<void>(environment.apiHost + 'administration/message/' + message.id, message);
+  }
 }

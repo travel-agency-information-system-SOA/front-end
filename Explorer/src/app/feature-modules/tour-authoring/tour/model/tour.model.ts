@@ -18,6 +18,7 @@ export interface Tour {
 export enum Status {
   Draft = 'Draft',
   InProgress = 'InProgress',
+  Archived = 'Archived',
 }
 
 export enum DifficultyLevel {
