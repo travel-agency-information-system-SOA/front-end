@@ -8,6 +8,7 @@ import { Preferences } from "./model/preferences.model";
 import { TourReview } from './model/tourReview.model';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
 import { ReviewTour } from './tours-show/ReviewTour.model';
+import { TourExecution } from './model/TourExecution.model';
 
 @Injectable({
   providedIn: 'root'
@@ -68,5 +69,8 @@ export class MarketplaceService {
   }
   getAllTours():Observable<PagedResults<ReviewTour>> {
     return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
+  }
+  getAllTourExecutions():Observable<PagedResults<TourExecution>> {
+    return this.http.get<PagedResults<TourExecution>>(environment.apiHost+ 'tourExecution/allExecutions');
   }
 }
