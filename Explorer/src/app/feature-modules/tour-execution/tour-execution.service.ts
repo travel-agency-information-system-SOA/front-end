@@ -5,6 +5,8 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { environment } from 'src/env/environment';
 import { TourExecutionPosition } from './model/tourExecutionPosition.model';
 import { TourExecution } from './model/tourExecution.model';
+import { map } from 'rxjs';
+import { catchError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -42,7 +44,6 @@ export class TourExecutionService {
 
   updatePosition(tourExecutionId: number, longitude: number, latitude: number): Observable<any> {
     const url = `${environment.apiHost}tourExecution/${tourExecutionId}/update-position/${longitude}/${latitude}`;
-    console.log(url);
     return this.http.put<any>(url, {});
   }
 
@@ -53,4 +54,5 @@ export class TourExecutionService {
       tourExecutionId
     );
   }
+  
 }

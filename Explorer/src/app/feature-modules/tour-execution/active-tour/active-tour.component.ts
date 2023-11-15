@@ -15,7 +15,6 @@ import { UserPosition } from '../../administration/model/userPosition.model';
 
 
 
-//import { MapComponent } from 'src/app/shared/map/map.component';
 
 @Component({
   selector: 'xp-active-tour',
@@ -28,6 +27,8 @@ export class ActiveTourComponent implements OnChanges{
   shouldEdit:boolean
   idPosition:number|undefined
   tourId:number=0;
+  isNotified: boolean = true;
+  execution: TourExecution;
   private pollingInterval: any;
   @Output() positionUpdated=new EventEmitter<null>();
   currentPosition: TourExecutionPosition ={
@@ -35,9 +36,8 @@ export class ActiveTourComponent implements OnChanges{
     lastActivity:new Date(),
     latitude:0,
     longitude:0
-} ;
+  };
   
- // tourExecution:TourExecution
   constructor(private service:TourExecutionService,
               private tokenStorage: TokenStorage,
               private router:Router,
@@ -51,39 +51,43 @@ export class ActiveTourComponent implements OnChanges{
   ngOnInit(): void {
     this.checkUserPosition();
     this.getTourExecutionByUser(this.userId);
-   
-    //this.updatePosition();
-    
-    }
 
-    private startPolling(): void {
-      this.pollingInterval = setInterval(() => {
-        this.updatePosition();
-      }, 10000);
-    }
-    ngOnChanges(changes: SimpleChanges): void {
-      this.activeTourForm.reset();
-      if (this.shouldEdit) {
-        
-        const formValues = {
-        
-        latitude: this.activeTour.position.latitude,
-        longitude: this.activeTour.position.longitude,
-      };
-        this.activeTourForm.patchValue(formValues);
+  }
+
+  private startPolling(): void {
+    this.pollingInterval = setInterval(() => {
+      this.updatePosition();
+      this.getTourExecution(this.activeTour.id);
+      if(this.execution.status == "Completed" && this.isNotified){
+        console.log("zavrsili ste turu");
+        this.isNotified = false;
       }
+    }, 10000);
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    this.activeTourForm.reset();
+    if (this.shouldEdit) {
+      
+      const formValues = {
+      
+      latitude: this.activeTour.position.latitude,
+      longitude: this.activeTour.position.longitude,
+    };
+      this.activeTourForm.patchValue(formValues);
     }
-    activeTourForm = new FormGroup({
-      latitude: new FormControl(0, [Validators.required]),
-      longitude: new FormControl(0, [Validators.required]),
-    });
+  }
+
+  activeTourForm = new FormGroup({
+    latitude: new FormControl(0, [Validators.required]),
+    longitude: new FormControl(0, [Validators.required]),
+  });
+
   getTourExecution(userId: number){
     this.service.getById(userId).subscribe(
       (result) => {
-        this.activeTour = result;
-        console.log(this.activeTour); // Log the result to verify
-        
-
+        this.execution = result;
+        console.log(this.execution);
         return result;
       },
       (error) => {
@@ -96,31 +100,15 @@ export class ActiveTourComponent implements OnChanges{
     this.service.getByUser(userId).subscribe(
       (result) => {
         this.activeTour = result;
-        console.log(this.activeTour); // Log the result to verify
+        console.log(this.activeTour); 
         this.tourId=this.activeTour.tourId;
       },
       (error) => {
         console.error('Error fetching TourExecution', error);
       }
     );
-
   }
 
-  
-
-  /*updatePosition(event: MouseEvent): void{
-    console.log("usao");
-    this.service.updatePosition(1,100, 100)
-      .subscribe(
-        () => {
-          console.log('Position updated successfully');
-        },
-        (error) => {
-          console.error('Error updating position', error);
-        }
-      );
-  }*/
-  //ready when backend change
   updatePosition(): void {
     var id = 0;
     const now = new Date();
@@ -129,9 +117,7 @@ export class ActiveTourComponent implements OnChanges{
         lastActivity:now,
         latitude:0,
         longitude:0
-
     }
-  
     
     tourExecutionPosition.id=this.activeTour.position.id;
     this.mapService.coordinate$.subscribe((coordinates) => {
@@ -144,8 +130,6 @@ export class ActiveTourComponent implements OnChanges{
         this.positionUpdated.emit();
       },
     });
-    console.log('position updated');
-    console.log(this.currentPosition.longitude);
   }
 
   updateUserPosition(): void {
@@ -159,14 +143,14 @@ export class ActiveTourComponent implements OnChanges{
     this.administrationService.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
       (result) => {
         this.idPosition = result ? result.id : undefined;
-        // Handle the result as needed
       },
       (error) => {
         console.error('Error fetching user positions:', error);
-        // Handle the error as needed
       }
     );
+
     userPosition.id=this.idPosition;
+
     this.mapService.coordinate$.subscribe((coordinates) => {
       userPosition.latitude = coordinates.lat;
       userPosition.longitude = coordinates.lng;
@@ -187,20 +171,16 @@ export class ActiveTourComponent implements OnChanges{
   }
 
   updatePositions(event:MouseEvent):void{
-    // promenim variable
     this.changeCurrentPosition();
-    //this.updatePosition();
     this.updateUserPosition();
   }
 
   updateStatusToAbandoned(): void{
-    
     this.service.updateStatus(this.activeTour.id,'Abandoned').subscribe(
       ()=>{
         console.log('Great');
       }
       );
-    //this.updatePosition();
     this.router.navigate(['/home']);
   }
 
@@ -208,14 +188,14 @@ export class ActiveTourComponent implements OnChanges{
     this.administrationService.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
       (result) => {
         this.shouldEdit = result != null; 
-        this.idPosition = result ? result.id : undefined; // Assign the result of the check
+        this.idPosition = result ? result.id : undefined; 
       },
       (error) => {
         console.error('Error fetching user positions:', error);
-        // Handle the error as needed
       }
     );
   }
+
   ngOnDestroy(): void {
     clearInterval(this.pollingInterval);
   }
