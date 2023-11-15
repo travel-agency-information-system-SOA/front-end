@@ -18,3 +18,24 @@
     margin-top: 38px;
     font-size: 42px;
   }
+
+.filter-section
+{
+  background-color: #ffffff;
+  border: 5px solid #707070;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.filter-section button
+{
+  margin-right: 10px;
+  font-family: 'Trip', sans-serif;
+  font-size: 18px;
+  transition: background-color 0.3s ease; 
+}
+
+.filter-section button:hover {
+  background-color: #221853; 
+  color: #fff; 
+}
