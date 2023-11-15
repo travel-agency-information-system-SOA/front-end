@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { ReviewTour } from './ReviewTour.model';
 import { TourExecution } from '../model/TourExecution.model';
 import { TourReview } from '../model/tourReview.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-tours-show',
@@ -13,7 +15,11 @@ import { TourReview } from '../model/tourReview.model';
   styleUrls: ['./tours-show.component.css']
 })
 export class ToursShowComponent {
-
+  loggedInUser: User={
+    id:0,
+    username:'',
+    role: ''
+  }
   reviews: TourReview[]=[]
   totalDistance:number;
   percentageCompleted: number;
@@ -25,9 +31,13 @@ export class ToursShowComponent {
   tours:ReviewTour[];
   executions: TourExecution[]=[];
   averageGrade: number;
-  constructor(private marketplaceService: MarketplaceService, private router: Router){
+  constructor(private marketplaceService: MarketplaceService, private router: Router, private authService: AuthService){
     this.getAllTours();
     this.getExecutions();
+    this.getAllReviews();
+    this.getLoggedInUser();
+  }
+  getAllReviews(){
     this.marketplaceService.getAllReviews().subscribe({
       next:(response)=>{
         this.reviews=response.results;
@@ -39,7 +49,9 @@ export class ToursShowComponent {
     this.marketplaceService.getAllTours().subscribe({
       next: (response)=>{
         this.tours=response.results;
-        console.log('Response ', response.results)
+        this.tours = this.tours.filter((tour) => {
+          return !tour.tourReviews.some((review) => review.touristId === this.loggedInUser.id);
+        });
         console.log('Turee', this.tours);
       },
       error:(error)=>{
@@ -56,15 +68,10 @@ export class ToursShowComponent {
   }
 
   calculateAverageGrade(tour:ReviewTour){
-    /*const reviews= tour.tourReviews;
+    const reviews= tour.tourReviews;
     if (reviews.length === 0) {
      return  0;
     }
-    */
-  
-   const reviews= this.reviews.filter(r=>
-     r.tourId==tour.id
-   )
     const totalRating = reviews.reduce((sum, review) => sum + review.grade, 0);
     const averageRating = totalRating / reviews.length;
     return averageRating;
@@ -145,5 +152,15 @@ export class ToursShowComponent {
       alert('Your Last activity was :'+ this.lastActive);
       return true;
     }
+  }
+  getLoggedInUser(){
+    this.authService.user$.subscribe(user=>{
+      if(user){
+        this.loggedInUser.id=user.id;
+        this.loggedInUser.username=user.username;
+        this.loggedInUser.role=user.role
+        console.log("Ulogovani korisnik", this.loggedInUser);
+      }
+    })
   }
 }
