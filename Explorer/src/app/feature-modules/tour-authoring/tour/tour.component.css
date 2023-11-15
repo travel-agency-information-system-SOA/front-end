@@ -16,6 +16,11 @@ body {
   padding-left: 20px;
 }
 
+mat-card-header{
+  display: flex;
+  flex-direction: column;
+}
+
 .card-wrapperB{
   width: 20%;
   height: 5%;
