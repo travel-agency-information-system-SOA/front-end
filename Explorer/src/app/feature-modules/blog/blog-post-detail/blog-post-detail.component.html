@@ -30,15 +30,17 @@
     </div>
     <hr class="line-divider">
     <ng-container *ngIf="post.imageURLs != null && post.imageURLs.length >= 1;">
-      <button *ngIf="showNavArrows" class="nav-arrow left" (click)="prevImage()">
-        <mat-icon>arrow_back</mat-icon>
-      </button>
-      <div class="image-container">
-        <img class="post-image" [src]="currentImage" alt="Post Image">
+      <div class="images-buttons">
+        <button *ngIf="showNavArrows" class="nav-arrow left" (click)="prevImage()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        <div class="image-container">
+          <img class="post-image" [src]="currentImage" alt="Post Image">
+        </div>
+        <button *ngIf="showNavArrows" class="nav-arrow right" (click)="nextImage()">
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
       </div>
-      <button *ngIf="showNavArrows" class="nav-arrow right" (click)="nextImage()">
-        <mat-icon>arrow_forward</mat-icon>
-      </button>
     </ng-container>
     <hr class="line-divider">
     <div class="comments-section">

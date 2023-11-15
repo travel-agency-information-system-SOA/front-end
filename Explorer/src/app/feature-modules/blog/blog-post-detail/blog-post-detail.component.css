@@ -141,16 +141,21 @@ img {
   margin-right: 15px;
 }
 
+.images-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .nav-arrow {
   color: #221853;
   border: none;
   cursor: pointer;
   border-radius: 4px;
   font-size: 34px;
-  position: absolute;
-  margin-top: 270px;
   transform: translateY(-50%);
   background-color: white;
+  align-items: center;
 }
 
 .post-content {
