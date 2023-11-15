@@ -121,11 +121,11 @@ export class ActiveTourComponent implements OnChanges{
     
     tourExecutionPosition.id=this.activeTour.position.id;
     this.mapService.coordinate$.subscribe((coordinates) => {
-      tourExecutionPosition.latitude = parseInt(coordinates.lat.toFixed(0));
-      tourExecutionPosition.longitude = parseInt(coordinates.lng.toFixed(0));
+      tourExecutionPosition.latitude = coordinates.lat;
+      tourExecutionPosition.longitude = coordinates.lng;
     });
   
-    this.service.updatePosition(this.activeTour.id,tourExecutionPosition.latitude,tourExecutionPosition.longitude).subscribe({
+    this.service.updatePosition(this.activeTour.id,tourExecutionPosition.longitude,tourExecutionPosition.latitude).subscribe({
       next: (_) => {
         this.positionUpdated.emit();
       },
@@ -170,7 +170,7 @@ export class ActiveTourComponent implements OnChanges{
   }
 
   updateStatusToAbandoned(): void{
-    console.log("cap");
+    
     this.service.updateStatus(this.activeTour.id,'Abandoned').subscribe(
       ()=>{
         console.log('Great');
