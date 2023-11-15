@@ -12,6 +12,7 @@ import { Equipment } from './model/equipment.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Router } from '@angular/router';
 import { PublicTourPoint } from '../model/publicTourPoint.model';
+import { TourPoint } from '../model/tourPoints.model';
 
 @Component({
   selector: 'xp-tour',
@@ -34,6 +35,8 @@ export class TourComponent implements OnInit {
   shouldEdit: boolean = false;
   shouldRenderTourForm: boolean = false;
   publicTourPoint: PublicTourPoint[] = [];
+
+  publicTourPointsForTour:PublicTourPoint[] = []
 
   constructor(
     private tokenStorage: TokenStorage,
@@ -108,7 +111,7 @@ export class TourComponent implements OnInit {
     this.shouldAddObject = false;
     this.showTourForm = false;
     this.service.changeTourId(emissionString);
-    this.loadPublicTourPoints();
+    this.loadPublicTourPoints(tour);
   }
 
   onAddObj(tour: Tour): void {
@@ -155,9 +158,34 @@ export class TourComponent implements OnInit {
     this.shouldRenderTourForm = true;
     this.selectedTour = tour;
   }
-  loadPublicTourPoints() {
+  loadPublicTourPoints(tour:Tour) {
       this.service.getPublicTourPoints().subscribe((pagedResults: PagedResults<PublicTourPoint>) => {
           this.publicTourPoint = pagedResults.results;
+          this.publicTourPointsForTour = this.publicTourPoint.filter(ptp => {
+            return !tour.tourPoints.some(tp => tp.name === ptp.name);
+          });
         });
+  }
+
+
+  onAddPublicPoint(t:Tour,ptp:PublicTourPoint){
+    const tourPoint: TourPoint = {
+      tourId: t.id || 0,
+
+      name: ptp.name,
+      description: ptp.description,
+      imageUrl: ptp.imageUrl,
+      latitude: ptp.latitude,
+      longitude: ptp.longitude,
+    };
+
+    this.service.addTourPoint(tourPoint).subscribe({
+      next: () => {
+        this.publicTourPointsForTour.length = 0;
+        this.publicTourPoint.length =0;
+        this.loadPublicTourPoints(t);
+      },
+    });
+    
   }
 }

@@ -59,7 +59,7 @@
       </div>
     </div>
     <div *ngIf="shouldAddPoint">
-      <p>Public tours</p>
+      <p>Public tour points</p>
       <div>
       <div>
           <table>
@@ -67,12 +67,16 @@
                   <tr>
                       <th>Name</th>
                       <th>Description</th>
+                      <th>Add</th>
                   </tr>
               </thead>
               <tbody>
-                  <tr *ngFor="let ptp of publicTourPoint">
+                  <tr *ngFor="let ptp of publicTourPointsForTour">
                       <td>{{ptp.name}}</td>
                       <td>{{ptp.description}}</td>
+                      <button (click)="onAddPublicPoint(selectedTour,ptp)" color="primary" mat-icon-button>
+                        <mat-icon>add</mat-icon>
+                      </button>
                   </tr>
               </tbody>
           </table>
