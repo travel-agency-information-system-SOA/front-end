@@ -6,6 +6,7 @@ import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { BlogService } from '../blog.service';
 import { BlogPostComment } from '../model/blog-post-comment.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BlogComponent } from '../blog/blog.component';
 
 @Component({
   selector: 'xp-blog-post-detail',
@@ -25,14 +26,14 @@ export class BlogPostDetailComponent implements OnInit {
   overall_rating: number = 0;
   upvote_count:number = 0;
   downvote_count: number = 0;
+  showPopup = false;
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.postId = +params['id'];
       this.getById(this.postId);
     });
-    this.checkRating();
-    this.GetOverallRating();
+    console.log(this.post);
   }
 
   getById(blogPostId: number): void{
@@ -41,6 +42,8 @@ export class BlogPostDetailComponent implements OnInit {
         this.post = result;
         console.log(this.post);
         this.post.creationDate = new Date(this.post.creationDate);
+        this.checkRating();
+        this.GetOverallRating();
       },
       error: (err: any) =>{
         console.log(err);
@@ -49,6 +52,8 @@ export class BlogPostDetailComponent implements OnInit {
   }
 
   GetOverallRating() {
+    this.upvote_count = 0;
+    this.downvote_count = 0;
     if(this.post.ratings != null) {
       for (const rating of this.post.ratings) {
         if(rating.isPositive) {
@@ -61,7 +66,7 @@ export class BlogPostDetailComponent implements OnInit {
       this.overall_rating = this.upvote_count - this.downvote_count;
     }
   }
-  checkRating() {
+  checkRating():void {
     if(this.post.ratings != null) {
        for (const rating of this.post.ratings) {
         if(rating.userId == this.tokenStorage.getUserId()) {
@@ -80,10 +85,34 @@ export class BlogPostDetailComponent implements OnInit {
         }
        }
     }
+  }
 
-   
+  editedComment: BlogPostComment;
 
+  closePopup() {
+    this.showPopup = false;
+  }
 
+  openEditPopup(comment: BlogPostComment) {
+    // Create a copy of the comment to avoid modifying the original comment immediately
+    this.editedComment = { ...comment };
+    this.showPopup = true;
+  }
+
+  saveChanges() {
+    // Make a copy of the edited comment to avoid directly modifying the original comment
+    const editedCommentCopy = { ...this.editedComment };
+
+    // Implement your save logic here
+    // You can update the original comment in the comments array or send it to a service
+    this.service.updateComment(this.post.id, editedCommentCopy).subscribe({
+      next: (_) => {
+        // Refresh the comments after saving changes
+        this.ngOnInit();
+      }
+    });
+
+    this.showPopup = false;
   }
   
 
@@ -91,7 +120,7 @@ export class BlogPostDetailComponent implements OnInit {
     if(this.isUpvoted) {
       this.isUpvoted = false;
       this.service.removeRating(this.post.id,this.tokenStorage.getUserId()).subscribe({
-        next: () => { this.postUpdated.emit() }
+        next: () => { this.ngOnInit(); }
       });
     }
     else {
@@ -103,7 +132,7 @@ export class BlogPostDetailComponent implements OnInit {
         isPositive: true,
       }
       this.service.addRating(this.post.id, rating).subscribe({
-        next: () => { this.postUpdated.emit() }
+        next: () => { this.ngOnInit(); }
       });
     }
   }
@@ -112,7 +141,7 @@ export class BlogPostDetailComponent implements OnInit {
     if(this.isDownvoted) {
       this.isDownvoted = false;
       this.service.removeRating(this.post.id, this.tokenStorage.getUserId()).subscribe({
-        next: () => { this.postUpdated.emit() }
+        next: () => { this.ngOnInit(); }
       });
     }
     else {
@@ -124,7 +153,7 @@ export class BlogPostDetailComponent implements OnInit {
         isPositive: false,
       }
       this.service.addRating(this.post.id, rating).subscribe({
-        next: () => { this.postUpdated.emit() }
+        next: () => { this.ngOnInit(); }
       });
     }
   }
@@ -164,6 +193,7 @@ export class BlogPostDetailComponent implements OnInit {
   commentForm = new FormGroup({
     text: new FormControl('', [Validators.required]),
   });
+
   
   addComment(): void {
     const comment: BlogPostComment= {
@@ -174,9 +204,8 @@ export class BlogPostDetailComponent implements OnInit {
       creationTime: new Date(),
       lastUpdatedTime: new Date(), 
     }
-    this.post.comments?.push(comment);
     this.service.addComment(this.post.id, comment).subscribe({
-      next: () => { this.postUpdated.emit();}
+      next: () => { this.ngOnInit(); }
     })
     this.commentForm.reset();
   }
@@ -185,11 +214,15 @@ export class BlogPostDetailComponent implements OnInit {
     return commentuserId == this.tokenStorage.getUserId();
   }
 
-  editComment():void {
-
-  }
-
-  deleteComment():void {
-      
+  deleteComment(userId: number, dateTime: Date):void {
+    console.log(userId);
+    console.log(dateTime);
+    console.log(this.post.id);
+    
+    this.service.deleteComment(this.post.id, userId, dateTime).subscribe({
+      next: () => {
+        this.ngOnInit();
+      }
+    })
   }
 }

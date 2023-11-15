@@ -37,37 +37,57 @@
   flex-wrap: wrap;
   align-items: flex-start; /* Align items to the start (upper left corner) */
   font-family: 'Trip', sans-serif;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  
 }
 
 .buttons-part {
   display: flex;
   flex-direction: column; /* Align buttons vertically */
   font-family: 'Trip', sans-serif;
+  margin: 10px;
+
 }
 
 .post-title {
   flex: 1; /* Take remaining space, pushing title to the top */
-  margin-top: 22px; /* Adjust margin as needed */
+  margin-top: 47px; /* Adjust margin as needed */
   text-align: left;
-  margin-left: 20px;
+  margin-left: 30px;
+}
+.post-title h2 {
+  font-size: 35px;
   font-family: 'Trip', sans-serif;
+  margin: 0;
+}
+
+.rating {
+  margin: 10px;
+  font-size: 25px;
 }
 
 .upvote.active {
   background-color: #0a83cb; /* Green when active (clicked) */
+  color: white;
+  border: 3px solid black;
 }
 
 .downvote.active {
   background-color: #e23a55; /* Green when active (clicked) */
+  color: white;
+  border: 3px solid black;
 }
 
 .upvote,
 .downvote {
   background-color: white; /* Default color */
-  border: none;
   cursor: pointer;
   border-radius: 50%;
+  border: 3px solid black;
 }
+
 
 .downvote {
   margin-bottom: 5px;
@@ -170,7 +190,9 @@ img {
   font-size: 10px;
   color: #666;
   text-align: left;
-  margin-bottom: -20px;
+  display: flex;
+  flex-wrap: wrap; /* Allow content to wrap onto a new line */
+  align-items: flex-start;
 }
 
 .newCommentText {
@@ -202,10 +224,15 @@ img {
   border-radius: 5px;
   cursor: pointer;
   font-size: 15px;
+  transition: background-color 0.3s ease
 }
 .delete-button {
   color: red;
 
+}
+
+.submit_button:hover {
+  background-color: #0a83cb;
 }
 
 .edit-button {
@@ -224,7 +251,73 @@ img {
 }
 
 .edit-delete-buttons {
+  display: flex;
+  align-items: flex-end; /* Align buttons at the bottom */
   position: absolute;
-  top: 0;
   right: 0;
+  bottom: 0;
 }
+
+/* Add some basic styling for the centered popup */
+.popup-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Trip', sans-serif;
+}
+
+.popup {
+  background: white;
+  padding: 30px;
+  border-radius: 10px;
+  position: relative;
+  width: 500px;
+  font-family: 'Trip', sans-serif;
+}
+
+textarea {
+  width: 90%;
+  height: 200px; /* Adjust the height as needed */
+  resize: none; /* Prevent textarea resizing */
+  font-family: 'Trip', sans-serif;
+  font-size: 20px;
+  border: 2px solid #ccc;
+}
+
+.button-container {
+  margin-top: 15px; /* Adjust the margin as needed */
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Trip', sans-serif;
+}
+
+.save_button {
+  color: white;
+  font-family: 'Trip', sans-serif;
+  background-color: #221853;
+  cursor: pointer;
+  border-radius: 10px;
+  border: white;
+  font-size: 20px;
+  width: 100px;
+  margin-left: 25px;
+}
+
+.close_button {
+  color: white;
+  font-family: 'Trip', sans-serif;
+  background-color: #221853;
+  cursor: pointer;
+  border-radius: 10px;
+  border: white;
+  font-size: 20px;
+  margin-right: 25px;
+  width: 100px;
+}
+
