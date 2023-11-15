@@ -1,4 +1,3 @@
-
 import { Component, AfterViewInit, Input, OnDestroy } from '@angular/core';
 
 import * as L from 'leaflet';
@@ -31,8 +30,8 @@ export class MapComponent implements AfterViewInit {
   tourPointAddSubscription: Subscription | undefined = undefined;
   transportTypechanged: Subscription | undefined = undefined;
   routeWaypoints: any[] = [];
-  @Input() tourIdEx:number=0;
-  tourIdexS:string
+  @Input() tourIdEx: number = 0;
+  tourIdexS: string;
   routeControl: any;
 
   constructor(
@@ -63,8 +62,7 @@ export class MapComponent implements AfterViewInit {
     this.setRoute();
     this.setObjects();
     this.setExecuteRoute();
-    this.setPosition();
-    
+    // this.setPosition();
   }
 
   ngOnInit() {
@@ -132,13 +130,8 @@ export class MapComponent implements AfterViewInit {
       );
 
       const mp = new L.Marker([lat, lng]).addTo(this.map);
-      
 
       if (!this.saveOnlyLatest) alert(mp.getLatLng()); //ovo samo sklanja za tur src post mi smeta
-
-
-     
-
     });
   }
 
@@ -200,13 +193,12 @@ export class MapComponent implements AfterViewInit {
   }
 
   setPosition() {
-    
-      this.administrationService.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
+    this.administrationService
+      .getByUserId(this.tokenStorage.getUserId(), 0, 0)
+      .subscribe(
         (result) => {
-          
-         L.marker([result.latitude,result.longitude]).addTo(this.map);
-          
-         
+          L.marker([result.latitude, result.longitude]).addTo(this.map);
+
           // Handle the result as needed
         },
         (error) => {
@@ -218,39 +210,39 @@ export class MapComponent implements AfterViewInit {
 
   setExecuteRoute(): void {
     const self = this;
-    this.tourIdexS=this.tourIdEx.toString();
-    console.log("this is tourIdex "+ this.tourIdexS )
-    if(this.tourIdEx>0){
-    this.tourAuthoringService
-      .getTourPointsByTourId(parseInt(this.tourIdexS))
-      .subscribe((tourData: any) => {
-        const tourPoints = tourData.results;
-        const waypoints = tourPoints.map((point: any) =>
-          L.latLng(point.latitude, point.longitude)
-        );
-        const routeControl = L.Routing.control({
-          waypoints: waypoints,
-          router: L.routing.mapbox(
-            'pk.eyJ1IjoiYW5hYm9za292aWNjMTgiLCJhIjoiY2xvNHZrNjd2MDVpcDJucnM3M281cjE0OSJ9.y7eV9FmLm7kO_2FtrMaJkg',
-            { profile: 'mapbox/walking' }
-          ),
-        }).addTo(this.map);
-        routeControl.on('routesfound', function (e) {
-          var routes = e.routes;
-          var summary = routes[0].summary;
-          self.service.setTotalDistance(summary.totalDistance);
-          self.service.setTotalTime(
-            Math.round((summary.totalTime % 3600) / 60)
+    this.tourIdexS = this.tourIdEx.toString();
+    console.log('this is tourIdex ' + this.tourIdexS);
+    if (this.tourIdEx > 0) {
+      this.tourAuthoringService
+        .getTourPointsByTourId(parseInt(this.tourIdexS))
+        .subscribe((tourData: any) => {
+          const tourPoints = tourData.results;
+          const waypoints = tourPoints.map((point: any) =>
+            L.latLng(point.latitude, point.longitude)
           );
-          // alert(
-          //   'Total distance is ' +
-          //     summary.totalDistance / 1000 +
-          //     ' km and total time is ' +
-          //     Math.round((summary.totalTime % 3600) / 60) +
-          //     ' minutes'
-          // );
+          const routeControl = L.Routing.control({
+            waypoints: waypoints,
+            router: L.routing.mapbox(
+              'pk.eyJ1IjoiYW5hYm9za292aWNjMTgiLCJhIjoiY2xvNHZrNjd2MDVpcDJucnM3M281cjE0OSJ9.y7eV9FmLm7kO_2FtrMaJkg',
+              { profile: 'mapbox/walking' }
+            ),
+          }).addTo(this.map);
+          routeControl.on('routesfound', function (e) {
+            var routes = e.routes;
+            var summary = routes[0].summary;
+            self.service.setTotalDistance(summary.totalDistance);
+            self.service.setTotalTime(
+              Math.round((summary.totalTime % 3600) / 60)
+            );
+            // alert(
+            //   'Total distance is ' +
+            //     summary.totalDistance / 1000 +
+            //     ' km and total time is ' +
+            //     Math.round((summary.totalTime % 3600) / 60) +
+            //     ' minutes'
+            // );
+          });
         });
-      });
     }
   }
 }
