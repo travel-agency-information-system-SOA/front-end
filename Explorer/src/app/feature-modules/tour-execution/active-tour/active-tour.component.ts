@@ -28,7 +28,14 @@ export class ActiveTourComponent implements OnChanges{
   shouldEdit:boolean
   idPosition:number|undefined
   tourId:number=0;
+  private pollingInterval: any;
   @Output() positionUpdated=new EventEmitter<null>();
+  currentPosition: TourExecutionPosition ={
+    tourExecutionId: 0,
+    lastActivity:new Date(),
+    latitude:0,
+    longitude:0
+} ;
   
  // tourExecution:TourExecution
   constructor(private service:TourExecutionService,
@@ -37,7 +44,9 @@ export class ActiveTourComponent implements OnChanges{
               private administrationService:AdministrationService,
               private mapService:MapService
              
-      ){}
+      ){
+        this.startPolling();
+      }
 
   ngOnInit(): void {
     this.checkUserPosition();
@@ -47,6 +56,11 @@ export class ActiveTourComponent implements OnChanges{
     
     }
 
+    private startPolling(): void {
+      this.pollingInterval = setInterval(() => {
+        this.updatePosition();
+      }, 10000);
+    }
     ngOnChanges(changes: SimpleChanges): void {
       this.activeTourForm.reset();
       if (this.shouldEdit) {
@@ -125,12 +139,13 @@ export class ActiveTourComponent implements OnChanges{
       tourExecutionPosition.longitude = coordinates.lng;
     });
   
-    this.service.updatePosition(this.activeTour.id,tourExecutionPosition.longitude,tourExecutionPosition.latitude).subscribe({
+    this.service.updatePosition(this.activeTour.id,this.currentPosition.longitude,this.currentPosition.latitude).subscribe({
       next: (_) => {
         this.positionUpdated.emit();
       },
     });
-    
+    console.log('position updated');
+    console.log(this.currentPosition.longitude);
   }
 
   updateUserPosition(): void {
@@ -164,8 +179,17 @@ export class ActiveTourComponent implements OnChanges{
     });
   }
 
+  changeCurrentPosition(){
+    this.mapService.coordinate$.subscribe((coordinates) => {
+      this.currentPosition.latitude = coordinates.lat;
+      this.currentPosition.longitude = coordinates.lng;
+    });
+  }
+
   updatePositions(event:MouseEvent):void{
-    this.updatePosition();
+    // promenim variable
+    this.changeCurrentPosition();
+    //this.updatePosition();
     this.updateUserPosition();
   }
 
@@ -192,6 +216,8 @@ export class ActiveTourComponent implements OnChanges{
       }
     );
   }
-  
+  ngOnDestroy(): void {
+    clearInterval(this.pollingInterval);
+  }
 
 }
