@@ -6,8 +6,8 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { PreferencesComponent } from './preferences/preferences.component';
 import { PreferencesFormComponent } from './preferences-form/preferences-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from "@angular/material/select";
-import { MatTableModule } from "@angular/material/table";
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
@@ -20,12 +20,8 @@ import { ProblemMessageFormComponent } from './problem-message-form/problem-mess
 import { ProblemChatComponent } from './problem-chat/problem-chat.component';
 import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.component';
 
-
-
-
 @NgModule({
   declarations: [
-
     TourReviewFormComponent,
     TourReviewsShowComponent,
     GuideReviewComponent,
@@ -34,13 +30,12 @@ import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.co
     PreferencesFormComponent,
 
     ToursShowComponent,
-    UpdateReviewComponent
+    UpdateReviewComponent,
 
     ProblemComponent,
     ProblemMessageFormComponent,
     ProblemChatComponent,
-    ProblemDeadlineComponent
-
+    ProblemDeadlineComponent,
   ],
   imports: [
     CommonModule,
@@ -52,13 +47,8 @@ import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.co
     MatSelectModule,
     ReactiveFormsModule,
     FormsModule,
-    MatTableModule
+    MatTableModule,
   ],
-  exports: [
-    GuideReviewComponent,
-    
-    PreferencesComponent
-
-  ]
+  exports: [GuideReviewComponent, PreferencesComponent],
 })
-export class MarketplaceModule { }
+export class MarketplaceModule {}

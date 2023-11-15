@@ -21,7 +21,6 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 
-
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
 //import { MapComponent } from './shared/map/map.component';

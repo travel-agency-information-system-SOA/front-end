@@ -60,6 +60,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     imageUrl: new FormControl('', [Validators.required]),
     latitude: new FormControl(0, [Validators.required]),
     longitude: new FormControl(0, [Validators.required]),
+    secret: new FormControl('', [Validators.required]),
   });
 
   addTourPoint(): void {
@@ -71,6 +72,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       imageUrl: this.tourPointForm.value.imageUrl || '',
       latitude: 0,
       longitude: 0,
+      secret: this.tourPointForm.value.secret || '',
     };
 
     this.mapService.coordinate$.subscribe((coordinates) => {
@@ -82,6 +84,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       next: () => {
         this.tourPointUpdated.emit();
         this.service.emitTourPointAdded();
+        this.tourPointForm.reset();
       },
     });
   }
@@ -107,6 +110,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
         .subscribe({
           next: () => {
             console.log('setovano je');
+            alert('Successfully set tour characteristics');
           },
           error(err: any) {
             console.log(tourCharacteristic);
@@ -126,6 +130,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       imageUrl: this.tourPointForm.value.imageUrl || '',
       latitude: 0,
       longitude: 0,
+      secret: this.tourPointForm.value.secret || '',
     };
 
     tourPoint.id = this.tourPoint.id;
