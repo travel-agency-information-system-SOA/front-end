@@ -1,4 +1,6 @@
+
 import { Component, AfterViewInit, Input, OnDestroy } from '@angular/core';
+
 import * as L from 'leaflet';
 import { MapService } from './map.service';
 
@@ -20,13 +22,18 @@ import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit {
+  @Input() saveOnlyLatest = false;
+
   private map: any;
   tourId: string;
   objects: { latitude: number; longitude: number }[];
   tourIdSubscription: Subscription | undefined = undefined;
+  tourPointAddSubscription: Subscription | undefined = undefined;
+  transportTypechanged: Subscription | undefined = undefined;
   routeWaypoints: any[] = [];
   @Input() tourIdEx:number=0;
   tourIdexS:string
+  routeControl: any;
 
   constructor(
     private service: MapService,
@@ -53,8 +60,6 @@ export class MapComponent implements AfterViewInit {
     setTimeout(() => {
       this.initMap();
     }, 0);
-   
-    this.setExecuteRoute();
     this.setRoute();
     this.setObjects();
     this.setExecuteRoute();
@@ -67,6 +72,14 @@ export class MapComponent implements AfterViewInit {
       this.tourIdSubscription.unsubscribe();
     }
 
+    if (this.tourPointAddSubscription != undefined) {
+      this.tourPointAddSubscription.unsubscribe();
+    }
+
+    if (this.transportTypechanged != undefined) {
+      this.transportTypechanged.unsubscribe();
+    }
+
     this.tourIdSubscription = this.tourAuthoringService.currentTourId.subscribe(
       (tourId) => {
         this.tourId = tourId.split('|#$%@$%|')[0];
@@ -77,6 +90,22 @@ export class MapComponent implements AfterViewInit {
         }
       }
     );
+
+    this.tourPointAddSubscription =
+      this.tourAuthoringService.tourPointAdded.subscribe(() => {
+        if (this.routeControl) {
+          this.routeControl.remove();
+        }
+        this.setRoute();
+      });
+
+    this.transportTypechanged =
+      this.tourAuthoringService.transportTypeChanged.subscribe(() => {
+        if (this.routeControl) {
+          this.routeControl.remove();
+        }
+        this.setRoute();
+      });
   }
 
   registerOnClick(): void {
@@ -85,6 +114,16 @@ export class MapComponent implements AfterViewInit {
       const lat = coord.lat;
       const lng = coord.lng;
       this.service.setCoordinates({ lat, lng });
+
+      if (this.saveOnlyLatest) {
+        // ovaj if radi za tour search
+        this.map.eachLayer((layer: any) => {
+          if (layer instanceof L.Marker) {
+            this.map.removeLayer(layer);
+          }
+        });
+      }
+
       this.service.reverseSearch(lat, lng).subscribe((res) => {
         console.log(res.display_name);
       });
@@ -94,7 +133,10 @@ export class MapComponent implements AfterViewInit {
       const mp = new L.Marker([lat, lng]).addTo(this.map);
       
 
-      alert(mp.getLatLng());
+      if (!this.saveOnlyLatest) alert(mp.getLatLng()); //ovo samo sklanja za tur src post mi smeta
+
+
+     
     });
   }
 
@@ -117,7 +159,6 @@ export class MapComponent implements AfterViewInit {
 
   setRoute(): void {
     const self = this;
-    console.log("tourID je "+this.tourId);
     this.tourAuthoringService
       .getTourPointsByTourId(parseInt(this.tourId))
       .subscribe((tourData: any) => {
@@ -127,22 +168,23 @@ export class MapComponent implements AfterViewInit {
           L.latLng(point.latitude, point.longitude)
         );
 
-        const routeControl = L.Routing.control({
+        const transportMode = this.service.getTransportMode();
+        console.log(transportMode);
+
+        this.routeControl = L.Routing.control({
           waypoints: waypoints,
           router: L.routing.mapbox(
             'pk.eyJ1IjoiYW5hYm9za292aWNjMTgiLCJhIjoiY2xvNHZrNjd2MDVpcDJucnM3M281cjE0OSJ9.y7eV9FmLm7kO_2FtrMaJkg',
-            { profile: 'mapbox/walking' }
+            { profile: 'mapbox/' + transportMode }
           ),
         }).addTo(this.map);
 
-        routeControl.on('routesfound', function (e) {
+        this.routeControl.on('routesfound', function (e: { routes: any }) {
           var routes = e.routes;
           var summary = routes[0].summary;
 
-          self.service.setTotalDistance(summary.totalDistance);
-          self.service.setTotalTime(
-            Math.round((summary.totalTime % 3600) / 60)
-          );
+          self.service.setTotalDistance(summary.totalDistance / 1000);
+          self.service.setTotalTime((summary.totalTime % 3600) / 60);
 
           // alert(
           //   'Total distance is ' +

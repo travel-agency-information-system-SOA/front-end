@@ -3,10 +3,16 @@ import {
   EventEmitter,
   Input,
   OnChanges,
+  OnInit,
   Output,
   SimpleChanges,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms';
 import { TourPoint } from '../model/tourPoints.model';
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Tour } from '../tour/model/tour.model';
@@ -18,7 +24,7 @@ import { TransportType } from '../tour/model/tourCharacteristic.model';
   templateUrl: './tour-point-form.component.html',
   styleUrls: ['./tour-point-form.component.css'],
 })
-export class TourPointFormComponent implements OnChanges {
+export class TourPointFormComponent implements OnChanges, OnInit {
   @Output() tourPointUpdated = new EventEmitter<null>();
   @Input() tourPoint: TourPoint;
   @Input() shouldEdit: boolean = false;
@@ -28,11 +34,18 @@ export class TourPointFormComponent implements OnChanges {
   elevationData: any;
   totalDistance: number;
   totalTime: number;
+  yourFormGroup: FormGroup;
 
   constructor(
     private service: TourAuthoringService,
-    private mapService: MapService
+    private mapService: MapService,
+    private formBuilder: FormBuilder
   ) {}
+  ngOnInit(): void {
+    this.yourFormGroup = this.formBuilder.group({
+      selectedTransport: ['walking'],
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.tourPointForm.reset();
@@ -68,6 +81,7 @@ export class TourPointFormComponent implements OnChanges {
     this.service.addTourPoint(tourPoint).subscribe({
       next: () => {
         this.tourPointUpdated.emit();
+        this.service.emitTourPointAdded();
       },
     });
   }
@@ -82,9 +96,9 @@ export class TourPointFormComponent implements OnChanges {
     });
 
     var tourCharacteristic = {
-      distance: Math.round(this.totalDistance),
-      duration: Math.round((this.totalTime % 3600) / 60),
-      transportType: TransportType.Walking,
+      distance: this.totalDistance,
+      duration: (this.totalTime % 3600) / 60,
+      transportType: this.yourFormGroup.value.selectedTransport,
     };
 
     if (this.tour.id !== undefined) {
@@ -126,5 +140,12 @@ export class TourPointFormComponent implements OnChanges {
         this.tourPointUpdated.emit();
       },
     });
+  }
+
+  onTransportChange() {
+    this.mapService.setTransportMode(
+      this.yourFormGroup.value.selectedTransport
+    );
+    this.service.emitTransportTypeChanged();
   }
 }

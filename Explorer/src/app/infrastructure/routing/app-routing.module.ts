@@ -30,9 +30,20 @@ import { TourExecutionPositionComponent } from 'src/app/feature-modules/tour-exe
 import { UserPositionComponent } from 'src/app/feature-modules/administration/user-position/user-position.component';
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 
+import { TouristEquipmentComponent } from 'src/app/feature-modules/marketplace/tourist-equipment/tourist-equipment.component';
+
+import { ProblemComponent } from 'src/app/feature-modules/marketplace/problem/problem.component';
+
+import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-show/tours-show.component';
+
+import { TourSearchComponent } from 'src/app/feature-modules/marketplace/tour-search/tour-search.component';
+import { TourMarketplaceComponent } from 'src/app/feature-modules/marketplace/tour-marketplace/tour-marketplace.component';
+import { TourDetailsComponent } from 'src/app/feature-modules/marketplace/tour-details/tour-details.component';
+
+
 const routes: Routes = [
   {path: '', component: HomeComponent},
-  {path: 'home', component: HomeComponent},
+  //{path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
@@ -59,15 +70,24 @@ const routes: Routes = [
     component: PreferencesComponent,
     canActivate: [AuthGuard],
   },
-  {path: 'tourReviewForm', component: TourReviewFormComponent},
+  {path: 'tourReviewForm/:id', component: TourReviewFormComponent},
   {path: 'tourReviewShow', component: TourReviewsShowComponent},
+  {path: 'tourist-equipment', component: TouristEquipmentComponent},
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
-  {path: 'app-rating-form', component: AppRatingFormComponent},
+  
   {path: 'tour-execution-position', component:TourExecutionPositionComponent},
   {path: 'user-position',component:UserPositionComponent},
-  { path: 'activeTour', component:ActiveTourComponent}
+  { path: 'activeTour', component:ActiveTourComponent},
+  { path: 'app-rating-form', component: AppRatingFormComponent },
+  { path: 'problems', component: ProblemComponent},
+  {path: 'app-rating-form', component: AppRatingFormComponent},
+  { path: 'tourSearch', component: TourSearchComponent},
+
+  {path: 'tours-show', component: ToursShowComponent},
+  {path: 'marketplace', component: TourMarketplaceComponent},
+  {path: 'marketplace/:id', component: TourDetailsComponent}
 ];
 
 @NgModule({

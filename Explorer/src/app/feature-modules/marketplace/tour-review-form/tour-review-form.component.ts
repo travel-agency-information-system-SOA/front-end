@@ -1,18 +1,19 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { TourReview } from '../model/tourReview.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
-import { TourReviewService } from '../tour-review.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { MarketplaceService } from '../marketplace.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'xp-tour-review-form',
   templateUrl: './tour-review-form.component.html',
   styleUrls: ['./tour-review-form.component.css']
 })
-// TODO : WHEN TOURIST VISITS TOUR, IMPROVE METHOD ONSUBMIT()
-export class TourReviewFormComponent implements OnChanges{
+
+export class TourReviewFormComponent implements OnInit{
 
   id: number;
   @Input()reviewForUpdate : TourReview;
@@ -32,7 +33,8 @@ export class TourReviewFormComponent implements OnChanges{
     reviewDate: new Date(),
     images: [''],
     touristId: 10,
-    tourId: 0
+    tourId: 0,
+  
   }
   
   loggedInUser: User={
@@ -40,7 +42,7 @@ export class TourReviewFormComponent implements OnChanges{
     username:'',
     role: ''
   }
-
+/*
   ngOnChanges(changes: SimpleChanges){
     console.log("Primlljeni objekat", this.reviewForUpdate.id);
     this.id=this.reviewForUpdate.id;
@@ -50,20 +52,27 @@ export class TourReviewFormComponent implements OnChanges{
     });
 
     console.log(this.inputForm.value.comment);
-  }
-  constructor(private authService: AuthService, private tourReviewService: TourReviewService){
+  }*/
+  constructor(private authService: AuthService, private tourReviewService: MarketplaceService, private activatedRoute: ActivatedRoute, private router: Router){
    this.getLoggedInUser();
+ 
+  }
+  ngOnInit(): void {
    
+    this.activatedRoute.params.subscribe(params => {
+      this.tourReview.tourId = params['id'];
+      });
   }
   onSubmit(){
    this.populateTourReview();
    console.log("Recenzija",this.tourReview);
 
-   this.tourReviewService.create(this.tourReview).subscribe({
+   this.tourReviewService.createReview(this.tourReview).subscribe({
     next: (response)=>{
       console.log(response);
       this.addedObject.emit();
       this.inputForm.reset();
+      this.router.navigate(['/tourReviewShow']);
     },
     error: (error)=>{
       console.log(error);
@@ -103,7 +112,7 @@ export class TourReviewFormComponent implements OnChanges{
   }
 
   update(review: TourReview){
-    this.tourReviewService.update(review).subscribe({
+    this.tourReviewService.updateReview(review).subscribe({
       next: (response)=>{
         console.log(response);
       },
