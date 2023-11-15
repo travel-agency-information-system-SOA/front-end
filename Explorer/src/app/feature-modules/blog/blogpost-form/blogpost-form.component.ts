@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BlogService } from '../blog.service';
 import { BlogPost } from '../model/blogpost.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'xp-blogpost-form',
@@ -20,7 +21,7 @@ export class BlogpostFormComponent implements OnChanges {
   @Input() shouldEdit: boolean = false;
   @Input() shouldEditDraft: boolean = false;
   
-  constructor(private service: BlogService, private tokenStorage: TokenStorage) { }
+  constructor(private service: BlogService, private tokenStorage: TokenStorage, private router: Router) { }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.blogPostForm.reset();
@@ -65,6 +66,7 @@ export class BlogpostFormComponent implements OnChanges {
         this.blogPostsUpdated.emit();
       }
     });
+    this.router.navigate(['/blog']);
     
   }
 
@@ -154,6 +156,12 @@ export class BlogpostFormComponent implements OnChanges {
         this.blogPostsUpdated.emit()
       }
     })
+    if(!this.shouldEditDraft) {
+      this.router.navigate(['/blog/',this.blogPost.id]);
+    }
+    else {
+      this.router.navigate(['/blog/create-post']);
+    }
 
   }
     
