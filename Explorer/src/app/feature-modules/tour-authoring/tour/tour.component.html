@@ -58,7 +58,27 @@
         <button (click)="addTour()">Add tour</button>
       </div>
     </div>
-
+    <div *ngIf="shouldAddPoint">
+      <p>Public tours</p>
+      <div>
+      <div>
+          <table>
+              <thead>
+                  <tr>
+                      <th>Name</th>
+                      <th>Description</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let ptp of publicTourPoint">
+                      <td>{{ptp.name}}</td>
+                      <td>{{ptp.description}}</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+      </div>
+  </div>
     <div class="wrapper-form">
       <p *ngIf="showTourForm">🛫 Create tour:</p>
       <xp-tour-form

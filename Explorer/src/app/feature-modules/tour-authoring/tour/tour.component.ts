@@ -11,6 +11,7 @@ import { Equipment } from './model/equipment.model';
 
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Router } from '@angular/router';
+import { PublicTourPoint } from '../model/publicTourPoint.model';
 
 @Component({
   selector: 'xp-tour',
@@ -32,6 +33,7 @@ export class TourComponent implements OnInit {
 
   shouldEdit: boolean = false;
   shouldRenderTourForm: boolean = false;
+  publicTourPoint: PublicTourPoint[] = [];
 
   constructor(
     private tokenStorage: TokenStorage,
@@ -106,6 +108,7 @@ export class TourComponent implements OnInit {
     this.shouldAddObject = false;
     this.showTourForm = false;
     this.service.changeTourId(emissionString);
+    this.loadPublicTourPoints();
   }
 
   onAddObj(tour: Tour): void {
@@ -151,5 +154,10 @@ export class TourComponent implements OnInit {
     this.showTourForm = false;
     this.shouldRenderTourForm = true;
     this.selectedTour = tour;
+  }
+  loadPublicTourPoints() {
+      this.service.getPublicTourPoints().subscribe((pagedResults: PagedResults<PublicTourPoint>) => {
+          this.publicTourPoint = pagedResults.results;
+        });
   }
 }
