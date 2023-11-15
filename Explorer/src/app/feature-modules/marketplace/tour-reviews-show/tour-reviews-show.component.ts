@@ -14,7 +14,9 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class TourReviewsShowComponent {
 
+
   showUpdate: boolean= false;
+
   _observableList: BehaviorSubject<TourReview[]> = new BehaviorSubject<TourReview[]>([]);
   userReviews: any[];
   loggedInUser: User={

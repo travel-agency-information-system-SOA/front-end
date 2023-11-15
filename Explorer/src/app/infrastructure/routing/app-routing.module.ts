@@ -26,11 +26,16 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
+
+
+import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-show/tours-show.component';
+
 import { TourExecutionPositionComponent } from 'src/app/feature-modules/tour-execution/tour-execution-position/tour-execution-position.component';
 import { UserPositionComponent } from 'src/app/feature-modules/administration/user-position/user-position.component';
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 
 import { TouristEquipmentComponent } from 'src/app/feature-modules/marketplace/tourist-equipment/tourist-equipment.component';
+
 
 import { ProblemComponent } from 'src/app/feature-modules/marketplace/problem/problem.component';
 
@@ -39,6 +44,7 @@ import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-sh
 import { TourSearchComponent } from 'src/app/feature-modules/marketplace/tour-search/tour-search.component';
 import { TourMarketplaceComponent } from 'src/app/feature-modules/marketplace/tour-marketplace/tour-marketplace.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/marketplace/tour-details/tour-details.component';
+
 
 
 const routes: Routes = [
@@ -76,6 +82,15 @@ const routes: Routes = [
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
+
+
+  {path: 'app-rating-form', component: AppRatingFormComponent},
+  {path: 'tours-show', component: ToursShowComponent},
+
+  
+  { path: 'problems', component: ProblemComponent}
+
+
   
   {path: 'tour-execution-position', component:TourExecutionPositionComponent},
   {path: 'user-position',component:UserPositionComponent},
@@ -88,6 +103,7 @@ const routes: Routes = [
   {path: 'tours-show', component: ToursShowComponent},
   {path: 'marketplace', component: TourMarketplaceComponent},
   {path: 'marketplace/:id', component: TourDetailsComponent}
+
 ];
 
 @NgModule({

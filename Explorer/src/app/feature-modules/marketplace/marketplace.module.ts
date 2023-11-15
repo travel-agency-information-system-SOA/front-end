@@ -6,13 +6,18 @@ import { MaterialModule } from 'src/app/infrastructure/material/material.module'
 import { PreferencesComponent } from './preferences/preferences.component';
 import { PreferencesFormComponent } from './preferences-form/preferences-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MatSelectModule } from "@angular/material/select";
-import { MatTableModule } from "@angular/material/table";
+import { MatSelectModule } from '@angular/material/select';
+import { MatTableModule } from '@angular/material/table';
 import { TourReviewFormComponent } from './tour-review-form/tour-review-form.component';
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
 
+
+import { ToursShowComponent } from './tours-show/tours-show.component';
+import { UpdateReviewComponent } from './update-review/update-review.component';
+
 import { TouristEquipmentComponent } from './tourist-equipment/tourist-equipment.component';
+
 
 import { ProblemComponent } from './problem/problem.component';
 import { ProblemMessageFormComponent } from './problem-message-form/problem-message-form.component';
@@ -29,8 +34,6 @@ import { TourMarketplaceComponent } from './tour-marketplace/tour-marketplace.co
 import { TourDetailsComponent } from './tour-details/tour-details.component';
 
 
-
-
 @NgModule({
   declarations: [
     TourReviewFormComponent,
@@ -39,16 +42,24 @@ import { TourDetailsComponent } from './tour-details/tour-details.component';
     GuideReviewFormComponent,
     PreferencesComponent,
     PreferencesFormComponent,
+
+
+    
+   
+
     TouristEquipmentComponent,
+
     ProblemComponent,
     ProblemMessageFormComponent,
     ProblemChatComponent,
     ProblemDeadlineComponent,
+
     TourSearchComponent,
     ToursShowComponent,
     UpdateReviewComponent,
     TourMarketplaceComponent,
     TourDetailsComponent
+
 
   ],
   imports: [
@@ -61,6 +72,7 @@ import { TourDetailsComponent } from './tour-details/tour-details.component';
     ReactiveFormsModule,
     FormsModule,
     MatTableModule,
+
     
   ],
   exports: [
@@ -69,5 +81,6 @@ import { TourDetailsComponent } from './tour-details/tour-details.component';
     PreferencesComponent
 
   ]
+
 })
-export class MarketplaceModule { }
+export class MarketplaceModule {}

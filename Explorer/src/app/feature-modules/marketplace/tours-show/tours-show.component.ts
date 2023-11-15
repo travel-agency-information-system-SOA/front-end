@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
+
 import { MarketplaceService } from '../marketplace.service';
 import { Router } from '@angular/router';
 import { ReviewTour } from './ReviewTour.model';
@@ -9,12 +10,22 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { TourPurchaseToken } from '../model/TourPurchaseToken.model';
 
+
 @Component({
   selector: 'xp-tours-show',
   templateUrl: './tours-show.component.html',
   styleUrls: ['./tours-show.component.css']
 })
 export class ToursShowComponent {
+
+
+  tours:ReviewTour [];
+  averageGrade: number;
+  constructor(private marketplaceService: MarketplaceService, private router: Router){
+    this.getAllTours();
+    
+  }
+
   loggedInUser: User={
     id:0,
     username:'',
@@ -50,10 +61,12 @@ export class ToursShowComponent {
      })
   }
 
+
   getAllTours(){
     this.marketplaceService.getAllTours().subscribe({
       next: (response)=>{
         this.tours=response.results;
+
         //ako vec nije ostavio recenziju
         this.tours = this.tours.filter((tour) => {
           return !tour.tourReviews.some((review) => review.touristId === this.loggedInUser.id);
@@ -63,6 +76,7 @@ export class ToursShowComponent {
         
         
        this.filterPurchasedTours();
+
       },
       error:(error)=>{
         console.log(error);
@@ -71,10 +85,12 @@ export class ToursShowComponent {
   }
 
   rateTour(tour: ReviewTour){
+
     this.getTourExecution(tour);
     if(this.hasPassed35Percent(tour) && this.isDateWithinLastWeek() ){
      this.router.navigate(['/tourReviewForm', tour.id])
     }
+
   }
 
   calculateAverageGrade(tour:ReviewTour){
@@ -86,6 +102,7 @@ export class ToursShowComponent {
     const averageRating = totalRating / reviews.length;
     return averageRating;
   }
+
 
   getExecutions(){
     this.marketplaceService.getAllTourExecutions().subscribe({
@@ -195,4 +212,5 @@ export class ToursShowComponent {
     this.tours= this.tours.filter(tura => this.tourIds.includes(tura.id as number));
     console.log('Turee', this.tours);
   }
+
 }

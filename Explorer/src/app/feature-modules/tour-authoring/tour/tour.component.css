@@ -1,11 +1,35 @@
 #equipment {
   margin-top: 20px;
   margin-left: 20px;
-
 }
 
 body {
   margin: 0;
+}
+
+.card-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+  padding-left: 20px;
+}
+
+.card-wrapperB {
+  width: 20%;
+  height: 5%;
+  display: flex;
+  justify-content: flex-start;
+}
+
+.card-wrapperB button {
+  height: 80%;
+  width: 40%;
+  border-radius: 8px;
+  background-color: #124174;
+  color: #ffffff;
+  padding: 5px 10px;
+  width: 100px;
 }
 
 .wrapper {
@@ -13,25 +37,33 @@ body {
   justify-content: space-between;
   padding: 20px;
   text-align: center;
-  background-image: url('/assets/images/main.jpg');
+  background-image: url("/assets/images/main.jpg");
   background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  min-height: 100vh; 
+  background-repeat: repeat;
+  min-height: 150vh;
+  height: 100%;
+}
+
+.tours {
+  display: flex;
+
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 .card {
-  display: inline-block;
-  width: calc(43.33% - 10px);
-  margin-right: 16px;
+  flex: 1 0 calc(50% - 16px);
+  max-width: calc(50% - 16px);
+  height: 400px;
   margin-bottom: 16px;
-  color: #ffffff; 
-  border-radius: 10px; 
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+  /* color: #ffffff; */
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-mat-card{
+mat-card {
   background-color: rgba(240, 246, 246, 0.7);
+  height: 100%;
 }
 
 .definition {
@@ -41,63 +73,52 @@ mat-card{
 }
 
 .definition .buttons {
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .definition .isPublished {
-  margin-left: 10px; 
-  border-radius: 8px; 
-  background-color: #124174; 
+  margin-left: 10px;
+  border-radius: 8px;
+  background-color: #124174;
   color: #ffffff;
-  padding: 5px 10px; 
+  padding: 5px 10px;
   width: 100px;
 }
 
+/* .card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
+} */
 
-
-
-.card:hover {
-  transform: scale(1.05); 
-  transition: transform 0.3s ease-in-out; 
-
-}
-
-.content{
+.content {
   width: 60%;
   height: 150px;
-  overflow-y:scroll;
-
-
+  overflow-y: scroll;
 }
-
 
 .details {
   text-decoration: solid;
   font-weight: bold;
   font-family: "Lucida Console", "Courier New", monospace;
-  font-size:20px;
+  font-size: 20px;
 }
-
 
 .maindiv {
   display: flex;
   justify-content: center;
-  background-color: rgba(255, 255, 255, 0.5); 
+  background-color: rgba(255, 255, 255, 0.5);
   padding-top: 10px;
 }
-
 
 .title {
   display: flex;
   flex-flow: row;
   justify-content: center;
-  align-items: center; 
+  align-items: center;
   padding: 10px 10px 10px 20px;
   gap: 10px;
-  color: #161414; 
+  color: #161414;
 }
-
-
 
 .headerName {
   display: flex;
@@ -110,117 +131,101 @@ mat-card{
   justify-content: flex-end;
 }
 
-mat-card-content   {
-  color: #333; 
-  font-size: 1em; 
-  line-height: 1.4; 
-  margin-bottom: 10px; 
-  text-align: justify; 
+mat-card-content {
+  color: #333;
+  font-size: 1em;
+  line-height: 1.4;
+  margin-bottom: 10px;
+  text-align: justify;
   font-family: "Lucida Console", "Courier New", monospace;
-
 }
-.desc{
+.desc {
   color: #a19b9b;
   text: caption;
 }
 
-mat-card-actions equipment{
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+mat-card-actions equipment {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   color: #78a3d0;
 }
 
-mat-card-content{
+mat-card-content {
   display: flex;
   flex-direction: row;
   gap: 15px;
 }
 
-
- mat-card-subtitle {
+mat-card-subtitle {
   font-size: 1.7em;
   text-transform: uppercase;
   color: #4e79a7;
   font-family: Georgia, serif;
-  border-bottom: 1px solid #ccc; 
-  margin-top: 10px; 
-  padding-top: 5px; 
-  
-
+  border-bottom: 1px solid #ccc;
+  margin-top: 10px;
+  padding-top: 5px;
 }
 
-.other{
+.other {
   display: flex;
   flex-direction: row;
   justify-content: center;
   gap: 30px;
-  
 }
 
-
-
-
-
-.other button{
+.other button {
   width: 50%;
   height: 50%;
   font-size: 50px;
-  
 }
 
 .other .price-value {
-  background-color: rgba(246, 245, 245, 0.8); 
-  color: #333; 
-  border-radius: 10px; 
-  padding: 5px 10px; 
-  display: inline-block; 
+  background-color: rgba(246, 245, 245, 0.8);
+  color: #333;
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: inline-block;
 }
 
 .other:hover {
-  transform: scale(1.05); 
-  transition: transform 0.3s ease-in-out; 
-
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
 }
 .content:hover {
-  transform: scale(1.05); 
-  transition: transform 0.3s ease-in-out; 
-
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out;
 }
 
 .difLevel .easy {
-  background-color: rgba(246, 245, 245, 0.8); 
-  border-radius: 10px; 
+  background-color: rgba(246, 245, 245, 0.8);
+  border-radius: 10px;
   border-color: green 1rem;
-  padding: 5px 10px; 
-  display: inline-block; 
+  padding: 5px 10px;
+  display: inline-block;
   text-transform: uppercase;
   color: green;
-
 }
 
 .difLevel .medium {
-  background-color: rgba(246, 245, 245, 0.8); 
-  border-radius: 10px; 
-  padding: 5px 10px; 
-  display: inline-block; 
+  background-color: rgba(246, 245, 245, 0.8);
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: inline-block;
   text-transform: uppercase;
   color: orange;
   border-color: orange;
   border-style: double;
-
-
 }
 
 .difLevel .hard {
-  background-color: rgba(246, 245, 245, 0.8); 
-  border-radius: 10px; 
-  padding: 5px 10px; 
-  display: inline-block; 
+  background-color: rgba(246, 245, 245, 0.8);
+  border-radius: 10px;
+  padding: 5px 10px;
+  display: inline-block;
   text-transform: uppercase;
   color: red;
   border-color: red;
   border-style: double;
 }
-
 
 mat-card-title {
   font-size: 30px;
@@ -240,3 +245,4 @@ mat-card-title {
 .mat-card-subtitle {
   color: #89295c;
 }
+

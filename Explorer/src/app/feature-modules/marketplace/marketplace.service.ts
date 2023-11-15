@@ -5,8 +5,16 @@ import { GuideReview } from './model/guide-review.model';
 import { Observable, map, of } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Preferences } from "./model/preferences.model";
+
+
+import { TourReview } from './model/tourReview.model';
+import { Tour } from '../tour-authoring/tour/model/tour.model';
+import { ReviewTour } from './tours-show/ReviewTour.model';
+
+
 import { TouristEquipment } from './model/touristEquipment.model';
 import { NonNullAssert } from '@angular/compiler';
+t
 import { Problem } from './model/problem.model';
 import { ProblemMessage } from './model/problem-message.model';
 import { AdministrationService } from '../administration/administration.service';
@@ -19,6 +27,7 @@ import { TourExecution } from './model/TourExecution.model';
 import { TourPurchaseToken } from './model/TourPurchaseToken.model';
 
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+
 
 
 
@@ -63,6 +72,26 @@ export class MarketplaceService {
   getUserPreferences(id: number): Observable<Preferences> {
     return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
   }
+
+
+
+  createReview(tourReview: TourReview): Observable<TourReview>{
+    return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview', tourReview);
+  }
+
+  getAllReviews():Observable<PagedResults<TourReview>> {
+    return this.http.get<PagedResults<TourReview>>(environment.apiHost+ 'tourist/tourReview');
+  }
+
+  deleteReview(tourReview: TourReview): Observable<TourReview>{
+    return this.http.delete<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id);
+  }
+
+  updateReview(tourReview: TourReview): Observable<TourReview>{
+    return this.http.put<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id, tourReview);
+  }
+  getAllTours():Observable<PagedResults<ReviewTour>> {
+    return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
 
   
  
@@ -110,6 +139,7 @@ export class MarketplaceService {
   }
   removeFromMyEquipment(touristId: number, equipmentId: number): Observable<TouristEquipment> {
     return this.http.put<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/deleteFromMyEquipment/' + touristId + '/' + equipmentId, null);
+
   }
 
   getGuideProblems(id: number): Observable<PagedResults<Problem>> {
@@ -149,6 +179,7 @@ export class MarketplaceService {
     return this.http.delete<Problem>(environment.apiHost + 'problem/' + problem.id);
   }
 
+
   getProblemWithClosestDeadline(id: number): Observable<Problem> {
     return this.http.get<Problem>(environment.apiHost + 'problem/closestDeadline/' + id);
   }
@@ -159,24 +190,7 @@ export class MarketplaceService {
   getToursByLocation(latitude: number, longitude: number, range:number): Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(environment.apiHost+ 'administration/tour/search/' + latitude + '/' + longitude + '/' + range);
   }
-  createReview(tourReview: TourReview): Observable<TourReview>{
-    return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview', tourReview);
-  }
-
-  getAllReviews():Observable<PagedResults<TourReview>> {
-    return this.http.get<PagedResults<TourReview>>(environment.apiHost+ 'tourist/tourReview');
-  }
-
-  deleteReview(tourReview: TourReview): Observable<TourReview>{
-    return this.http.delete<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id);
-  }
-
-  updateReview(tourReview: TourReview): Observable<TourReview>{
-    return this.http.put<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id, tourReview);
-  }
-  getAllTours():Observable<PagedResults<ReviewTour>> {
-    return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
-  }
+  
 
   getAllTourExecutions():Observable<PagedResults<TourExecution>> {
     return this.http.get<PagedResults<TourExecution>>(environment.apiHost+ 'tourExecution/allExecutions');
@@ -193,6 +207,7 @@ export class MarketplaceService {
     return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
 
   }
+
 }
   
 
