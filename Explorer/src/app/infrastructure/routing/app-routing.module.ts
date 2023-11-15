@@ -26,6 +26,9 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
+import { TourExecutionPositionComponent } from 'src/app/feature-modules/tour-execution/tour-execution-position/tour-execution-position.component';
+import { UserPositionComponent } from 'src/app/feature-modules/administration/user-position/user-position.component';
+import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
 
 import { TouristEquipmentComponent } from 'src/app/feature-modules/marketplace/tourist-equipment/tourist-equipment.component';
 
@@ -73,6 +76,10 @@ const routes: Routes = [
   {path: 'blog', component: BlogpostComponent, canActivate: [AuthGuard],},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
+  
+  {path: 'tour-execution-position', component:TourExecutionPositionComponent},
+  {path: 'user-position',component:UserPositionComponent},
+  { path: 'activeTour', component:ActiveTourComponent},
   { path: 'app-rating-form', component: AppRatingFormComponent },
   { path: 'problems', component: ProblemComponent},
   {path: 'app-rating-form', component: AppRatingFormComponent},
