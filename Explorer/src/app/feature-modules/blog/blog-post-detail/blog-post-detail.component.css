@@ -53,6 +53,7 @@
   font-family: 'Trip', sans-serif;
 }
 
+
 .upvote.active {
   background-color: #0a83cb; /* Green when active (clicked) */
 }
@@ -227,4 +228,10 @@ img {
   position: absolute;
   top: 0;
   right: 0;
+}
+
+.disabled-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px; /* Adjust as needed */
 }

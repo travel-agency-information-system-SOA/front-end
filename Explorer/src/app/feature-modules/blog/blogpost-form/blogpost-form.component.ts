@@ -18,6 +18,7 @@ export class BlogpostFormComponent implements OnChanges {
   @Output() blogPostsUpdated = new EventEmitter<null>();
   @Input() blogPost: BlogPost;
   @Input() shouldEdit: boolean = false;
+  @Input() shouldEditDraft: boolean = false;
   
   constructor(private service: BlogService, private tokenStorage: TokenStorage) { }
 
@@ -26,7 +27,6 @@ export class BlogpostFormComponent implements OnChanges {
     if(this.shouldEdit){
       this.blogPostForm.patchValue({title: this.blogPost.title || '',
       description: this.blogPost.description || '',
-      status: this.blogPost.status || 'DRAFT',
       imageURLs: this.blogPost.imageURLs?.join(', ')});
     }
   }
@@ -34,7 +34,6 @@ export class BlogpostFormComponent implements OnChanges {
   blogPostForm = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    status: new FormControl('DRAFT'),
     imageURLs: new FormControl(''),
   })
 
@@ -58,7 +57,38 @@ export class BlogpostFormComponent implements OnChanges {
       imageURLs: imageURLs,
       comments: [],
       ratings: [],
-      status: this.blogPostForm.value.status || 'DRAFT'
+      status: 'PUBLISHED'
+    }
+
+    this.service.addBlogPost(blogPost).subscribe({
+      next: (_) => {
+        this.blogPostsUpdated.emit();
+      }
+    });
+    
+  }
+
+
+  addBlogPostDraft(): void{
+    console.log(this.blogPostForm.value)
+
+    const imageURLsString = this.blogPostForm.value.imageURLs;
+    const imageURLs = imageURLsString
+      ? imageURLsString.split(',').map(url => String(url.trim()))
+      : [];
+
+
+    const blogPost = {
+      id: 0,
+      authorId: this.tokenStorage.getUserId() || 0,
+      authorUsername: null,
+      title: this.blogPostForm.value.title || '',
+      description: this.blogPostForm.value.description || '',
+      creationDate: new Date(),
+      imageURLs: imageURLs,
+      comments: [],
+      ratings: [],
+      status: 'DRAFT'
     }
 
     this.service.addBlogPost(blogPost).subscribe({
@@ -86,7 +116,7 @@ export class BlogpostFormComponent implements OnChanges {
       imageURLs: imageURLs,
       comments: this.blogPost.comments,
       ratings: this.blogPost.ratings,
-      status: this.blogPostForm.value.status || 'DRAFT'
+      status: this.blogPost.status
     }
 
     this.service.updateBlogPost(blogPost).subscribe({

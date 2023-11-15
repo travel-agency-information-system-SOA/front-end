@@ -14,7 +14,7 @@
         </button>
       </ng-container>
       <ng-template #descriptionSection>
-          <p class="description">{{ post.description }}</p>
+          <p class="description" markdown>{{ post.description }}</p>
       </ng-template>
       <div class="author-date-container">
         <small class="author" *ngIf="post.authorUsername">Posted by u/{{ post.authorUsername }}, </small>

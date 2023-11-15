@@ -36,7 +36,7 @@
 .create-post-button {
     width: 80%;
     flex: 1;
-    background-color: #ffff; /* Reddit's primary color */
+    background-color: #3f51b5 ; /* Reddit's primary color */
     color: #ffffff;
     border: none;
     cursor: pointer;
@@ -51,12 +51,12 @@
 }
 
 .create-post-button:hover {
-    background-color: #0a83cb; /* Darker shade on hover */
+    background-color: #221853; /* Darker shade on hover */
 }
 
 .create-post-button:hover::placeholder{
   color: #ffff;
 }
 .create-post-button::placeholder{
-  color: #0a83cb;
+  color: #ffff;
 }

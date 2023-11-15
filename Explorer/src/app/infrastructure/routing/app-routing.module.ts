@@ -62,7 +62,7 @@ const routes: Routes = [
   {path: 'tourReviewShow', component: TourReviewsShowComponent},
   {path: 'blog', component: BlogComponent, canActivate: [AuthGuard],},
   {path: 'blog/create-post', component: BlogPostCreationComponent, canActivate: [AuthGuard]},
-  {path: 'blog/update-post', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
+  {path: 'blog/update-post/:id', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
   {path: 'app-rating-form', component: AppRatingFormComponent},

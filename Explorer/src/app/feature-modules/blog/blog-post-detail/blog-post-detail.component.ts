@@ -80,10 +80,10 @@ export class BlogPostDetailComponent implements OnInit {
         }
        }
     }
+  }
 
-   
-
-
+  isClosed(blogPost: BlogPost){
+    return blogPost.status == 'CLOSED'
   }
   
 
@@ -150,7 +150,7 @@ export class BlogPostDetailComponent implements OnInit {
   }
 
   navigateToUpdateForm() {
-    this.router.navigate(['/blog/update-post'], { queryParams: { post: JSON.stringify(this.post) } });
+    this.router.navigate(['/blog/update-post/' + this.postId]);
   }
 
   deletePost(){
