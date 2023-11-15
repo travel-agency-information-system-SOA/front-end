@@ -9,6 +9,7 @@ import { TourReview } from './model/tourReview.model';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
 import { ReviewTour } from './tours-show/ReviewTour.model';
 import { TourExecution } from './model/TourExecution.model';
+import { TourPurchaseToken } from './model/TourPurchaseToken.model';
 
 @Injectable({
   providedIn: 'root'
@@ -72,5 +73,9 @@ export class MarketplaceService {
   }
   getAllTourExecutions():Observable<PagedResults<TourExecution>> {
     return this.http.get<PagedResults<TourExecution>>(environment.apiHost+ 'tourExecution/allExecutions');
+  }
+
+  getAllTokens():Observable<PagedResults<TourPurchaseToken>>{
+    return this.http.get<PagedResults<TourPurchaseToken>>(environment.apiHost+'tokens');
   }
 }

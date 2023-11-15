@@ -8,6 +8,7 @@ import { TourExecution } from '../model/TourExecution.model';
 import { TourReview } from '../model/tourReview.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { TourPurchaseToken } from '../model/TourPurchaseToken.model';
 
 @Component({
   selector: 'xp-tours-show',
@@ -20,6 +21,8 @@ export class ToursShowComponent {
     username:'',
     role: ''
   }
+  tourIds:number[]=[]
+  tokens:TourPurchaseToken[]=[]
   reviews: TourReview[]=[]
   totalDistance:number;
   percentageCompleted: number;
@@ -32,10 +35,13 @@ export class ToursShowComponent {
   executions: TourExecution[]=[];
   averageGrade: number;
   constructor(private marketplaceService: MarketplaceService, private router: Router, private authService: AuthService){
-    this.getAllTours();
-    this.getExecutions();
     this.getAllReviews();
     this.getLoggedInUser();
+    this.getAllTokens();
+    this.getAllTours();
+    this.getExecutions();
+   
+    
   }
   getAllReviews(){
     this.marketplaceService.getAllReviews().subscribe({
@@ -49,10 +55,15 @@ export class ToursShowComponent {
     this.marketplaceService.getAllTours().subscribe({
       next: (response)=>{
         this.tours=response.results;
+        //ako vec nije ostavio recenziju
         this.tours = this.tours.filter((tour) => {
           return !tour.tourReviews.some((review) => review.touristId === this.loggedInUser.id);
         });
-        console.log('Turee', this.tours);
+
+        
+        
+        
+       this.filterPurchasedTours();
       },
       error:(error)=>{
         console.log(error);
@@ -162,5 +173,27 @@ export class ToursShowComponent {
         console.log("Ulogovani korisnik", this.loggedInUser);
       }
     })
+  }
+
+  getAllTokens(){
+    this.marketplaceService.getAllTokens().subscribe({
+      next:(response)=>{
+        this.tokens=response.results;
+
+      }
+    })
+  }
+
+  filterPurchasedTours(){
+     //idevi tokena od ovog usera 
+     this.tokens.forEach(token => {
+      if (token.touristId ==this.loggedInUser.id) {
+        console.log('token', token.idTour)
+        this.tourIds.push(token.idTour);
+      }
+    });
+    console.log('Kupljene', this.tourIds)
+    this.tours= this.tours.filter(tura => this.tourIds.includes(tura.id as number));
+    console.log('Turee', this.tours);
   }
 }
