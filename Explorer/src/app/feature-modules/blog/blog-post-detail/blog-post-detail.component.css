@@ -326,3 +326,9 @@ textarea {
   width: 100px;
 }
 
+
+.disabled-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px; /* Adjust as needed */
+}

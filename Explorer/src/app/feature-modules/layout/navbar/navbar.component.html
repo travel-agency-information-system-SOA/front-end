@@ -10,7 +10,6 @@
 
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['preferences']">My preferences</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['guideReview']">Review Guide</button>
-            <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['blogPostComment']">Manage comments</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['club']">Manage clubs</button>
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['blog']">Blog</button>
 
