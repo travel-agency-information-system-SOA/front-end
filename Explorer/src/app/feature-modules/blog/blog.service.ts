@@ -44,9 +44,14 @@ export class BlogService {
   }
   deleteComment(blogId: number, userId:number, dateTime: Date):Observable<BlogPost> {
     console.log(userId);
-    console.log(dateTime);
+    const dateObj = typeof dateTime === 'string' ? new Date(dateTime) : dateTime;
+    console.log('Pre formatiranja:', dateObj);
+    dateObj.setHours(dateObj.getHours() + 1);
+    const formattedDateTime =  dateObj.toISOString();
+    console.log('Date Time:', formattedDateTime);
     console.log(blogId);
-    return this.http.delete<BlogPost>(environment.apiHost + 'blog/blogpost/' +  blogId + '/comments/' + userId + '/' + dateTime );
+    
+    return this.http.delete<BlogPost>(environment.apiHost + 'blog/blogpost/' +  blogId + '/comments/' + userId + '/' + formattedDateTime );
   }
   updateComment(blogId:number, comment:BlogPostComment):Observable<BlogPost> {
     return this.http.put<BlogPost>(environment.apiHost + 'blog/blogpost/' + blogId + '/comments', comment);

@@ -23,8 +23,10 @@ export class BlogComponent {
       next: (result: PagedResults<BlogPost>) => {
         this.blogPosts = result.results;
         this.blogPosts.forEach(post => {
-          console.log(post);
+          
+          console.log(post.creationDate);
           post.creationDate = new Date(post.creationDate);
+          console.log(post);
         });
       },
       error: (err: any) =>{
@@ -32,7 +34,7 @@ export class BlogComponent {
       }
     })
   }
-
+ 
   navigateToPostCreation() {
     this.router.navigate(['/blog/create-post']);
   }

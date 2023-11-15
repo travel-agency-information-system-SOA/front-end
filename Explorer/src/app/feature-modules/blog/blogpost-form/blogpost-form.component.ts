@@ -99,6 +99,36 @@ export class BlogpostFormComponent implements OnChanges {
     
   }
 
+  postBlogPostDraft(): void{
+    console.log(this.blogPostForm.value)
+
+    const imageURLsString = this.blogPostForm.value.imageURLs;
+    const imageURLs = imageURLsString
+      ? imageURLsString.split(',').map(url => String(url.trim()))
+      : [];
+
+
+      const blogPost = {
+        id: this.blogPost.id,
+        authorId: this.blogPost.authorId,
+        authorUsername: this.blogPost.authorUsername,
+        title: this.blogPostForm.value.title || '',
+        description: this.blogPostForm.value.description || '',
+        creationDate: new Date(),
+        imageURLs: imageURLs,
+        comments: this.blogPost.comments,
+        ratings: this.blogPost.ratings,
+        status: 'PUBLISHED'
+      }
+
+    this.service.updateBlogPost(blogPost).subscribe({
+      next: (_) => {
+        this.blogPostsUpdated.emit();
+      }
+    });
+    
+  }
+
   updateBlogPost(): void{
 
     const imageURLsString = this.blogPostForm.value.imageURLs;

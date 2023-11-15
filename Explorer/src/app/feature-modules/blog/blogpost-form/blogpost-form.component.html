@@ -33,7 +33,7 @@
             <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" class="button" (click)="addBlogPost()">Post</button>
             <button *ngIf="shouldEdit && !shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="updateBlogPost()">Update</button>
             <button *ngIf="shouldEdit && shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="updateBlogPost()">Update draft</button>
-            <button *ngIf="shouldEdit && shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="addBlogPost()">Post</button>
+            <button *ngIf="shouldEdit && shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="postBlogPostDraft()">Post</button>
         </span>
         
         

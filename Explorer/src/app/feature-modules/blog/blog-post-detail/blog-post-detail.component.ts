@@ -33,7 +33,6 @@ export class BlogPostDetailComponent implements OnInit {
       this.postId = +params['id'];
       this.getById(this.postId);
     });
-    console.log(this.post);
   }
 
   getById(blogPostId: number): void{
