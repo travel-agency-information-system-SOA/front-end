@@ -6,6 +6,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Problem } from '../../marketplace/model/problem.model';
 import {DatePipe } from '@angular/common';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-home',
@@ -49,18 +50,23 @@ export class HomeComponent implements OnInit {
   }
 
   notifyAboutDeadline(): void {
-    this.probService.getProblemWithClosestDeadline(this.user.id).subscribe({
-      next: (problem: Problem) => {
-        const toast = this.notifications.error('Rok: ' + this.datePipe.transform(problem.deadline, 'shortDate') + ' je najblize!', 'Problemu: "' + problem.description + '" najskorije istice rok, pogledajte sve detaljnije', {
-          timeOut: 3500,
-          showProgressBar: true,
-          clickToClose: true
+    this.probService.getUnsolvedProblems().subscribe({
+      next: (result: PagedResults<Problem>) => {
+        if (result.totalCount != 0) {
+          this.probService.getProblemWithClosestDeadline(this.user.id).subscribe({
+            next: (problem: Problem) => {
+              const toast = this.notifications.error('Rok: ' + this.datePipe.transform(problem.deadline, 'shortDate') + ' je najblize!', 'Problemu: "' + problem.description + '" najskorije istice rok, pogledajte sve detaljnije', {
+              timeOut: 3500,
+              showProgressBar: true,
+              clickToClose: true
         });
         toast.click?.subscribe(() => {
           this.router.navigate(['problems']);
         })
       }
     });
+   }
   }
-
+  });
+  }
 }
