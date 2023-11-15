@@ -62,7 +62,9 @@ export class MapComponent implements AfterViewInit {
     this.setRoute();
     this.setObjects();
     this.setExecuteRoute();
+
     //this.setPosition();
+
   }
 
   ngOnInit() {

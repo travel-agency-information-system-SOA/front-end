@@ -6,9 +6,11 @@ import { Observable, map, of } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Preferences } from './model/preferences.model';
 
+
 import { TourReview } from './model/tourReview.model';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
 import { ReviewTour } from './tours-show/ReviewTour.model';
+
 
 import { TouristEquipment } from './model/touristEquipment.model';
 import { NonNullAssert } from '@angular/compiler';

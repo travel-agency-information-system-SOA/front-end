@@ -34,6 +34,7 @@ export class ToursShowComponent {
   tours: ReviewTour[];
   executions: TourExecution[] = [];
   averageGrade: number;
+
   constructor(
     private marketplaceService: MarketplaceService,
     private router: Router,

@@ -27,7 +27,9 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
 
+
 import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-show/tours-show.component';
+
 
 import { TourExecutionPositionComponent } from 'src/app/feature-modules/tour-execution/tour-execution-position/tour-execution-position.component';
 import { UserPositionComponent } from 'src/app/feature-modules/administration/user-position/user-position.component';
