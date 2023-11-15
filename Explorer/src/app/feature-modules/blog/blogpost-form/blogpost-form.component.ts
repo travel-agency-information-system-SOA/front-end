@@ -98,6 +98,8 @@ export class BlogpostFormComponent implements OnChanges {
         this.blogPostsUpdated.emit();
       }
     });
+
+    this.blogPostForm.reset();
     
   }
 
@@ -128,6 +130,8 @@ export class BlogpostFormComponent implements OnChanges {
         this.blogPostsUpdated.emit();
       }
     });
+
+    this.router.navigate(['/blog']);
     
   }
 

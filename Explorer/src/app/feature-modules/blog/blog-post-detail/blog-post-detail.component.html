@@ -14,7 +14,7 @@
     <div class="post-title">
       <h2>{{ post.title }}</h2>
     </div>
-    <div class="post-actions">
+    <div class="post-actions" *ngIf="showEditDeleteButtons(post.authorId)">
       <button *ngIf="!isClosed(post)" mat-icon-button color="primary" (click)="navigateToUpdateForm()">
         <mat-icon>edit</mat-icon>
       </button>
