@@ -30,11 +30,11 @@
     </div>
     <hr class="line-divider" *ngIf="post.imageURLs == null">
     <ng-container *ngIf="post.imageURLs != null && post.imageURLs.length >= 1;">
-      <div class="images-buttons">
+      <div class="image-container">
         <button *ngIf="showNavArrows" class="nav-arrow left" (click)="prevImage()">
           <mat-icon>arrow_back</mat-icon>
         </button>
-        <div class="image-container">
+        <div class="image-wrapper">
           <img class="post-image" [src]="currentImage" alt="Post Image">
         </div>
         <button *ngIf="showNavArrows" class="nav-arrow right" (click)="nextImage()">
