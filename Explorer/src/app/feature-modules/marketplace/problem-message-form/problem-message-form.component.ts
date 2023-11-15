@@ -33,7 +33,7 @@ export class ProblemMessageFormComponent implements OnInit{
     const problem: ProblemMessage = {
       content: this.problemMessageForm.value.content || "",
       isRead: false,
-      idProblem: this.problem.id || 0,
+      problemId: this.problem.id || 0,
       idSender: this.user.id || 0
     }
 
