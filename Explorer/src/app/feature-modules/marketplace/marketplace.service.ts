@@ -14,7 +14,12 @@ import { Profile } from '../administration/model/profile.model';
 import { TourReview } from './model/tourReview.model';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
 import { ReviewTour } from './tours-show/ReviewTour.model';
+
+import { TourExecution } from './model/TourExecution.model';
+import { TourPurchaseToken } from './model/TourPurchaseToken.model';
+
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+
 
 
 @Injectable({
@@ -173,11 +178,20 @@ export class MarketplaceService {
     return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
   }
 
+  getAllTourExecutions():Observable<PagedResults<TourExecution>> {
+    return this.http.get<PagedResults<TourExecution>>(environment.apiHost+ 'tourExecution/allExecutions');
+  }
+
+  getAllTokens():Observable<PagedResults<TourPurchaseToken>>{
+    return this.http.get<PagedResults<TourPurchaseToken>>(environment.apiHost+'tokens');
+  }
+
   getPublishedTours(): Observable<PagedResults<Tour>>{
     return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/marketplace');
   }
   getSelectedTour(id: number): Observable<Tour>{
     return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
+
   }
 }
   
