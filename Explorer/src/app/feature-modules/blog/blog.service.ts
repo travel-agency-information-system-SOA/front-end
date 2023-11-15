@@ -43,6 +43,12 @@ export class BlogService {
     return this.http.post<BlogPost>(environment.apiHost + 'blog/blogpost/' + id + '/comments', comment);
   }
   deleteComment(blogId: number, userId:number, dateTime: Date):Observable<BlogPost> {
+    console.log(userId);
+    console.log(dateTime);
+    console.log(blogId);
     return this.http.delete<BlogPost>(environment.apiHost + 'blog/blogpost/' +  blogId + '/comments/' + userId + '/' + dateTime );
+  }
+  updateComment(blogId:number, comment:BlogPostComment):Observable<BlogPost> {
+    return this.http.put<BlogPost>(environment.apiHost + 'blog/blogpost/' + blogId + '/comments', comment);
   }
 }
