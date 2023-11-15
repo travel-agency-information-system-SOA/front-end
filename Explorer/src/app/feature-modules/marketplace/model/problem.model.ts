@@ -1,4 +1,5 @@
 import { Time } from "@angular/common";
+import { ProblemMessage } from "./problem-message.model";
 
 export interface Problem {
     id?: number;
@@ -11,4 +12,5 @@ export interface Problem {
     isSolved: boolean;
     deadline: Date;
     idTour: number;
+    problemMessages: ProblemMessage[];
 }

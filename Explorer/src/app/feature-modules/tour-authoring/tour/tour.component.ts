@@ -146,15 +146,18 @@ export class TourComponent implements OnInit {
     });
   }
   publishTour(tour: Tour): void {
+
     this.service.isPublished(tour).subscribe({
       next: (_) => {
         this.loadTours();
+
       },
       error: (err) => {
         console.error('Error publishing tour:', err);
       },
     });
   }
+
 
   archiveTour(tour: Tour): void {
     this.service.archiveTour(tour).subscribe({
@@ -166,6 +169,7 @@ export class TourComponent implements OnInit {
       },
     });
   }
+
 
   onEditClicked(tour: Tour): void {
     this.shouldEdit = true;

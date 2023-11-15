@@ -17,6 +17,7 @@ export interface Tour {
 
 export enum Status {
   Draft = 'Draft',
+
   Archived = 'Archived',
   Published = 'Published',
 }

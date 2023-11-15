@@ -15,6 +15,8 @@ import { ActivatedRoute } from '@angular/router';
 export class TourReviewsShowComponent {
 
 
+  showUpdate: boolean= false;
+
   _observableList: BehaviorSubject<TourReview[]> = new BehaviorSubject<TourReview[]>([]);
   userReviews: any[];
   loggedInUser: User={
@@ -73,18 +75,8 @@ export class TourReviewsShowComponent {
   }
 
   update(review: TourReview){
-    /*
-    this.tourReviewService.update(review).subscribe({
-      next: (response)=>{
-        this.selectedReview=review;
-        console.log("Selektovani", this.selectedReview);
-        this.userReviews
-          
-      
-      }
-    })*/
-
     this.selectedReview=review;
+    this.showUpdate= true;
   }
 
 }

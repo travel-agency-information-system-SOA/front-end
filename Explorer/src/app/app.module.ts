@@ -20,6 +20,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { CommonModule, DatePipe } from '@angular/common'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
@@ -53,6 +54,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     MatNativeDateModule,
     MatDialogModule,
     MatButtonModule,
+    CommonModule,
   ],
   providers: [
     {
@@ -60,6 +62,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
       useClass: JwtInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

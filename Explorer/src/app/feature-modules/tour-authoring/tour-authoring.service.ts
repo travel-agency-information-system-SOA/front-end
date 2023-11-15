@@ -144,12 +144,23 @@ export class TourAuthoringService {
       tour
     );
   }
+  
+  isPublished(tour: Tour): Observable<Tour> {
+    console.log(tour.id)
+
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/publish/' + tour.id,
+      tour
+
+    );}
 
   updateTour(tour: Tour): Observable<Tour> {
     return this.http.put<Tour>(
       environment.apiHost + 'administration/tour/' + tour.id,
       tour
     );
+
+    
   }
 
   setTourCharacteristics(
@@ -170,9 +181,10 @@ export class TourAuthoringService {
   emitTransportTypeChanged(): void {
     this.transportTypeChanged.emit();
   }
-  deleteTourProblem(id: number): Observable<Tour> {
-    return this.http.delete<Tour>(
-      `https://localhost:44333/api/administration/tour/${id}`
+
+  getTourByTourId(id: number): Observable<Tour> {
+    return this.http.get<Tour>(
+      `https://localhost:44333/api/administration/tour/onetour/${id}`
     );
   }
 

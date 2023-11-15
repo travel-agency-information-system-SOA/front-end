@@ -1,4 +1,6 @@
+
 import { Component, AfterViewInit, Input, OnDestroy } from '@angular/core';
+
 import * as L from 'leaflet';
 import { MapService } from './map.service';
 
@@ -11,6 +13,8 @@ import { ActivatedRoute } from '@angular/router';
 import { TourAuthoringService } from 'src/app/feature-modules/tour-authoring/tour-authoring.service';
 import { TourPoint } from 'src/app/feature-modules/tour-authoring/model/tourPoints.model';
 import { mergeMap, tap } from 'rxjs/operators';
+import { AdministrationService } from 'src/app/feature-modules/administration/administration.service';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 
 @Component({
   selector: 'app-map',
@@ -18,6 +22,8 @@ import { mergeMap, tap } from 'rxjs/operators';
   styleUrls: ['./map.component.css'],
 })
 export class MapComponent implements AfterViewInit {
+  @Input() saveOnlyLatest = false;
+
   private map: any;
   tourId: string;
   objects: { latitude: number; longitude: number }[];
@@ -25,13 +31,17 @@ export class MapComponent implements AfterViewInit {
   tourPointAddSubscription: Subscription | undefined = undefined;
   transportTypechanged: Subscription | undefined = undefined;
   routeWaypoints: any[] = [];
+  @Input() tourIdEx:number=0;
+  tourIdexS:string
   routeControl: any;
 
   constructor(
     private service: MapService,
     private http: HttpClient,
     private route: ActivatedRoute,
-    private tourAuthoringService: TourAuthoringService
+    private tourAuthoringService: TourAuthoringService,
+    private administrationService: AdministrationService,
+    private tokenStorage: TokenStorage
   ) {}
 
   private initMap(): void {
@@ -50,9 +60,11 @@ export class MapComponent implements AfterViewInit {
     setTimeout(() => {
       this.initMap();
     }, 0);
-
     this.setRoute();
     this.setObjects();
+    this.setExecuteRoute();
+    this.setPosition();
+    
   }
 
   ngOnInit() {
@@ -102,6 +114,16 @@ export class MapComponent implements AfterViewInit {
       const lat = coord.lat;
       const lng = coord.lng;
       this.service.setCoordinates({ lat, lng });
+
+      if (this.saveOnlyLatest) {
+        // ovaj if radi za tour search
+        this.map.eachLayer((layer: any) => {
+          if (layer instanceof L.Marker) {
+            this.map.removeLayer(layer);
+          }
+        });
+      }
+
       this.service.reverseSearch(lat, lng).subscribe((res) => {
         console.log(res.display_name);
       });
@@ -110,6 +132,13 @@ export class MapComponent implements AfterViewInit {
       );
 
       const mp = new L.Marker([lat, lng]).addTo(this.map);
+      
+
+      if (!this.saveOnlyLatest) alert(mp.getLatLng()); //ovo samo sklanja za tur src post mi smeta
+
+
+     
+
     });
   }
 
@@ -168,5 +197,60 @@ export class MapComponent implements AfterViewInit {
           self.service.setTotalTime(Math.floor(summary.totalTime / 60));
         });
       });
+  }
+
+  setPosition() {
+    
+      this.administrationService.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
+        (result) => {
+          
+         L.marker([result.latitude,result.longitude]).addTo(this.map);
+          
+         
+          // Handle the result as needed
+        },
+        (error) => {
+          console.error('Error fetching user positions:', error);
+          // Handle the error as needed
+        }
+      );
+  }
+
+  setExecuteRoute(): void {
+    const self = this;
+    this.tourIdexS=this.tourIdEx.toString();
+    console.log("this is tourIdex "+ this.tourIdexS )
+    if(this.tourIdEx>0){
+    this.tourAuthoringService
+      .getTourPointsByTourId(parseInt(this.tourIdexS))
+      .subscribe((tourData: any) => {
+        const tourPoints = tourData.results;
+        const waypoints = tourPoints.map((point: any) =>
+          L.latLng(point.latitude, point.longitude)
+        );
+        const routeControl = L.Routing.control({
+          waypoints: waypoints,
+          router: L.routing.mapbox(
+            'pk.eyJ1IjoiYW5hYm9za292aWNjMTgiLCJhIjoiY2xvNHZrNjd2MDVpcDJucnM3M281cjE0OSJ9.y7eV9FmLm7kO_2FtrMaJkg',
+            { profile: 'mapbox/walking' }
+          ),
+        }).addTo(this.map);
+        routeControl.on('routesfound', function (e) {
+          var routes = e.routes;
+          var summary = routes[0].summary;
+          self.service.setTotalDistance(summary.totalDistance);
+          self.service.setTotalTime(
+            Math.round((summary.totalTime % 3600) / 60)
+          );
+          // alert(
+          //   'Total distance is ' +
+          //     summary.totalDistance / 1000 +
+          //     ' km and total time is ' +
+          //     Math.round((summary.totalTime % 3600) / 60) +
+          //     ' minutes'
+          // );
+        });
+      });
+    }
   }
 }

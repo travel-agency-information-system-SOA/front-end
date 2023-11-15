@@ -11,6 +11,8 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { forkJoin } from 'rxjs';
+import { Status, Tour } from '../../tour-authoring/tour/model/tour.model';
+import { ProblemMessage } from '../model/problem-message.model';
 
 interface ExtendedProblem extends Problem {
   isUnsolvedForMoreThan5Days?: boolean;
@@ -24,7 +26,6 @@ interface ExtendedProblem extends Problem {
 })
 export class ProblemComponent implements OnInit {
   
-  //problem: Problem[] = [];
   problem: ExtendedProblem[] = [];
   selectedProblem: Problem;
   user: User;
@@ -37,6 +38,7 @@ export class ProblemComponent implements OnInit {
   isTourist: boolean = false;
   isAdministartor: boolean = false;
   shouldRenderDeadline: boolean = false;
+  newMessProbId: number = 0;
   
 
   constructor(private service: MarketplaceService, private authService: AuthService, private dialog: MatDialog, private authoringService: TourAuthoringService) { }
@@ -46,6 +48,12 @@ export class ProblemComponent implements OnInit {
       this.user = user;
     });
 
+    this.getProblems();
+
+    this.isThereNewMessages();
+  } 
+
+  getProblems() : void{
     if(this.user.role == 'author'){
       this.getGuideProblems();
     }
@@ -57,11 +65,13 @@ export class ProblemComponent implements OnInit {
       this.isAdministartor = true;
       this.getUnsolvedProblems();
     }
-  } 
+
+  }
 
   getUnsolvedProblems(): void {
     this.shouldRenderForm = false;
     this.shouldRenderChat = false;
+    this.shouldRenderDeadline = false;
     this.service.getUnsolvedProblems().subscribe({
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
@@ -77,11 +87,9 @@ export class ProblemComponent implements OnInit {
   deadlineMissedUnsolved(): void {
     const currentDate = new Date();
     this.problem.forEach((problem) => {
-      // Only check for unsolved problems
       if (!problem.isSolved) {
         const problemDeadline = this.getDateFromValue(problem.deadline);
   
-        // Check if the deadline is today
         if (problemDeadline && this.isSameDate(currentDate, problemDeadline)) {
           problem.deadlineMissed = true;
         }
@@ -101,7 +109,6 @@ export class ProblemComponent implements OnInit {
     const currentDate = new Date();
     this.problem.forEach((problem) => {
 
-    //const timeAsDate: Date = problem.time as Date;
     const problemTime = this.getDateFromValue(problem.time);
       
       if (problemTime) {
@@ -125,6 +132,7 @@ export class ProblemComponent implements OnInit {
   getTourstProblems(): void {
     this.shouldRenderForm = false;
     this.shouldRenderChat = false;
+    this.shouldRenderDeadline = false;
     this.service.getTourstProblems(this.user.id).subscribe({
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
@@ -135,10 +143,18 @@ export class ProblemComponent implements OnInit {
     })
   }
 
+  isThereNewMessages() {
+    this.service.isThereUnreadMessage(this.user.id || 0).subscribe(
+      (idProblem: number) => {
+        this.newMessProbId = idProblem;
+      }
+    )
+  }
 
   getGuideProblems(): void {
     this.shouldRenderForm = false;
     this.shouldRenderChat = false;
+    this.shouldRenderDeadline = false;
     this.service.getGuideProblems(this.user.id).subscribe({
       next: (result: PagedResults<Problem>) => {
         this.problem = result.results;
@@ -148,8 +164,8 @@ export class ProblemComponent implements OnInit {
       }
     })
   }
-  /*
-  deleteTour(prob: Problem): void {
+
+  archiveTour(prob: Problem): void {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         message: 'Do you want to turn off tour that has this problem because the deadline is missed?',
@@ -158,59 +174,35 @@ export class ProblemComponent implements OnInit {
   
     dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        this.authoringService.deleteTourProblem(prob.idTour).subscribe({
-          this.service.deleteProblem(prob).subscribe({
-            next: (_) => {
-              this.getUnsolvedProblems();
-            }
-          })
-          
-        });
-      }
-    });
-  }*/
-
-
-  deleteTour(prob: Problem): void {
-    // Open the confirmation dialog
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        message: 'Do you want to turn off tour that has this problem because the deadline is missed?',
-      },
-    });
+        this.authoringService.getTourByTourId(prob.idTour).subscribe({
+          next: (tour: Tour) => {
+            tour.status = Status.Archived;
+            console.log(tour);
   
-    // Subscribe to the dialog result
-    dialogRef.afterClosed().subscribe((result: boolean) => {
-      if (result) {
-        // Delete tour first
-        this.authoringService.deleteTourProblem(prob.idTour).subscribe({
-          next: (deleteTourResult) => {
-            // Handle the result if needed
-            console.log('Delete Tour Result:', deleteTourResult);
+            this.authoringService.updateTour(tour).subscribe({
+              next: (updateTourResult) => {
+                console.log('Update Tour Result:', updateTourResult);
   
-            // After deleting tour, delete the problem
-            this.service.deleteProblem(prob).subscribe({
-              next: (deleteProblemResult) => {
-                // Handle the result if needed
-                console.log('Delete Problem Result:', deleteProblemResult);
-  
-                // Perform any additional actions after both services are complete
-                this.getUnsolvedProblems();
+                this.service.deleteProblem(prob).subscribe({
+                  next: (deleteProblemResult) => {
+                    console.log('Delete Problem Result:', deleteProblemResult);
+                    this.getUnsolvedProblems();
+                  },
+                  error: (deleteProblemError) => {
+                    console.error('Error deleting problem:', deleteProblemError);
+                  }
+                });
               },
-              error: (deleteProblemError) => {
-                // Handle errors if deleting problem fails
-                console.error('Error deleting problem:', deleteProblemError);
+              error: (updateTourError) => {
+                console.error('Error updating tour:', updateTourError);
               }
             });
-          },
-          error: (deleteTourError) => {
-            // Handle errors if deleting tour fails
-            console.error('Error deleting tour:', deleteTourError);
           }
         });
       }
     });
-  }  
+  }
+  
 
 
   deleteProblem(prob: Problem): void {
@@ -266,21 +258,27 @@ export class ProblemComponent implements OnInit {
     this.disabledRows.push(index);
     
   
-    // Call a service method to update isSolved in your database
     this.service.updateProblemIsSolved(this.selectedProblem).subscribe(
       () => {
-        // Success callback
         console.log('Problem isSolved updated successfully.');
       },
       (error) => {
-        // Error callback
         console.error('Error updating problem isSolved:', error);
       },
       () => {
-        // This block will execute whether the request is successful or not
         this.isSolving = false;
+      
+        this.service.getMessagesByProblemId(this.selectedProblem.id || 0).subscribe({
+          next: (result: PagedResults<ProblemMessage>) => {
+            console.log("duzina result-a: ", result.totalCount);
+            result.results.forEach(mess => {
+              mess.isRead = true;
+              this.service.readMessages(mess).subscribe();
+          });
       }
-    );
+    }) 
+   });
+
   }
   
 }
