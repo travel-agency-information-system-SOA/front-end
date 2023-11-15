@@ -11,6 +11,7 @@ import { AccountComponent } from './account/account.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { PublicTourPointRequestComponent } from './public-tour-point-request/public-tour-point-request.component';
+import { RequestResponseNotificationComponent } from './request-response-notification/request-response-notification.component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { PublicTourPointRequestComponent } from './public-tour-point-request/pub
     ProfileComponent,
     AppRatingFormComponent,
     AppRatingsComponent,
-    PublicTourPointRequestComponent
+    PublicTourPointRequestComponent,
+    RequestResponseNotificationComponent
   ],
   imports: [
     CommonModule,
@@ -36,7 +38,7 @@ import { PublicTourPointRequestComponent } from './public-tour-point-request/pub
     ProfileComponent,
     AppRatingsComponent,
     AppRatingFormComponent,
-    
+    RequestResponseNotificationComponent,
   ]
 })
 export class AdministrationModule { }

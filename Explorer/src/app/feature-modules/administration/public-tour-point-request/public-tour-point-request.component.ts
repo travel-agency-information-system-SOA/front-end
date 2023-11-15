@@ -8,6 +8,8 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 import { TourPoint } from '../../tour-authoring/model/tourPoints.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { forkJoin } from 'rxjs';
+import { RequestResponseNotificationComponent } from '../request-response-notification/request-response-notification.component';
+import { RequestResponseNotification } from '../model/request-response-notification.model';
 
 @Component({
   selector: 'xp-public-tour-point-request',
@@ -53,6 +55,12 @@ export class PublicTourPointRequestComponent implements OnInit {
         this.getAllRequests();       // i ovo
       }
     })
+    const notification: RequestResponseNotification = {
+      authorId: request.authorId,
+      comment: comment || "Zahtev za kreiranje javne tacke je prihvacen",
+      creation: new Date 
+    }
+    this.adminService.addNotification(notification) 
   }
 
   RejectRequest(request:TourPointRequest,comment:string):void{
@@ -63,6 +71,14 @@ export class PublicTourPointRequestComponent implements OnInit {
         this.bindingList.length = 0; //ovo dodajte i u reject request
         this.getAllRequests();       // i ovo
       }
+    })
+    const notification: RequestResponseNotification = {
+      authorId: request.authorId,
+      comment: comment || "Zahtev za kreiranje javne tacke je odbijen",
+      creation: new Date 
+    }
+    this.adminService.addNotification(notification).subscribe({
+      next:() => {}
     })
   }
 
