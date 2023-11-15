@@ -23,7 +23,7 @@ import { TourAuthoringService } from '../tour-authoring.service';
 })
 export class TourFormComponent implements OnChanges {
   difficultyLevels = Object.values(DifficultyLevel);
-
+  @Output() addTourClicked = new EventEmitter<null>();
   @Output() tourUpdated = new EventEmitter<null>();
   @Input() tour: Tour;
   @Input() shouldEdit: boolean = false;
@@ -66,6 +66,7 @@ export class TourFormComponent implements OnChanges {
     this.service.addTour(tour).subscribe({
       next: () => {
         this.tourUpdated.emit();
+        this.addTourClicked.emit();
         this.tourForm.reset();
       },
     });

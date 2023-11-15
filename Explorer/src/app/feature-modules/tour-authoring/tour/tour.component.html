@@ -105,22 +105,20 @@
       <xp-tour-point-form
         *ngIf="shouldAddPoint"
         [tour]="selectedTour"
+        (closeTourPointForm)="onClose()"
       ></xp-tour-point-form>
       <xp-object-form
         *ngIf="shouldAddObject"
         [tour]="selectedTour"
+        (closeForm)="onCloseObject()"
       ></xp-object-form>
+
       <xp-tour-form
-        *ngIf="shouldRenderTourForm"
         [tour]="selectedTour"
-        [shouldEdit]="shouldEdit"
+        *ngIf="showTourForm"
         (tourUpdated)="loadTours()"
+        (addTourClicked)="onAddTourClicked()"
       ></xp-tour-form>
     </div>
-    <p *ngIf="showTourForm">🛫 Create tour:</p>
-    <xp-tour-form
-      *ngIf="showTourForm"
-      (tourUpdated)="loadTours()"
-    ></xp-tour-form>
   </div>
 </div>

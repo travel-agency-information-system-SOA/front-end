@@ -173,4 +173,16 @@ export class TourComponent implements OnInit {
     this.shouldRenderTourForm = true;
     this.selectedTour = tour;
   }
+
+  onAddTourClicked() {
+    this.showTourForm = false;
+  }
+
+  onClose() {
+    this.shouldAddPoint = false;
+  }
+
+  onCloseObject() {
+    this.shouldAddObject = false;
+  }
 }

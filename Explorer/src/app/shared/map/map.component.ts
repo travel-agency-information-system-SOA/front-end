@@ -108,18 +108,27 @@ export class MapComponent implements AfterViewInit {
       console.log(
         'You clicked the map at latitude: ' + lat + ' and longitude: ' + lng
       );
+
       const mp = new L.Marker([lat, lng]).addTo(this.map);
     });
   }
 
   setObjects() {
+    let specialTourIcon = L.icon({
+      iconUrl:
+        'https://www.wanderfinder.com/wp-content/uploads/leaflet-maps-marker-icons/MapMarker_Marker_Outside_Orange.png',
+      iconAnchor: [12, 41],
+    });
+
     this.tourAuthoringService
       .getObjInTourByTourId(parseInt(this.tourId))
       .subscribe(
         (objects: any) => {
           this.objects = objects;
           this.objects.forEach((object) => {
-            L.marker([object.latitude, object.longitude]).addTo(this.map);
+            L.marker([object.latitude, object.longitude], {
+              icon: specialTourIcon,
+            }).addTo(this.map);
           });
           console.log('Dohvaćeni objekti:', objects);
         },
@@ -156,15 +165,7 @@ export class MapComponent implements AfterViewInit {
           var summary = routes[0].summary;
 
           self.service.setTotalDistance(summary.totalDistance / 1000);
-          self.service.setTotalTime((summary.totalTime % 3600) / 60);
-
-          // alert(
-          //   'Total distance is ' +
-          //     summary.totalDistance / 1000 +
-          //     ' km and total time is ' +
-          //     Math.round((summary.totalTime % 3600) / 60) +
-          //     ' minutes'
-          // );
+          self.service.setTotalTime(Math.floor(summary.totalTime / 60));
         });
       });
   }

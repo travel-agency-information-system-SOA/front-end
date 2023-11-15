@@ -26,6 +26,7 @@ import { TransportType } from '../tour/model/tourCharacteristic.model';
 })
 export class TourPointFormComponent implements OnChanges, OnInit {
   @Output() tourPointUpdated = new EventEmitter<null>();
+  @Output() closeTourPointForm = new EventEmitter<null>();
   @Input() tourPoint: TourPoint;
   @Input() shouldEdit: boolean = false;
   @Input() shouldAddPoint: boolean = false;
@@ -84,6 +85,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       next: () => {
         this.tourPointUpdated.emit();
         this.service.emitTourPointAdded();
+
         this.tourPointForm.reset();
       },
     });
@@ -99,8 +101,8 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     });
 
     var tourCharacteristic = {
-      distance: this.totalDistance,
-      duration: (this.totalTime % 3600) / 60,
+      distance: +this.totalDistance.toFixed(2),
+      duration: this.totalTime,
       transportType: this.yourFormGroup.value.selectedTransport,
     };
 
@@ -109,7 +111,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
         .setTourCharacteristics(this.tour.id, tourCharacteristic)
         .subscribe({
           next: () => {
-            console.log('setovano je');
+            this.closeTourPointForm.emit();
             alert('Successfully set tour characteristics');
           },
           error(err: any) {
