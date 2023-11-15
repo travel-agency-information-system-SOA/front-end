@@ -11,42 +11,50 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 @Component({
   selector: 'xp-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
-
   user: User;
-  
-  constructor(private notifications: NotificationsService, private router: Router, private probService: MarketplaceService, private authService: AuthService, private datePipe: DatePipe) {}
-   
+
+  constructor(
+    private notifications: NotificationsService,
+    private router: Router,
+    private probService: MarketplaceService,
+    private authService: AuthService,
+    private datePipe: DatePipe
+  ) {}
 
   ngOnInit(): void {
-    this.authService.user$.subscribe(user => {
+    this.authService.user$.subscribe((user) => {
       this.user = user;
-    })
+    });
     this.showNotification();
-    
+
     if (this.user.role == 'author') {
       this.notifyAboutDeadline();
     }
   }
 
   showNotification(): void {
-    this.probService.isThereUnreadMessage(this.user.id || 0).subscribe(
-      (idProblem: number) => {
+    this.probService
+      .isThereUnreadMessage(this.user.id || 0)
+      .subscribe((idProblem: number) => {
         if (idProblem != 0) {
-            const toast = this.notifications.info('Nove poruke u cetu!', 'Udjite da biste videli celu prepisku o problemu!', {
-            timeOut: 2500,
-            showProgressBar: true,
-            clickToClose: true
-          });
+          const toast = this.notifications.info(
+            'Nove poruke u cetu!',
+            'Udjite da biste videli celu prepisku o problemu!',
+            {
+              timeOut: 2500,
+              showProgressBar: true,
+              clickToClose: true,
+            }
+          );
 
-            toast.click?.subscribe(() => {
+          toast.click?.subscribe(() => {
             this.router.navigate(['problems']);
-          })
+          });
         }
-      }
-    )
+      });
   }
 
   notifyAboutDeadline(): void {
