@@ -3,7 +3,7 @@
         <p raised-button [routerLink]="['']">Explorer</p>
         <div id="buttons">
             <button class="nbutton" raised-button [routerLink]="['']">Home</button>
-            <button class="button" *ngIf="user && user.role === 'tourist'"  raised-button [routerLink]="['marketplace']">Marketplace</button>
+            <button class="nbutton" *ngIf="user && user.role === 'tourist'"  raised-button [routerLink]="['marketplace']">Marketplace</button>
             <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['equipment']">Manage equipment (!)</button>
             <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['accounts']">Manage accounts</button>  
             <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['app-ratings']">All App Ratings</button>
