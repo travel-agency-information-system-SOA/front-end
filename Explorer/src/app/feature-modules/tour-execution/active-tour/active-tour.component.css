@@ -1,0 +1,46 @@
+/* active-tour.component.css */
+
+body {
+    font-family: 'Trip-Sans-Regular', sans-serif;
+    background-color: #ffffff;
+    color: #000000;
+    margin: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .active-tour {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+  }
+  
+  h2, h3 {
+    color: #221853;
+  }
+  
+  p {
+    color: #707070;
+    line-height: 1.5;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    margin-bottom: 10px;
+  }
+  
+  .loading {
+    color: #e23a55;
+    font-weight: bold;
+  }
+  
+  

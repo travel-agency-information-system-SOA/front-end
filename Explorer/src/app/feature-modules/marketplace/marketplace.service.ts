@@ -4,9 +4,11 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { GuideReview } from './model/guide-review.model';
 import { Observable, map, of } from 'rxjs';
 import { environment } from 'src/env/environment';
-import { Preferences } from "./model/preferences.model";
+import { Preferences } from './model/preferences.model';
+
 import { TouristEquipment } from './model/touristEquipment.model';
 import { NonNullAssert } from '@angular/compiler';
+
 import { Problem } from './model/problem.model';
 import { ProblemMessage } from './model/problem-message.model';
 import { AdministrationService } from '../administration/administration.service';
@@ -20,179 +22,282 @@ import { TourPurchaseToken } from './model/TourPurchaseToken.model';
 
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 
-
-
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MarketplaceService {
-
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getGuideReviews(): Observable<PagedResults<GuideReview>> {
-    return this.http.get<PagedResults<GuideReview>>('https://localhost:44333/api/review/guideReview');
+    return this.http.get<PagedResults<GuideReview>>(
+      'https://localhost:44333/api/review/guideReview'
+    );
   }
 
-  addGuideReview(guideReview: GuideReview):  Observable<GuideReview> {
-    return this.http.post<GuideReview>(environment.apiHost + 'review/guideReview', guideReview);
+  addGuideReview(guideReview: GuideReview): Observable<GuideReview> {
+    return this.http.post<GuideReview>(
+      environment.apiHost + 'review/guideReview',
+      guideReview
+    );
   }
 
-  updateGuideReview(guideReview: GuideReview):  Observable<GuideReview> {
-    return this.http.put<GuideReview>(environment.apiHost + 'review/guideReview/' + guideReview.id, guideReview);
+  updateGuideReview(guideReview: GuideReview): Observable<GuideReview> {
+    return this.http.put<GuideReview>(
+      environment.apiHost + 'review/guideReview/' + guideReview.id,
+      guideReview
+    );
   }
 
-  deleteGuideReview(guideReview: GuideReview):  Observable<GuideReview> {
-    return this.http.delete<GuideReview>(environment.apiHost + 'review/guideReview/' + guideReview.id);
+  deleteGuideReview(guideReview: GuideReview): Observable<GuideReview> {
+    return this.http.delete<GuideReview>(
+      environment.apiHost + 'review/guideReview/' + guideReview.id
+    );
   }
   getPreferences(): Observable<PagedResults<Preferences>> {
-    return this.http.get<PagedResults<Preferences>>(environment.apiHost + 'marketplace/preferences');
+    return this.http.get<PagedResults<Preferences>>(
+      environment.apiHost + 'marketplace/preferences'
+    );
   }
 
   addPreferences(preferences: Preferences): Observable<Preferences> {
-    return this.http.post<Preferences>(environment.apiHost + 'marketplace/preferences', preferences);
+    return this.http.post<Preferences>(
+      environment.apiHost + 'marketplace/preferences',
+      preferences
+    );
   }
 
   updatePreferences(preferences: Preferences): Observable<Preferences> {
-    return this.http.put<Preferences>(environment.apiHost + 'marketplace/preferences/' + preferences.id, preferences);
+    return this.http.put<Preferences>(
+      environment.apiHost + 'marketplace/preferences/' + preferences.id,
+      preferences
+    );
   }
 
   deletePreferences(preferences: Preferences): Observable<Preferences> {
-    return this.http.delete<Preferences>(environment.apiHost + 'marketplace/preferences/' + preferences.id);
+    return this.http.delete<Preferences>(
+      environment.apiHost + 'marketplace/preferences/' + preferences.id
+    );
   }
 
   getUserPreferences(id: number): Observable<Preferences> {
-    return this.http.get<Preferences>(environment.apiHost + 'marketplace/preferences/' + id);
+    return this.http.get<Preferences>(
+      environment.apiHost + 'marketplace/preferences/' + id
+    );
   }
 
-  
- 
-  
-  getAllEquipmet():Observable<PagedResults<Equipment>>{
-    return this.http.get<PagedResults<Equipment>>(environment.apiHost+'administration/equipment');
+  createReview(tourReview: TourReview): Observable<TourReview> {
+    return this.http.post<TourReview>(
+      environment.apiHost + 'tourist/tourReview',
+      tourReview
+    );
   }
 
-  updateTouristEquipment(te:TouristEquipment): Observable<Preferences> {
-    return this.http.put<Preferences>(environment.apiHost + 'tourist/touristEquipment/' + te.id, te);
+  getAllReviews(): Observable<PagedResults<TourReview>> {
+    return this.http.get<PagedResults<TourReview>>(
+      environment.apiHost + 'tourist/tourReview'
+    );
   }
 
+  deleteReview(tourReview: TourReview): Observable<TourReview> {
+    return this.http.delete<TourReview>(
+      environment.apiHost + 'tourist/tourReview/' + tourReview.id
+    );
+  }
 
+  updateReview(tourReview: TourReview): Observable<TourReview> {
+    return this.http.put<TourReview>(
+      environment.apiHost + 'tourist/tourReview/' + tourReview.id,
+      tourReview
+    );
+  }
+  getAllTours(): Observable<PagedResults<ReviewTour>> {
+    return this.http.get<PagedResults<ReviewTour>>(
+      environment.apiHost + 'administration/tour/allTours'
+    );
+  }
 
+  getAllEquipmet(): Observable<PagedResults<Equipment>> {
+    return this.http.get<PagedResults<Equipment>>(
+      environment.apiHost + 'administration/equipment'
+    );
+  }
 
-
+  updateTouristEquipment(te: TouristEquipment): Observable<Preferences> {
+    return this.http.put<Preferences>(
+      environment.apiHost + 'tourist/touristEquipment/' + te.id,
+      te
+    );
+  }
 
   getTouristEquipment(id: number): Observable<TouristEquipment> {
-    return this.http.get<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/getTouristEquipment/' + id);
+    return this.http.get<TouristEquipment>(
+      environment.apiHost + 'tourist/touristEquipment/getTouristEquipment/' + id
+    );
   }
   createTouristEquipment(id: number): Observable<TouristEquipment> {
-    return this.http.post<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/createTouristEquipment/' + id,null);
+    return this.http.post<TouristEquipment>(
+      environment.apiHost +
+        'tourist/touristEquipment/createTouristEquipment/' +
+        id,
+      null
+    );
   }
 
-  getMyEquipment(ids:number[]): Observable<Equipment[]> {
+  getMyEquipment(ids: number[]): Observable<Equipment[]> {
     let params = new HttpParams();
     for (const id of ids) {
       params = params.append('ids', id.toString());
     }
-    
-    return this.http.get<Equipment[]>(environment.apiHost + 'administration/equipment/getTouristEquipment/', { params: params });
+
+    return this.http.get<Equipment[]>(
+      environment.apiHost + 'administration/equipment/getTouristEquipment/',
+      { params: params }
+    );
   }
 
-  getOtherEquipment(ids:number[]): Observable<Equipment[]> {
+  getOtherEquipment(ids: number[]): Observable<Equipment[]> {
     let params = new HttpParams();
     for (const id of ids) {
       params = params.append('ids', id.toString());
     }
-    
-    return this.http.get<Equipment[]>(environment.apiHost + 'administration/equipment/getOtherEquipment', { params: params });
+
+    return this.http.get<Equipment[]>(
+      environment.apiHost + 'administration/equipment/getOtherEquipment',
+      { params: params }
+    );
   }
 
-  addToMyEquipment(touristId: number, equipmentId: number): Observable<TouristEquipment> {
-    return this.http.put<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/addToMyEquipment/' + touristId + '/' + equipmentId, null);
+  addToMyEquipment(
+    touristId: number,
+    equipmentId: number
+  ): Observable<TouristEquipment> {
+    return this.http.put<TouristEquipment>(
+      environment.apiHost +
+        'tourist/touristEquipment/addToMyEquipment/' +
+        touristId +
+        '/' +
+        equipmentId,
+      null
+    );
   }
-  removeFromMyEquipment(touristId: number, equipmentId: number): Observable<TouristEquipment> {
-    return this.http.put<TouristEquipment>(environment.apiHost + 'tourist/touristEquipment/deleteFromMyEquipment/' + touristId + '/' + equipmentId, null);
+  removeFromMyEquipment(
+    touristId: number,
+    equipmentId: number
+  ): Observable<TouristEquipment> {
+    return this.http.put<TouristEquipment>(
+      environment.apiHost +
+        'tourist/touristEquipment/deleteFromMyEquipment/' +
+        touristId +
+        '/' +
+        equipmentId,
+      null
+    );
   }
 
   getGuideProblems(id: number): Observable<PagedResults<Problem>> {
-    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/byGuide/' + id);
+    return this.http.get<PagedResults<Problem>>(
+      environment.apiHost + 'problem/byGuide/' + id
+    );
   }
 
   addMessage(message: ProblemMessage): Observable<ProblemMessage> {
-    return this.http.post<ProblemMessage>(environment.apiHost + 'administration/message', message);
+    return this.http.post<ProblemMessage>(
+      environment.apiHost + 'administration/message',
+      message
+    );
   }
 
   getMessagesByProblemId(id: number): Observable<PagedResults<ProblemMessage>> {
-    return this.http.get<PagedResults<ProblemMessage>>(environment.apiHost + 'administration/message/' + id);
+    return this.http.get<PagedResults<ProblemMessage>>(
+      environment.apiHost + 'administration/message/' + id
+    );
   }
 
   isThereUnreadMessage(id: number): Observable<number> {
-    return this.http.get<number>(environment.apiHost + 'problem/byUnreadMessages/' + id);
+    return this.http.get<number>(
+      environment.apiHost + 'problem/byUnreadMessages/' + id
+    );
   }
 
   getTourstProblems(id: number): Observable<PagedResults<Problem>> {
-    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/byTourist/' + id);
+    return this.http.get<PagedResults<Problem>>(
+      environment.apiHost + 'problem/byTourist/' + id
+    );
   }
 
-  updateProblemIsSolved(problem: Problem): Observable<Problem>{
-    return this.http.put<Problem>(environment.apiHost + 'problem/' + problem.id, problem);
+  updateProblemIsSolved(problem: Problem): Observable<Problem> {
+    return this.http.put<Problem>(
+      environment.apiHost + 'problem/' + problem.id,
+      problem
+    );
   }
 
   getUnsolvedProblems(): Observable<PagedResults<Problem>> {
-    return this.http.get<PagedResults<Problem>>(environment.apiHost + 'problem/unsolved');
+    return this.http.get<PagedResults<Problem>>(
+      environment.apiHost + 'problem/unsolved'
+    );
   }
 
-  addDeadline(problem: Problem): Observable<Problem>{
-    console.log("PORUKE PROBLEMA", problem.problemMessages);
-    return this.http.put<Problem>(environment.apiHost + 'problem/' + problem.id, problem);
+  addDeadline(problem: Problem): Observable<Problem> {
+    console.log('PORUKE PROBLEMA', problem.problemMessages);
+    return this.http.put<Problem>(
+      environment.apiHost + 'problem/' + problem.id,
+      problem
+    );
   }
 
   deleteProblem(problem: Problem): Observable<Problem> {
-    return this.http.delete<Problem>(environment.apiHost + 'problem/' + problem.id);
+    return this.http.delete<Problem>(
+      environment.apiHost + 'problem/' + problem.id
+    );
   }
 
   getProblemWithClosestDeadline(id: number): Observable<Problem> {
-    return this.http.get<Problem>(environment.apiHost + 'problem/closestDeadline/' + id);
+    return this.http.get<Problem>(
+      environment.apiHost + 'problem/closestDeadline/' + id
+    );
   }
 
   readMessages(message: ProblemMessage): Observable<void> {
-    return this.http.put<void>(environment.apiHost + 'administration/message/' + message.id, message);
+    return this.http.put<void>(
+      environment.apiHost + 'administration/message/' + message.id,
+      message
+    );
   }
-  getToursByLocation(latitude: number, longitude: number, range:number): Observable<PagedResults<Tour>> {
-    return this.http.get<PagedResults<Tour>>(environment.apiHost+ 'administration/tour/search/' + latitude + '/' + longitude + '/' + range);
-  }
-  createReview(tourReview: TourReview): Observable<TourReview>{
-    return this.http.post<TourReview>(environment.apiHost + 'tourist/tourReview', tourReview);
-  }
-
-  getAllReviews():Observable<PagedResults<TourReview>> {
-    return this.http.get<PagedResults<TourReview>>(environment.apiHost+ 'tourist/tourReview');
-  }
-
-  deleteReview(tourReview: TourReview): Observable<TourReview>{
-    return this.http.delete<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id);
-  }
-
-  updateReview(tourReview: TourReview): Observable<TourReview>{
-    return this.http.put<TourReview>(environment.apiHost + 'tourist/tourReview/' + tourReview.id, tourReview);
-  }
-  getAllTours():Observable<PagedResults<ReviewTour>> {
-    return this.http.get<PagedResults<ReviewTour>>(environment.apiHost+ 'administration/tour/allTours');
+  getToursByLocation(
+    latitude: number,
+    longitude: number,
+    range: number
+  ): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost +
+        'administration/tour/search/' +
+        latitude +
+        '/' +
+        longitude +
+        '/' +
+        range
+    );
   }
 
-  getAllTourExecutions():Observable<PagedResults<TourExecution>> {
-    return this.http.get<PagedResults<TourExecution>>(environment.apiHost+ 'tourExecution/allExecutions');
+  getAllTourExecutions(): Observable<PagedResults<TourExecution>> {
+    return this.http.get<PagedResults<TourExecution>>(
+      environment.apiHost + 'tourExecution/allExecutions'
+    );
   }
 
-  getAllTokens():Observable<PagedResults<TourPurchaseToken>>{
-    return this.http.get<PagedResults<TourPurchaseToken>>(environment.apiHost+'tokens');
+  getAllTokens(): Observable<PagedResults<TourPurchaseToken>> {
+    return this.http.get<PagedResults<TourPurchaseToken>>(
+      environment.apiHost + 'tokens'
+    );
   }
 
-  getPublishedTours(): Observable<PagedResults<Tour>>{
-    return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/marketplace');
+  getPublishedTours(): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(
+      'https://localhost:44333/api/marketplace'
+    );
   }
-  getSelectedTour(id: number): Observable<Tour>{
+  getSelectedTour(id: number): Observable<Tour> {
     return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
-
   }
 }
-  
-

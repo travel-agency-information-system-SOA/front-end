@@ -13,22 +13,65 @@ div {
   float: left; /* Float the form container to the left */
   width: 100%; /* Adjust the width as needed */
   padding: 20px; /* Add padding for spacing */
-  box-sizing: border-box; /* Include padding in the width */
+}
+
+.container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
 }
 
 .map-container {
   display: flex;
-  float: left; /* Float the map container to the left */
-  width: 200%; /* Adjust the width as needed */
-  height: 100%;
-
-  padding: 20px; /* Add padding for spacing */
-  box-sizing: border-box; /* Include padding in the width */
+  float: left;
+  width: 50%;
+  height: 100px;
+  border-radius: 30px;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-/* Clear the float to prevent other content from wrapping around these containers */
 .clearfix::after {
   content: "";
   clear: both;
   display: table;
+}
+
+.label {
+  font-size: 1.7em;
+  text-transform: uppercase;
+  color: #4e79a7;
+  font-family: Georgia, serif;
+  background-color: rgba(246, 245, 245, 0.8);
+  border-radius: 10px;
+
+  padding: 5px 10px;
+}
+
+.inner-container {
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+}
+
+.select {
+  font-size: 18px;
+  width: 150px;
+  height: 25px;
+  border-radius: 10px;
+  background-color: rgba(246, 245, 245, 0.8);
+}
+
+.button {
+  margin-left: 10px;
+  border-radius: 8px;
+  background-color: #124174;
+  color: #ffffff;
+  padding: 5px 10px;
+  width: 400px;
+}
+
+.notification {
+  color: rgba(246, 245, 245, 0.8);
+  text-align: left;
 }
