@@ -124,6 +124,7 @@ export class TourComponent implements OnInit {
 
   viewMap(idTour: number | undefined): void {
     if (idTour !== undefined) {
+
       this.router.navigate([`/tourMap/${idTour}`]);
     } else {
       console.error('ID nije definisan.');
@@ -150,7 +151,6 @@ export class TourComponent implements OnInit {
     this.service.isPublished(tour).subscribe({
       next: (_) => {
         this.loadTours();
-       
 
       },
       error: (err) => {
@@ -161,8 +161,14 @@ export class TourComponent implements OnInit {
 
 
   archiveTour(tour: Tour): void {
-
-    
+    this.service.archiveTour(tour).subscribe({
+      next: (_) => {
+        this.loadTours();
+      },
+      error: (err) => {
+        console.error('Error archiving tour:', err);
+      },
+    });
   }
 
 
@@ -171,5 +177,17 @@ export class TourComponent implements OnInit {
     this.showTourForm = false;
     this.shouldRenderTourForm = true;
     this.selectedTour = tour;
+  }
+
+  onAddTourClicked() {
+    this.showTourForm = false;
+  }
+
+  onClose() {
+    this.shouldAddPoint = false;
+  }
+
+  onCloseObject() {
+    this.shouldAddObject = false;
   }
 }

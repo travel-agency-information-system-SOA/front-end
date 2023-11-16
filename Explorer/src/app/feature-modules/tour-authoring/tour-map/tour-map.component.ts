@@ -10,7 +10,8 @@ import { TourAuthoringService } from '../tour-authoring.service';
 export class TourMapComponent {
   constructor(
     private route: ActivatedRoute,
-    private tourAuthoringService: TourAuthoringService
+    private tourAuthoringService: TourAuthoringService,
+    
   ) {}
 
   ngOnInit() {

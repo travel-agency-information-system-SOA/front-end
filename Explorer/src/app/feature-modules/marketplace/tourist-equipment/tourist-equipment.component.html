@@ -1,3 +1,4 @@
+<h2>My equipment</h2>
 <table>
   <thead>
     <tr>
@@ -6,8 +7,38 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let e of tEquipment">
-      <td>{{ e.touristId }}</td>
+    <tr *ngFor="let e of equipments">
+      <td>{{e.name}}</td>
+      <td>{{e.description}}</td>
+      <td>
+        <button (click)="deleteEquipment(e)" color="accent" mat-icon-button>
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+<br>
+<br>
+<br>
+<h2>Equipment to add</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Naziv</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let e of otherEquipment">
+      <td>{{e.name}}</td>
+      <td>{{e.description}}</td>
+      <td>
+        <button (click)="onAddClicked(e)" color="primary" mat-icon-button>
+          <mat-icon>add</mat-icon>
+        </button>
+      </td>
     </tr>
   </tbody>
 </table>

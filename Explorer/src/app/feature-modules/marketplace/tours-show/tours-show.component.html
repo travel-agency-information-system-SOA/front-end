@@ -1,7 +1,14 @@
-<div>
-    <h1>Give us Your feedback!</h1>
+
+<div class="container">
+    <div class="heading">
+        <h1>Share with others Your experience 
+            <div> And give us Your feedback</div>
+            
+        </h1>
+    </div>
     <div *ngFor="let tour of tours" class="tour-card">
-        <h1 (click)="rateTour(tour)">Rate the tour <mat-icon class="star-icon">star</mat-icon> </h1>
+        <button mat-raised-button type="submit" color="primary" (click)="rateTour(tour)">Rate the tour <mat-icon class="star-icon">star</mat-icon> </button>
+
         <div class="card-content">
             <mat-label>Name: <span>{{tour.name}}</span></mat-label>
             <div>

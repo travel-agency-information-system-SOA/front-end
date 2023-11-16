@@ -1,5 +1,6 @@
 <form [formGroup]="tourForm">
   <div class="form-wrap">
+    <p class="label">Create new tour:</p>
     <mat-form-field>
       <mat-label>Name</mat-label>
       <input matInput formControlName="name" type="text" />
@@ -26,6 +27,7 @@
     </mat-form-field>
 
     <button
+      class="button"
       *ngIf="!shouldEdit"
       mat-raised-button
       type="submit"
