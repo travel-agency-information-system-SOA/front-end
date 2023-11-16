@@ -43,6 +43,9 @@ import { ProblemComponent } from 'src/app/feature-modules/marketplace/problem/pr
 import { TourSearchComponent } from 'src/app/feature-modules/marketplace/tour-search/tour-search.component';
 import { TourMarketplaceComponent } from 'src/app/feature-modules/marketplace/tour-marketplace/tour-marketplace.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/marketplace/tour-details/tour-details.component';
+
+import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
+
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 
 
@@ -62,6 +65,7 @@ const routes: Routes = [
     component: PreferencesComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'shoppingcart', component: ShoppingCartComponent },
   { path: 'tour', component: TourComponent, canActivate: [AuthGuard] },
   {
     path: 'tourPoint',

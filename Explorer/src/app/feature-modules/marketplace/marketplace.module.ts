@@ -27,6 +27,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { TourMarketplaceComponent } from './tour-marketplace/tour-marketplace.component';
 import { TourDetailsComponent } from './tour-details/tour-details.component';
 
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+
 @NgModule({
   declarations: [
     TourReviewFormComponent,
@@ -48,6 +50,8 @@ import { TourDetailsComponent } from './tour-details/tour-details.component';
     UpdateReviewComponent,
     TourMarketplaceComponent,
     TourDetailsComponent,
+    
+    ShoppingCartComponent,
   ],
   imports: [
     CommonModule,
@@ -56,7 +60,7 @@ import { TourDetailsComponent } from './tour-details/tour-details.component';
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
-    ReactiveFormsModule,
+ 
     FormsModule,
     MatTableModule,
   ],
