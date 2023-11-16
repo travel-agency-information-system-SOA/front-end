@@ -53,8 +53,8 @@ import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-exec
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  //{path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
@@ -93,7 +93,7 @@ const routes: Routes = [
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
-  { path:'tourMapFirstPoint/:id',component: FirstPointMap}, 
+  { path:'tourMapFirstPoint/:id',component: FirstPointMap},
   { path: 'club', component: ClubComponent },
   {
     path: 'guideReview',

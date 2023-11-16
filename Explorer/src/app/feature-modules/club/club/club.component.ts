@@ -3,6 +3,7 @@ import { Club } from '../model/club.model';
 import { ClubService } from '../club.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
 
 
 @Component({
@@ -11,15 +12,19 @@ import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
   styleUrls: ['./club.component.css']
 })
 export class ClubComponent implements OnInit{
-  
+
   club: Club[] = [];
   selectedClub: Club;
   shouldEdit: boolean;
   shouldRenderClubForm: boolean = false;
 
-  constructor( private tokenStorage: TokenStorage, private service: ClubService) {}
+  constructor( private tokenStorage: TokenStorage,
+               private service: ClubService,
+               private googleAnalytics: GoogleAnalyticsService) {}
 
   ngOnInit(): void {
+    this.googleAnalytics.sendPageView(window.location.pathname);
+
     this.getClubs();
   }
   getClubs(): void {

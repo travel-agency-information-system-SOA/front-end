@@ -2,10 +2,11 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from "@angular/c
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { ACCESS_TOKEN } from '../../../shared/constants';
+import {GoogleAnalyticsService} from "../../google-analytics/google-analytics.service";
 
 @Injectable()
 export class JwtInterceptor implements HttpInterceptor {
-  constructor() {}
+  constructor(private googleAnalyticsService: GoogleAnalyticsService) {}
 
   intercept(
     request: HttpRequest<any>,
@@ -16,6 +17,7 @@ export class JwtInterceptor implements HttpInterceptor {
         Authorization: `Bearer ` + localStorage.getItem(ACCESS_TOKEN),
       },
     });
+    this.googleAnalyticsService.sendEvent('authorization', 'event_category', 'event_action', 'event_label', 1);
     return next.handle(accessTokenRequest);
   }
 }
