@@ -6,7 +6,6 @@ import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { BlogService } from '../blog.service';
 import { BlogPostComment } from '../model/blog-post-comment.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BlogComponent } from '../blog/blog.component';
 
 @Component({
   selector: 'xp-blog-post-detail',
@@ -201,7 +200,7 @@ export class BlogPostDetailComponent implements OnInit {
   addComment(): void {
     const comment: BlogPostComment= {
       userId: this.tokenStorage.getUserId() || 0 ,
-      username: null,
+      username: null || "",
       blogId: this.post.id,
       text: this.commentForm.value.text || "",
       creationTime: new Date(),

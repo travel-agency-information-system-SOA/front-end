@@ -12,6 +12,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
+import { PublicTourPointRequestComponent } from './public-tour-point-request/public-tour-point-request.component';
+import { RequestResponseNotificationComponent } from './request-response-notification/request-response-notification.component';
 
 
 @NgModule({
@@ -22,6 +24,8 @@ import { FormsModule } from '@angular/forms';
     ProfileComponent,
     AppRatingFormComponent,
     AppRatingsComponent,
+    PublicTourPointRequestComponent,
+    RequestResponseNotificationComponent,
     UserPositionComponent
   ],
   imports: [
@@ -38,6 +42,7 @@ import { FormsModule } from '@angular/forms';
     ProfileComponent,
     AppRatingsComponent,
     AppRatingFormComponent,
+    RequestResponseNotificationComponent,
     UserPositionComponent
   ]
 })
