@@ -40,6 +40,7 @@ import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-sh
 import { TourSearchComponent } from 'src/app/feature-modules/marketplace/tour-search/tour-search.component';
 import { TourMarketplaceComponent } from 'src/app/feature-modules/marketplace/tour-marketplace/tour-marketplace.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/marketplace/tour-details/tour-details.component';
+import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -57,6 +58,7 @@ const routes: Routes = [
     component: PreferencesComponent,
     canActivate: [AuthGuard],
   },
+  { path: 'shoppingcart', component: ShoppingCartComponent },
   { path: 'tour', component: TourComponent, canActivate: [AuthGuard] },
   {
     path: 'tourPoint',
