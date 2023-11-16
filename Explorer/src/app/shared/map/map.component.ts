@@ -68,7 +68,7 @@ export class MapComponent implements AfterViewInit {
     //this.setObjects();
     this.route.url.subscribe((segments) => {
       const path = segments.map((segment) => segment.path).join('/');
-    
+
       if (path.includes('activeTour')) {
         this.setExecuteRoute();
         this.setPosition();
@@ -78,15 +78,18 @@ export class MapComponent implements AfterViewInit {
       }
       else if(path.includes('tourMapFirstPoint')){
         this.setFirstPoint();
-      } 
+      }
+      else if (path.includes('tourSearch')) {
+        //
+      }
       else{
-      this.setRoute();
-      this.setObjects();
+        this.setRoute();
+        this.setObjects();
       }
     })
-   
 
-    
+
+
 
   }
 
@@ -111,11 +114,11 @@ export class MapComponent implements AfterViewInit {
     if (this.transportTypechanged != undefined) {
       this.transportTypechanged.unsubscribe();
     }
-   
-      
+
+
     this.route.url.subscribe((segments) => {
       const path = segments.map((segment) => segment.path).join('/');
-    
+
       if (path.includes('tourMapFirstPoint')) {
         this.tourIdSubscriptionFP = this.marketplaceService.currentTourId.subscribe(
           (tourId) => {
@@ -130,7 +133,7 @@ export class MapComponent implements AfterViewInit {
           }
         );
       } else {
-       
+
 
         this.tourIdSubscription = this.tourAuthoringService.currentTourId.subscribe(
           (tourId) => {
@@ -144,9 +147,9 @@ export class MapComponent implements AfterViewInit {
         );
       }
     });
-    
 
-    
+
+
 
 
 
@@ -166,8 +169,8 @@ export class MapComponent implements AfterViewInit {
         this.setFirstPoint();
       });
 
-      
-    
+
+
 
     this.transportTypechanged =
       this.tourAuthoringService.transportTypeChanged.subscribe(() => {
@@ -269,14 +272,14 @@ export class MapComponent implements AfterViewInit {
         });
       });
   }
-  
+
   setFirstPointFromTourService(tourId: string): void {
     if (this.tourStartPointSubscription != undefined) {
       this.tourStartPointSubscription.unsubscribe();
     }
-  
+
     const tourIdNumber = Number(tourId);
-  
+
     if (!isNaN(tourIdNumber)) {
       this.tourStartPointSubscription = this.marketplaceService
         .getTourStartPoint(tourIdNumber)
@@ -286,13 +289,13 @@ export class MapComponent implements AfterViewInit {
               startPoint.latitude,
               startPoint.longitude
             );
-  
+
             this.map.eachLayer((layer: any) => {
               if (layer instanceof L.Marker) {
                 this.map.removeLayer(layer);
               }
             });
-  
+
             L.marker(firstWaypoint).addTo(this.map);
           }
         });
@@ -300,10 +303,10 @@ export class MapComponent implements AfterViewInit {
       console.error('Invalid tourId:', tourId);
     }
   }
-  
 
 
- 
+
+
   setPosition() {
     this.administrationService
       .getByUserId(this.tokenStorage.getUserId(), 0, 0)
