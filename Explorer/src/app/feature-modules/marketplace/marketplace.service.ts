@@ -26,6 +26,8 @@ import { TourPurchaseToken } from './model/TourPurchaseToken.model';
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 
+import { ShoppingCart } from './model/shopping-cart.model';
+
 @Injectable({
   providedIn: 'root',
 })
@@ -156,6 +158,7 @@ export class MarketplaceService {
       environment.apiHost + 'tourist/touristEquipment/getTouristEquipment/' + id
     );
   }
+
   createTouristEquipment(id: number): Observable<TouristEquipment> {
     return this.http.post<TouristEquipment>(
       environment.apiHost +
@@ -202,6 +205,7 @@ export class MarketplaceService {
       null
     );
   }
+
   removeFromMyEquipment(
     touristId: number,
     equipmentId: number
@@ -325,5 +329,19 @@ export class MarketplaceService {
   }
   getSelectedTour(id: number): Observable<Tour> {
     return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
+  } 
+
+  getShoppingCart(touristId: number): Observable<ShoppingCart>{
+    return this.http.get<ShoppingCart>('https://localhost:44333/api/shoppingcart/'+touristId);
+  }
+
+  removeOrderItem(cartId: number, tourId: number): Observable<ShoppingCart> {
+    const url = `https://localhost:44333/api/shoppingcart/${cartId}/${tourId}`;
+    return this.http.put<ShoppingCart>(url, null);
+  }
+
+  purchase(cartId: number): Observable<ShoppingCart> {
+    const url = `https://localhost:44333/purchase/${cartId}`;
+    return this.http.put<ShoppingCart>(url, null);
   }
 }
