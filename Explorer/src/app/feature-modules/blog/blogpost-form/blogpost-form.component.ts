@@ -64,9 +64,10 @@ export class BlogpostFormComponent implements OnChanges {
     this.service.addBlogPost(blogPost).subscribe({
       next: (_) => {
         this.blogPostsUpdated.emit();
+        this.router.navigate(['/blog']);
       }
     });
-    this.router.navigate(['/blog']);
+    
     
   }
 
@@ -128,10 +129,11 @@ export class BlogpostFormComponent implements OnChanges {
     this.service.updateBlogPost(blogPost).subscribe({
       next: (_) => {
         this.blogPostsUpdated.emit();
+        this.router.navigate(['/blog']);
       }
     });
 
-    this.router.navigate(['/blog']);
+    
     
   }
 
@@ -158,14 +160,15 @@ export class BlogpostFormComponent implements OnChanges {
     this.service.updateBlogPost(blogPost).subscribe({
       next: (_) => {
         this.blogPostsUpdated.emit()
+        if(!this.shouldEditDraft) {
+          this.router.navigate(['/blog/',this.blogPost.id]);
+        }
+        else {
+          this.router.navigate(['/blog/create-post']);
+        }
       }
     })
-    if(!this.shouldEditDraft) {
-      this.router.navigate(['/blog/',this.blogPost.id]);
-    }
-    else {
-      this.router.navigate(['/blog/create-post']);
-    }
+    
 
   }
     

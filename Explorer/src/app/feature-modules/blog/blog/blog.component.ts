@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 })
 export class BlogComponent {
   blogPosts: BlogPost[] = [];
-  filteredPosts: BlogPost[] = [];
 
   constructor(private service: BlogService, private router: Router) {}
 
@@ -29,11 +28,7 @@ export class BlogComponent {
           post.creationDate = new Date(post.creationDate);
           console.log(post);
         });
-        this.blogPosts.forEach(post => {
-          if(post.status != 'DRAFT') {
-            this.filteredPosts.push(post);
-          }
-        })
+        this.blogPosts = this.blogPosts.filter(post => post.status != 'DRAFT');
       },
       error: (err: any) =>{
         console.log(err);
