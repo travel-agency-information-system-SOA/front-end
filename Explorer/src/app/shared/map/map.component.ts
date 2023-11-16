@@ -34,7 +34,7 @@ export class MapComponent implements AfterViewInit {
   tourStartPointSubscription: Subscription | undefined = undefined;
   viewForTourisSubs: Subscription | undefined = undefined;
   routeWaypoints: any[] = [];
-  @Input() tourIdEx: number = 0;
+  @Input() tourIdEx: number=0;
   tourIdexS: string;
   routeControl: any;
 
@@ -64,12 +64,29 @@ export class MapComponent implements AfterViewInit {
     setTimeout(() => {
       this.initMap();
     }, 0);
-    this.setRoute();
-    this.setObjects();
-    this.setExecuteRoute();
-    this.setFirstPoint();
+    //this.setRoute();
+    //this.setObjects();
+    this.route.url.subscribe((segments) => {
+      const path = segments.map((segment) => segment.path).join('/');
+    
+      if (path.includes('activeTour')) {
+        this.setExecuteRoute();
+        this.setPosition();
+      }
+      else if(path.includes('user-position')){
+        this.setPosition();
+      }
+      else if(path.includes('tourMapFirstPoint')){
+        this.setFirstPoint();
+      } 
+      else{
+      this.setRoute();
+      this.setObjects();
+      }
+    })
+   
 
-    //this.setPosition();
+    
 
   }
 

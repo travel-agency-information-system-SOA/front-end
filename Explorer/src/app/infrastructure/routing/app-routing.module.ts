@@ -77,7 +77,7 @@ const routes: Routes = [
   { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
   {
     path: 'blogPostComment',
-    component: BlogPostCommentComponent,
+    component: BlogpostComponent,
     canActivate: [AuthGuard],
   },
   {

@@ -51,7 +51,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     UpdateReviewComponent,
     TourMarketplaceComponent,
     TourDetailsComponent,
-    FirstPointMap
+    FirstPointMap,
     
     ShoppingCartComponent,
   ],
