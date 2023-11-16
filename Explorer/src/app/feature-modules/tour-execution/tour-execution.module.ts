@@ -5,6 +5,7 @@ import { TourExecutionPositionComponent } from './tour-execution-position/tour-e
 import { ReactiveFormsModule } from '@angular/forms';
 import { ActiveTourComponent } from './active-tour/active-tour.component';
 import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
+import { PurchasedTourDetailsComponent } from './purchased-tour-details/purchased-tour-details.component';
 
 
 
@@ -12,7 +13,8 @@ import { PurchasedToursComponent } from './purchased-tours/purchased-tours.compo
   declarations: [
     TourExecutionPositionComponent,
     ActiveTourComponent,
-    PurchasedToursComponent
+    PurchasedToursComponent,
+    PurchasedTourDetailsComponent
   ],
   imports: [
     CommonModule,
@@ -22,7 +24,8 @@ import { PurchasedToursComponent } from './purchased-tours/purchased-tours.compo
   ],
   exports:[
     TourExecutionPositionComponent,
-    PurchasedToursComponent
+    PurchasedToursComponent,
+    PurchasedTourDetailsComponent
   ]
 })
 export class TourExecutionModule { }

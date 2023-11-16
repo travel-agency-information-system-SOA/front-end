@@ -48,6 +48,7 @@ import { PurchasedToursComponent } from 'src/app/feature-modules/tour-execution/
 import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
 
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
+import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 
 
 const routes: Routes = [
@@ -117,6 +118,7 @@ const routes: Routes = [
   { path: 'marketplace', component: TourMarketplaceComponent },
   { path: 'marketplace/:id', component: TourDetailsComponent },
   { path: 'purchasedTours', component: PurchasedToursComponent},
+  { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
 ];
 
 @NgModule({

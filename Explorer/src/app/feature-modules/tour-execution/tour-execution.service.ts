@@ -56,8 +56,12 @@ export class TourExecutionService {
     );
   }
 
-  getPurchasedTours(touristId: number): Observable<Tour[]> {
-    return this.http.get<Tour[]>(environment.apiHost + 'tokens/purchasedTours/' + touristId)
+  createTourExecution(userId: number, tourId: number | undefined): Observable<TourExecution> {
+    return this.http.post<TourExecution>(environment.apiHost + 'tourExecution/create/' + userId + '/' + tourId, null);
+  }
+
+  getPurchasedTourss(touristId: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'tokens/purchasedTourss/' + touristId)
   }
   
 }
