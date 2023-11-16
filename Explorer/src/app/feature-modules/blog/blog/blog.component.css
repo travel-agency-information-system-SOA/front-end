@@ -1,0 +1,83 @@
+.blog-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+  }
+.blogs {
+  align-items: center;
+}
+
+  .posts-container {
+    margin-top: 20px;
+  }
+  .title {
+    color: black;
+    font-family: 'Trip', sans-serif; /* Updated font-family */
+    font-weight: bold;
+    text-align: center;
+    margin-top: 38px;
+    margin-bottom: 50px;
+    font-size: 42px;
+  }
+
+  .create-post-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-color: #f6f7f8; /* Adjust the background color */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 10px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.create-post-button {
+    width: 80%;
+    flex: 1;
+    background-color: #3f51b5 ; /* Reddit's primary color */
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 16px;
+    font-family: 'Trip', sans-serif;
+    transition: background-color 0.3s ease; /* Add transition for hover effect */
+    cursor: text;
+    text-align: center;
+
+}
+
+.create-post-button:hover {
+    background-color: #221853; /* Darker shade on hover */
+}
+
+.create-post-button:hover::placeholder{
+  color: #ffff;
+}
+.create-post-button::placeholder{
+  color: #ffff;
+}
+
+.filter-section
+{
+  background-color: #ffffff;
+  border: 5px solid #707070;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.filter-section button
+{
+  margin-right: 10px;
+  font-family: 'Trip', sans-serif;
+  font-size: 18px;
+  transition: background-color 0.3s ease; 
+}
+
+.filter-section button:hover {
+  background-color: #221853; 
+  color: #fff; 
+}

@@ -61,10 +61,12 @@ export class TourFormComponent implements OnChanges {
       tags: ['xzy', 'abc'],
       tourPoints: [],
       tourCharacteristics: [],
+      tourReviews: [],
     };
 
     this.service.addTour(tour).subscribe({
       next: () => {
+        console.log(tour);
         this.tourUpdated.emit();
         this.addTourClicked.emit();
         this.tourForm.reset();

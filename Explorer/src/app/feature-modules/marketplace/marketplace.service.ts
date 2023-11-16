@@ -6,6 +6,12 @@ import { Observable, map, of } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Preferences } from './model/preferences.model';
 
+
+import { TourReview } from './model/tourReview.model';
+import { Tour } from '../tour-authoring/tour/model/tour.model';
+import { ReviewTour } from './tours-show/ReviewTour.model';
+
+
 import { TouristEquipment } from './model/touristEquipment.model';
 import { NonNullAssert } from '@angular/compiler';
 
@@ -13,14 +19,13 @@ import { Problem } from './model/problem.model';
 import { ProblemMessage } from './model/problem-message.model';
 import { AdministrationService } from '../administration/administration.service';
 import { Profile } from '../administration/model/profile.model';
-import { TourReview } from './model/tourReview.model';
-import { Tour } from '../tour-authoring/tour/model/tour.model';
-import { ReviewTour } from './tours-show/ReviewTour.model';
 
 import { TourExecution } from './model/TourExecution.model';
 import { TourPurchaseToken } from './model/TourPurchaseToken.model';
 
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+
+import { ShoppingCart } from './model/shopping-cart.model';
 
 @Injectable({
   providedIn: 'root',
@@ -134,6 +139,7 @@ export class MarketplaceService {
       environment.apiHost + 'tourist/touristEquipment/getTouristEquipment/' + id
     );
   }
+
   createTouristEquipment(id: number): Observable<TouristEquipment> {
     return this.http.post<TouristEquipment>(
       environment.apiHost +
@@ -180,6 +186,7 @@ export class MarketplaceService {
       null
     );
   }
+
   removeFromMyEquipment(
     touristId: number,
     equipmentId: number
@@ -299,5 +306,19 @@ export class MarketplaceService {
   }
   getSelectedTour(id: number): Observable<Tour> {
     return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
+  } 
+
+  getShoppingCart(touristId: number): Observable<ShoppingCart>{
+    return this.http.get<ShoppingCart>('https://localhost:44333/api/shoppingcart/'+touristId);
+  }
+
+  removeOrderItem(cartId: number, tourId: number): Observable<ShoppingCart> {
+    const url = `https://localhost:44333/api/shoppingcart/${cartId}/${tourId}`;
+    return this.http.put<ShoppingCart>(url, null);
+  }
+
+  purchase(cartId: number): Observable<ShoppingCart> {
+    const url = `https://localhost:44333/purchase/${cartId}`;
+    return this.http.put<ShoppingCart>(url, null);
   }
 }
