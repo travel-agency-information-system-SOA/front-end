@@ -32,6 +32,13 @@
                   <p class="price-text">Price</p>
                   <p class="price-number">{{ tour.price }}$</p>
                 </div>
+                <button
+                  *ngIf="tour.id !== undefined"
+                  mat-button
+                  (click)="viewMap(tour.id)"
+                >
+                  🗺️
+                </button>
   
                 <p *ngIf="tour.difficultyLevel==='Easy'" class="difficulty easy">{{ tour.difficultyLevel }}</p>
                 <p *ngIf="tour.difficultyLevel==='Moderate'" class="difficulty moderate">{{ tour.difficultyLevel }}</p>

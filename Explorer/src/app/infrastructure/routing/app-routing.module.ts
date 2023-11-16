@@ -31,7 +31,7 @@ import { AppRatingFormComponent } from 'src/app/feature-modules/administration/a
 
 import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-show/tours-show.component';
 
-
+import { FirstPointMap } from 'src/app/feature-modules/marketplace/first-point-map/first_point.component';
 import { TourExecutionPositionComponent } from 'src/app/feature-modules/tour-execution/tour-execution-position/tour-execution-position.component';
 import { UserPositionComponent } from 'src/app/feature-modules/administration/user-position/user-position.component';
 import { ActiveTourComponent } from 'src/app/feature-modules/tour-execution/active-tour/active-tour.component';
@@ -54,7 +54,7 @@ const routes: Routes = [
   //{path: 'home', component: HomeComponent},
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegistrationComponent },
-  //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
+  //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm.. .!.
   {
     path: 'guideReview',
     component: GuideReviewComponent,
@@ -75,6 +75,14 @@ const routes: Routes = [
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
+  {
+    path: 'blogPostComment',
+    component: BlogPostCommentComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path:'tourMapFirstPoint/:id',component: FirstPointMap
+  },
   { path: 'club', component: ClubComponent },
   {
     path: 'guideReview',

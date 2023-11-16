@@ -124,6 +124,7 @@ export class TourComponent implements OnInit {
 
   viewMap(idTour: number | undefined): void {
     if (idTour !== undefined) {
+
       this.router.navigate([`/tourMap/${idTour}`]);
     } else {
       console.error('ID nije definisan.');

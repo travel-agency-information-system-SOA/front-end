@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { GuideReview } from './model/guide-review.model';
-import { Observable, map, of } from 'rxjs';
+import { BehaviorSubject, Observable, map, of } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { Preferences } from './model/preferences.model';
 
@@ -24,6 +24,7 @@ import { TourExecution } from './model/TourExecution.model';
 import { TourPurchaseToken } from './model/TourPurchaseToken.model';
 
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 
 import { ShoppingCart } from './model/shopping-cart.model';
 
@@ -31,13 +32,31 @@ import { ShoppingCart } from './model/shopping-cart.model';
   providedIn: 'root',
 })
 export class MarketplaceService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+    
+  }
+  private tourIdSource = new BehaviorSubject<string>('');
+  currentTourId = this.tourIdSource.asObservable();
+
+  viewForTourist = new EventEmitter<void>();
+
 
   getGuideReviews(): Observable<PagedResults<GuideReview>> {
     return this.http.get<PagedResults<GuideReview>>(
       'https://localhost:44333/api/review/guideReview'
     );
   }
+
+
+  getTourStartPoint(tourId: number): Observable<TourPoint> {
+    console.log("rrrrrrrrrrrrrrrrrrrrrrrr")
+
+    return this.http.get<TourPoint>(
+      environment.apiHost + 'marketplace/'+tourId
+    );
+  }
+  
+  
 
   addGuideReview(guideReview: GuideReview): Observable<GuideReview> {
     return this.http.post<GuideReview>(
@@ -243,6 +262,10 @@ export class MarketplaceService {
     return this.http.get<PagedResults<Problem>>(
       environment.apiHost + 'problem/unsolved'
     );
+  }
+
+  changeTourId(tourId: string) {
+    this.tourIdSource.next(tourId);
   }
 
   addDeadline(problem: Problem): Observable<Problem> {

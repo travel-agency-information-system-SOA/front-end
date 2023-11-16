@@ -1,26 +1,28 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TourAuthoringService } from '../tour-authoring.service';
+import { MarketplaceService } from '../marketplace.service';
 
 @Component({
   selector: 'xp-tour-map',
-  templateUrl: './tour-map.component.html',
-  styleUrls: ['./tour-map.component.css'],
+  templateUrl: './first_point.component.html',
+  styleUrls: ['./first_point.component.css'],
 })
-export class TourMapComponent {
+export class FirstPointMap {
   constructor(
     private route: ActivatedRoute,
-    private tourAuthoringService: TourAuthoringService,
+    private marketPlaceService: MarketplaceService,
     
   ) {}
 
-  ngOnInit() {
+
+
+ngOnInit() {
     location.reload;
     this.route.paramMap.subscribe((params) => {
       const idTour = params.get('id');
       if (idTour) {
         console.log('Id ture:', idTour);
-        this.tourAuthoringService.changeTourId(idTour);
+        this.marketPlaceService.changeTourId(idTour);
       }
     });
   }
