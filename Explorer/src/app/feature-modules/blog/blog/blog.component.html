@@ -1,0 +1,18 @@
+<div class="blogs">
+    <h1 class="title">Blogs</h1>
+    <div class="create-post-container">
+        <!-- Add any elements or buttons related to creating a post -->
+        <input mat-raised-button color="primary" placeholder="Create Post" type="text" class="create-post-button" (click)="navigateToPostCreation()" >
+    </div>
+    <div class="blog-container">
+        <div class="filter-section">
+            <button mat-raised-button color="primary" (click)="getBlogPosts()">All</button>
+            <button mat-raised-button color="primary" (click)="getFamousBlogPosts()">Famous</button>
+            <button mat-raised-button color="primary" (click)="getActiveBlogPosts()">Active</button>
+        </div>
+    </div>
+<div class="blog-container" *ngFor="let post of blogPosts">
+        <xp-blog-post-card class="post-container" [post]="post"></xp-blog-post-card>
+    </div>
+</div>
+ 

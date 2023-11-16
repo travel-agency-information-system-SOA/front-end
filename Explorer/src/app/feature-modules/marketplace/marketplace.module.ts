@@ -12,6 +12,9 @@ import { TourReviewFormComponent } from './tour-review-form/tour-review-form.com
 import { MatInputModule } from '@angular/material/input';
 import { TourReviewsShowComponent } from './tour-reviews-show/tour-reviews-show.component';
 
+import { ToursShowComponent } from './tours-show/tours-show.component';
+import { UpdateReviewComponent } from './update-review/update-review.component';
+
 import { TouristEquipmentComponent } from './tourist-equipment/tourist-equipment.component';
 
 import { ProblemComponent } from './problem/problem.component';
@@ -20,9 +23,6 @@ import { ProblemChatComponent } from './problem-chat/problem-chat.component';
 import { ProblemDeadlineComponent } from './problem-deadline/problem-deadline.component';
 import { TourSearchComponent } from './tour-search/tour-search.component';
 import { SharedModule } from 'src/app/shared/shared.module';
-
-import { ToursShowComponent } from './tours-show/tours-show.component';
-import { UpdateReviewComponent } from './update-review/update-review.component';
 
 import { TourMarketplaceComponent } from './tour-marketplace/tour-marketplace.component';
 import { TourDetailsComponent } from './tour-details/tour-details.component';
