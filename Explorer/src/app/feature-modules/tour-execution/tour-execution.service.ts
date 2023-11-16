@@ -7,6 +7,7 @@ import { TourExecutionPosition } from './model/tourExecutionPosition.model';
 import { TourExecution } from './model/tourExecution.model';
 import { map } from 'rxjs';
 import { catchError } from 'rxjs';
+import { Tour } from '../tour-authoring/tour/model/tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -53,6 +54,10 @@ export class TourExecutionService {
       environment.apiHost + 'tourExecution/' + tourExecutionId+'/update-status/'+status,
       tourExecutionId
     );
+  }
+
+  getPurchasedTours(touristId: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'tokens/purchasedTours/' + touristId)
   }
   
 }

@@ -28,6 +28,7 @@
             <button class="button" *ngIf="user && (user.role === 'tourist' || user.role === 'author')"  raised-button [routerLink]="['profile']">Profile</button>
 
             <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['tours-show']">Rate Visited Tour</button>
+            <button class="button" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['purchasedTours']">Purchased Tours</button>
 
         </div>
         <div id="buttons">

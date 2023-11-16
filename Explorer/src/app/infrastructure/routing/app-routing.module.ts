@@ -40,6 +40,7 @@ import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-sh
 import { TourSearchComponent } from 'src/app/feature-modules/marketplace/tour-search/tour-search.component';
 import { TourMarketplaceComponent } from 'src/app/feature-modules/marketplace/tour-marketplace/tour-marketplace.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/marketplace/tour-details/tour-details.component';
+import { PurchasedToursComponent } from 'src/app/feature-modules/tour-execution/purchased-tours/purchased-tours.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -108,6 +109,7 @@ const routes: Routes = [
   { path: 'tours-show', component: ToursShowComponent },
   { path: 'marketplace', component: TourMarketplaceComponent },
   { path: 'marketplace/:id', component: TourDetailsComponent },
+  { path: 'purchasedTours', component: PurchasedToursComponent},
 ];
 
 @NgModule({
