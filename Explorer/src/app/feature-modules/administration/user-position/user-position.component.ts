@@ -12,6 +12,7 @@ import { AdministrationService } from '../administration.service';
 import { MapService } from 'src/app/shared/map/map.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
 
 @Component({
   selector: 'xp-user-position',
@@ -28,14 +29,15 @@ export class UserPositionComponent implements OnChanges {
   constructor(
     private service:AdministrationService,
     private mapService:MapService,
-    private tokenStorage: TokenStorage){}
+    private tokenStorage: TokenStorage,
+    private googleAnalytics: GoogleAnalyticsService){}
 
   ngOnChanges(changes: SimpleChanges): void {
     this.userPositionForm.reset();
     if (this.shouldEdit) {
-      
+
       const formValues = {
-      
+
       latitude: this.userPosition.latitude,
       longitude: this.userPosition.longitude,
     };
@@ -44,13 +46,15 @@ export class UserPositionComponent implements OnChanges {
   }
 
   ngOnInit():void{
+    this.googleAnalytics.sendPageView(window.location.pathname);
+
     this.checkUserPosition();
     this.service.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
       (result) => {
         this.userPositions = result;
         console.log(this.userPositions.id);
-        
-       
+
+
         // Handle the result as needed
       },
       (error) => {
@@ -67,7 +71,7 @@ export class UserPositionComponent implements OnChanges {
   });
 
   addUserPosition(): void {
-    
+
     const userPosition: UserPosition = {
       userId: this.tokenStorage.getUserId(),
       latitude: 0,
@@ -89,7 +93,7 @@ export class UserPositionComponent implements OnChanges {
   checkUserPosition(): void {
     this.service.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
       (result) => {
-        this.shouldEdit = result != null; 
+        this.shouldEdit = result != null;
         this.idPosition = result ? result.id : undefined; // Assign the result of the check
       },
       (error) => {
@@ -105,7 +109,7 @@ export class UserPositionComponent implements OnChanges {
       latitude: 0.000000,
       longitude: 0.000000,
     };
-  
+
     this.service.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
       (result) => {
         this.idPosition = result ? result.id : undefined;
@@ -121,12 +125,12 @@ export class UserPositionComponent implements OnChanges {
       userPosition.latitude = coordinates.lat;
       userPosition.longitude = coordinates.lng;
     });
-  
+
     this.service.updateUserPosition(userPosition).subscribe({
       next: (_) => {
         this.positionUpdated.emit();
       },
     });
   }
-  
+
 }

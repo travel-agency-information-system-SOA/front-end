@@ -3,6 +3,7 @@ import { RequestResponseNotification } from '../model/request-response-notificat
 import { AdministrationService } from '../administration.service';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
 
 @Component({
   selector: 'xp-request-response-notification',
@@ -10,12 +11,16 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
   styleUrls: ['./request-response-notification.component.css']
 })
 export class RequestResponseNotificationComponent implements OnInit{
-  
+
   requestResponseNotification: RequestResponseNotification[] = [];
 
-  constructor(private tokenStorage: TokenStorage, private service: AdministrationService) {}
+  constructor(private tokenStorage: TokenStorage,
+              private service: AdministrationService,
+              private googleAnalytics: GoogleAnalyticsService) {}
 
   ngOnInit(): void {
+    this.googleAnalytics.sendPageView(window.location.pathname);
+
     this.getNotifications();
   }
   getNotifications(): void {
