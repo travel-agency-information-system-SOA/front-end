@@ -14,6 +14,7 @@ import { TourPoint } from 'src/app/feature-modules/tour-authoring/model/tourPoin
 import { mergeMap, tap } from 'rxjs/operators';
 import { AdministrationService } from 'src/app/feature-modules/administration/administration.service';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketplace.service';
 
 @Component({
   selector: 'app-map',
@@ -27,10 +28,13 @@ export class MapComponent implements AfterViewInit {
   tourId: string;
   objects: { latitude: number; longitude: number }[];
   tourIdSubscription: Subscription | undefined = undefined;
+  tourIdSubscriptionFP: Subscription | undefined = undefined;
   tourPointAddSubscription: Subscription | undefined = undefined;
   transportTypechanged: Subscription | undefined = undefined;
+  tourStartPointSubscription: Subscription | undefined = undefined;
+  viewForTourisSubs: Subscription | undefined = undefined;
   routeWaypoints: any[] = [];
-  @Input() tourIdEx: number = 0;
+  @Input() tourIdEx: number=0;
   tourIdexS: string;
   routeControl: any;
 
@@ -39,6 +43,7 @@ export class MapComponent implements AfterViewInit {
     private http: HttpClient,
     private route: ActivatedRoute,
     private tourAuthoringService: TourAuthoringService,
+    private marketplaceService: MarketplaceService,
     private administrationService: AdministrationService,
     private tokenStorage: TokenStorage
   ) {}
@@ -59,12 +64,36 @@ export class MapComponent implements AfterViewInit {
     setTimeout(() => {
       this.initMap();
     }, 0);
-    this.setRoute();
-    this.setObjects();
-    this.setExecuteRoute();
+    //this.setRoute();
+    //this.setObjects();
+    this.route.url.subscribe((segments) => {
+      const path = segments.map((segment) => segment.path).join('/');
+    
+      if (path.includes('activeTour')) {
+        this.setExecuteRoute();
+        this.setPosition();
+      }
+      else if(path.includes('user-position')){
+        this.setPosition();
+      }
+      else if(path.includes('tourMapFirstPoint')){
+        this.setFirstPoint();
+      } 
+      else{
+      this.setRoute();
+      this.setObjects();
+      }
+    })
+   
 
-    //this.setPosition();
+    
 
+  }
+
+  ngOnDestroy(): void {
+    if (this.tourStartPointSubscription != undefined) {
+      this.tourStartPointSubscription.unsubscribe();
+    }
   }
 
   ngOnInit() {
@@ -72,6 +101,9 @@ export class MapComponent implements AfterViewInit {
       this.tourIdSubscription.unsubscribe();
     }
 
+    if (this.tourIdSubscriptionFP != undefined) {
+      this.tourIdSubscriptionFP.unsubscribe();
+    }
     if (this.tourPointAddSubscription != undefined) {
       this.tourPointAddSubscription.unsubscribe();
     }
@@ -79,17 +111,44 @@ export class MapComponent implements AfterViewInit {
     if (this.transportTypechanged != undefined) {
       this.transportTypechanged.unsubscribe();
     }
+   
+      
+    this.route.url.subscribe((segments) => {
+      const path = segments.map((segment) => segment.path).join('/');
+    
+      if (path.includes('tourMapFirstPoint')) {
+        this.tourIdSubscriptionFP = this.marketplaceService.currentTourId.subscribe(
+          (tourId) => {
+            console.log(tourId)
+            this.tourId = tourId.split('|#$%@$%|')[0];
+            if (tourId.split('|#$%@$%|').length > 1) {
+              if (tourId.split('|#$%@$%|')[1] === 'same') {
+                this.ngAfterViewInit();
+              }
+            }
 
-    this.tourIdSubscription = this.tourAuthoringService.currentTourId.subscribe(
-      (tourId) => {
-        this.tourId = tourId.split('|#$%@$%|')[0];
-        if (tourId.split('|#$%@$%|').length > 1) {
-          if (tourId.split('|#$%@$%|')[1] === 'same') {
-            this.ngAfterViewInit();
           }
-        }
+        );
+      } else {
+       
+
+        this.tourIdSubscription = this.tourAuthoringService.currentTourId.subscribe(
+          (tourId) => {
+            this.tourId = tourId.split('|#$%@$%|')[0];
+            if (tourId.split('|#$%@$%|').length > 1) {
+              if (tourId.split('|#$%@$%|')[1] === 'same') {
+                this.ngAfterViewInit();
+              }
+            }
+          }
+        );
       }
-    );
+    });
+    
+
+    
+
+
 
     this.tourPointAddSubscription =
       this.tourAuthoringService.tourPointAdded.subscribe(() => {
@@ -99,6 +158,17 @@ export class MapComponent implements AfterViewInit {
         this.setRoute();
       });
 
+      this.viewForTourisSubs = this.marketplaceService.viewForTourist.subscribe(() => {
+        if (this.routeControl) {
+          this.routeControl.remove();
+
+        }
+        this.setFirstPoint();
+      });
+
+      
+    
+
     this.transportTypechanged =
       this.tourAuthoringService.transportTypeChanged.subscribe(() => {
         if (this.routeControl) {
@@ -107,6 +177,8 @@ export class MapComponent implements AfterViewInit {
         this.setRoute();
       });
   }
+
+
 
   registerOnClick(): void {
     this.map.on('click', (e: any) => {
@@ -162,6 +234,10 @@ export class MapComponent implements AfterViewInit {
       );
   }
 
+  setFirstPoint(): void {
+    this.setFirstPointFromTourService(this.tourId);
+  }
+
   setRoute(): void {
     const self = this;
     this.tourAuthoringService
@@ -193,7 +269,41 @@ export class MapComponent implements AfterViewInit {
         });
       });
   }
+  
+  setFirstPointFromTourService(tourId: string): void {
+    if (this.tourStartPointSubscription != undefined) {
+      this.tourStartPointSubscription.unsubscribe();
+    }
+  
+    const tourIdNumber = Number(tourId);
+  
+    if (!isNaN(tourIdNumber)) {
+      this.tourStartPointSubscription = this.marketplaceService
+        .getTourStartPoint(tourIdNumber)
+        .subscribe((startPoint: any) => {
+          if (startPoint) {
+            const firstWaypoint = L.latLng(
+              startPoint.latitude,
+              startPoint.longitude
+            );
+  
+            this.map.eachLayer((layer: any) => {
+              if (layer instanceof L.Marker) {
+                this.map.removeLayer(layer);
+              }
+            });
+  
+            L.marker(firstWaypoint).addTo(this.map);
+          }
+        });
+    } else {
+      console.error('Invalid tourId:', tourId);
+    }
+  }
+  
 
+
+ 
   setPosition() {
     this.administrationService
       .getByUserId(this.tokenStorage.getUserId(), 0, 0)

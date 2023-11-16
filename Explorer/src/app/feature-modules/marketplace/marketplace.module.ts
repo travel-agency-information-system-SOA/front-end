@@ -26,6 +26,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 
 import { TourMarketplaceComponent } from './tour-marketplace/tour-marketplace.component';
 import { TourDetailsComponent } from './tour-details/tour-details.component';
+import { FirstPointMap } from './first-point-map/first_point.component';
 
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
@@ -50,6 +51,7 @@ import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
     UpdateReviewComponent,
     TourMarketplaceComponent,
     TourDetailsComponent,
+    FirstPointMap,
     
     ShoppingCartComponent,
   ],
