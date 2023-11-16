@@ -130,6 +130,7 @@ export class TourComponent implements OnInit {
 
   viewMap(idTour: number | undefined): void {
     if (idTour !== undefined) {
+
       this.router.navigate([`/tourMap/${idTour}`]);
     } else {
       console.error('ID nije definisan.');
@@ -156,7 +157,6 @@ export class TourComponent implements OnInit {
     this.service.isPublished(tour).subscribe({
       next: (_) => {
         this.loadTours();
-       
 
       },
       error: (err) => {
@@ -167,8 +167,14 @@ export class TourComponent implements OnInit {
 
 
   archiveTour(tour: Tour): void {
-
-    
+    this.service.archiveTour(tour).subscribe({
+      next: (_) => {
+        this.loadTours();
+      },
+      error: (err) => {
+        console.error('Error archiving tour:', err);
+      },
+    });
   }
 
 
@@ -178,6 +184,7 @@ export class TourComponent implements OnInit {
     this.shouldRenderTourForm = true;
     this.selectedTour = tour;
   }
+
   loadPublicTourPoints(tour:Tour) {
       this.service.getPublicTourPoints().subscribe((pagedResults: PagedResults<PublicTourPoint>) => {
           this.publicTourPoint = pagedResults.results;
@@ -197,6 +204,7 @@ export class TourComponent implements OnInit {
       imageUrl: ptp.imageUrl,
       latitude: ptp.latitude,
       longitude: ptp.longitude,
+      secret: ''
     };
 
     this.service.addTourPoint(tourPoint).subscribe({
@@ -206,6 +214,18 @@ export class TourComponent implements OnInit {
         this.loadPublicTourPoints(t);
       },
     });
-    
+  }
+
+
+  onAddTourClicked() {
+    this.showTourForm = false;
+  }
+
+  onClose() {
+    this.shouldAddPoint = false;
+  }
+
+  onCloseObject() {
+    this.shouldAddObject = false;
   }
 }

@@ -17,7 +17,9 @@
     </ng-container>
    </div>
 
-   <div>
-    <xp-update-review  (addedObject)="getUserReviews()" [reviewForUpdate]="selectedReview"></xp-update-review>
+
+   <div *ngIf="showUpdate">
+    <xp-update-review   [reviewForUpdate]="selectedReview"></xp-update-review>
+
    </div>
 </div>

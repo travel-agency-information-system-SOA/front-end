@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
@@ -12,6 +12,9 @@ import { Profile } from './model/profile.model';
 import { TourPointRequest } from './model/tourpoint-request.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { RequestResponseNotification } from './model/request-response-notification.model';
+
+import { UserPosition } from './model/userPosition.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -73,6 +76,25 @@ export class AdministrationService {
   sendPublicTourPointrequest(tourPointId:number, authorId:number): Observable<TourPointRequest>{
     return this.http.post<TourPointRequest>(environment.apiHost + 'tourist/publicTourPointRequest/createRequest/' + tourPointId + '/' + authorId, null);
   }
+  addUserPosition(position: UserPosition): Observable<UserPosition>{
+    return this.http.post<UserPosition>(environment.apiHost+'administration/userPosition',position);
+  }
+
+  updateUserPosition(position:UserPosition): Observable<UserPosition> {
+    return this.http.put<UserPosition>(
+      environment.apiHost + `administration/userPosition/${position.id}`,
+      position
+    );
+  }
+
+  getByUserId(userId: number, page: number, pageSize: number): Observable<UserPosition> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<UserPosition>(environment.apiHost+`administration/userPosition/${userId}`, { params });
+  }
+  
 
   getAllTourPointRequests(): Observable<PagedResults<TourPointRequest>> {
     return this.http.get<PagedResults<TourPointRequest>>(environment.apiHost + `tourist/publicTourPointRequest`);

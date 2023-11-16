@@ -1,6 +1,6 @@
 .table-wrapper {
-    display: flex;
-    justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 }
 
 .tour-card {
@@ -8,9 +8,14 @@
     border-radius: 8px;
     padding: 16px;
     margin: 16px;
-    max-width: 300px; /* Adjust the width as needed */
+    max-width: 300px;
 }
 
 .card-content {
-    margin-top: 10px;
+  margin-top: 10px;
+}
+
+.heading {
+  margin-left: 550px;
+  margin-top: 50px;
 }

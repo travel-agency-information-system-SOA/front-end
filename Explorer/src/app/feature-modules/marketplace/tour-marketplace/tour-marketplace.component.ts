@@ -32,6 +32,15 @@ export class TourMarketplaceComponent implements OnInit{
     
   }
 
+  viewMap(idTour: number | undefined): void {
+    if (idTour !== undefined) {
+      this.service.viewForTourist.emit();
+      this.router.navigate([`/tourMapFirstPoint/${idTour}`]);
+    } else {
+      console.error('ID nije definisan.');
+    }
+  }
+
 
 
 }
