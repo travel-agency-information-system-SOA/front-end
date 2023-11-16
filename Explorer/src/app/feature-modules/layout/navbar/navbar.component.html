@@ -1,11 +1,11 @@
 <div class="custom-toolbar">
     <div class="inner">
-        <p raised-button [routerLink]="['']">Explorer</p>
+        <p raised-button [routerLink]="['home']">Explorer</p>
         <div id="buttons">
-            <button class="nbutton" raised-button [routerLink]="['']">Home</button>
+            <button class="nbutton" raised-button [routerLink]="['home']">Home</button>
 
             <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['equipment']">Manage equipment (!)</button>
-            <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['accounts']">Manage accounts</button>  
+            <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['accounts']">Manage accounts</button>
             <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['app-ratings']">All App Ratings</button>
             <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['problems']">Unsolved problems</button>
             <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['public-tour-point-request']">All requests</button>
@@ -29,8 +29,9 @@
             <button class="nbutton" *ngIf="user && (user.role === 'tourist' || user.role === 'author')"  raised-button [routerLink]="['profile']">Profile</button>
 
             <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['tours-show']">Rate Visited Tour</button>
-            
+
             <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['shoppingcart']">Shopping Cart</button>
+            <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['purchasedTours']">Purchased Tours</button>
 
         </div>
         <div id="buttons">

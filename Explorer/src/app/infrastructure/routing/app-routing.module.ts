@@ -44,15 +44,17 @@ import { ProblemComponent } from 'src/app/feature-modules/marketplace/problem/pr
 import { TourSearchComponent } from 'src/app/feature-modules/marketplace/tour-search/tour-search.component';
 import { TourMarketplaceComponent } from 'src/app/feature-modules/marketplace/tour-marketplace/tour-marketplace.component';
 import { TourDetailsComponent } from 'src/app/feature-modules/marketplace/tour-details/tour-details.component';
+import { PurchasedToursComponent } from 'src/app/feature-modules/tour-execution/purchased-tours/purchased-tours.component';
 
 import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopping-cart/shopping-cart.component';
 
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
+import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  //{path: 'home', component: HomeComponent},
+  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
   //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
@@ -91,7 +93,7 @@ const routes: Routes = [
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
-  { path:'tourMapFirstPoint/:id',component: FirstPointMap}, 
+  { path:'tourMapFirstPoint/:id',component: FirstPointMap},
   { path: 'club', component: ClubComponent },
   {
     path: 'guideReview',
@@ -134,6 +136,8 @@ const routes: Routes = [
   { path: 'marketplace/:id', component: TourDetailsComponent },
   { path: 'private-tour-points', component: PrivateTourPointsComponent},
   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
+  { path: 'purchasedTours', component: PurchasedToursComponent},
+  { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
 ];
 
 @NgModule({

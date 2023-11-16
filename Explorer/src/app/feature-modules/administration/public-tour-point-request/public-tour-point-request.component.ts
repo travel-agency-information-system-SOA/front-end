@@ -10,6 +10,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { forkJoin } from 'rxjs';
 import { RequestResponseNotificationComponent } from '../request-response-notification/request-response-notification.component';
 import { RequestResponseNotification } from '../model/request-response-notification.model';
+import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
 
 @Component({
   selector: 'xp-public-tour-point-request',
@@ -25,9 +26,14 @@ export class PublicTourPointRequestComponent implements OnInit {
   authors: User[] = []
   bindingList: { request: TourPointRequest,name: string, description:string, username:string,comment:string}[] = []
 
-  constructor( private adminService: AdministrationService,private authService: AuthService,private service:TourAuthoringService){}
+  constructor( private adminService: AdministrationService,
+               private authService: AuthService,
+               private service:TourAuthoringService,
+               private googleAnalytics: GoogleAnalyticsService){}
 
   ngOnInit(): void {
+    this.googleAnalytics.sendPageView(window.location.pathname);
+
     this.authService.user$.subscribe(user => {
       this.user = user.id;
       this.getAllRequests();
@@ -42,7 +48,7 @@ export class PublicTourPointRequestComponent implements OnInit {
         this.getAllTourPoints();
       }
     })
-    
+
 
   }
 
@@ -86,20 +92,20 @@ export class PublicTourPointRequestComponent implements OnInit {
 
   getAllTourPoints(): void {
     const observables = this.requests.map(request => this.adminService.getTourPointById(request.tourPointId));
-  
+
     forkJoin(observables).subscribe((results: TourPoint[]) => {
-      this.tourPointsInRequests = results;  
-      this.getRequestsAuthors(); 
+      this.tourPointsInRequests = results;
+      this.getRequestsAuthors();
     });
   }
 
   getRequestsAuthors(): void {
     const observables = this.requests.map(request => this.adminService.getAuthorById(request.authorId));
-  
+
     forkJoin(observables).subscribe((results: User[]) => {
       this.authors = results;
-  
-      this.fillBindingList(); 
+
+      this.fillBindingList();
     });
   }
 
@@ -108,7 +114,7 @@ export class PublicTourPointRequestComponent implements OnInit {
     this.requests.forEach(request => {
       const tp = this.tourPointsInRequests.find(tp => tp.id === request.tourPointId);
       const author = this.authors.find(author => author.id === request.authorId);
-  
+
       if (tp && author) {
         console.log("Pronađeni su odgovarajući podaci za zahtjev", request.id);
         this.bindingList.push({
@@ -123,5 +129,5 @@ export class PublicTourPointRequestComponent implements OnInit {
       }
     });
   }
-  
+
 }
