@@ -181,12 +181,13 @@ export class TourAuthoringService {
 
  
   AcceptRequest(requestId:number,tourPointId:number,comment:string):Observable<PublicTourPoint>{
+    
     return this.http.post<PublicTourPoint>(
-      environment.apiHost + 'administration/publicTourPoint/createPublicTourPoint/' + requestId+ '/' + tourPointId+ '/' + comment,null);
+      environment.apiHost + 'administration/publicTourPoint/createPublicTourPoint/' + requestId+ '/' + tourPointId+ '/' + 'comment',null);
   }
   RejectRequest(requestId:number,comment:string):Observable<PublicTourPoint>{
     return this.http.put<PublicTourPoint>(
-      environment.apiHost + 'tourist/publicTourPointRequest/rejectRequest/' + requestId+'/'+comment,null);
+      environment.apiHost + 'tourist/publicTourPointRequest/rejectRequest/' + requestId+'/'+'comment',null);
   }
   getPublicTourPoints(): Observable<PagedResults<PublicTourPoint>> {
     return this.http.get<PagedResults<PublicTourPoint>>(environment.apiHost + 'administration/publicTourPoint');

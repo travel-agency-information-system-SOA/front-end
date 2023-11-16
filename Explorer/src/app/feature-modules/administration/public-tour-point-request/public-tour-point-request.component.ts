@@ -50,36 +50,38 @@ export class PublicTourPointRequestComponent implements OnInit {
     this.service.AcceptRequest(request.id,request.tourPointId,comment).subscribe({
       next:(result:PublicTourPoint)=>{
         this.publicTourPoint = result;
-        this.getAllRequests();
+        
         this.bindingList.length = 0; //ovo dodajte i u reject request
         this.getAllRequests();       // i ovo
+        const notification: RequestResponseNotification = {
+          authorId: request.authorId,
+          comment: comment || "Zahtev za kreiranje javne tacke je prihvacen",
+          creation: new Date 
+        }
+        this.adminService.addNotification(notification).subscribe({
+          next:() => {}})
       }
     })
-    const notification: RequestResponseNotification = {
-      authorId: request.authorId,
-      comment: comment || "Zahtev za kreiranje javne tacke je prihvacen",
-      creation: new Date 
-    }
-    this.adminService.addNotification(notification) 
+   
   }
 
   RejectRequest(request:TourPointRequest,comment:string):void{
     this.service.RejectRequest(request.id,comment).subscribe({
       next:(result:PublicTourPoint)=>{
         this.publicTourPoint = result;
-        this.getAllRequests();
         this.bindingList.length = 0; //ovo dodajte i u reject request
         this.getAllRequests();       // i ovo
+        const notification: RequestResponseNotification = {
+          authorId: request.authorId,
+          comment: comment || "Zahtev za kreiranje javne tacke je odbijen",
+          creation: new Date 
+        }
+        this.adminService.addNotification(notification).subscribe({
+          next:() => {}
+        })
       }
     })
-    const notification: RequestResponseNotification = {
-      authorId: request.authorId,
-      comment: comment || "Zahtev za kreiranje javne tacke je odbijen",
-      creation: new Date 
-    }
-    this.adminService.addNotification(notification).subscribe({
-      next:() => {}
-    })
+    
   }
 
   getAllTourPoints(): void {

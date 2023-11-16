@@ -132,6 +132,8 @@ const routes: Routes = [
   { path: 'tours-show', component: ToursShowComponent },
   { path: 'marketplace', component: TourMarketplaceComponent },
   { path: 'marketplace/:id', component: TourDetailsComponent },
+  { path: 'private-tour-points', component: PrivateTourPointsComponent},
+  { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
 ];
 
 @NgModule({

@@ -7,6 +7,13 @@ body {
   margin: 0;
 }
 
+.table-wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 70px;
+  align-items: flex-start;
+  padding-left: 2rem;
+}
 .card-wrapper {
   display: flex;
   flex-direction: column;
