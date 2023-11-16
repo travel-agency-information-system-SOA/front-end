@@ -19,6 +19,7 @@ import { TourExecution } from './model/TourExecution.model';
 import { TourPurchaseToken } from './model/TourPurchaseToken.model';
 
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+import { ShoppingCart } from './model/ShoppingCart.model';
 
 
 
@@ -189,6 +190,15 @@ export class MarketplaceService {
   getPublishedTours(): Observable<PagedResults<Tour>>{
     return this.http.get<PagedResults<Tour>>('https://localhost:44333/api/marketplace');
   }
+
+  getShoppingCart(id: number): Observable<ShoppingCart>{
+    return this.http.get<ShoppingCart>('https://localhost:44333/api/shoppingcart/' + id)
+  }
+
+  addOrderItem(shoppingCart: ShoppingCart): Observable<ShoppingCart>{
+    return this.http.put<ShoppingCart>('https://localhost:44333/api/marketplace/buy', shoppingCart);
+  }
+
   getSelectedTour(id: number): Observable<Tour>{
     return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
 
