@@ -1,4 +1,4 @@
-<form [formGroup]="blogPostForm">
+<form [formGroup]="blogPostForm" class="blog-post-form">
     <div>
         <mat-form-field>
             <mat-label>Title</mat-label>
@@ -20,24 +20,22 @@
             </markdown>
         </div>
         <mat-form-field>
-            <mat-label>Post status</mat-label>
-            <mat-select formControlName="status">
-                <mat-option value="DRAFT">Draft</mat-option>
-                <mat-option value="PUBLISHED">Published</mat-option>
-                <mat-option value="CLOSED">Closed</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field>
-            <mat-label>Image IDs</mat-label>
+            <mat-label>Image URLs</mat-label>
             <input
               matInput
-              formControlName="imageIDs"
+              formControlName="imageURLs"
               type="text"
-              placeholder="Enter image IDs (comma-separated)"
+              placeholder="Enter image URLs (comma-separated)"
             />
         </mat-form-field>
+        <span >
+            <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" class="button" (click)="addBlogPostDraft()">Save to draft</button>
+            <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" class="button" (click)="addBlogPost()">Post</button>
+            <button *ngIf="shouldEdit && !shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="updateBlogPost()">Update</button>
+            <button *ngIf="shouldEdit && shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="updateBlogPost()">Update draft</button>
+            <button *ngIf="shouldEdit && shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="postBlogPostDraft()">Post</button>
+        </span>
         
-        <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addBlogPost()">Add</button>
-        <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateBlogPost()">Update</button>
+        
     </div>
 </form>
