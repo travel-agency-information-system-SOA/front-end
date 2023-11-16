@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourPoint } from './model/tourPoints.model';
@@ -20,6 +20,9 @@ import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 export class TourAuthoringService {
   private tourIdSource = new BehaviorSubject<string>('');
   currentTourId = this.tourIdSource.asObservable();
+
+  tourPointAdded = new EventEmitter<void>();
+  transportTypeChanged = new EventEmitter<void>();
 
   constructor(private http: HttpClient) {}
 
@@ -129,7 +132,16 @@ export class TourAuthoringService {
 
   deleteTour(tour: Tour): Observable<Tour> {
     return this.http.delete<Tour>(
-      environment.apiHost + 'administration/tour/' + tour.id
+      environment.apiHost + 'administration/tour/deleteAggregate/' + tour.id
+    );
+  }
+
+  isPublished(tour: Tour): Observable<Tour> {
+    console.log(tour.id);
+
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/publish/' + tour.id,
+      tour
     );
   }
 
@@ -148,6 +160,27 @@ export class TourAuthoringService {
     return this.http.put<Tour>(
       environment.apiHost + 'administration/tour/caracteristics/' + tourId,
       tourCharacteristic
+    );
+  }
+
+  emitTourPointAdded(): void {
+    this.tourPointAdded.emit();
+  }
+
+  emitTransportTypeChanged(): void {
+    this.transportTypeChanged.emit();
+  }
+
+  getTourByTourId(id: number): Observable<Tour> {
+    return this.http.get<Tour>(
+      `https://localhost:44333/api/administration/tour/onetour/${id}`
+    );
+  }
+
+  archiveTour(tour: Tour): Observable<Tour> {
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/archive/' + tour.id,
+      tour
     );
   }
 }

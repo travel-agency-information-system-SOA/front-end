@@ -14,11 +14,19 @@ import { AuthModule } from './infrastructure/auth/auth.module';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { JwtInterceptor } from './infrastructure/auth/jwt/jwt.interceptor';
 import { MarkdownModule } from 'ngx-markdown';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { CommonModule, DatePipe } from '@angular/common'
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
 //import { MapComponent } from './shared/map/map.component';
 import { ClubModule } from './feature-modules/club/club.module';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   declarations: [AppComponent],
@@ -38,7 +46,15 @@ import { ClubModule } from './feature-modules/club/club.module';
     ClubModule,
     ReactiveFormsModule,
     FormsModule,
-    AdministrationModule
+    AdministrationModule,
+    SimpleNotificationsModule.forRoot(),
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatNativeDateModule,
+    MatDialogModule,
+    MatButtonModule,
+    CommonModule,
   ],
   providers: [
     {
@@ -46,6 +62,7 @@ import { ClubModule } from './feature-modules/club/club.module';
       useClass: JwtInterceptor,
       multi: true,
     },
+    DatePipe,
   ],
   bootstrap: [AppComponent],
 })

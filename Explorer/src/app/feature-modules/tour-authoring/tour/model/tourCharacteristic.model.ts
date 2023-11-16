@@ -5,7 +5,7 @@ export interface TourCharacteristic {
 }
 
 export enum TransportType {
-  Driving = 'Driving',
   Walking = 'Walking',
+  Driving = 'Driving',
   Cycling = 'Cycling',
 }

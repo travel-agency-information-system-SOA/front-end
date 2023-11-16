@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
-import { TourReviewService } from '../tour-review.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourReview } from '../model/tourReview.model';
 import { BehaviorSubject } from 'rxjs';
+import { MarketplaceService } from '../marketplace.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'xp-tour-reviews-show',
@@ -12,6 +13,9 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./tour-reviews-show.component.css']
 })
 export class TourReviewsShowComponent {
+
+
+  showUpdate: boolean= false;
 
   _observableList: BehaviorSubject<TourReview[]> = new BehaviorSubject<TourReview[]>([]);
   userReviews: any[];
@@ -22,7 +26,7 @@ export class TourReviewsShowComponent {
   }
   selectedReview : TourReview;
 
-  constructor(private authService: AuthService, private tourReviewService: TourReviewService){
+  constructor(private authService: AuthService, private tourReviewService: MarketplaceService){
    this.getLoggedInUser();
    this.getUserReviews();
   }
@@ -41,7 +45,7 @@ export class TourReviewsShowComponent {
  
 
   getUserReviews(){
-    this.tourReviewService.getAll().subscribe({
+    this.tourReviewService.getAllReviews().subscribe({
       next: (reviews : PagedResults<TourReview>)=>{
        this.userReviews= reviews.results.filter(review=>{
         return review.touristId== this.loggedInUser.id;
@@ -56,7 +60,7 @@ export class TourReviewsShowComponent {
   }
 
   delete(review: TourReview){
-    this.tourReviewService.delete(review).subscribe({
+    this.tourReviewService.deleteReview(review).subscribe({
       next: (response)=>{
         console.log(response);
         this.userReviews= this.userReviews.filter(object=> object!= review);
@@ -71,18 +75,8 @@ export class TourReviewsShowComponent {
   }
 
   update(review: TourReview){
-    /*
-    this.tourReviewService.update(review).subscribe({
-      next: (response)=>{
-        this.selectedReview=review;
-        console.log("Selektovani", this.selectedReview);
-        this.userReviews
-          
-      
-      }
-    })*/
-
     this.selectedReview=review;
+    this.showUpdate= true;
   }
 
 }

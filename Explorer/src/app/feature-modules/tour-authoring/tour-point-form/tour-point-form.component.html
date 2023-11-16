@@ -1,64 +1,96 @@
 <div class="form-container">
   <form [formGroup]="tourPointForm">
-    <div>
-      <p>Create check point for this tour:</p>
-      <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name" type="text" />
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Description</mat-label>
-        <textarea
-          matInput
-          cdkTextareaAutosize
-          cdkAutosizeMinRows="1"
-          formControlName="description"
-          cdkAutosizeMaxRows="5"
-        ></textarea>
-      </mat-form-field>
-      <mat-form-field>
-        <mat-label>Image url</mat-label>
-        <input matInput formControlName="imageUrl" type="text" />
-      </mat-form-field>
+    <div class="container">
+      <div class="inner-container">
+        <div>
+          <p class="label">Create check point for this tour:</p>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput formControlName="name" type="text" />
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Description</mat-label>
+            <textarea
+              matInput
+              cdkTextareaAutosize
+              cdkAutosizeMinRows="1"
+              formControlName="description"
+              cdkAutosizeMaxRows="5"
+            ></textarea>
+          </mat-form-field>
+          <mat-form-field>
+            <mat-label>Image url</mat-label>
+            <input matInput formControlName="imageUrl" type="text" />
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Secret</mat-label>
+            <input matInput type="text" formControlName="secret" />
+          </mat-form-field>
+        </div>
+        <div>
+          <div [formGroup]="yourFormGroup">
+            <label for="transport" class="label">Choose transport type:</label>
+            <select
+              id="transport"
+              formControlName="selectedTransport"
+              (change)="onTransportChange()"
+              class="select"
+            >
+              <option value="walking">🚶Walking</option>
+              <option value="cycling">🚲 Cycling</option>
+              <option value="driving">🚗 Driving</option>
+            </select>
+          </div>
+          <button
+            class="button"
+            *ngIf="!shouldEdit"
+            mat-raised-button
+            type="submit"
+            color="primary"
+            (click)="addTourPoint()"
+          >
+            Save tour point
+          </button>
+          <button
+            class="button"
+            *ngIf="!shouldEdit"
+            mat-raised-button
+            type="submit"
+            color="primary"
+            (click)="getTourCharacteristic()"
+          >
+            Finish and set characteristics
+          </button>
+          <p class="notification">
+            ❕Before pressing the finish button,please select appropriate
+            transport type
+          </p>
+        </div>
+      </div>
+
       <div class="map-container">
         <app-map></app-map>
       </div>
-      <button
-        *ngIf="!shouldEdit"
-        mat-raised-button
-        type="submit"
-        color="primary"
-        (click)="addTourPoint()"
-      >
-        Done
-      </button>
-      <button
-        *ngIf="!shouldEdit"
-        mat-raised-button
-        type="submit"
-        color="primary"
-        (click)="getTourCharacteristic()"
-      >
-        Get Tour Characteristics
-      </button>
-      <button
-        *ngIf="shouldEdit"
-        mat-raised-button
-        type="submit"
-        color="primary"
-        (click)="updateTourPoint()"
-      >
-        Done
-      </button>
-      <button
-        *ngIf="shouldAddPoint"
-        mat-raised-button
-        type="submit"
-        color="primary"
-        (click)="addTourPoint()"
-      >
-        Finish
-      </button>
     </div>
+
+    <button
+      *ngIf="shouldEdit"
+      mat-raised-button
+      type="submit"
+      color="primary"
+      (click)="updateTourPoint()"
+    >
+      Done
+    </button>
+    <button
+      *ngIf="shouldAddPoint"
+      mat-raised-button
+      type="submit"
+      color="primary"
+      (click)="addTourPoint()"
+    >
+      Finish
+    </button>
   </form>
 </div>
