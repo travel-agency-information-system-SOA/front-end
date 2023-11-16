@@ -1,7 +1,7 @@
 export interface BlogPostComment {
-    id?: number,
     blogId: number,
     userId: number,
+    username: string | null,
     text: string,
     creationTime: Date, 
     lastUpdatedTime: Date

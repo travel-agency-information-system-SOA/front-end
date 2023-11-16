@@ -17,17 +17,19 @@ import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.
 import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour-object/tour-object.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
 import { TourMapComponent } from 'src/app/feature-modules/tour-authoring/tour-map/tour-map.component';
-import { BlogPostCommentComponent } from 'src/app/feature-modules/blog/blog-post-comment/blog-post-comment.component';
 import { BlogpostComponent } from 'src/app/feature-modules/blog/blogpost/blogpost.component';
 import { BlogComponent } from 'src/app/feature-modules/blog/blog/blog.component';
+import { BlogPostDetailComponent } from 'src/app/feature-modules/blog/blog-post-detail/blog-post-detail.component';
+import { BlogPostCreationComponent } from 'src/app/feature-modules/blog/blog-post-creation/blog-post-creation.component';
 
 import { ClubComponent } from 'src/app/feature-modules/club/club/club.component';
-
 import { ProfileComponent } from 'src/app/feature-modules/administration/profile/profile.component';
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
-import { BlogPostDetailComponent } from 'src/app/feature-modules/blog/blog-post-detail/blog-post-detail.component';
+import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
+
+
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
@@ -45,7 +47,6 @@ const routes: Routes = [
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
-  {path: 'blogPostComment', component: BlogPostCommentComponent, canActivate: [AuthGuard],},
   {path: 'club', component: ClubComponent},
   {
     path: 'guideReview',
@@ -60,8 +61,12 @@ const routes: Routes = [
   {path: 'tourReviewForm', component: TourReviewFormComponent},
   {path: 'tourReviewShow', component: TourReviewsShowComponent},
   {path: 'blog', component: BlogComponent, canActivate: [AuthGuard],},
+  {path: 'blog/create-post', component: BlogPostCreationComponent, canActivate: [AuthGuard]},
+  {path: 'blog/update-post/:id', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
   {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
   {path: 'app-ratings', component: AppRatingsComponent},
+  {path: 'app-rating-form', component: AppRatingFormComponent},
+  {path: 'blog/:id', component: BlogPostDetailComponent },
   {path: 'app-rating-form', component: AppRatingFormComponent},
   {path: 'blog/:id', component: BlogPostDetailComponent },
 ];
