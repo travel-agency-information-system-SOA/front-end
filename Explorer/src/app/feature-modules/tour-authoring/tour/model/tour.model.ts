@@ -1,3 +1,7 @@
+import { TourReview } from 'src/app/feature-modules/marketplace/model/tourReview.model';
+import { TourPoint } from '../../model/tourPoints.model';
+import { TourCharacteristic } from './tourCharacteristic.model';
+
 export interface Tour {
   id?: number;
 
@@ -8,11 +12,16 @@ export interface Tour {
   difficultyLevel: DifficultyLevel;
   guideId: number;
   tags: string[];
+  tourPoints: TourPoint[];
+  tourCharacteristics: TourCharacteristic[];
+  tourReviews: TourReview[];
 }
 
 export enum Status {
   Draft = 'Draft',
-  InProgress = 'InProgress',
+
+  Archived = 'Archived',
+  Published = 'Published',
 }
 
 export enum DifficultyLevel {

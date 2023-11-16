@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourPoint } from './model/tourPoints.model';
@@ -12,6 +12,9 @@ import { Tour } from './tour/model/tour.model';
 import { ObjInTour } from './model/objInTour.model';
 
 import { BehaviorSubject } from 'rxjs';
+import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
+import { TourPointRequest } from '../administration/model/tourpoint-request.model';
+import { PublicTourPoint } from './model/publicTourPoint.model';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +22,9 @@ import { BehaviorSubject } from 'rxjs';
 export class TourAuthoringService {
   private tourIdSource = new BehaviorSubject<string>('');
   currentTourId = this.tourIdSource.asObservable();
+
+  tourPointAdded = new EventEmitter<void>();
+  transportTypeChanged = new EventEmitter<void>();
 
   constructor(private http: HttpClient) {}
 
@@ -71,7 +77,7 @@ export class TourAuthoringService {
 
   getTourPoint(): Observable<PagedResults<TourPoint>> {
     return this.http.get<PagedResults<TourPoint>>(
-      'https://localhost:44333/api/administration/tourPoint'
+      environment.apiHost + 'administration/tourPoint'
     );
   }
 
@@ -94,7 +100,7 @@ export class TourAuthoringService {
     pageSize: number
   ): Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(
-      `https://localhost:44333/api/administration/tour/${userId}?page=${page}&pageSize=${pageSize}`
+      environment.apiHost + `administration/tour/${userId}?page=${page}&pageSize=${pageSize}`
     );
   }
 
@@ -108,21 +114,89 @@ export class TourAuthoringService {
 
   getTourPointsByTourId(tourId: number): Observable<TourPoint> {
     return this.http.get<TourPoint>(
-      `https://localhost:44333/api/administration/tourPoint/${tourId}`
+      environment.apiHost + `administration/tourPoint/${tourId}`
     );
   }
 
-  getObjInTourByTourId(tourId: number): Observable<number[]> {
-    return this.http.get<number[]>(
-      `https://localhost:44333/api/administration/objInTour/${tourId}`
+  getObjInTourByTourId(tourId: number): Observable<TourObject[]> {
+    return this.http.get<TourObject[]>(
+      environment.apiHost + `administration/objInTour/${tourId}`
     );
   }
   getObjectById(id: number): Observable<TourObject> {
     return this.http.get<TourObject>(
-      `https://localhost:44333/api/administration/object/${id}`
+      environment.apiHost + `administration/object/${id}`
     );
   }
   changeTourId(tourId: string) {
     this.tourIdSource.next(tourId);
+  }
+
+  deleteTour(tour: Tour): Observable<Tour> {
+    return this.http.delete<Tour>(
+      environment.apiHost + 'administration/tour/deleteAggregate/' + tour.id
+    );
+  }
+
+  isPublished(tour: Tour): Observable<Tour> {
+    console.log(tour.id);
+
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/publish/' + tour.id,
+      tour
+    );
+  }
+
+  updateTour(tour: Tour): Observable<Tour> {
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/' + tour.id,
+      tour
+    );
+  }
+
+  setTourCharacteristics(
+    tourId: number,
+    tourCharacteristic: TourCharacteristic
+  ): Observable<Tour> {
+    console.log(tourId);
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/caracteristics/' + tourId,
+      tourCharacteristic
+    );
+  }
+
+
+  emitTourPointAdded(): void {
+    this.tourPointAdded.emit();
+  }
+
+  emitTransportTypeChanged(): void {
+    this.transportTypeChanged.emit();
+  }
+
+  getTourByTourId(id: number): Observable<Tour> {
+    return this.http.get<Tour>(
+      `https://localhost:44333/api/administration/tour/onetour/${id}`
+    );}
+
+ 
+  AcceptRequest(requestId:number,tourPointId:number,comment:string):Observable<PublicTourPoint>{
+    
+    return this.http.post<PublicTourPoint>(
+      environment.apiHost + 'administration/publicTourPoint/createPublicTourPoint/' + requestId+ '/' + tourPointId+ '/' + 'comment',null);
+  }
+  RejectRequest(requestId:number,comment:string):Observable<PublicTourPoint>{
+    return this.http.put<PublicTourPoint>(
+      environment.apiHost + 'tourist/publicTourPointRequest/rejectRequest/' + requestId+'/'+'comment',null);
+  }
+  getPublicTourPoints(): Observable<PagedResults<PublicTourPoint>> {
+    return this.http.get<PagedResults<PublicTourPoint>>(environment.apiHost + 'administration/publicTourPoint');
+  }
+
+  archiveTour(tour: Tour): Observable<Tour> {
+    return this.http.put<Tour>(
+      environment.apiHost + 'administration/tour/archive/' + tour.id,
+      tour
+    );
   }
 }

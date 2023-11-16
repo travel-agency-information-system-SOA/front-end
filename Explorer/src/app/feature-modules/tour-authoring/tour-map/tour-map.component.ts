@@ -10,10 +10,12 @@ import { TourAuthoringService } from '../tour-authoring.service';
 export class TourMapComponent {
   constructor(
     private route: ActivatedRoute,
-    private tourAuthoringService: TourAuthoringService
+    private tourAuthoringService: TourAuthoringService,
+    
   ) {}
 
   ngOnInit() {
+    location.reload;
     this.route.paramMap.subscribe((params) => {
       const idTour = params.get('id');
       if (idTour) {

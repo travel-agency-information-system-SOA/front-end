@@ -11,6 +11,8 @@ import { Equipment } from './model/equipment.model';
 
 import { TourAuthoringService } from '../tour-authoring.service';
 import { Router } from '@angular/router';
+import { PublicTourPoint } from '../model/publicTourPoint.model';
+import { TourPoint } from '../model/tourPoints.model';
 
 @Component({
   selector: 'xp-tour',
@@ -30,6 +32,12 @@ export class TourComponent implements OnInit {
 
   showTourForm: boolean = false;
 
+  shouldEdit: boolean = false;
+  shouldRenderTourForm: boolean = false;
+  publicTourPoint: PublicTourPoint[] = [];
+
+  publicTourPointsForTour:PublicTourPoint[] = []
+
   constructor(
     private tokenStorage: TokenStorage,
     private service: TourAuthoringService,
@@ -48,7 +56,6 @@ export class TourComponent implements OnInit {
         console.log('Sadržaj result.results:', result.results);
 
         const tourIds = this.tour.map((tour) => tour.id);
-        console.log('ID-jevi tura:', tourIds);
       },
       error(err: any) {
         console.log(err);
@@ -94,20 +101,36 @@ export class TourComponent implements OnInit {
 
   onAddPoint(tour: Tour): void {
     this.selectedTour = tour;
+    var emissionString = '';
+    if (this.shouldAddPoint == true) {
+      emissionString = this.selectedTour.id!.toString() + '|#$%@$%|' + 'same';
+    } else {
+      emissionString = this.selectedTour.id!.toString();
+    }
     this.shouldAddPoint = true;
     this.shouldAddObject = false;
     this.showTourForm = false;
+    this.service.changeTourId(emissionString);
+    this.loadPublicTourPoints(tour);
   }
 
   onAddObj(tour: Tour): void {
     this.selectedTour = tour;
     this.shouldAddObject = true;
+    var emissionString = '';
+    if (this.shouldAddObject == true) {
+      emissionString = this.selectedTour.id!.toString() + '|#$%@$%|' + 'same';
+    } else {
+      emissionString = this.selectedTour.id!.toString();
+    }
     this.shouldAddPoint = false;
     this.showTourForm = false;
+    this.service.changeTourId(emissionString);
   }
 
   viewMap(idTour: number | undefined): void {
     if (idTour !== undefined) {
+
       this.router.navigate([`/tourMap/${idTour}`]);
     } else {
       console.error('ID nije definisan.');
@@ -118,5 +141,91 @@ export class TourComponent implements OnInit {
     this.showTourForm = true;
     this.shouldAddObject = false;
     this.shouldAddPoint = false;
+    this.shouldRenderTourForm = false;
+    this.shouldEdit = false;
+  }
+
+  deleteTour(tour: Tour): void {
+    this.service.deleteTour(tour).subscribe({
+      next: (_) => {
+        this.loadTours();
+      },
+    });
+  }
+  publishTour(tour: Tour): void {
+
+    this.service.isPublished(tour).subscribe({
+      next: (_) => {
+        this.loadTours();
+
+      },
+      error: (err) => {
+        console.error('Error publishing tour:', err);
+      },
+    });
+  }
+
+
+  archiveTour(tour: Tour): void {
+    this.service.archiveTour(tour).subscribe({
+      next: (_) => {
+        this.loadTours();
+      },
+      error: (err) => {
+        console.error('Error archiving tour:', err);
+      },
+    });
+  }
+
+
+  onEditClicked(tour: Tour): void {
+    this.shouldEdit = true;
+    this.showTourForm = false;
+    this.shouldRenderTourForm = true;
+    this.selectedTour = tour;
+  }
+
+  loadPublicTourPoints(tour:Tour) {
+      this.service.getPublicTourPoints().subscribe((pagedResults: PagedResults<PublicTourPoint>) => {
+          this.publicTourPoint = pagedResults.results;
+          this.publicTourPointsForTour = this.publicTourPoint.filter(ptp => {
+            return !tour.tourPoints.some(tp => tp.name === ptp.name);
+          });
+        });
+  }
+
+
+  onAddPublicPoint(t:Tour,ptp:PublicTourPoint){
+    const tourPoint: TourPoint = {
+      tourId: t.id || 0,
+
+      name: ptp.name,
+      description: ptp.description,
+      imageUrl: ptp.imageUrl,
+      latitude: ptp.latitude,
+      longitude: ptp.longitude,
+      secret: ''
+    };
+
+    this.service.addTourPoint(tourPoint).subscribe({
+      next: () => {
+        this.publicTourPointsForTour.length = 0;
+        this.publicTourPoint.length =0;
+        this.loadPublicTourPoints(t);
+      },
+    });
+  }
+
+
+  onAddTourClicked() {
+    this.showTourForm = false;
+  }
+
+  onClose() {
+    this.shouldAddPoint = false;
+  }
+
+  onCloseObject() {
+    this.shouldAddObject = false;
   }
 }

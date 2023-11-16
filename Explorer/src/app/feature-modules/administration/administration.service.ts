@@ -1,5 +1,5 @@
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 //import { Equipment } from './model/equipment.model';
 import { environment } from 'src/env/environment';
@@ -9,6 +9,12 @@ import { AppRating } from './model/app-rating.model';
 import { Account } from './model/account.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 import { Profile } from './model/profile.model';
+import { TourPointRequest } from './model/tourpoint-request.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { RequestResponseNotification } from './model/request-response-notification.model';
+
+import { UserPosition } from './model/userPosition.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -67,5 +73,47 @@ export class AdministrationService {
     return this.http.post<AppRating>(environment.apiHost + 'administration/app-ratings', rating);
   }
 
+  sendPublicTourPointrequest(tourPointId:number, authorId:number): Observable<TourPointRequest>{
+    return this.http.post<TourPointRequest>(environment.apiHost + 'tourist/publicTourPointRequest/createRequest/' + tourPointId + '/' + authorId, null);
+  }
+  addUserPosition(position: UserPosition): Observable<UserPosition>{
+    return this.http.post<UserPosition>(environment.apiHost+'administration/userPosition',position);
+  }
 
+  updateUserPosition(position:UserPosition): Observable<UserPosition> {
+    return this.http.put<UserPosition>(
+      environment.apiHost + `administration/userPosition/${position.id}`,
+      position
+    );
+  }
+
+  getByUserId(userId: number, page: number, pageSize: number): Observable<UserPosition> {
+    const params = new HttpParams()
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+
+    return this.http.get<UserPosition>(environment.apiHost+`administration/userPosition/${userId}`, { params });
+  }
+  
+
+  getAllTourPointRequests(): Observable<PagedResults<TourPointRequest>> {
+    return this.http.get<PagedResults<TourPointRequest>>(environment.apiHost + `tourist/publicTourPointRequest`);
+  }
+
+  getTourPointById(id:number): Observable<TourPoint> {
+    return this.http.get<TourPoint>(environment.apiHost + 'administration/tourPoint/getById/' +id);
+  }
+  getAuthorById(id:number): Observable<User> {
+    return this.http.get<User>(environment.apiHost + `user/getById/` +id);
+  }
+  getNotificationsByAuthorId(authorId:Number): Observable<PagedResults<RequestResponseNotification>>{
+    return this.http.get<PagedResults<RequestResponseNotification>>(environment.apiHost + 'administration/requestResponseNotification/' + authorId);
+  }
+  addNotification(notification: RequestResponseNotification): Observable<RequestResponseNotification> {
+    console.log(notification.comment);
+    return this.http.post<RequestResponseNotification>(environment.apiHost + 'administration/requestResponseNotification', notification);
+  }
+  deleteNotification(notification: RequestResponseNotification): Observable<RequestResponseNotification> {
+    return this.http.delete<RequestResponseNotification>(environment.apiHost + 'administration/requestResponseNotification/' + notification.id);
+  }
 }

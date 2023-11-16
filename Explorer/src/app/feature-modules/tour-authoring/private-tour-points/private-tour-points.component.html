@@ -1,0 +1,26 @@
+<div class="table-wrapper">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name: </th>
+                    <th>Description: </th>
+                    <th>Longitude: </th>
+                    <th>Latitude: </th>
+                    <th>Send request: </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let t of filteredPrivateTourPoints">
+                    <td>{{t.name}}</td>
+                    <td>{{t.description}}</td>
+                    <td>{{t.longitude}}</td>
+                    <td>{{t.latitude}}</td>
+                    <td>
+                        <button (click)="sendRequest(t)" color="accent" mat-icon-button>
+                            <mat-icon>send</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+  </div>

@@ -3,6 +3,7 @@ import { Profile } from '../model/profile.model';
 import { AdministrationService } from '../administration.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
 
 @Component({
   selector: 'xp-profile',
@@ -13,21 +14,27 @@ export class ProfileComponent implements OnInit {
 
   userProfile: Profile = {} as Profile;
   isEditMode: boolean = false;
+  shouldRenderNotifications: boolean = false;
 
-  constructor(private service: AdministrationService, private auth: AuthService){}
+  constructor(private service: AdministrationService,
+              private auth: AuthService,
+              private googleAnalytics: GoogleAnalyticsService
+  ){}
 
   ngOnInit(): void {
+    this.googleAnalytics.sendPageView(window.location.pathname);
+
     this.loadProfileData();
   }
 
   loadProfileData(){
     this.auth.user$.subscribe((user) => {
       if (user.username) {
-       
-        
+
+
         const userId = user.id;
 
-        
+
         this.service.getProfile(userId).subscribe({
           next: (data: Profile) => {
             this.userProfile.id = data.id;
@@ -63,8 +70,13 @@ export class ProfileComponent implements OnInit {
           console.log(err);
         }
       });
-      
+
       //alert(JSON.stringify(this.userProfile));
     }
-  } 
+  }
+
+  onBellClicked(): void{
+    this.shouldRenderNotifications = true;
+  }
+
 }
