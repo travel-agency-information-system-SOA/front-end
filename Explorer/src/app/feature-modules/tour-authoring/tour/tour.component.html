@@ -53,6 +53,7 @@
         </mat-card-content>
         
       </div>
+
         <mat-card-actions>
           <div class="definition">
           <div class="buttons">
@@ -73,6 +74,35 @@
       </div>
         </mat-card-actions>
       </mat-card>
+      <div *ngIf="shouldAddPoint">
+        <p>Public tour points</p>
+        <div>
+        <div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Longitude</th>
+                        <th>Latitude</th>
+                        <th>Add</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ptp of publicTourPointsForTour">
+                        <td>{{ptp.name}}</td>
+                        <td>{{ptp.description}}</td>
+                        <td>{{ptp.longitude}}</td>
+                        <td>{{ptp.latitude}}</td>
+                        <button (click)="onAddPublicPoint(selectedTour,ptp)" color="primary" mat-icon-button>
+                          <mat-icon>add</mat-icon>
+                        </button>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        </div>
+    </div>
       <div class="wrapper-form">
         <p *ngIf="showTourForm">🛫 Create tour:</p>
         <xp-tour-form
@@ -94,6 +124,10 @@
           (tourUpdated)="loadTours()"
         ></xp-tour-form>
       </div>
+
     </div>
+   
+    
+    
   </div>
 </div>

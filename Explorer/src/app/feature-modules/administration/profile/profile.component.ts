@@ -13,6 +13,7 @@ export class ProfileComponent implements OnInit {
 
   userProfile: Profile = {} as Profile;
   isEditMode: boolean = false;
+  shouldRenderNotifications: boolean = false;
 
   constructor(private service: AdministrationService, private auth: AuthService){}
 
@@ -66,5 +67,10 @@ export class ProfileComponent implements OnInit {
       
       //alert(JSON.stringify(this.userProfile));
     }
-  } 
+  }
+  
+  onBellClicked(): void{
+    this.shouldRenderNotifications = true;
+  }
+  
 }
