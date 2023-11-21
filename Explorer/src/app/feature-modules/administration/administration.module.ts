@@ -7,9 +7,13 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AppRatingFormComponent } from './app-rating-form/app-rating-form.component';
 import { AppRatingsComponent } from './app-ratings/app-ratings.component';
 import { AccountComponent } from './account/account.component';
+import { UserPositionComponent } from './user-position/user-position.component'; 
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
+import { PublicTourPointRequestComponent } from './public-tour-point-request/public-tour-point-request.component';
+import { RequestResponseNotificationComponent } from './request-response-notification/request-response-notification.component';
 
 
 @NgModule({
@@ -19,13 +23,17 @@ import { FormsModule } from '@angular/forms';
     AccountComponent,
     ProfileComponent,
     AppRatingFormComponent,
-    AppRatingsComponent
+    AppRatingsComponent,
+    PublicTourPointRequestComponent,
+    RequestResponseNotificationComponent,
+    UserPositionComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    SharedModule
   ],
   exports: [
     //EquipmentComponent,
@@ -33,7 +41,9 @@ import { FormsModule } from '@angular/forms';
     AccountComponent,
     ProfileComponent,
     AppRatingsComponent,
-    AppRatingFormComponent
+    AppRatingFormComponent,
+    RequestResponseNotificationComponent,
+    UserPositionComponent
   ]
 })
 export class AdministrationModule { }

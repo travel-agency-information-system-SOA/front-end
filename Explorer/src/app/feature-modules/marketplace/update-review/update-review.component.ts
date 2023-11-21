@@ -12,9 +12,15 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 })
 export class UpdateReviewComponent implements OnChanges {
 
+
+  
+  
+  @Output() addedObject = new EventEmitter<null>();
+
   showComponent:boolean=true;
   id: number;
   @Input()reviewForUpdate : TourReview;
+
   url: string;
   inputForm= new FormGroup({
     grade: new FormControl('',[Validators.required]),
@@ -78,7 +84,9 @@ export class UpdateReviewComponent implements OnChanges {
     console.log("Editovani objekat", this.reviewForUpdate);
     this.update(this.reviewForUpdate);
     this.inputForm.reset();
+
     this.showComponent=false;
+
   }
 
   update(review: TourReview){

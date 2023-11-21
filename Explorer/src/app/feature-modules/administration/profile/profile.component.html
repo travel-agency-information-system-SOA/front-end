@@ -1,5 +1,7 @@
 <div>
+
   <img class="title" [src]="userProfile.profileImage" alt="Profile Image" onerror="this.src='assets/images/profile_img.png'">
+
   <h2 class="title">Profile info</h2>
 </div>
 <div>
@@ -24,4 +26,10 @@
     <input id="quote" [(ngModel)]="userProfile.quote" [disabled]="!isEditMode">
   </div>
   <button (click)="toggleEditMode()">{{ isEditMode ? 'Save' : 'Edit' }}</button>
+  <div>
+  <mat-icon (click)="onBellClicked()">notifications</mat-icon>
+  </div>
+  <div>
+    <xp-request-response-notification *ngIf="shouldRenderNotifications"></xp-request-response-notification>
+  </div>
 </div>  

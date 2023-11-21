@@ -20,14 +20,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule, DatePipe } from '@angular/common'
-
+import { CommonModule, DatePipe } from '@angular/common';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdministrationModule } from './feature-modules/administration/administration.module';
 //import { MapComponent } from './shared/map/map.component';
 import { ClubModule } from './feature-modules/club/club.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
+import { GoogleAnalyticsService } from "./infrastructure/google-analytics/google-analytics.service";
 
 @NgModule({
   declarations: [AppComponent],
@@ -63,6 +63,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
       useClass: JwtInterceptor,
       multi: true,
     },
+    GoogleAnalyticsService,
     DatePipe,
   ],
   bootstrap: [AppComponent],

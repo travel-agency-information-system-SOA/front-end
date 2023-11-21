@@ -2,8 +2,9 @@ import { Component, OnInit} from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MapService } from 'src/app/shared/map/map.service';
 import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketplace.service';
-import {Tour} from "../../tour-authoring/tour/model/tour.model";
-import {PagedResults} from "../../../shared/model/paged-results.model";
+import { Tour } from "../../tour-authoring/tour/model/tour.model";
+import { PagedResults } from "../../../shared/model/paged-results.model";
+import { GoogleAnalyticsService } from "../../../infrastructure/google-analytics/google-analytics.service";
 
 @Component({
   selector: 'xp-tour-search',
@@ -20,13 +21,19 @@ export class TourSearchComponent implements OnInit {
   tours: Tour[] = [];
   brTura: number = 0;
 
-  constructor(private service: MarketplaceService, private cordinateService: MapService) {}
+  constructor(private service: MarketplaceService,
+              private cordinateService: MapService,
+              private googleAnalytics: GoogleAnalyticsService
+  ) {}
 
   searchForm = new FormGroup({
     range: new FormControl(0, [Validators.min(0), Validators.required]),
   });
 
   ngOnInit() {
+    this.googleAnalytics.sendPageView(window.location.pathname);
+    console.log(window.location.pathname);
+
     this.cordinateService.coordinate$.subscribe((coordinates) => {
       this.latitude = coordinates.lat;
       this.longitude = coordinates.lng;

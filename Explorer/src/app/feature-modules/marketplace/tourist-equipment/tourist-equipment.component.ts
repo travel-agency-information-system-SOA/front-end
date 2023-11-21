@@ -10,6 +10,7 @@ import { Tour } from '../../tour-authoring/tour/model/tour.model';
   selector: 'xp-tourist-equipment',
   templateUrl: './tourist-equipment.component.html',
   styleUrls: ['./tourist-equipment.component.css']
+  
 })
 export class TouristEquipmentComponent implements OnInit {
 

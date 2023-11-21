@@ -1,0 +1,39 @@
+<!-- active-tour.component.html -->
+
+<div *ngIf="activeTour">
+    <h2>{{ activeTour.tour.name }}</h2>
+    <p>Description: {{ activeTour.tour.description }}</p>
+    <p>Difficulty Level: {{ activeTour.tour.difficultyLevel }}</p>
+  
+    <h3>Tour Characteristics</h3>
+    <ul>
+      <li *ngFor="let characteristic of activeTour.tour.tourCharacteristics">
+        {{ characteristic.distance }} km - {{ characteristic.duration }} hours ({{ characteristic.transportType }})
+      </li>
+    </ul>
+  
+    <h3>Tour Points</h3>
+    <ul>
+      <li *ngFor="let point of activeTour.tour.tourPoints">
+        <strong>{{ point.name }}</strong> - {{ point.description }} ({{ point.latitude }}, {{ point.longitude }})
+      </li>
+    </ul>
+
+    <div class="map-container">
+      <app-map [tourIdEx]="tourId" (click)="updatePositions($event)"></app-map>
+    </div>
+    <button
+          
+          mat-raised-button
+          type="submit"
+          color="primary"
+          (click)="updateStatusToAbandoned()"
+        >
+          Aband
+        </button>
+  
+  </div>
+  <div *ngIf="!activeTour">
+    <p>Loading...</p>
+  </div>
+  

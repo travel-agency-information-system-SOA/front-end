@@ -3,8 +3,8 @@ import { MarketplaceService } from '../marketplace.service';
 import { ActivatedRoute } from '@angular/router';
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
-import { ShoppingCart } from '../model/ShoppingCart.model';
-import { TourOrderItem } from '../model/TourOrderItem.model';
+import { ShoppingCart, OrderItem } from '../model/shopping-cart.model';
+//import { TourOrderItem } from '../model/TourOrderItem.model';
 
 @Component({
   selector: 'xp-tour-details',
@@ -65,10 +65,10 @@ export class TourDetailsComponent implements OnInit{
   addToCart(){
     console.log('addToCart function called'); 
     if(this.buyButton == true){
-      const newOrderItem: TourOrderItem = {
+      const newOrderItem: OrderItem = {
         tourName: this.tour.name,
         price: this.tour.price,
-        idTour: this.tour.id
+        idTour: this.tour.id!
       };
       this.shoppingCart.orderItems.push(newOrderItem);
       this.service.addOrderItem(this.shoppingCart).subscribe({

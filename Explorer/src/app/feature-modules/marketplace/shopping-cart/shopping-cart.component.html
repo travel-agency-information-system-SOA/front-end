@@ -1,0 +1,22 @@
+<div class="shopping-cart-container">
+  <h3>Shopping Cart</h3>
+  <div *ngIf="shoppingCart.orderItems.length > 0">
+    <ul class="order-items-list">
+      <li *ngFor="let orderItem of shoppingCart.orderItems">
+        <div class="order-item">
+          <p class="tour-name">{{ orderItem.tourName }}</p>
+          <p class="price">Price: {{ orderItem.price | currency:'USD':'symbol':'1.2-2' }}</p>
+          <button class="remove-button" (click)="removeOrderItem(shoppingCart.id, orderItem.idTour)">Remove</button>
+        </div>
+      </li>
+    </ul>
+    
+    <div class="total-purchase-container">
+      <p class="total">Total: {{ shoppingCart.total | currency:'USD':'symbol':'1.2-2' }}</p>
+      <button class="purchase-button" (click)="purchase(shoppingCart.id ?? 0)">Purchase</button>
+    </div>
+  </div>
+  <div *ngIf="shoppingCart.orderItems.length === 0" class="empty-cart-message">
+    Your shopping cart is empty.
+  </div>
+</div>
