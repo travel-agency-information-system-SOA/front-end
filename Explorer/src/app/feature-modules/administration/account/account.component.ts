@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Account } from '../model/account.model';
 import { AdministrationService } from '../administration.service';
+import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
 
 @Component({
   selector: 'xp-account',
@@ -12,9 +13,13 @@ export class AccountComponent implements OnInit{
   accounts: Account[] = [];
   selectedAccount: Account;
 
-  constructor(private service: AdministrationService) { }
+  constructor(private service: AdministrationService,
+              private googleAnalytics: GoogleAnalyticsService
+  ) { }
 
   ngOnInit(): void {
+    this.googleAnalytics.sendPageView(window.location.pathname);
+
     this.getAccounts();
   }
 

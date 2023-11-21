@@ -20,7 +20,7 @@ export class PurchasedTourDetailsComponent implements OnInit{
   ngOnInit(): void {
     this.getLogedUser()
     const tourId = +this.route.snapshot.paramMap.get('id')!;
-    this.marketplaceService.getSelectedTourr(tourId).subscribe({
+    this.marketplaceService.getSelectedTours(tourId).subscribe({
       next: (result: Tour)=>{
         this.tour = result;
         console.log(this.tour.price);
