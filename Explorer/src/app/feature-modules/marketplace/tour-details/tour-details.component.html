@@ -1,16 +1,14 @@
 <div class="tour-details-container">
     <div class="tour-header">
       <h2 class="tour-name">{{ tour.name }}</h2>
-      <button class="buy-button">Buy Now</button>
+      <button class="buy-button" *ngIf="buyButton===true" (click)="addToCart()">Buy Now</button>
+      <!--<button class="remove-button" *ngIf="buyButton===false">Remove</button>-->
     </div>
   
     <div class="tour-info">
       <div class="tour-image">
         <img [src]="tour.tourPoints[0].imageUrl" alt="{{ tour.name }} Image">
       </div>
-  
-      
-  
       <div class="tour-details">
         <p class="price">Price: ${{ tour.price }}</p>
         <p class="difficulty">Difficulty: {{ tour.difficultyLevel }}</p>

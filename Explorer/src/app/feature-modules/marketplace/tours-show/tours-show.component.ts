@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
-
 import { MarketplaceService } from '../marketplace.service';
 import { Router } from '@angular/router';
 import { ReviewTour } from './ReviewTour.model';

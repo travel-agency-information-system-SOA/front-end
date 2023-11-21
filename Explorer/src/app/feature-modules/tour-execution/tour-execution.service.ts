@@ -60,8 +60,8 @@ export class TourExecutionService {
     return this.http.post<TourExecution>(environment.apiHost + 'tourExecution/create/' + userId + '/' + tourId, null);
   }
 
-  getPurchasedTourss(touristId: number): Observable<Tour[]> {
-    return this.http.get<Tour[]>(environment.apiHost + 'tokens/purchasedTourss/' + touristId)
+  getPurchasedTours(touristId: number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(environment.apiHost + 'tokens/purchasedTours/' + touristId)
   }
   
 }
