@@ -31,7 +31,7 @@ export class PurchasedToursComponent implements OnInit{
   }
   
   getPurchasedTours(): void {
-    this.service.getPurchasedTourss(this.touristId).subscribe({
+    this.service.getPurchasedTours(this.touristId).subscribe({
       next: (result: Tour[]) => {
         this.tours = result;
       },
