@@ -334,10 +334,6 @@ export class MarketplaceService {
     return this.http.get<Tour>('https://localhost:44333/api/marketplace/selectedTour/' + id);
   } 
 
-  getSelectedTourr(id: number): Observable<Tour> {
-    return this.http.get<Tour>('https://localhost:44333/api/marketplace/selectedTour/' + id);
-  } 
-
   getShoppingCart(touristId: number): Observable<ShoppingCart>{
     return this.http.get<ShoppingCart>('https://localhost:44333/api/shoppingcart/'+touristId);
   }
