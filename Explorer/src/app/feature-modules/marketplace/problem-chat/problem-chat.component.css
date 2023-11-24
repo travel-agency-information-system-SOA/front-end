@@ -2,6 +2,8 @@
     display: flex;
     flex-direction: column;
     width: 400px;
+    background-color:rgb(244, 219, 186);
+    border-radius: 10px;
 }
 
 .user{
@@ -11,6 +13,10 @@
 #chat p {
     font-size: 18px;
     margin-bottom: 10px;
+}
+
+.img{
+    margin: 3px;
 }
 
 #problem-details {
@@ -32,6 +38,7 @@
 
 .chat-bubble {
     padding: 10px;
+    margin: 7px;
     border-radius: 10px;
     max-width: 70%;
     word-wrap: break-word;
