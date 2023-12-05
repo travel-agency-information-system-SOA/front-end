@@ -11,6 +11,7 @@ export interface Tour {
   status: Status;
   difficultyLevel: DifficultyLevel;
   guideId: number;
+  TouristId: number;
   tags: string[];
   tourPoints: TourPoint[];
   tourCharacteristics: TourCharacteristic[];

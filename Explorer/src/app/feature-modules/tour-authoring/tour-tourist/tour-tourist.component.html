@@ -1,0 +1,36 @@
+<div class="wrapper">
+  <div class="inner-wrapper">
+    <p class="mini-title">Chose at least two public points for your tour</p>
+    <div>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Longitude</th>
+              <th>Latitude</th>
+              <th>Add</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ptp of publicTourPoints">
+              <td>{{ ptp.name }}</td>
+              <td>{{ ptp.description }}</td>
+              <td>{{ ptp.longitude }}</td>
+              <td>{{ ptp.latitude }}</td>
+              <button
+                (click)="onAddPublicTP(ptp)"
+                color="primary"
+                mat-icon-button
+              >
+                <mat-icon>add</mat-icon>
+              </button>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <button (click)="findTours()" color="primary">Find tours</button>
+  </div>
+</div>
