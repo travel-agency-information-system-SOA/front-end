@@ -1,0 +1,194 @@
+<div id="gr">
+    <p>Your Tour Sales</p>
+    <hr>
+    <div id="gr-details">
+    <div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tours</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Discount %</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ts of tourSales">
+                    <td>{{ts.tourIds}}</td>
+                    <td>{{ts.startDate | date:'dd.MM.yyyy.'}}</td>
+                    <td>{{ts.endDate | date:'dd.MM.yyyy.'}}</td>
+                    <td>{{ts.salePercentage}}</td>
+                    <td>
+                        <button color="accent" (click)="onDeleteClicked(ts)" mat-icon-button>
+                            <mat-icon>delete</mat-icon>
+                        </button>
+                        <button color="primary" (click)="onEditClicked(ts)" mat-icon-button>
+                            <mat-icon>edit</mat-icon>
+                        </button>
+                    </td>
+                </tr>
+                <tr><button color="primary" (click)="onAddClicked()" mat-icon-button>
+                    <mat-icon>add</mat-icon>
+                </button></tr>
+            </tbody>
+        </table>
+    </div>
+    <div *ngIf="shouldRenderTourSaleForm && !shouldEdit">
+        <p>Jebo sam ti mamu u picku smrdljivu</p>
+        <form [formGroup]="tourSaleForm1">
+            <div>
+                <mat-form-field>
+                    <mat-label>Start Date</mat-label>
+                    <input matInput type="date" formControlName="date1" placeholder="fff">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>End Date</mat-label>
+                    <input matInput type="date" formControlName="date2" placeholder="fff">
+                </mat-form-field>
+                <button mat-raised-button type="submit" color="primary" (click)="searchTourSale()">Search Available</button>
+            </div>
+            
+        </form>
+    </div>
+    <div *ngIf="srcd && shouldRenderTourSaleForm && !shouldEdit">
+        <!--ovdje da se izlistaju ture <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTourSale()">Update Sale</button> -->
+        <div>
+            <p>NE dodato</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tour name</th>
+                        <th>Tour id</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tt of tours">
+                        <td>{{tt.id}}</td>
+                        <td>{{tt.name}}</td>
+                        <td>
+                            <button color="accent" (click)="onPlusTour(tt)" mat-icon-button>
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div>
+            <p>dodato</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tour name</th>
+                        <th>Tour id</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ttt of toursSelected">
+                        <td>{{ttt.id}}</td>
+                        <td>{{ttt.name}}</td>
+                        <td>
+                            <button color="primary" (click)="onMinusTour(ttt)" mat-icon-button>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div>
+            <p>Jebo sam ti mamu u picku smrdljivu, drugi put</p>
+            <form [formGroup]="tourSaleForm2">
+                <div>
+                    <mat-form-field>
+                        <mat-label>Discount</mat-label>
+                        <input matInput min="1" max="100" type="number" formControlName="salePerc" placeholder="fff">
+                    </mat-form-field>
+                    <button mat-raised-button type="submit" color="primary" (click)="addTourSale()">Create Sale</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div *ngIf="shouldRenderTourSaleForm && shouldEdit">
+        <p>Jebo sam ti mamu u picku smrdljivu, treci put</p>
+        
+
+        <form [formGroup]="tourSaleForm3">
+            <div>
+                <mat-form-field>
+                    <mat-label>Start Date</mat-label>
+                    <input matInput type="date" formControlName="date1" placeholder="fff">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>End Date</mat-label>
+                    <input matInput type="date" formControlName="date2" placeholder="fff">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Discount</mat-label>
+                    <input matInput min="1" max="100" type="number" formControlName="salePerc" placeholder="fff">
+                </mat-form-field>
+                <button mat-raised-button type="submit" color="primary" (click)="updateTourSale1()">Check Availability</button>
+            </div>
+        </form>
+
+
+        <div *ngIf="showupdt">
+            <p>NE dodato</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tour name</th>
+                        <th>Tour id</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let tt of tours1">
+                        <td>{{tt.id}}</td>
+                        <td>{{tt.name}}</td>
+                        <td>
+                            <button color="accent" (click)="onPlusTour1(tt)" mat-icon-button>
+                                <mat-icon>add</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div *ngIf="showupdt">
+            <p>dodato</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tour name</th>
+                        <th>Tour id</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let ttt of toursSelected1">
+                        <td>{{ttt.id}}</td>
+                        <td>{{ttt.name}}</td>
+                        <td>
+                            <button color="primary" (click)="onMinusTour1(ttt)" mat-icon-button>
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <button *ngIf="showupdt" mat-raised-button type="submit" color="primary" (click)="updateTourSale()">Update Sale</button>
+    </div>
+</div>
