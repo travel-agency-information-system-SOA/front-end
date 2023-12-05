@@ -32,12 +32,12 @@ export class PreferencesFormComponent implements OnChanges {
     this.newTag = '';
     this.tags = [];
     this.datasource = new MatTableDataSource<string>(this.tags);
-    if (this.shouldEdit) {
+    //if (true) {
       this.preferencesForm.patchValue(this.preferences);
       this.tags = this.preferences.interestTags;
       this.datasource = new MatTableDataSource<string>(this.tags);
       this.patchMarks();
-    }
+    //}
   }
 
   patchMarks(): void {
