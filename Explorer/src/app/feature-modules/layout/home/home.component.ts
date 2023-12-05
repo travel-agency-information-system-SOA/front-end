@@ -5,8 +5,9 @@ import { MarketplaceService } from '../../marketplace/marketplace.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Problem } from '../../marketplace/model/problem.model';
-import {DatePipe } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { GoogleAnalyticsService } from "../../../infrastructure/google-analytics/google-analytics.service";
 
 @Component({
   selector: 'xp-home',
@@ -21,10 +22,13 @@ export class HomeComponent implements OnInit {
     private router: Router,
     private probService: MarketplaceService,
     private authService: AuthService,
-    private datePipe: DatePipe
+    private datePipe: DatePipe,
+    private googleAnalytics: GoogleAnalyticsService
   ) {}
 
   ngOnInit(): void {
+    this.googleAnalytics.sendPageView(window.location.pathname);
+
     this.authService.user$.subscribe((user) => {
       this.user = user;
     });

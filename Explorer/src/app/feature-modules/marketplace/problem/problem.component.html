@@ -1,25 +1,19 @@
 <div id="problem">
-    <p>Problem</p>
-    <hr>
-    <div id="problem-details">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Category</th>
-                        <th>Priority</th>
-                        <th>Description</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let p of problem; let i = index" [ngStyle]="{
-                        'background-color': p.isSolved ? 'lightgreen' : (p.isUnsolvedForMoreThan5Days ? 'red' : 'white')
-                      }">
-                        <td>{{p.category}}</td>
-                        <td>{{p.priority}}</td>
-                        <td>{{p.description}}</td>
-                        <td>{{p.time}}</td>
+    <div id="problem-details" style="display: flex; width: 70%; justify-content: space-between;">
+        <div style="flex: 1; padding: 10px;">
+            <div *ngFor="let p of problem; let i = index">
+                <mat-card [ngStyle]="{
+                    'background-color': p.isSolved ? 'lightgreen' : (p.isUnsolvedForMoreThan5Days ? '#e23a55' : '/assets/images/q.jpg')
+                  }">
+                    <mat-card-header>
+                        <mat-card-title>Category: {{p.category}}</mat-card-title>
+                        <mat-card-subtitle>Priority: {{p.priority}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>Description: {{p.description}}</p>
+                        <p>Deadline: {{p.deadline | date:'yyyy-MM-dd' }}</p>
+                    </mat-card-content>
+                    <mat-card-actions>
                         <button color="primary" (click)="onProblemReplay(p)" mat-icon-button [disabled]="p.isSolved || isSolving || disabledRows.includes(i)">
                             <mat-icon>reply</mat-icon>
                         </button>
@@ -39,25 +33,29 @@
                         <button color="primary" *ngIf="isAdministartor" (click)="addDeadline(p)" mat-icon-button>
                             <mat-icon>access_alarm</mat-icon>
                         </button>
-                        <button color="primary" *ngIf="isAdministartor" (click)="deleteProblem(p)" mat-icon- [disabled]="!p.deadlineMissed">
+                        <button mat-button color="primary" *ngIf="isAdministartor" (click)="deleteProblem(p)" [disabled]="!p.deadlineMissed">
                             Close problem
                         </button>
-                        <button color="primary" *ngIf="isAdministartor" (click)="archiveTour(p)" mat-icon- [disabled]="!p.deadlineMissed">
+                        <button mat-button color="primary" *ngIf="isAdministartor" (click)="archiveTour(p)" [disabled]="!p.deadlineMissed">
                             Archive tour
                         </button>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-        <div>
-             <xp-problem-message-form *ngIf="shouldRenderForm" [problem]="selectedProblem" (problemUpdated)="getProblems()"></xp-problem-message-form>
-        </div>
-        <div>
-            <xp-problem-chat *ngIf="shouldRenderChat" [problem]="selectedProblem"></xp-problem-chat>
-        </div>
-        <div>
-            <xp-problem-deadline *ngIf="shouldRenderDeadline" [problem]="selectedProblem" (problemUpdated)="getUnsolvedProblems()"></xp-problem-deadline>
+                    </mat-card-actions>
+                </mat-card>
+            </div>
         </div>
 
+        <!-- Right side: Forms, Chat, Deadline -->
+        <div style="flex: 1; padding: 10px;">
+            <div *ngIf="shouldRenderForm">
+                <xp-problem-message-form [problem]="selectedProblem" (problemUpdated)="getProblems()"></xp-problem-message-form>
+            </div>
+            <div *ngIf="shouldRenderChat">
+                <xp-problem-chat [problem]="selectedProblem"></xp-problem-chat>
+            </div>
+            <div *ngIf="shouldRenderDeadline">
+                <xp-problem-deadline [problem]="selectedProblem" (problemUpdated)="getUnsolvedProblems()"></xp-problem-deadline>
+            </div>
+        </div>
     </div>
 </div>
+

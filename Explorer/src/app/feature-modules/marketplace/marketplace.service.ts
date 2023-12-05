@@ -328,7 +328,7 @@ export class MarketplaceService {
     );
   }
   getSelectedTour(id: number): Observable<Tour> {
-    return this.http.get<Tour>('https://localhost:44333/api/marketplace/' + id);
+    return this.http.get<Tour>('https://localhost:44333/api/marketplace/selectedTour/' + id);
   } 
 
   getShoppingCart(touristId: number): Observable<ShoppingCart>{
@@ -339,9 +339,20 @@ export class MarketplaceService {
     const url = `https://localhost:44333/api/shoppingcart/${cartId}/${tourId}`;
     return this.http.put<ShoppingCart>(url, null);
   }
+  
+  addOrderItem(shoppingCart: ShoppingCart): Observable<ShoppingCart>{
+    return this.http.put<ShoppingCart>('https://localhost:44333/api/marketplace/buy', shoppingCart);
+  }
 
   purchase(cartId: number): Observable<ShoppingCart> {
     const url = `https://localhost:44333/purchase/${cartId}`;
     return this.http.put<ShoppingCart>(url, null);
   }
+
+  getTourByTourId(id: number): Observable<Tour> {
+    return this.http.get<Tour>(
+      environment.apiHost + 'administration/tour/onetour/' + id
+    );
+  }
+
 }

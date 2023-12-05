@@ -3,6 +3,7 @@ import { BlogPost } from '../model/blogpost.model';
 import { BlogService } from '../blog.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Router } from '@angular/router';
+import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
 
 @Component({
   selector: 'xp-blog',
@@ -12,9 +13,13 @@ import { Router } from '@angular/router';
 export class BlogComponent {
   blogPosts: BlogPost[] = [];
 
-  constructor(private service: BlogService, private router: Router) {}
+  constructor(private service: BlogService,
+              private router: Router,
+              private googleAnalytics: GoogleAnalyticsService) {}
 
   ngOnInit(): void {
+    this.googleAnalytics.sendPageView(window.location.pathname);
+
     this.getBlogPosts();
   }
 
@@ -23,7 +28,7 @@ export class BlogComponent {
       next: (result: PagedResults<BlogPost>) => {
         this.blogPosts = result.results;
         this.blogPosts.forEach(post => {
-          
+
           console.log(post.creationDate);
           post.creationDate = new Date(post.creationDate);
           console.log(post);
@@ -35,7 +40,7 @@ export class BlogComponent {
       }
     })
   }
- 
+
   navigateToPostCreation() {
     this.router.navigate(['/blog/create-post']);
   }

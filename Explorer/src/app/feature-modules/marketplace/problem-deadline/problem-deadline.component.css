@@ -54,3 +54,8 @@ tbody tr.active-row {
     background-color: lightgreen; /* or any other desired color */
   }
   
+
+  h2 {
+    background-color: #e23a55;
+    border-radius: 10px;
+}

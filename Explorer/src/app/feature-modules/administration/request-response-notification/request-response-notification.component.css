@@ -1,11 +1,11 @@
-#blog {
+#notifications {
     margin-top: 20px;
     margin-left: 20px;
 }
 
-#blog-posts {
+#notification-details {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 50px;
     align-items: flex-start;
 }

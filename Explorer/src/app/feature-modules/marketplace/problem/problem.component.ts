@@ -286,13 +286,65 @@ export class ProblemComponent implements OnInit {
 @Component({
   selector: 'app-confirmation-dialog',
   template: `
-    <h2 mat-dialog-title>{{ data.title }}</h2>
-    <div mat-dialog-content>{{ data.message }}</div>
-    <div mat-dialog-actions>
-      <button mat-button (click)="onConfirm()">Yes</button>
-      <button mat-button (click)="onCancel()">No</button>
+  <!-- Vaš dijalog -->
+  <h2 mat-dialog-title class="custom-title">{{ data.title }}</h2>
+  <div mat-dialog-content class="custom-content">{{ data.message }}</div>
+  <div mat-dialog-actions class="custom-actions">
+    <div class="button-container">
+      <button mat-button class="custom-button" (click)="onConfirm()">Yes</button>
     </div>
+    <div class="button-container">
+      <button mat-button class="custom-button" (click)="onCancel()">No</button>
+    </div>
+  </div>
+
+  
   `,
+  styles: [`/* styles.css */
+
+  /* Stilizacija dijaloga */
+  .mat-dialog-container.custom-dialog {
+    max-width: 500px; /* Postavite maksimalnu širinu dijaloga prema potrebi */
+    background-color: #e0e0e0; /* Siva boja pozadine (primer) */
+  }
+  
+  /* Stilizacija naslova dijaloga */
+  .mat-dialog-title.custom-title {
+    font-size: 24px; /* Povećajte veličinu fonta naslova prema potrebi */
+    color: #333; /* Boja teksta naslova (primer) */
+  }
+  
+  /* Stilizacija sadržaja dijaloga */
+  .mat-dialog-content.custom-content {
+    font-size: 18px; /* Povećajte veličinu fonta sadržaja prema potrebi */
+    color: #333; /* Boja teksta sadržaja (primer) */
+  }
+  
+  /* Stilizacija akcija dijaloga */
+  .mat-dialog-actions.custom-actions {
+    justify-content: flex-end; /* Pomeranje akcija na desnu stranu */
+  }
+  
+  /* Stilizacija dugmadi dijaloga */
+  button.mat-button.custom-button {
+    margin-left: 8px; /* Dodajte razmak između dugmadi prema potrebi */
+    background-color: #3498db; /* Plava boja dugmadi (primer) */
+    color: #ffffff; /* Bela boja teksta dugmadi (primer) */
+  }
+  
+  /* Hover efekat za dugmad dijaloga */
+  button.mat-button.custom-button:hover {
+    background-color: #2980b9; /* Tamnija plava boja (primer) prilikom hover-a */
+  }
+
+  /* Dodajte ove stilove u svoj CSS fajl */
+
+/* Stilizacija kontejnera za dugmad */
+.button-container {
+  margin-top: 10px; /* Dodajte razmak između dugmadi */
+}
+
+  `]
 })
 export class ConfirmationDialog {
   constructor(

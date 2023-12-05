@@ -10,7 +10,6 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog'; 
 import { MatSelectModule } from '@angular/material/select';
 import { MarkdownModule } from 'ngx-markdown';
-import { BlogpostComponent } from './blogpost/blogpost.component';
 import { BlogpostFormComponent } from './blogpost-form/blogpost-form.component';
 import { BlogPostCardComponent } from './blog-post-card/blog-post-card.component';
 import { BlogComponent } from './blog/blog.component';
@@ -23,7 +22,6 @@ import { BlogPostUpdateComponent } from './blog-post-update/blog-post-update.com
 
 @NgModule({
   declarations: [
-    BlogpostComponent,
     BlogpostFormComponent,
     BlogPostCardComponent,
     BlogComponent,
@@ -45,7 +43,6 @@ import { BlogPostUpdateComponent } from './blog-post-update/blog-post-update.com
     MatDialogModule
   ],
   exports: [
-    BlogpostComponent,
     BlogpostFormComponent
   ]
 })
