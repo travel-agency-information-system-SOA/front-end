@@ -57,6 +57,7 @@ export class TourFormComponent implements OnChanges {
       status: Status.Draft,
       difficultyLevel: this.tourForm.value.difficulytLevel as DifficultyLevel,
       guideId: this.tokenStorage.getUserId(),
+      TouristId: 0,
       price: 0,
       tags: ['xzy', 'abc'],
       tourPoints: [],
