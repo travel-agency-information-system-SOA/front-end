@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Encounter } from '../model/encounter.model';
 import { EncountersService } from '../encounters.service';
 import { Router } from '@angular/router';
+import { MapService } from 'src/app/shared/map/map.service';
 
 @Component({
   selector: 'xp-encounters-form',
@@ -16,7 +17,7 @@ export class EncountersFormComponent implements OnChanges {
   @Input() shouldEdit: boolean = false;
   @Input() shouldEditDraft: boolean = false;
 
-  constructor(private service: EncountersService, private router: Router){}
+  constructor(private service: EncountersService, private router: Router, private mapService:MapService){}
   
   ngOnChanges(changes: SimpleChanges): void {
     this.encounterForm.reset();
@@ -44,9 +45,14 @@ export class EncountersFormComponent implements OnChanges {
       xpPoints: this.encounterForm.value.xpPoints || 0,
       status: 'ACTIVE',
       type: this.encounterForm.value.type || 'SOCIAL',
-      latitude: this.encounterForm.value.latitude || 0,
-      longitude: this.encounterForm.value.longitude || 0
+      latitude: 0,
+      longitude:  0
     }
+
+    this.mapService.coordinate$.subscribe((coordinates) => {
+      encounter.latitude = coordinates.lat;
+      encounter.longitude = coordinates.lng;
+    });
 
     this.service.addEncounter(encounter).subscribe({
       next: (_) => {
@@ -68,9 +74,14 @@ export class EncountersFormComponent implements OnChanges {
       xpPoints: this.encounterForm.value.xpPoints || 0,
       status: 'DRAFT',
       type: this.encounterForm.value.type || 'SOCIAL',
-      latitude: this.encounterForm.value.latitude || 0,
-      longitude: this.encounterForm.value.longitude || 0
+      latitude: 0,
+      longitude:  0
     }
+
+    this.mapService.coordinate$.subscribe((coordinates) => {
+      encounter.latitude = coordinates.lat;
+      encounter.longitude = coordinates.lng;
+    });
 
     this.service.addEncounter(encounter).subscribe({
       next: (_) => {
@@ -92,10 +103,13 @@ export class EncountersFormComponent implements OnChanges {
         xpPoints: this.encounterForm.value.xpPoints || 0,
         status: 'ACTIVE',
         type: this.encounterForm.value.type || 'SOCIAL',
-        latitude: this.encounterForm.value.latitude || 0,
-        longitude: this.encounterForm.value.longitude || 0
+        latitude: 0,
+        longitude:  0
       }
-
+      this.mapService.coordinate$.subscribe((coordinates) => {
+        encounter.latitude = coordinates.lat;
+        encounter.longitude = coordinates.lng;
+      });
     this.service.updateEncounter(encounter).subscribe({
       next: (_) => {
         this.encountersUpdated.emit();
@@ -112,10 +126,13 @@ export class EncountersFormComponent implements OnChanges {
       xpPoints: this.encounterForm.value.xpPoints || 0,
       status: this.encounter.status,
       type: this.encounterForm.value.type || 'SOCIAL',
-      latitude: this.encounterForm.value.latitude || 0,
-      longitude: this.encounterForm.value.longitude || 0
+      latitude: 0,
+      longitude:  0
     }
-
+    this.mapService.coordinate$.subscribe((coordinates) => {
+      encounter.latitude = coordinates.lat;
+      encounter.longitude = coordinates.lng;
+    });
     this.service.updateEncounter(encounter).subscribe({
       next: (_) => {
         this.encountersUpdated.emit();
