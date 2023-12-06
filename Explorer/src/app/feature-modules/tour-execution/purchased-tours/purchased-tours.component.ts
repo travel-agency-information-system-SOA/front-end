@@ -302,7 +302,7 @@ styles: [`
         description: 'opis',
         status: Status.Draft,
         difficultyLevel: this.calculateDifficultyLevel(),
-        guideId: this.tokenStorage.getUserId(),
+        UserId: this.tokenStorage.getUserId(),
         price: this.calculatePrice(),
         tags: ['xzy', 'abc'],
         tourPoints: this.makeTourPointsForAll(),
