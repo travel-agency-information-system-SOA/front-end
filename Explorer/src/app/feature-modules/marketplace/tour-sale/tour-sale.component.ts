@@ -107,14 +107,14 @@ export class TourSaleComponent {
     if (!this.tourSaleForm1.value.date1 || !this.tourSaleForm1.value.date2) return;
     const d1 = this.tourSaleForm1.value.date1.toString().split('T')[0];
     const d2 = this.tourSaleForm1.value.date2.toString().split('T')[0];
-  
+
     this.service.getPubToursForAut(this.user).subscribe({
-      next: (result) => { 
+      next: (result) => {
         console.log('Searched');
         this.tours = result.results;
         this.toursSelected = [];
         let copp = this.tourSales;
-  
+
         if (this.tourSales && this.tours) {
           this.tours = this.tours.filter(tour => {
             const tourId = tour.id || -1;
@@ -180,7 +180,7 @@ export class TourSaleComponent {
     }
     if(!tourSale.tourIds) return; // ako nema tura nemore kreirat mozda i za ostala polja uraditi NE RADIi provera da je razmak datuma 14
     this.service.addTourSale(tourSale).subscribe({
-      next: (_) => { 
+      next: (_) => {
         console.log('Sale Created')
         this.tourSaleForm1.reset();
         this.tourSaleForm2.reset();
@@ -201,12 +201,12 @@ export class TourSaleComponent {
     const d1 = this.tourSaleForm3.value.date1.toString().split('T')[0];
     const d2 = this.tourSaleForm3.value.date2.toString().split('T')[0];
     this.service.getPubToursForAut(this.user).subscribe({
-      next: (result) => { 
+      next: (result) => {
         console.log('Searched');
         this.tours = result.results;
         this.toursSelected = [];
         let copp = this.tourSales;
-  
+
         if (this.tourSales && this.tours) { //izdvoji tu koju updejtas
           this.tours = this.tours.filter(tour => {
             const tourId = tour.id || -1;
@@ -246,7 +246,7 @@ export class TourSaleComponent {
           });
 
           //this.toursSelected1 =this.tours; // presek this.selectedTourSale.tourIds ;
-        } 
+        }
         this.showupdt = true;
 
       }
@@ -268,7 +268,7 @@ export class TourSaleComponent {
     tourSale.id = this.selectedTourSale.id;
 
     this.service.updateTourSale(tourSale).subscribe({
-      next: (_) => { 
+      next: (_) => {
         console.log('Sale Updated')
         this.showupdt = false;
         this.getTourSales(this.user);

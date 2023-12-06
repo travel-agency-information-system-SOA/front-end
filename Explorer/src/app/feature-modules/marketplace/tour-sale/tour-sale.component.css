@@ -1,0 +1,142 @@
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+  font-weight: medium;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Trip';
+  src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+#gr {
+  margin: 24px 12%;
+  padding: 0;
+}
+
+.title {
+  font-size: 42px;
+  font-family: 'Trip';
+  font-weight: bold;
+  text-align: center;
+  margin-top: 48px;
+  margin-bottom: 56px;
+}
+
+.card-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  width: calc(20% - 16px);
+  box-sizing: border-box;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.info-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.header {
+  font-family: 'Trip';
+  font-style: normal;
+  font-weight: bold;
+  margin-right: 8px;
+}
+
+.value {
+  font-family: 'Trip';
+  font-style: normal;
+  font-weight: normal;
+  flex-grow: 1;
+  text-align: right;
+}
+
+.add-card {
+  border: 2px dashed #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: #ccc;
+  font-size: 24px;
+}
+
+.add-card:hover {
+  background-color: #f0f0f0;
+}
+
+.new-sale {
+  margin: 0;
+  padding: 0;
+}
+
+.subtitle {
+  font-size: 32px;
+  font-family: 'Trip';
+  font-style: normal;
+  font-weight: medium;
+  text-align: center;
+  margin-top: 40px;
+  margin-bottom: 48px;
+}
+
+.form-field-add {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.button-availability {
+  font-family: 'Trip';
+  font-weight: medium;
+  background-color: #0a83cb;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.button-availability:hover {
+  background-color: #221853;
+  box-shadow: 0 2px 5px 1px #333333;
+}
