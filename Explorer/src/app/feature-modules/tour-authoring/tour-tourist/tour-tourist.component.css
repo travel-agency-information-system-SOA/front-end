@@ -10,18 +10,18 @@
   min-height: 150vh;
   height: 100%;
 }
-.creating-tour{
+.creating-tour {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
-.buttons{
+.buttons {
   display: flex;
   flex-direction: row;
   gap: 20px;
 }
 
-.buttonCreate{
+.buttonCreate {
   height: 80%;
   width: 60%;
   border-radius: 8px;
@@ -30,20 +30,35 @@
   padding: 5px 10px;
   width: 100px;
 }
-.frame{
+.frame {
   display: flex;
   flex-direction: row;
 }
 
-
-
-.tour-form{
+.tour-form {
   display: flex;
-  width: 400px;
+  flex-direction: column;
+  width: 430px;
+  gap: 10px;
 }
 
+.form-button:hover {
+  background-color: #3f51b5;
+}
+.form-button {
+  border-radius: 8px;
+  background-color: #124174;
+  color: #ffffff;
+  padding: 10px;
+  margin-left: 20px;
+}
 
-
+.characteristics-button {
+  border-radius: 8px;
+  background-color: #124174;
+  color: #ffffff;
+  padding: 10px;
+}
 .inner-wrapper {
   display: flex;
   flex-direction: column;
@@ -99,4 +114,45 @@
 
 .table-wrapper button:hover {
   background-color: #0056b3;
+}
+
+.map-container {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 800px;
+}
+
+.transport-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form {
+  width: 450%;
+  padding: 10px;
+}
+
+.map {
+  width: 150%;
+  height: 50%;
+}
+
+.select {
+  font-size: 14px;
+  width: 150px;
+  height: 25px;
+  border-radius: 10px;
+  background-color: rgba(246, 245, 245, 0.8);
+}
+
+.label {
+  font-size: 1.2em;
+  color: #4e79a7;
+
+  font-family: Georgia, serif;
+  background-color: rgba(246, 245, 245, 0.8);
+  border-radius: 10px;
+  padding: 5px 10px;
 }

@@ -1,64 +1,95 @@
 <div class="wrapper">
   <div class="frame">
-  <div class="inner-wrapper">
-    <p class="mini-title">Chose at least two public points for your tour</p>
-    <div class="creating-tour">
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Description</th>
-              <th>Longitude</th>
-              <th>Latitude</th>
-              <th>Add</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let ptp of publicTourPoints">
-              <td>{{ ptp.name }}</td>
-              <td>{{ ptp.description }}</td>
-              <td>{{ ptp.longitude }}</td>
-              <td>{{ ptp.latitude }}</td>
-              <button
-                (click)="onAddPublicTP(ptp)"
-                color="primary"
-                mat-icon-button
-              >
-                <mat-icon>add</mat-icon>
-              </button>
-            </tr>
-          </tbody>
-        </table>
-
-
+    <div class="inner-wrapper">
+      <p class="mini-title">Chose at least two public points for your tour</p>
+      <div class="creating-tour">
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+                <th>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ptp of publicTourPoints">
+                <td>{{ ptp.name }}</td>
+                <td>{{ ptp.description }}</td>
+                <td>{{ ptp.longitude }}</td>
+                <td>{{ ptp.latitude }}</td>
+                <button
+                  (click)="onAddPublicTP(ptp)"
+                  color="primary"
+                  mat-icon-button
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="buttons">
+          <button class="buttonCreate" (click)="addTour()">
+            Create your tour
+          </button>
+          <button class="buttonCreate" (click)="findTours()" color="primary">
+            Find tours
+          </button>
+        </div>
       </div>
-      <div class="buttons">
-      <button class="buttonCreate" (click)="addTour()">Create your tour</button>
-      <button class="buttonCreate" (click)="findTours()" color="primary">Find tours</button>
     </div>
+    <div class="tour-form">
+      <div class="form">
+        <xp-tour-form [tour]="selectedTour" *ngIf="showTourForm"></xp-tour-form>
+      </div>
+      <button
+        *ngIf="showTourForm"
+        class="form-button"
+        (click)="onAddPublicTourPoint()"
+      >
+        Add selected points to your tour
+      </button>
+      <button *ngIf="showTourForm" class="form-button" (click)="previewTour()">
+        Preview your tour
+      </button>
+      <div *ngIf="showMap" class="map-container">
+        <div class="map"><app-map></app-map></div>
 
+        <div class="transport-wrapper">
+          <label for="transport" class="label">Choose transport type:</label>
+          <select
+            id="transport"
+            (change)="onTransportChange($event)"
+            class="select"
+          >
+            <option value="walking">🚶Walking</option>
+            <option value="cycling">🚲 Cycling</option>
+            <option value="driving">🚗 Driving</option>
+          </select>
+          <button
+            class="characteristics-button"
+            type="submit"
+            (click)="getTourCharacteristic()"
+          >
+            Set characteristics
+          </button>
+        </div>
+      </div>
     </div>
-     
   </div>
-  <div class="tour-form">
-    <xp-tour-form 
-    [tour]="selectedTour"
-    *ngIf="showTourForm"
-    (addTourClicked)="onAddTourClicked()"
-  ></xp-tour-form>
-</div>
-</div>
-<div *ngIf="tours.length >0">
-  <h2>Found Tours:</h2>
-  <ul>
-    <li *ngFor="let tourItem of tours">
-      <!-- Display tour details as needed -->
-      {{ tourItem.name }} - {{ tourItem.description }}
-    </li>
-  </ul>
-</div>
-<div *ngIf="tours.length === 0">
-  <p>No tours found.</p>
-</div>
+  <div *ngIf="tours.length > 0">
+    <h2>Found Tours:</h2>
+    <ul>
+      <li *ngFor="let tourItem of tours">
+        <!-- Display tour details as needed -->
+        {{ tourItem.name }} - {{ tourItem.description }}
+      </li>
+    </ul>
+  </div>
+  <div *ngIf="tours.length === 0">
+    <p>No tours found.</p>
+  </div>
 </div>

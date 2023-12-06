@@ -234,17 +234,23 @@ export class TourAuthoringService {
   findTours(publicTPs: PublicTourPoint[], page: number, pageSize: number) {
     const publicTourPointsString = JSON.stringify(publicTPs);
     console.log('Public Tour Points:', publicTourPointsString);
-  
+
     const params = new HttpParams()
       .set('publicTourPoints', publicTourPointsString)
       .set('page', page.toString())
       .set('pageSize', pageSize.toString());
-  
-    return this.http.get<PagedResults<Tour>>(`${environment.apiHost}administration/tour/filteredTours`, { params })
-      .pipe(
-        tap(response => console.log('Response from server:', response))
-      );
+
+    return this.http
+      .get<PagedResults<Tour>>(
+        `${environment.apiHost}administration/tour/filteredTours`,
+        { params }
+      )
+      .pipe(tap((response) => console.log('Response from server:', response)));
   }
-  
-  
+
+  findLastTourId(page: number, pageSize: number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tour/lastId'
+    );
+  }
 }
