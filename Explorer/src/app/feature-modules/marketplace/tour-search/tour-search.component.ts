@@ -102,7 +102,7 @@ export class TourSearchComponent implements OnInit {
   getDisc(id: any, price: any): number {
     const disc = this.toursDiscMap.get(id);
     if (disc !== undefined) {
-      return (100-disc)*price/100;
+      return Math.floor((100 - disc) * price / 100);
     } else {
       return price;
     }

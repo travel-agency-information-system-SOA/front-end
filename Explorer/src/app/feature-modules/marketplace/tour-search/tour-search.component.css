@@ -292,7 +292,7 @@
 .crossed-out::before {
   content: '';
   position: absolute;
-  top: calc(50% - 2px);
+  top: calc(50% - 1px);
   left: 0;
   width: 100%;
   height: 2px;
