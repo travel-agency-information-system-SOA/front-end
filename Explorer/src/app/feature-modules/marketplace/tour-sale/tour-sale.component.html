@@ -65,68 +65,51 @@
     </div>
 
     <div *ngIf="srcd && shouldRenderTourSaleForm && !shouldEdit">
-        <!--ovdje da se izlistaju ture <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateTourSale()">Update Sale</button> -->
-        <div>
-            <p>NE dodato</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tour name</th>
-                        <th>Tour id</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let tt of tours">
-                        <td>{{tt.id}}</td>
-                        <td>{{tt.name}}</td>
-                        <td>
-                            <button color="accent" (click)="onPlusTour(tt)" mat-icon-button>
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+
+      <div class="tours-lists">
+
+        <div class="available">
+          <p class="type-of-tour">Available tours:</p>
+          <div class="card-container-available-tours">
+            <div *ngFor="let tt of tours" class="card-tours" (click)="onPlusTour(tt)">
+              <div class="card-content-tours">
+                <p><strong>Tour name:</strong> {{ tt.name }}</p>
+                <p><strong>Tour id:</strong> {{ tt.id }}</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <div>
-            <p>dodato</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tour name</th>
-                        <th>Tour id</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let ttt of toursSelected">
-                        <td>{{ttt.id}}</td>
-                        <td>{{ttt.name}}</td>
-                        <td>
-                            <button color="primary" (click)="onMinusTour(ttt)" mat-icon-button>
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="for-sale">
+          <p class="type-of-tour">Tours for Sale:</p>
+          <div class="card-container-available-tours">
+            <div *ngFor="let tt of toursSelected" class="card-tours" (click)="onMinusTour(tt)">
+              <div class="card-content-tours">
+                <p><strong>Tour name:</strong> {{ tt.name }}</p>
+                <p><strong>Tour id:</strong> {{ tt.id }}</p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div>
-            <p>Jebo sam ti mamu u picku smrdljivu, drugi put</p>
-            <form [formGroup]="tourSaleForm2">
-                <div>
-                    <mat-form-field>
-                        <mat-label>Discount</mat-label>
-                        <input matInput min="1" max="100" type="number" formControlName="salePerc" placeholder="fff">
-                    </mat-form-field>
-                    <button mat-raised-button type="submit" color="primary" (click)="addTourSale()">Create Sale</button>
-                </div>
-            </form>
-        </div>
+      <div class="discount-form">
+
+        <p class="discount-heading">Discount percentage</p>
+
+        <form [formGroup]="tourSaleForm2">
+          <div class="discount-form-field">
+
+            <mat-form-field>
+              <mat-label>Discount (%)</mat-label>
+              <input matInput min="1" max="100" type="number" formControlName="salePerc" placeholder="%">
+            </mat-form-field>
+
+            <button class="button-availability" type="submit" (click)="addTourSale()">Create Sale</button>
+            <button class="button-discard" (click)="discard()">Discard</button>
+          </div>
+        </form>
+      </div>
     </div>
 
     <div *ngIf="shouldRenderTourSaleForm && shouldEdit">

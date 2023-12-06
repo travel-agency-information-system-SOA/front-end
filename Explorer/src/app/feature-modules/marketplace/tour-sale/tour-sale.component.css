@@ -23,7 +23,7 @@
 }
 
 #gr {
-  margin: 24px 12%;
+  margin: 24px 12% 96px 12%;
   padding: 0;
 }
 
@@ -37,8 +37,12 @@
 }
 
 .card-container {
+  margin: 0;
+  padding: 0;
   display: flex;
   flex-direction: column;
+  /*justify-content: center;*/
+  /*align-items: center;*/
 }
 
 .card-row {
@@ -52,6 +56,7 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 10px;
+  min-width: 180px;
   width: calc(20% - 16px);
   box-sizing: border-box;
 }
@@ -138,5 +143,105 @@
 
 .button-availability:hover {
   background-color: #221853;
+  box-shadow: 0 2px 5px 1px #333333;
+}
+
+/* Card view for available tours */
+.tours-lists {
+  margin: 14px 0;
+  display: flex;
+  flex-direction: row;
+  gap: 16px;
+}
+
+.available,
+.for-sale {
+  flex: 1;
+}
+
+.type-of-tour {
+  margin: 16px 0 8px 0;
+  text-align: center;
+  font-family: 'Trip';
+  font-style: normal;
+  font-weight: medium;
+  font-size: 16px;
+}
+
+.card-container-available-tours {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.card-tours {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+  min-width: 180px;
+  width: 20%;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.card-tours:hover {
+  background-color: #f0f0f0;
+}
+
+.card-content-tours {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-content-tours p {
+  margin: 0;
+}
+
+.card-content-tours p {
+  font-family: 'Trip';
+  font-style: normal;
+}
+
+/* Discount form */
+.discount-form {
+  margin: 16px 0;
+}
+
+.discount-heading {
+  margin-top: 24px;
+  margin-bottom: 28px;
+  font-size: 24px;
+  text-align: center;
+  font-family: 'Trip';
+  font-style: normal;
+  font-weight: medium;
+}
+
+.discount-form-field {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+.button-discard {
+  font-family: 'Trip';
+  font-weight: medium;
+  background-color: #666;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 200px;
+  transition: all 0.3s ease;
+}
+
+.button-discard:hover {
+  background-color: #444;
   box-shadow: 0 2px 5px 1px #333333;
 }

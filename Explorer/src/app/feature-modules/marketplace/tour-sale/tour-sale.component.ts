@@ -94,6 +94,15 @@ export class TourSaleComponent {
   onAddClicked(): void {
     this.discard();
     this.shouldRenderTourSaleForm = true;
+
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 50);
+  }
+
+  scrollToBottom() {
+    const height = document.documentElement.scrollHeight;
+    window.scrollTo(0, height);
   }
 
   tourSaleForm1 = new FormGroup({
@@ -114,7 +123,7 @@ export class TourSaleComponent {
     if (!this.tourSaleForm1.value.date1 || !this.tourSaleForm1.value.date2) { alert('Insert dates.'); return; }
     const d1 = this.tourSaleForm1.value.date1.toString().split('T')[0];
     const d2 = this.tourSaleForm1.value.date2.toString().split('T')[0];
-    
+
     let currentDate = new Date();
     let date1 = new Date(d1);
     let date2 = new Date(d2);
@@ -128,6 +137,9 @@ export class TourSaleComponent {
 
       if (daysDifference <= 14) {
 
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 50);
       } else {
         alert('Dates are more than 14 days apart.');
         return;
@@ -290,7 +302,7 @@ export class TourSaleComponent {
             }
             else this.toursSelected1.push(elem);
           });
-        } 
+        }
         if(this.tours1.length == 0 && this.toursSelected1.length == 0) {
           alert('None available found.');
           this.showupdt = false;
