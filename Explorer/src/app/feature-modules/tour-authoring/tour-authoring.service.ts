@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { EventEmitter, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 import { TourPointRequest } from '../administration/model/tourpoint-request.model';
 import { PublicTourPoint } from './model/publicTourPoint.model';
+import { TourBundle } from './model/tourBundle.model';
 
 @Injectable({
   providedIn: 'root',
@@ -197,6 +198,45 @@ export class TourAuthoringService {
     return this.http.put<Tour>(
       environment.apiHost + 'administration/tour/archive/' + tour.id,
       tour
+    );
+  }
+
+  getAllTours(): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost + 'administration/tour/allTours'
+    );
+  }
+  createTourBundle(tourBundle: TourBundle){
+    return this.http.post<PagedResults<TourBundle>>(
+      environment.apiHost + 'author/tourBundle', tourBundle
+    );
+  }
+
+  getAllBundles(): Observable<PagedResults<TourBundle>>{
+    return this.http.get<PagedResults<TourBundle>>(
+      environment.apiHost+ 'author/tourBundle'
+    )
+  }
+
+  getToursByBundle(tourIds: number[]){
+    let params = new HttpParams();
+    tourIds.forEach((id) => {
+      params = params.append('tourIds', id.toString());
+    });
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost+ 'author/tourBundle/toursByBundle', { params: params }
+    );
+  }
+
+  updateBundle(bundle: TourBundle): Observable<TourBundle>{
+    return this.http.put<TourBundle>(
+      environment.apiHost+ 'author/tourBundle/'+ bundle.id, bundle
+    );
+  }
+
+  deleteBundle(id:number): Observable<TourBundle>{
+    return this.http.delete<TourBundle>(
+      environment.apiHost+ 'author/tourBundle/'+ id
     );
   }
 }

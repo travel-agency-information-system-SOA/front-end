@@ -17,6 +17,7 @@
                 <div class="ddc">
                     <a *ngIf="user && user.role === 'tourist'" href="purchasedTours">Purchased Tours</a>
                     <a *ngIf="user && user.role === 'tourist'" href="tours-show">Rate Visited Tours</a>
+                    <a *ngIf="user && user.role === 'tourist'" href="tourReviewShow">My Reviews</a>
                     <a *ngIf="user && user.role === 'tourist'" href="problems">Tour Problems</a>
                 </div>
             </div> 
@@ -54,7 +55,9 @@
             <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tour']">Add Tour</button>
             <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['private-tour-points']">Private Tour Points</button>
             <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['problems']">Problem Chats</button>
-            
+            <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tourBundleCreate']">Create TourBundle</button>
+            <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tourBundlesShow']">Show TourBundles</button>
+
             <div *ngIf="user && (user.role === 'tourist' || user.role === 'author')" class="dd">
                 <button raised-button [routerLink]="['profile']" class="nbutton">Profile <i class="fa fa-caret-down"></i></button>
                 <div class="ddc">

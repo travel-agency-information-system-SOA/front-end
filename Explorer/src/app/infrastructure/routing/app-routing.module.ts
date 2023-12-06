@@ -51,6 +51,8 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
+import { TourBundleCreateComponent } from 'src/app/feature-modules/tour-authoring/tour-bundle-create/tour-bundle-create.component';
+import { TourBundlesShowComponent } from 'src/app/feature-modules/tour-authoring/tour-bundles-show/tour-bundles-show.component';
 
 
 const routes: Routes = [
@@ -140,6 +142,8 @@ const routes: Routes = [
   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
+  { path: 'tourBundleCreate', component: TourBundleCreateComponent},
+  { path: 'tourBundlesShow', component: TourBundlesShowComponent},
 ];
 
 @NgModule({

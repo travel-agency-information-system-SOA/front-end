@@ -19,6 +19,8 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TourMapComponent } from './tour-map/tour-map.component';
 import { PrivateTourPointsComponent } from './private-tour-points/private-tour-points.component';
+import { TourBundleCreateComponent } from './tour-bundle-create/tour-bundle-create.component';
+import { TourBundlesShowComponent } from './tour-bundles-show/tour-bundles-show.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +33,8 @@ import { PrivateTourPointsComponent } from './private-tour-points/private-tour-p
     TourMapComponent,
     EquipmentDialogComponent,
     PrivateTourPointsComponent,
+    TourBundleCreateComponent,
+    TourBundlesShowComponent,
   ],
 
   imports: [
