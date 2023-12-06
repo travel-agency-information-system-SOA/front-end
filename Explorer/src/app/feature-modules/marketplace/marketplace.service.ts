@@ -389,4 +389,9 @@ export class MarketplaceService {
     ); 
   }
 
+  getTourDiscount(id: number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourSale/tour/' + id
+    ); 
+  }
 }
