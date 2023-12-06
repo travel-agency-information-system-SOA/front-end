@@ -19,6 +19,7 @@ export class TourSearchComponent implements OnInit {
   isListVisible: boolean = false;
 
   tours: Tour[] = [];
+  toursDiscMap = new Map<number, number>();
   brTura: number = 0;
 
   constructor(private service: MarketplaceService,
@@ -48,6 +49,7 @@ export class TourSearchComponent implements OnInit {
           this.isListVisible = true;
           this.tours = result.results;
           this.brTura = this.tours.length;
+          this.getDiscounts();
           console.log(this.brTura);
         },
         error: (err) => {
@@ -55,7 +57,31 @@ export class TourSearchComponent implements OnInit {
           console.error('Error: ', err);
         }
       });
+    }
+  }
 
+  getDiscounts(): void {
+    this.tours.forEach((tour) => {
+      console.log(tour);
+      this.service.getTourDiscount(tour.id || -1).subscribe({
+        next: (result: number) => {
+          this.toursDiscMap.set(tour.id || -1, result);
+        },
+        error: (err) => {
+          console.error('Error: ', err);
+        }
+      });
+    });
+  }
+
+  getDisc(id: any, price: any): number {
+    const disc = this.toursDiscMap.get(id);
+    if (disc !== undefined) {
+      return (100-disc)*price/100;
+    } else {
+      // Handle the case where the id is not found (you can throw an error or return a default value)
+      // For now, returning undefined
+      return price;
     }
   }
 }

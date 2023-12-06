@@ -54,6 +54,7 @@
             <div class="price">
               <p class="price-text">Price</p>
               <p class="price-number">{{ tour.price }}</p>
+              <p class="price-number">{{ getDisc(tour.id, tour.price) }}</p>
             </div>
 
             <p class="difficulty" [ngClass]="{'easy': tour.difficultyLevel === 'Easy', 'moderate': tour.difficultyLevel === 'Moderate', 'difficult': tour.difficultyLevel === 'Difficult'}">
