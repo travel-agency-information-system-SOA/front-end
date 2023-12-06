@@ -5,6 +5,7 @@ import { TourAuthoringService } from '../tour-authoring.service';
 import { Router } from '@angular/router';
 import { PublicTourPoint } from '../model/publicTourPoint.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'xp-tour-tourist',
@@ -13,15 +14,21 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class TourTouristComponent implements OnInit {
   publicTourPoints: PublicTourPoint[] = [];
+  tours: Tour[] = []; 
+  selectedTour: Tour;
   temporaryTourPoints: PublicTourPoint[] = [];
+  shouldRenderTourForm: boolean = false;
   page: number = 1;
   pageSize: number = 10;
+  showTourForm: boolean = false;
+
   selectedPublicTP: PublicTourPoint;
 
   constructor(
     private tokenStorage: TokenStorage,
     private service: TourAuthoringService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
@@ -36,6 +43,14 @@ export class TourTouristComponent implements OnInit {
         console.log(this.publicTourPoints);
       });
   }
+  addTour() {
+    this.showTourForm = true;
+    this.shouldRenderTourForm = false;
+  }
+
+  onAddTourClicked() {
+    this.showTourForm = false;
+  }
 
   onAddPublicTP(publictp: PublicTourPoint) {
     this.selectedPublicTP = publictp;
@@ -43,12 +58,19 @@ export class TourTouristComponent implements OnInit {
     this.publicTourPoints = this.publicTourPoints.filter(
       (ptp) => ptp !== this.selectedPublicTP
     );
-    console.log(this.temporaryTourPoints[0]);
-  }
+    // this.cdr.detectChanges(); // Ručno pokreni Angular Change Detection
 
+    console.log("Temp kt",this.temporaryTourPoints);
+  }
   findTours() {
+    console.log('Temporary Tour Points:', this.temporaryTourPoints);
     this.service
       .findTours(this.temporaryTourPoints, this.page, this.pageSize)
-      .subscribe();
+      .subscribe((pagedResults: PagedResults<Tour>) => {
+        this.tours = pagedResults.results;
+        console.log(this.tours);
+      });
   }
+  
 }
+

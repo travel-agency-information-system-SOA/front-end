@@ -10,6 +10,39 @@
   min-height: 150vh;
   height: 100%;
 }
+.creating-tour{
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.buttons{
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.buttonCreate{
+  height: 80%;
+  width: 60%;
+  border-radius: 8px;
+  background-color: #124174;
+  color: #ffffff;
+  padding: 5px 10px;
+  width: 100px;
+}
+.frame{
+  display: flex;
+  flex-direction: row;
+}
+
+
+
+.tour-form{
+  display: flex;
+  width: 400px;
+}
+
+
 
 .inner-wrapper {
   display: flex;
