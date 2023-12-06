@@ -20,6 +20,7 @@
         </div>
       </div>
 
+
       <div *ngIf="user && user.role === 'tourist'" class="dd">
         <button raised-button [routerLink]="['purchasedTours']" class="nbutton">
           My Tours <i class="fa fa-caret-down"></i>
@@ -37,8 +38,10 @@
           <a *ngIf="user && user.role === 'tourist'" href="tour-tourist"
             >Personalized tour</a
           >
+          <a *ngIf="user && user.role === 'tourist'" href="compositeTours">Composite tours</a>
         </div>
       </div>
+
 
       <button
         class="nbutton"
