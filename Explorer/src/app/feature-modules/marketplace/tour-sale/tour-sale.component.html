@@ -136,11 +136,11 @@
             <div>
                 <mat-form-field>
                     <mat-label>Start Date</mat-label>
-                    <input matInput type="date" formControlName="date1" placeholder="fff">
+                    <input matInput type="date" formControlName="date1" placeholder="fff" (change)="onDateChange()">
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>End Date</mat-label>
-                    <input matInput type="date" formControlName="date2" placeholder="fff">
+                    <input matInput type="date" formControlName="date2" placeholder="fff" (change)="onDateChange()">
                 </mat-form-field>
                 <mat-form-field>
                     <mat-label>Discount</mat-label>

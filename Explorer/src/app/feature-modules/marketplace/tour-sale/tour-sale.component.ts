@@ -20,7 +20,7 @@ export class TourSaleComponent {
   toursSelected1: Tour[] = [];
   tourSales: TourSale[] = [];
   selectedTourSale: TourSale;
-  shouldEdit: boolean;
+  shouldEdit: boolean = false;
   shouldRenderTourSaleForm: boolean = false;
   srcd: boolean = false;
   showupdt: boolean = false;
@@ -34,6 +34,17 @@ export class TourSaleComponent {
       console.log(this.user);
     });
     this.getTourSales(this.user);
+  }
+
+  discard(): void {
+    this.shouldEdit = false;
+    this.shouldRenderTourSaleForm = false;
+    this.srcd = false;
+    this.showupdt = false;
+  }
+
+  onDateChange(): void {
+    this.showupdt = false;
   }
 
   getTourSales(id: number): void {
@@ -54,25 +65,21 @@ export class TourSaleComponent {
     this.tourSaleForm1.reset();
     this.tourSaleForm2.reset();
     this.tourSaleForm3.reset();
+    this.discard();
     this.shouldRenderTourSaleForm = true;
     this.shouldEdit = true;
     this.selectedTourSale = ts;
-    this.showupdt = false;
-    this.srcd = false;
     this.tourSaleForm3.get('date1')?.setValue(this.selectedTourSale.startDate.toString().split('T')[0]);
     this.tourSaleForm3.get('date2')?.setValue(this.selectedTourSale.endDate.toString().split('T')[0]);
     this.tourSaleForm3.get('salePerc')?.setValue(this.selectedTourSale.salePercentage);
-    console.log(this.selectedTourSale);
   }
 
   onDeleteClicked(ts: TourSale): void {
     this.tourSaleForm1.reset();
     this.tourSaleForm2.reset();
     this.tourSaleForm3.reset();
+    this.discard();
     this.selectedTourSale = ts;
-    this.showupdt = false;
-    this.shouldRenderTourSaleForm = false;
-    this.srcd = false;
     this.service.deleteTourSale(this.selectedTourSale).subscribe({
       next: (_) => {
         console.log("Deleted");
@@ -85,9 +92,8 @@ export class TourSaleComponent {
   }
 
   onAddClicked(): void {
+    this.discard();
     this.shouldRenderTourSaleForm = true;
-    this.showupdt = false;
-    this.shouldEdit = false;
   }
 
   tourSaleForm1 = new FormGroup({
@@ -104,9 +110,32 @@ export class TourSaleComponent {
   });
 
   searchTourSale(): void {
-    if (!this.tourSaleForm1.value.date1 || !this.tourSaleForm1.value.date2) return;
+    this.srcd = false;
+    if (!this.tourSaleForm1.value.date1 || !this.tourSaleForm1.value.date2) { alert('Insert dates.'); return; }
     const d1 = this.tourSaleForm1.value.date1.toString().split('T')[0];
     const d2 = this.tourSaleForm1.value.date2.toString().split('T')[0];
+    
+    let currentDate = new Date();
+    let date1 = new Date(d1);
+    let date2 = new Date(d2);
+    currentDate.setHours(0, 0, 0, 0);
+    date1.setHours(0, 0, 0, 0);
+    date2.setHours(0, 0, 0, 0);
+
+    if (date1 >= currentDate && date2 >= currentDate && date1 <= date2) {
+      const dateDifference = Math.abs(date2.getTime() - date1.getTime());
+      const daysDifference = Math.ceil(dateDifference / (1000 * 3600 * 24));
+
+      if (daysDifference <= 14) {
+
+      } else {
+        alert('Dates are more than 14 days apart.');
+        return;
+      }
+    } else {
+      alert('Invalid date order or date is in the past.');
+      return;
+    }
 
     this.service.getPubToursForAut(this.user).subscribe({
       next: (result) => {
@@ -127,12 +156,11 @@ export class TourSaleComponent {
             return xx;
           });
         }
-        //ne radi bas ovo ispod
-        if (this.tours) {
-          this.srcd = true;
-        } else {
-          alert("Nemaa");
+        if(this.tours.length == 0) {
+          alert('None available found.');
+          this.srcd = false;
         }
+        else this.srcd = true;
       }
     });
   }
@@ -167,6 +195,11 @@ export class TourSaleComponent {
   }
 
   addTourSale(): void {
+    if(this.toursSelected.length == 0) {
+      alert('None selected.')
+      return;
+    }
+
     const tourSale: TourSale = {
       authorId: this.user,
       startDate: this.tourSaleForm1.value.date1
@@ -178,7 +211,10 @@ export class TourSaleComponent {
       salePercentage: this.tourSaleForm2.value.salePerc || 0,
       tourIds: this.toursSelected.map(tour => tour?.id || -1)
     }
-    if(!tourSale.tourIds) return; // ako nema tura nemore kreirat mozda i za ostala polja uraditi NE RADIi provera da je razmak datuma 14
+    if(tourSale.salePercentage == 0) {
+      alert('Enter discount.');
+      return;
+    }
     this.service.addTourSale(tourSale).subscribe({
       next: (_) => {
         console.log('Sale Created')
@@ -193,6 +229,7 @@ export class TourSaleComponent {
     });
   }
   updateTourSale1(): void {
+    this.showupdt = false;
     this.tours = [];
     this.toursSelected = [];
     this.tours1 = [];
@@ -200,6 +237,29 @@ export class TourSaleComponent {
     if (!this.tourSaleForm3.value.date1 || !this.tourSaleForm3.value.date2) return;
     const d1 = this.tourSaleForm3.value.date1.toString().split('T')[0];
     const d2 = this.tourSaleForm3.value.date2.toString().split('T')[0];
+
+    let currentDate = new Date();
+    let date1 = new Date(d1);
+    let date2 = new Date(d2);
+    currentDate.setHours(0, 0, 0, 0);
+    date1.setHours(0, 0, 0, 0);
+    date2.setHours(0, 0, 0, 0);
+
+    if (date1 >= currentDate && date2 >= currentDate && date1 <= date2) {
+      const dateDifference = Math.abs(date2.getTime() - date1.getTime());
+      const daysDifference = Math.ceil(dateDifference / (1000 * 3600 * 24));
+
+      if (daysDifference <= 14) {
+
+      } else {
+        alert('Dates are more than 14 days apart.');
+        return;
+      }
+    } else {
+      alert('Invalid date order or date is in the past.');
+      return;
+    }
+
     this.service.getPubToursForAut(this.user).subscribe({
       next: (result) => {
         console.log('Searched');
@@ -207,7 +267,7 @@ export class TourSaleComponent {
         this.toursSelected = [];
         let copp = this.tourSales;
 
-        if (this.tourSales && this.tours) { //izdvoji tu koju updejtas
+        if (this.tourSales && this.tours) {
           this.tours = this.tours.filter(tour => {
             const tourId = tour.id || -1;
             let xx = true;
@@ -220,23 +280,9 @@ export class TourSaleComponent {
             return xx;
           });
         }
-        //ne radi bas ovo ispod
-        if (this.tours) {
-          this.srcd = true;
-        } else {
-          alert("Nemaa");
-        }
-
-
-        console.log(this.tours);
-        console.log(this.toursSelected);
-        console.log(this.tours1);
-        console.log(this.toursSelected1);
-        console.log(this.selectedTourSale.tourIds);
         //check availabilty for dates to tours
         if(!this.selectedTourSale.tourIds) this.toursSelected1 = [];
         else {
-          //this.tours1 = this.tours; //bez this.selectedTourSale.tourIds
           let coppp = this.tours;
           coppp.forEach((elem) => {
             if(!this.selectedTourSale.tourIds.includes(elem.id || -1)) {
@@ -244,16 +290,22 @@ export class TourSaleComponent {
             }
             else this.toursSelected1.push(elem);
           });
-
-          //this.toursSelected1 =this.tours; // presek this.selectedTourSale.tourIds ;
+        } 
+        if(this.tours1.length == 0 && this.toursSelected1.length == 0) {
+          alert('None available found.');
+          this.showupdt = false;
         }
-        this.showupdt = true;
-
+        else this.showupdt = true;
       }
     });
   }
 
   updateTourSale(): void {
+    if(this.toursSelected1.length == 0) {
+      alert('None selected.')
+      return;
+    }
+
     const tourSale: TourSale = {
       authorId: this.user,
       startDate: this.tourSaleForm3.value.date1
@@ -266,7 +318,10 @@ export class TourSaleComponent {
       tourIds: this.toursSelected1.map(tour => tour?.id || -1)
     }
     tourSale.id = this.selectedTourSale.id;
-
+    if(tourSale.salePercentage == 0) {
+      alert('Enter discount > 0.');
+      return;
+    }
     this.service.updateTourSale(tourSale).subscribe({
       next: (_) => {
         console.log('Sale Updated')
