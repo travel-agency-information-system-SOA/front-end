@@ -72,6 +72,10 @@ export class TourSaleComponent {
     this.tourSaleForm3.get('date1')?.setValue(this.selectedTourSale.startDate.toString().split('T')[0]);
     this.tourSaleForm3.get('date2')?.setValue(this.selectedTourSale.endDate.toString().split('T')[0]);
     this.tourSaleForm3.get('salePerc')?.setValue(this.selectedTourSale.salePercentage);
+
+    setTimeout(() => {
+      this.scrollToBottom();
+    }, 50);
   }
 
   onDeleteClicked(ts: TourSale): void {
@@ -262,6 +266,10 @@ export class TourSaleComponent {
       const daysDifference = Math.ceil(dateDifference / (1000 * 3600 * 24));
 
       if (daysDifference <= 14) {
+
+        setTimeout(() => {
+          this.scrollToBottom();
+        }, 50);
 
       } else {
         alert('Dates are more than 14 days apart.');
