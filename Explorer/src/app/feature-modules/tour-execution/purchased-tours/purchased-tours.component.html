@@ -42,7 +42,7 @@
                 <p *ngIf="tour.difficultyLevel==='Moderate'" class="difficulty moderate">{{ tour.difficultyLevel }}</p>
                 <p *ngIf="tour.difficultyLevel==='Difficult'" class="difficulty difficult">{{ tour.difficultyLevel }}</p>
               </div>
-              <button class="startTour">
+              <button class="startTour" (click)="startTour(tour.id)">
                 Start tour
               </button>
             </div>
