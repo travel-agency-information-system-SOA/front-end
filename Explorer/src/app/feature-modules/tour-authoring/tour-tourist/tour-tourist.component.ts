@@ -13,7 +13,6 @@ import { TourPoint } from '../model/tourPoints.model';
 import { MapService } from 'src/app/shared/map/map.service';
 import { FormControl } from '@angular/forms';
 
-
 @Component({
   selector: 'xp-tour-tourist',
   templateUrl: './tour-tourist.component.html',
@@ -41,7 +40,7 @@ export class TourTouristComponent implements OnInit {
     private mapService: MapService,
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private serviceMP:MarketplaceService
+    private serviceMP: MarketplaceService
   ) {}
 
   ngOnInit(): void {
@@ -117,20 +116,16 @@ export class TourTouristComponent implements OnInit {
 
   showTourDetails(tourId: number | undefined): void {
     this.router.navigate(['marketplace', tourId]);
-  
-}
-
-viewMap(idTour: number | undefined): void {
-  if (idTour !== undefined) {
-    this.serviceMP.viewForTourist.emit();
-    this.router.navigate([`/tourMapFirstPoint/${idTour}`]);
-  } else {
-    console.error('ID nije definisan.');
   }
-}
-  
-}
 
+  viewMap(idTour: number | undefined): void {
+    if (idTour !== undefined) {
+      this.serviceMP.viewForTourist.emit();
+      this.router.navigate([`/tourMapFirstPoint/${idTour}`]);
+    } else {
+      console.error('ID nije definisan.');
+    }
+  }
 
   previewTour() {
     this.showTourForm = false;

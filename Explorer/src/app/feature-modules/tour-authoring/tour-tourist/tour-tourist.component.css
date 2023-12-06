@@ -116,26 +116,25 @@
   background-color: #0056b3;
 }
 
-
 @font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+  font-family: "Trip";
+  src: url(src\assets\Fonts\TripSans-Regular.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+  font-family: "Trip";
+  src: url(src\assets\Fonts\TripSans-Medium.ttf) format("truetype");
   font-weight: medium;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+  font-family: "Trip";
+  src: url(src\assets\Fonts\TripSans-Bold.ttf) format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -153,9 +152,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #FFF;
+  background-color: #fff;
 }
-
 
 .title {
   font-size: 42px;
@@ -170,7 +168,7 @@
   padding: 10px 0;
 }
 
-.flex{
+.flex {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -191,18 +189,16 @@
 }
 .additionO {
   border: 1px solid red;
-  border-radius: 5px; 
-  padding: 10px; 
-
+  border-radius: 5px;
+  padding: 10px;
 }
 
-
-.desc{
+.desc {
   display: flex;
   gap: 30px;
 }
 
-.addition{
+.addition {
   color: red;
   font-size: 20px;
 }
@@ -258,8 +254,8 @@
 .tag {
   font-size: 12px;
   font-weight: medium;
-  color: #FFF;
-  background-color: #E23A55;
+  color: #fff;
+  background-color: #e23a55;
   border-radius: 15px;
   padding: 3px 9px;
 }
@@ -322,7 +318,7 @@
   font-size: 14px;
   border-radius: 6px;
   padding: 2px 4px;
-  color: #FFF;
+  color: #fff;
 }
 
 .easy {
@@ -355,6 +351,7 @@
   text-align: left;
   overflow: hidden;
   white-space: pre-wrap;
+}
 
 .map-container {
   display: flex;
@@ -395,5 +392,4 @@
   background-color: rgba(246, 245, 245, 0.8);
   border-radius: 10px;
   padding: 5px 10px;
-
 }
