@@ -205,21 +205,27 @@ export class MapComponent implements AfterViewInit {
     });
 
     this.tourAuthoringService
-      .getObjInTourByTourId(parseInt(this.tourId))
-      .subscribe(
-        (objects: any) => {
-          this.objects = objects;
+    .getObjInTourByTourId(parseInt(this.tourId))
+    .subscribe(
+      (objects: any) => {
+        this.objects = objects;
+  
+        if (this.objects && this.objects.length > 0) {
           this.objects.forEach((object) => {
             L.marker([object.latitude, object.longitude], {
               icon: specialTourIcon,
             }).addTo(this.map);
           });
           console.log('Dohvaćeni objekti:', objects);
-        },
-        (error) => {
-          console.error('Greška prilikom dohvatanja objekata:', error);
+        } else {
+          console.log('No objects to display.');
         }
-      );
+      },
+      (error) => {
+        console.error('Greška prilikom dohvatanja objekata:', error);
+      }
+  );
+  
   }
 
   setFirstPoint(): void {
