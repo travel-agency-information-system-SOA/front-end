@@ -62,7 +62,7 @@
             <div class="price">
               <ng-container *ngIf="getDisc(tour.id, tour.price) < tour.price; else noDiscount">
                 <p class="price-text">Price</p>
-                <p class="price-number crossed-out">{{ tour.price }}</p>
+                <p class="price-number old-price crossed-out">{{ tour.price }}</p>
                 <p class="price-number discount-price">{{ getDisc(tour.id, tour.price) }}</p>
               </ng-container>
               <ng-template #noDiscount>

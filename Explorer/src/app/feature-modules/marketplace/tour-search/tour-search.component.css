@@ -102,6 +102,8 @@
 }
 
 .p-slider-value {
+  font-family: 'Trip', sans-serif;
+  font-weight: medium;
   font-size: 16px;
   margin: 0;
 }
@@ -278,24 +280,26 @@
   color: #E23A55;
 }
 
+.old-price {
+  font-size: 18px;
+  color: #999;
+}
+
 .crossed-out {
   position: relative;
-  font-size: 18px;
-  /*text-decoration: line-through;*/
-  color: #999; /* Optional: Change the color of the crossed-out text */
 }
+
 .crossed-out::before {
   content: '';
   position: absolute;
-  top: 50%;
+  top: calc(50% - 2px);
   left: 0;
   width: 100%;
-  height: 2px; /* Adjust the thickness of the diagonal line */
-  background-color: #999; /* Adjust the color of the diagonal line */
+  height: 2px;
+  background-color: #999;
   transform: rotate(-45deg);
   transform-origin: center;
 }
-
 
 .difficulty {
   font-size: 14px;

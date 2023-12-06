@@ -5,6 +5,7 @@ import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketpl
 import { Tour } from "../../tour-authoring/tour/model/tour.model";
 import { PagedResults } from "../../../shared/model/paged-results.model";
 import { GoogleAnalyticsService } from "../../../infrastructure/google-analytics/google-analytics.service";
+import { forkJoin } from "rxjs";
 
 @Component({
   selector: 'xp-tour-search',
@@ -70,21 +71,31 @@ export class TourSearchComponent implements OnInit {
   }
 
   getDiscounts(): void {
-    this.tours.forEach((tour) => {
-      console.log(tour);
-      this.service.getTourDiscount(tour.id || -1).subscribe({
-        next: (result: number) => {
+    const observables = this.tours.map((tour) =>
+      this.service.getTourDiscount(tour.id || -1)
+    );
+
+    forkJoin(observables).subscribe({
+      next: (results: number[]) => {
+        results.forEach((result, index) => {
+          const tour = this.tours[index];
+
           this.toursDiscMap.set(tour.id || -1, result);
 
           const discValue = this.toursDiscMap.get(tour.id || -1);
-            if (discValue !== undefined && discValue >= this.discount) {
-              this.toursfil.push(tour);
-            } else this.brTura--;
-        },
-        error: (err) => {
-          console.error('Error: ', err);
-        }
-      });
+
+          if (discValue !== undefined && discValue >= this.discount) {
+            this.toursfil.push(tour);
+          } else {
+            this.brTura--;
+          }
+        });
+
+        this.toursfil.sort((a, b) => a.id! - b.id!);
+      },
+      error: (err) => {
+        console.error('Error: ', err);
+      },
     });
   }
 
