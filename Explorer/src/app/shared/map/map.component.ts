@@ -87,10 +87,6 @@ export class MapComponent implements AfterViewInit {
         this.setObjects();
       }
     })
-
-
-
-
   }
 
   ngOnDestroy(): void {
@@ -148,11 +144,6 @@ export class MapComponent implements AfterViewInit {
       }
     });
 
-
-
-
-
-
     this.tourPointAddSubscription =
       this.tourAuthoringService.tourPointAdded.subscribe(() => {
         if (this.routeControl) {
@@ -169,9 +160,6 @@ export class MapComponent implements AfterViewInit {
         this.setFirstPoint();
       });
 
-
-
-
     this.transportTypechanged =
       this.tourAuthoringService.transportTypeChanged.subscribe(() => {
         if (this.routeControl) {
@@ -180,8 +168,6 @@ export class MapComponent implements AfterViewInit {
         this.setRoute();
       });
   }
-
-
 
   registerOnClick(): void {
     this.map.on('click', (e: any) => {
@@ -198,7 +184,6 @@ export class MapComponent implements AfterViewInit {
           }
         });
       }
-
       this.service.reverseSearch(lat, lng).subscribe((res) => {
         console.log(res.display_name);
       });
@@ -303,9 +288,6 @@ export class MapComponent implements AfterViewInit {
       console.error('Invalid tourId:', tourId);
     }
   }
-
-
-
 
   setPosition() {
     this.administrationService

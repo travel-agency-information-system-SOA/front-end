@@ -8,6 +8,10 @@ import { EquipmentService } from '../../tour-authoring/equipment.servise';
 import { TourEquipmentService } from '../../tour-authoring/tour_equipment.service';
 import { Observable, forkJoin, map } from 'rxjs';
 import { EquipmentTour } from '../../tour-authoring/tour/model/equipmentTour.model';
+import { Route, Router } from '@angular/router';
+import { MapService } from 'src/app/shared/map/map.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { TransportType } from '../../tour-authoring/tour/model/tourCharacteristic.model';
 
 interface ExtendedComTour extends Tour {
   equipments?: Equipment[];
@@ -28,7 +32,9 @@ constructor(
   private tokenStorage: TokenStorage,
   private service: TourAuthoringService,
   private equipmentService: EquipmentService,
-  private toureqService: TourEquipmentService,){
+  private toureqService: TourEquipmentService,
+  private router:  Router,
+  private mapService: MapService,){
 }
 
   ngOnInit(): void {
@@ -53,9 +59,14 @@ constructor(
     });
   }
 
-  viewMap(id: number){
-
+  viewMap(idTour: number | undefined): void {
+    if (idTour !== undefined) {
+      this.router.navigate([`/tourMap/${idTour}`]); // Use backticks for template literals
+    } else {
+      console.error('ID nije definisan.');
+    }
   }
+  
 
   getEquipments(): Observable<Equipment[]> {
     const observables = this.extendedTours.map(tour => this.toureqService.getEquipmentForTour(tour.id || 0));

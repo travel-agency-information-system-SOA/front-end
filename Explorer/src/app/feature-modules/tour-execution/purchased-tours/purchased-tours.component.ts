@@ -24,6 +24,11 @@ import { Equipment } from '../../tour-authoring/tour/model/equipment.model';
 import { EquipmentService } from '../../tour-authoring/equipment.servise';
 import { EquipmentTour } from '../../tour-authoring/tour/model/equipmentTour.model';
 import { Observable, forkJoin, map } from 'rxjs';
+import { TourPoint } from '../../tour-authoring/model/tourPoints.model';
+import { TourCharacteristic, TransportType } from '../../tour-authoring/tour/model/tourCharacteristic.model';
+import { MapService } from 'src/app/shared/map/map.service';
+import { TourObject } from '../../tour-authoring/model/tourObject.model';
+import { ObjInTour } from '../../tour-authoring/model/objInTour.model';
 
 interface ExtendedTour extends Tour {
   selected?: boolean;
@@ -134,7 +139,7 @@ export class PurchasedToursComponent implements OnInit{
     selector: 'app-confirmation-dialog',
     template: `
   <div class="example-container">
-    <h2>Choose order:</h2>
+    <h2>Choose order for composite tour:</h2>
     <div
       cdkDropList
       #todoList="cdkDropList"
@@ -167,11 +172,13 @@ styles: [`
     overflow: hidden;
     display: block;
     margin-bottom: 10px; /* Add some space between the list and the button */
+    
   }
 
   .example-box {
     padding: 20px 10px;
     border-bottom: solid 1px #ccc;
+    border-color: #2E8B57;
     color: rgba(0, 0, 0, 0.87);
     display: flex;
     flex-direction: row;
@@ -181,6 +188,7 @@ styles: [`
     cursor: move;
     background: white;
     font-size: 14px;
+    background-color: #90EE90;
   }
 
   .cdk-drag-preview {
@@ -207,22 +215,32 @@ styles: [`
     transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
   }
 
+  label{
+    color: #2E8B57;
+  }
+
   .button {
     display: block;
     margin: 0 auto; /* Center the button horizontally */
     padding: 10px 20px;
     font-size: 16px;
-    background-color: #4caf50; /* Add a background color */
-    color: white; /* Set text color to white */
+    background-color: #90EE90; /* Add a background color */
+    color: black; /* Set text color to white */
     border: none;
     border-radius: 4px;
     cursor: pointer;
+    margin-top: 10px;
     transition: background-color 0.3s; /* Add a smooth transition for the background color */
   }
 
   .button:hover {
     background-color: #45a049; /* Darker color on hover */
   }
+
+  h2{
+    color: #2E8B57;
+  }
+  
 `],
     standalone: true,
     imports: [CdkDropList, CdkDrag, CommonModule, ReactiveFormsModule ],
@@ -239,11 +257,17 @@ styles: [`
       private service: TourAuthoringService,
       private equipmentService: EquipmentService,
       private toureqService: TourEquipmentService,
+      private mapService: MapService,
+      private tourObjService: TourAuthoringService,
     ) {
       this.todo = [...data.tours];
     }
   
     todo: Tour[];
+    totalDistance: number;
+    totalTime: number;
+    tranportTime: TransportType;
+    tourCharack: TourCharacteristic[];
 
     compositeTourForm = new FormGroup({
       name: new FormControl('', [Validators.required]),
@@ -277,13 +301,13 @@ styles: [`
         guideId: this.tokenStorage.getUserId(),
         price: this.calculatePrice(),
         tags: ['xzy', 'abc'],
-        tourPoints: [],
-        tourCharacteristics: [],
+        tourPoints: this.makeTourPointsForAll(),
+        tourCharacteristics: this.getTourCharacteristic(),
         tourReviews: [],
       };
-
       this.service.addTour(tour).subscribe({
         next: (result: Tour) => {
+          this.getTourObjects(result.id || 0);
           this.addComplexTourEquipment(result.id || 0);
           this.dialogRef.close();
           this.router.navigate(['/compositeTours']);
@@ -340,17 +364,6 @@ styles: [`
           return uniqueEquipmentIds;
         })
       );
-    
-      
-
-         /* this.equipmentService.getEquipment().subscribe((pagedResults: PagedResults<Equipment>) => {
-              equipments = pagedResults.results;
-              equipments.forEach((equipment) => {
-                if (!selectedEquipmentIds.includes(equipment.id) && !uniqueEquipments.some(e => e.id === equipment.id)) {
-                  uniqueEquipments.push(equipment);
-                }
-              });
-            });*/
     }
 
     addComplexTourEquipment(tourId: number): void {
@@ -363,5 +376,55 @@ styles: [`
           this.toureqService.addEquipment(tourId, eqId || 0).subscribe();
         });
       });
+    }
+
+    makeTourPointsForAll() : TourPoint[] {
+      var tourPoints: TourPoint[] = [];
+
+      this.todo.forEach(tour => {
+          tour.tourPoints.forEach(tourPoint => {
+            var point: TourPoint = {
+              tourId: tour.id || 0,
+              name: tourPoint.name || '',
+              description: tourPoint.description || '',
+              imageUrl: tourPoint.imageUrl || '',
+              latitude: tourPoint.latitude,
+              longitude: tourPoint.longitude,
+              secret: tourPoint.secret || '',
+            }
+            tourPoints.push(point)
+          })
+
+      })
+      return tourPoints;
+    }
+
+    getTourCharacteristic(): TourCharacteristic[] {
+
+      var tourCharacteristic: TourCharacteristic[] = []
+      this.todo.forEach(tour => {
+        tourCharacteristic = [...tour.tourCharacteristics];
+      })
+
+      return tourCharacteristic;
+    }
+
+    getTourObjects(idTour: number): void {
+      var objects : TourObject[] = []
+      this.todo.forEach(tour => {
+        this.tourObjService.getObjInTourByTourId(tour.id || 0).subscribe({
+            next : (objs: TourObject[]) => {
+              objects = [...objs]
+            }
+        })
+      })
+      objects.forEach(obj=> {
+        var to: ObjInTour={
+          idObject: obj.id || 0,
+          idTour: idTour || 0,
+        }
+       this.tourObjService.addObjInTour(to);
+      })
+
     }
   }
