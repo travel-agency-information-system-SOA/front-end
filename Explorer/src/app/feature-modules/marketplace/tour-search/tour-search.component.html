@@ -18,6 +18,7 @@
           <p class="p-value">{{ longitude }}</p>
         </div>
       </div>
+      <span><p class="p-header">Show tours with discount >= than...</p><input type="range" min="0" max="100" step="1" value="0" (input)="updateSliderValue($event)"><p class="p-value">{{ discount }}</p></span>
       <button class="button" raised-button type="submit" (click)="search()">Search</button>
     </div>
   </form>
@@ -31,7 +32,7 @@
     <div class="slide-content">
     <div class="card-wrapper">
 
-      <div class="card" *ngFor="let tour of tours">
+      <div class="card" *ngFor="let tour of toursfil">
 
         <div class="image-content">
             <span class="overlay">

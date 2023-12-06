@@ -16,9 +16,11 @@ export class TourSearchComponent implements OnInit {
   range: number = 0;
   latitude: number = 0;
   longitude: number = 0;
+  discount: number = 0;
   isListVisible: boolean = false;
 
   tours: Tour[] = [];
+  toursfil: Tour[] = [];
   toursDiscMap = new Map<number, number>();
   brTura: number = 0;
 
@@ -41,7 +43,14 @@ export class TourSearchComponent implements OnInit {
     });
   }
 
+  updateSliderValue(event: Event): void {
+    const value = (event.target as HTMLInputElement).value;
+    this.discount = parseInt(value);
+  }
+
   search(): void {
+    this.tours = [];
+    this.toursfil = [];
     if (this.searchForm.valid && this.latitude != 0 && this.longitude != 0) {
 
       this.service.getToursByLocation(this.latitude, this.longitude, this.searchForm.value.range || 0).subscribe({
@@ -66,6 +75,11 @@ export class TourSearchComponent implements OnInit {
       this.service.getTourDiscount(tour.id || -1).subscribe({
         next: (result: number) => {
           this.toursDiscMap.set(tour.id || -1, result);
+
+          const discValue = this.toursDiscMap.get(tour.id || -1);
+            if (discValue !== undefined && discValue >= this.discount) {
+              this.toursfil.push(tour);
+            } else this.brTura--;
         },
         error: (err) => {
           console.error('Error: ', err);
@@ -79,8 +93,6 @@ export class TourSearchComponent implements OnInit {
     if (disc !== undefined) {
       return (100-disc)*price/100;
     } else {
-      // Handle the case where the id is not found (you can throw an error or return a default value)
-      // For now, returning undefined
       return price;
     }
   }
