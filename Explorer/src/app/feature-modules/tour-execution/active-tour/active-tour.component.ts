@@ -58,6 +58,7 @@ export class ActiveTourComponent implements OnChanges{
     this.getTourExecutionByUser(this.userId);
     this.getTourExecutionPoints();
     this.getTourPoints();
+    console.log("lol: ",this.activeTour.id)
     
   }
 
@@ -209,7 +210,7 @@ export class ActiveTourComponent implements OnChanges{
   }
 
   getTourExecutionPoints(): void{
-    this.service.getPointsByExecution(1).subscribe(
+    this.service.getPointsByExecution(this.userId).subscribe(
       (data) => {
         //console.log(data);
         this.executionPoints = data.results;
@@ -228,7 +229,7 @@ export class ActiveTourComponent implements OnChanges{
       (data) => {
         // Handle the response data here
         this.tourPoints = data.results;
-        console.log(this.tourPoints);
+        console.log("TourPoint: ",this.tourPoints);
 
         this.populateTourPointsMap();
 
