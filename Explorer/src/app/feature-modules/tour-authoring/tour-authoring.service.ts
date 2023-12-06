@@ -176,7 +176,7 @@ export class TourAuthoringService {
 
   getTourByTourId(id: number): Observable<Tour> {
     return this.http.get<Tour>(
-      `https://localhost:44333/api/administration/tour/onetour/${id}`
+      environment.apiHost+ `administration/tour/onetour/${id}`
     );}
 
  

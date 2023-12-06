@@ -27,7 +27,7 @@ import { BlogPostUpdateComponent } from './blog-post-update/blog-post-update.com
     BlogComponent,
     BlogPostDetailComponent,
     BlogPostCreationComponent,
-    BlogPostUpdateComponent
+    BlogPostUpdateComponent,
   ],
   imports: [
     CommonModule,

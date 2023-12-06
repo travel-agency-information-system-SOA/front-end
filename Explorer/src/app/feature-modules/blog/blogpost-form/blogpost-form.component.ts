@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BlogService } from '../blog.service';
@@ -14,14 +14,22 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 
 
-export class BlogpostFormComponent implements OnChanges {
+export class BlogpostFormComponent implements OnChanges,OnInit {
   
   @Output() blogPostsUpdated = new EventEmitter<null>();
   @Input() blogPost: BlogPost;
   @Input() shouldEdit: boolean = false;
   @Input() shouldEditDraft: boolean = false;
   
-  constructor(private service: BlogService, private tokenStorage: TokenStorage, private router: Router) { }
+
+  tourId:number;
+  constructor(private service: BlogService, private tokenStorage: TokenStorage, private router: Router, private route: ActivatedRoute) { }
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.tourId = params['id']; 
+      console.log('ID ture:', this.tourId);
+    });
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.blogPostForm.reset();
@@ -51,6 +59,7 @@ export class BlogpostFormComponent implements OnChanges {
     const blogPost = {
       id: 0,
       authorId: this.tokenStorage.getUserId() || 0,
+      tourId:this.tourId,
       authorUsername: null,
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',
@@ -64,7 +73,12 @@ export class BlogpostFormComponent implements OnChanges {
     this.service.addBlogPost(blogPost).subscribe({
       next: (_) => {
         this.blogPostsUpdated.emit();
-        this.router.navigate(['/blog']);
+        if(this.tourId === 0){
+          this.router.navigate(['/blog'])
+        }else{
+          this.router.navigate(['/blog']);
+
+        }
       }
     });
     
@@ -84,6 +98,7 @@ export class BlogpostFormComponent implements OnChanges {
     const blogPost = {
       id: 0,
       authorId: this.tokenStorage.getUserId() || 0,
+      tourId:0,
       authorUsername: null,
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',
@@ -116,6 +131,7 @@ export class BlogpostFormComponent implements OnChanges {
       const blogPost = {
         id: this.blogPost.id,
         authorId: this.blogPost.authorId,
+        tourId:0,
         authorUsername: this.blogPost.authorUsername,
         title: this.blogPostForm.value.title || '',
         description: this.blogPostForm.value.description || '',
@@ -147,6 +163,7 @@ export class BlogpostFormComponent implements OnChanges {
     const blogPost = {
       id: this.blogPost.id,
       authorId: this.blogPost.authorId,
+      tourId:0,
       authorUsername: this.blogPost.authorUsername,
       title: this.blogPostForm.value.title || '',
       description: this.blogPostForm.value.description || '',

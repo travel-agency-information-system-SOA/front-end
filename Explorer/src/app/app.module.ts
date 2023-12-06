@@ -57,7 +57,8 @@ import { EncountersModule } from './feature-modules/encounters/encounters.module
     MatDialogModule,
     MatButtonModule,
     CommonModule,
-    EncountersModule
+    EncountersModule,
+    
   ],
   providers: [
     {

@@ -51,6 +51,8 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
+import { MyEndedToursComponent } from 'src/app/feature-modules/tour-execution/my-ended-tours/my-ended-tours.component';
+import { BlogpostFormComponent } from 'src/app/feature-modules/blog/blogpost-form/blogpost-form.component';
 
 
 const routes: Routes = [
@@ -107,12 +109,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   { path: 'tourReviewForm/:id', component: TourReviewFormComponent },
+  { path: 'my-ended-tours', component: MyEndedToursComponent },
   { path: 'tourReviewShow', component: TourReviewsShowComponent },
   { path: 'tourist-equipment', component: TouristEquipmentComponent },
   { path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },
   { path: 'blog/create-post', component: BlogPostCreationComponent, canActivate: [AuthGuard]},
   { path: 'blog/update-post/:id', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
   { path: 'blog/:id', component: BlogPostDetailComponent },
+  { path: 'blog-form/:id', component: BlogpostFormComponent },
   { path: 'encounters', component: EncountersPageComponent},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'app-ratings', component: AppRatingsComponent },
