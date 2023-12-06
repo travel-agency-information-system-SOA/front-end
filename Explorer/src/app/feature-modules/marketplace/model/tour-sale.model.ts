@@ -5,5 +5,4 @@ export interface TourSale {
     endDate: Date;
     salePercentage: number;
     tourIds: number[];
-    //tourNames: string[];
 }
