@@ -1,7 +1,8 @@
 <div class="wrapper">
+  <div class="frame">
   <div class="inner-wrapper">
     <p class="mini-title">Chose at least two public points for your tour</p>
-    <div>
+    <div class="creating-tour">
       <div class="table-wrapper">
         <table>
           <thead>
@@ -29,8 +30,35 @@
             </tr>
           </tbody>
         </table>
+
+
       </div>
+      <div class="buttons">
+      <button class="buttonCreate" (click)="addTour()">Create your tour</button>
+      <button class="buttonCreate" (click)="findTours()" color="primary">Find tours</button>
     </div>
-    <button (click)="findTours()" color="primary">Find tours</button>
+
+    </div>
+     
   </div>
+  <div class="tour-form">
+    <xp-tour-form 
+    [tour]="selectedTour"
+    *ngIf="showTourForm"
+    (addTourClicked)="onAddTourClicked()"
+  ></xp-tour-form>
+</div>
+</div>
+<div *ngIf="tours.length >0">
+  <h2>Found Tours:</h2>
+  <ul>
+    <li *ngFor="let tourItem of tours">
+      <!-- Display tour details as needed -->
+      {{ tourItem.name }} - {{ tourItem.description }}
+    </li>
+  </ul>
+</div>
+<div *ngIf="tours.length === 0">
+  <p>No tours found.</p>
+</div>
 </div>

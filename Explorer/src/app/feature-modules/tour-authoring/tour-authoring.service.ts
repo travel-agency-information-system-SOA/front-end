@@ -1,7 +1,7 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { EventEmitter, Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourPoint } from './model/tourPoints.model';
 import { TourObject } from './model/tourObject.model';
@@ -232,8 +232,19 @@ export class TourAuthoringService {
   }
 
   findTours(publicTPs: PublicTourPoint[], page: number, pageSize: number) {
-    return this.http.get<Tour>(
-      environment.apiHost + 'administration/tour/filteredTours'
-    );
+    const publicTourPointsString = JSON.stringify(publicTPs);
+    console.log('Public Tour Points:', publicTourPointsString);
+  
+    const params = new HttpParams()
+      .set('publicTourPoints', publicTourPointsString)
+      .set('page', page.toString())
+      .set('pageSize', pageSize.toString());
+  
+    return this.http.get<PagedResults<Tour>>(`${environment.apiHost}administration/tour/filteredTours`, { params })
+      .pipe(
+        tap(response => console.log('Response from server:', response))
+      );
   }
+  
+  
 }
