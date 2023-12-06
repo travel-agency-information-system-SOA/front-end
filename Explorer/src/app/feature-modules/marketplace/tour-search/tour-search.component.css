@@ -81,6 +81,33 @@
   font-size: 16px;
 }
 
+.slider {
+  /*display: flex;*/
+  /*align-items: center;*/
+}
+
+.slider-container {
+  display: flex;
+  align-items: center;
+}
+
+.p-slider-header {
+  font-size: 14px;
+  font-family: 'Trip', sans-serif;
+  font-weight: normal;
+}
+
+.slider-container input {
+  margin-right: 10px; /* Adjust the margin between the slider and the value */
+}
+
+.p-slider-value {
+  font-family: 'Trip', sans-serif;
+  font-weight: medium;
+  font-size: 16px;
+  margin: 0;
+}
+
 .button {
   align-self: flex-end;
   font-family: 'Trip', sans-serif;
@@ -239,11 +266,39 @@
 
 .price-text {
   font-size: 16px;
+  font-family: 'Trip';
+  font-weight: normal;
 }
 
 .price-number {
   font-size: 22px;
   font-weight: bold;
+}
+
+.discount-price {
+  font-size: 26px;
+  color: #E23A55;
+}
+
+.old-price {
+  font-size: 18px;
+  color: #999;
+}
+
+.crossed-out {
+  position: relative;
+}
+
+.crossed-out::before {
+  content: '';
+  position: absolute;
+  top: calc(50% - 1px);
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #999;
+  transform: rotate(-45deg);
+  transform-origin: center;
 }
 
 .difficulty {

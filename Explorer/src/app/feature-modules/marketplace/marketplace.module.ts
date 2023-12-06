@@ -29,6 +29,7 @@ import { TourDetailsComponent } from './tour-details/tour-details.component';
 import { FirstPointMap } from './first-point-map/first_point.component';
 
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
+import { TourSaleComponent } from './tour-sale/tour-sale.component';
 import { CompositeToursComponent } from './composite-tours/composite-tours.component';
 
 @NgModule({
@@ -55,7 +56,8 @@ import { CompositeToursComponent } from './composite-tours/composite-tours.compo
     FirstPointMap,
     
     ShoppingCartComponent,
-          CompositeToursComponent,
+    TourSaleComponent,
+    CompositeToursComponent,
   ],
   imports: [
     CommonModule,

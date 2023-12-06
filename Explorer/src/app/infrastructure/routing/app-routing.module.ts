@@ -50,6 +50,7 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
+import { TourSaleComponent } from 'src/app/feature-modules/marketplace/tour-sale/tour-sale.component';
 
 import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tour-tourist/tour-tourist.component';
 
@@ -157,6 +158,7 @@ const routes: Routes = [
   { path: 'problems', component: ProblemComponent },
   { path: 'app-rating-form', component: AppRatingFormComponent },
   { path: 'tourSearch', component: TourSearchComponent },
+  { path: 'tourSale', component: TourSaleComponent },
 
   { path: 'tours-show', component: ToursShowComponent },
   { path: 'marketplace', component: TourMarketplaceComponent },
