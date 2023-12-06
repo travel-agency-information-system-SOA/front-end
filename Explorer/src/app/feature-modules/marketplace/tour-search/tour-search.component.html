@@ -18,7 +18,14 @@
           <p class="p-value">{{ longitude }}</p>
         </div>
       </div>
-      <span><p class="p-header">Show tours with discount >= than...</p><input type="range" min="0" max="100" step="1" value="0" (input)="updateSliderValue($event)"><p class="p-value">{{ discount }}</p></span>
+      <span class="slider">
+        <p class="p-slider-header">Show tours with discount >= than...</p>
+        <div class="slider-container">
+          <input type="range" min="0" max="100" step="1" value="0" (input)="updateSliderValue($event)">
+          <p class="p-slider-value">{{ discount }}</p>
+        </div>
+      </span>
+<!--      <span><p class="p-header">Show tours with discount >= than...</p><input type="range" min="0" max="100" step="1" value="0" (input)="updateSliderValue($event)"><p class="p-value">{{ discount }}</p></span>-->
       <button class="button" raised-button type="submit" (click)="search()">Search</button>
     </div>
   </form>
@@ -53,9 +60,15 @@
 
           <div class="card-footer">
             <div class="price">
-              <p class="price-text">Price</p>
-              <p class="price-number">{{ tour.price }}</p>
-              <p class="price-number">{{ getDisc(tour.id, tour.price) }}</p>
+              <ng-container *ngIf="getDisc(tour.id, tour.price) < tour.price; else noDiscount">
+                <p class="price-text">Price</p>
+                <p class="price-number crossed-out">{{ tour.price }}</p>
+                <p class="price-number discount-price">{{ getDisc(tour.id, tour.price) }}</p>
+              </ng-container>
+              <ng-template #noDiscount>
+                <p class="price-text">Price</p>
+                <p class="price-number">{{ getDisc(tour.id, tour.price) }}</p>
+              </ng-template>
             </div>
 
             <p class="difficulty" [ngClass]="{'easy': tour.difficultyLevel === 'Easy', 'moderate': tour.difficultyLevel === 'Moderate', 'difficult': tour.difficultyLevel === 'Difficult'}">

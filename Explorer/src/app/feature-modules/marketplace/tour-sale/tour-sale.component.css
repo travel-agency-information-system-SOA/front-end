@@ -88,7 +88,7 @@
 }
 
 .add-card {
-  border: 2px dashed #ccc;
+  border: 2px dashed #0a83cb;
   border-radius: 8px;
   padding: 20px;
   display: flex;
@@ -103,6 +103,10 @@
 
 .add-card:hover {
   background-color: #f0f0f0;
+}
+
+.add-card ::ng-deep mat-icon {
+  color: #0a83cb;
 }
 
 .new-sale {
