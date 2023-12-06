@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let enc of activeEncounters; let last = last">
+        <tr *ngFor="let enc of displayEncounters; let last = last">
           <td>{{enc.name}}</td>
           <td>{{enc.description}}</td>
           <td>{{enc.xpPoints}}</td>
