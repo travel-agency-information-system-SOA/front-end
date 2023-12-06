@@ -101,6 +101,10 @@ export class PurchasedToursComponent implements OnInit{
     }
   }
 
+  startTour(tourId: number | undefined) : void{
+    this.router.navigate(['purchasedTours/' + tourId]);
+  }
+
 
   showTourDetails(tourId: number | undefined): void {
     this.router.navigate(['purchasedTours', tourId]);
