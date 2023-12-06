@@ -4,10 +4,9 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { environment } from 'src/env/environment';
 import { TourExecutionPosition } from './model/tourExecutionPosition.model';
-import { TourExecution } from './model/tourExecution.model';
+import { TourE, TourExecution, TourExecutionTourPoint, TourPoint } from './model/tourExecution.model'; 
 import { map } from 'rxjs';
 import { catchError } from 'rxjs';
-import { Tour } from '../tour-authoring/tour/model/tour.model';
 
 @Injectable({
   providedIn: 'root'
@@ -55,13 +54,28 @@ export class TourExecutionService {
       tourExecutionId
     );
   }
-
-  createTourExecution(userId: number, tourId: number | undefined): Observable<TourExecution> {
-    return this.http.post<TourExecution>(environment.apiHost + 'tourExecution/create/' + userId + '/' + tourId, null);
+  getPurchasedTours(touristId: number): Observable<PagedResults<TourE>> {
+    const url = `${environment.apiHost}tokens/purchasedTours/${touristId}`;
+    return this.http.get<PagedResults<TourE>>(url);
   }
 
-  getPurchasedTours(touristId: number): Observable<Tour[]> {
-    return this.http.get<Tour[]>(environment.apiHost + 'tokens/purchasedTours/' + touristId)
+  createTourExecution(userId: number, tourId: number | undefined): any {
+    const url = `${environment.apiHost}tourExecution/create`;
+    console.log(url);
+    const body = {
+      userId: userId,
+      tourId: tourId,
+    };
+    return this.http.post(url, body);
   }
-  
+
+  getPointsByExecution(executionId: number): Observable<PagedResults<TourExecutionTourPoint>> {
+    const url = `${environment.apiHost}tourExecution/getPoints/${executionId}`;
+    return this.http.get<PagedResults<TourExecutionTourPoint>>(url);
+  }
+
+  getTourPointsByTourId(tourId: number): Observable<PagedResults<TourPoint>> {
+    const url = `${environment.apiHost}administration/tourPoint/${tourId}`;
+    return this.http.get<PagedResults<TourPoint>>(url);
+  }
 }

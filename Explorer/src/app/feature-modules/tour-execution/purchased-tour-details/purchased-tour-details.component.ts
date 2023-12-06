@@ -13,7 +13,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 export class PurchasedTourDetailsComponent implements OnInit{
 
   tour: Tour = {} as Tour;
-  touristId: number
+  touristId: number;
 
   constructor(private marketplaceService: MarketplaceService, private auth: AuthService, private executionService: TourExecutionService, private route: ActivatedRoute, private router: Router){}
 
