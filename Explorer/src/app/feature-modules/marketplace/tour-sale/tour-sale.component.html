@@ -71,24 +71,34 @@
         <div class="available">
           <p class="type-of-tour">Available tours:</p>
           <div class="card-container-available-tours">
-            <div *ngFor="let tt of tours" class="card-tours" (click)="onPlusTour(tt)">
-              <div class="card-content-tours">
-                <p><strong>Tour name:</strong> {{ tt.name }}</p>
-                <p><strong>Tour id:</strong> {{ tt.id }}</p>
+            <ng-container *ngIf="tours.length; else emptyMessage1">
+              <div *ngFor="let tt of tours" class="card-tours" (click)="onPlusTour(tt)">
+                <div class="card-content-tours">
+                  <p><strong>Tour name:</strong> {{ tt.name }}</p>
+                  <p><strong>Tour id:</strong> {{ tt.id }}</p>
+                </div>
               </div>
-            </div>
+            </ng-container>
+            <ng-template #emptyMessage1>
+              <p class="empty-message flex-center">No available tours</p>
+            </ng-template>
           </div>
         </div>
 
         <div class="for-sale">
           <p class="type-of-tour">Tours for Sale:</p>
           <div class="card-container-available-tours">
-            <div *ngFor="let tt of toursSelected" class="card-tours" (click)="onMinusTour(tt)">
-              <div class="card-content-tours">
-                <p><strong>Tour name:</strong> {{ tt.name }}</p>
-                <p><strong>Tour id:</strong> {{ tt.id }}</p>
+            <ng-container *ngIf="toursSelected.length; else emptyMessage2">
+              <div *ngFor="let tt of toursSelected" class="card-tours" (click)="onMinusTour(tt)">
+                <div class="card-content-tours">
+                  <p><strong>Tour name:</strong> {{ tt.name }}</p>
+                  <p><strong>Tour id:</strong> {{ tt.id }}</p>
+                </div>
               </div>
-            </div>
+            </ng-container>
+            <ng-template #emptyMessage2>
+              <p class="empty-message flex-center">No tours for sale</p>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -112,79 +122,79 @@
       </div>
     </div>
 
-    <div *ngIf="shouldRenderTourSaleForm && shouldEdit">
-        <p>Jebo sam ti mamu u picku smrdljivu, treci put</p>
+    <div class="edit-sale" *ngIf="shouldRenderTourSaleForm && shouldEdit">
 
-        <form [formGroup]="tourSaleForm3">
-            <div>
-                <mat-form-field>
-                    <mat-label>Start Date</mat-label>
-                    <input matInput type="date" formControlName="date1" placeholder="fff" (change)="onDateChange()">
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>End Date</mat-label>
-                    <input matInput type="date" formControlName="date2" placeholder="fff" (change)="onDateChange()">
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Discount</mat-label>
-                    <input matInput min="1" max="100" type="number" formControlName="salePerc" placeholder="fff">
-                </mat-form-field>
-                <button mat-raised-button type="submit" color="primary" (click)="updateTourSale1()">Check Availability</button>
+      <p class="subtitle">Update sale</p>
+
+      <form [formGroup]="tourSaleForm3">
+
+        <div class="form-field-add">
+
+          <mat-form-field>
+            <mat-label>Start Date</mat-label>
+            <input matInput type="date" formControlName="date1" placeholder="Start Date" (change)="onDateChange()">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>End Date</mat-label>
+            <input matInput type="date" formControlName="date2" placeholder="End Date" (change)="onDateChange()">
+          </mat-form-field>
+
+          <mat-form-field>
+            <mat-label>Discount (%)</mat-label>
+            <input matInput min="1" max="100" type="number" formControlName="salePerc" placeholder="%">
+          </mat-form-field>
+
+          <button class="button-availability" type="submit" (click)="updateTourSale1()">Check Availability</button>
+        </div>
+      </form>
+
+
+      <div *ngIf="showupdt">
+
+        <div class="tours-lists">
+
+          <div class="available">
+            <p class="type-of-tour">Available tours:</p>
+            <div class="card-container-available-tours">
+              <ng-container *ngIf="tours1.length; else emptyMessage1">
+                <div *ngFor="let tt of tours1" class="card-tours" (click)="onPlusTour1(tt)">
+                  <div class="card-content-tours">
+                    <p><strong>Tour name:</strong> {{ tt.name }}</p>
+                    <p><strong>Tour id:</strong> {{ tt.id }}</p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #emptyMessage1>
+                <p class="empty-message flex-center">No available tours</p>
+              </ng-template>
             </div>
-        </form>
+          </div>
 
-
-        <div *ngIf="showupdt">
-            <p>NE dodato</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tour name</th>
-                        <th>Tour id</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let tt of tours1">
-                        <td>{{tt.id}}</td>
-                        <td>{{tt.name}}</td>
-                        <td>
-                            <button color="accent" (click)="onPlusTour1(tt)" mat-icon-button>
-                                <mat-icon>add</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+          <div class="for-sale">
+            <p class="type-of-tour">Tours for Sale:</p>
+            <div class="card-container-available-tours">
+              <ng-container *ngIf="toursSelected1.length; else emptyMessage2">
+                <div *ngFor="let tt of toursSelected1" class="card-tours" (click)="onMinusTour1(tt)">
+                  <div class="card-content-tours">
+                    <p><strong>Tour name:</strong> {{ tt.name }}</p>
+                    <p><strong>Tour id:</strong> {{ tt.id }}</p>
+                  </div>
+                </div>
+              </ng-container>
+              <ng-template #emptyMessage2>
+                <p class="empty-message flex-center">No tours for sale</p>
+              </ng-template>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div *ngIf="showupdt">
-            <p>dodato</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Tour name</th>
-                        <th>Tour id</th>
-                        <th></th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let ttt of toursSelected1">
-                        <td>{{ttt.id}}</td>
-                        <td>{{ttt.name}}</td>
-                        <td>
-                            <button color="primary" (click)="onMinusTour1(ttt)" mat-icon-button>
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+      <div class="discount-form-field update-submit">
+
+        <button class="button-availability" *ngIf="showupdt" type="submit" (click)="updateTourSale()">Update Sale</button>
+        <button class="button-discard" *ngIf="showupdt" (click)="discard()">Discard changes</button>
+      </div>
     </div>
-
-    <button *ngIf="showupdt" mat-raised-button type="submit" color="primary" (click)="updateTourSale()">Update Sale</button>
-    <button *ngIf="showupdt" mat-raised-button color="primary">Discard changes</button>
   </div>
 </div>
