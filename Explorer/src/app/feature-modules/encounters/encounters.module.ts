@@ -7,13 +7,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelect, MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EncountersMapComponent } from './encounters-map/encounters-map.component';
+import { ActivatedExecutionComponent } from './activated-execution/activated-execution.component';
 
 
 
 @NgModule({
   declarations: [
     EncountersPageComponent,
-    EncountersFormComponent
+    EncountersFormComponent,
+    EncountersMapComponent,
+    ActivatedExecutionComponent
   ],
   imports: [
     CommonModule,
