@@ -94,6 +94,7 @@ export class MapComponent implements AfterViewInit {
       }
       else if(path.includes('encounterMap')){
         this.setEncounterPosition();
+        this.setPosition();
       }
       else{
         this.setRoute();
@@ -320,12 +321,20 @@ export class MapComponent implements AfterViewInit {
 
 
 
-  setPosition() {
+  setPosition():void {
+    let specialTourIcon = L.icon({
+      iconUrl:
+      'https://www.wanderfinder.com/wp-content/uploads/leaflet-maps-marker-icons/MapMarker_Marker_Inside_Azure.png',
+      iconAnchor: [12, 41],
+    });
+
     this.administrationService
       .getByUserId(this.tokenStorage.getUserId(), 0, 0)
       .subscribe(
         (result) => {
-          L.marker([result.latitude, result.longitude]).addTo(this.map);
+          L.marker([result.latitude, result.longitude],{
+            icon: specialTourIcon,
+          }).addTo(this.map);
 
           // Handle the result as needed
         },
@@ -377,7 +386,7 @@ export class MapComponent implements AfterViewInit {
   setEncounterPosition():void{
     let specialTourIcon = L.icon({
       iconUrl:
-        'https://www.wanderfinder.com/wp-content/uploads/leaflet-maps-marker-icons/MapMarker_Marker_Outside_Orange.png',
+        'https://www.wanderfinder.com/wp-content/uploads/leaflet-maps-marker-icons/MapMarker_Marker_Outside_Green.png',
       iconAnchor: [12, 41],
     });
 

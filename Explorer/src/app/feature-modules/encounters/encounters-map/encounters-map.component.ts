@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Encounter } from '../model/encounter.model';
 import { EncountersService } from '../encounters.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
@@ -7,6 +7,8 @@ import { EncounterExecution } from '../model/encounter-execution.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { Router } from '@angular/router';
 import { MapService } from 'src/app/shared/map/map.service';
+import { UserPosition } from '../../administration/model/userPosition.model';
+import { AdministrationService } from '../../administration/administration.service';
 
 
 @Component({
@@ -19,14 +21,20 @@ export class EncountersMapComponent implements OnInit {
   displayEncounters: Encounter[] = [];
   executions: EncounterExecution[] = [];
   encounterExecution: EncounterExecution;
+  idPosition:number|undefined
+  userPosition:UserPosition;
+  shouldEdit:boolean
+  @Output() positionUpdated=new EventEmitter<null>();
   constructor(private router: Router, 
               private tokenStorage: TokenStorage, 
               private encounterService: EncountersService, 
               private executionService: EncountersExecutionService,
-              private mapService: MapService){ }
+              private mapService: MapService,
+              private administrationService: AdministrationService){ }
 
   ngOnInit(): void {
     this.getActiveEncounters(); 
+    this.checkUserPosition();
   }
   getActiveEncounters(): void {
     this.executionService.getExecutions().subscribe({
@@ -73,6 +81,53 @@ export class EncountersMapComponent implements OnInit {
       
       
       
+    }
+
+    updateUserPosition(): void {
+      var id = 0;
+      const userPosition: UserPosition = {
+        userId: this.tokenStorage.getUserId(),
+        latitude: 0.000000,
+        longitude: 0.000000,
+      };
+    
+      this.administrationService.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
+        (result) => {
+          this.idPosition = result ? result.id : undefined;
+        },
+        (error) => {
+          console.error('Error fetching user positions:', error);
+        }
+      );
+  
+      userPosition.id=this.idPosition;
+  
+      this.mapService.coordinate$.subscribe((coordinates) => {
+        userPosition.latitude = coordinates.lat;
+        userPosition.longitude = coordinates.lng;
+      });
+      this.administrationService.updateUserPosition(userPosition).subscribe({
+        next: (_) => {
+          this.positionUpdated.emit();
+        },
+      });
+    }
+  
+    
+    updatePositions(event:MouseEvent):void{
+      this.updateUserPosition();
+    }
+
+    checkUserPosition(): void {
+      this.administrationService.getByUserId(this.tokenStorage.getUserId(), 0, 0).subscribe(
+        (result) => {
+          this.shouldEdit = result != null; 
+          this.idPosition = result ? result.id : undefined; 
+        },
+        (error) => {
+          console.error('Error fetching user positions:', error);
+        }
+      );
     }
   }
 
