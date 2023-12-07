@@ -228,4 +228,9 @@ export class TourComponent implements OnInit {
   onCloseObject() {
     this.shouldAddObject = false;
   }
+
+  onCreateCoupon(tourId: number | undefined): void {
+    this.router.navigate(['createCoupon', tourId]);
+  
+  }
 }

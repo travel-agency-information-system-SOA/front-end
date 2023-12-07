@@ -51,6 +51,7 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
+import { CouponFormComponent } from 'src/app/feature-modules/marketplace/coupon-form/coupon-form.component';
 
 
 const routes: Routes = [
@@ -140,6 +141,7 @@ const routes: Routes = [
   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
+  { path: 'createCoupon/:id', component: CouponFormComponent},
 ];
 
 @NgModule({

@@ -27,6 +27,7 @@ import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 
 import { ShoppingCart } from './model/shopping-cart.model';
+import { Coupon } from './model/coupon.model';
 
 @Injectable({
   providedIn: 'root',
@@ -353,6 +354,23 @@ export class MarketplaceService {
     return this.http.get<Tour>(
       environment.apiHost + 'administration/tour/onetour/' + id
     );
+  }
+
+  getCouponByCodeAndTourId(code: string, tourId: number): Observable<Coupon> {
+    const params = { tourId: tourId.toString(), code: code };
+    return this.http.get<Coupon>('https://localhost:44333/api/authoring/coupon/getByCode', {params: params});
+  }
+
+  updateShoppingCart(cart: ShoppingCart): Observable<ShoppingCart> {
+    return this.http.put<ShoppingCart>(environment.apiHost + 'shoppingcart/update', cart)
+  }
+
+  deleteCoupon(id: number): any {
+    return this.http.delete<any>(environment.apiHost + 'authoring/coupon/' + id.toString())
+  }
+
+  createCoupon(coupon: Coupon): Observable<Coupon> {
+    return this.http.post<Coupon>(environment.apiHost + 'authoring/coupon', coupon)
   }
 
 }
