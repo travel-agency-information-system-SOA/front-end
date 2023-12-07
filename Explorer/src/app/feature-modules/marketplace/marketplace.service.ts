@@ -27,6 +27,7 @@ import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 
 import { ShoppingCart } from './model/shopping-cart.model';
+import { TourSale } from './model/tour-sale.model';
 
 @Injectable({
   providedIn: 'root',
@@ -355,4 +356,42 @@ export class MarketplaceService {
     );
   }
 
+
+  getTourSales(id: number): Observable<PagedResults<TourSale>> {
+    return this.http.get<PagedResults<TourSale>>(
+      environment.apiHost + 'administration/tourSale/' + id
+    );
+  }
+
+  addTourSale(ts: TourSale): Observable<TourSale> {
+    return this.http.post<TourSale>(
+      environment.apiHost + 'administration/tourSale',
+      ts
+    ); 
+  }
+
+  updateTourSale(ts: TourSale): Observable<TourSale> {
+    return this.http.put<TourSale>(
+      environment.apiHost + 'administration/tourSale/' + ts.id,
+      ts
+    );
+  }
+
+  deleteTourSale(ts: TourSale): Observable<TourSale> {
+    return this.http.delete<TourSale>(
+      environment.apiHost + 'administration/tourSale/' + ts.id
+    ); 
+  }
+
+  getPubToursForAut(authorId: number): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost + 'administration/tour/sales/' + authorId
+    ); 
+  }
+
+  getTourDiscount(id: number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourSale/tour/' + id
+    ); 
+  }
 }

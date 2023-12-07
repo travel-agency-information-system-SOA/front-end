@@ -13,22 +13,28 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 export class PurchasedTourDetailsComponent implements OnInit{
 
   tour: Tour = {} as Tour;
-  touristId: number
+  touristId: number;
+  tourId:number;
+
 
   constructor(private marketplaceService: MarketplaceService, private auth: AuthService, private executionService: TourExecutionService, private route: ActivatedRoute, private router: Router){}
 
   ngOnInit(): void {
     this.getLogedUser()
-    const tourId = +this.route.snapshot.paramMap.get('id')!;
-    this.marketplaceService.getSelectedTour(tourId).subscribe({
+    const aa = +this.route.snapshot.paramMap.get('id')!;
+    this.tourId=+this.route.snapshot.paramMap.get('id')!;
+    this.marketplaceService.getSelectedTour(aa).subscribe({
       next: (result: Tour)=>{
         this.tour = result;
-        console.log(this.tour.price);
+        //console.log(this.tour.price);
       },
       error: (err: any) =>{
         console.log(err)
       }
-    });    
+    }); 
+    console.log("TourId: ",this.tourId);  
+    console.log("UserId: ",this.touristId);
+ 
   }
 
   getLogedUser(): void{
@@ -40,7 +46,9 @@ export class PurchasedTourDetailsComponent implements OnInit{
   }
 
   startTour(): void{
-    this.executionService.createTourExecution(this.touristId, this.tour.id).subscribe({
+    console.log("start: ",this.tourId)
+    console.log("touristId",this.touristId)
+    this.executionService.createTourExecution(this.touristId, this.tourId).subscribe({
       next: ()=>{
         this.router.navigate(['activeTour']);
       },
