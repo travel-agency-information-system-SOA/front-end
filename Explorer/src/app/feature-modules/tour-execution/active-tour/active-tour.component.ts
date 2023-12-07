@@ -3,7 +3,7 @@ import { Component,
   SimpleChanges,Output,EventEmitter} from '@angular/core';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { TourExecutionService } from '../tour-execution.service';
-import { TourExecution } from '../model/tourExecution.model';
+import { TourExecution, TourExecutionTourPoint, TourPoint } from '../model/tourExecution.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { TourExecutionPosition } from '../model/tourExecutionPosition.model';
 
@@ -29,6 +29,10 @@ export class ActiveTourComponent implements OnChanges{
   tourId:number=0;
   isNotified: boolean = true;
   execution: TourExecution;
+  executionPoints: TourExecutionTourPoint[] = [];
+  tourPoints: TourPoint[] = [];
+  tourPointsMap: { [key: number]: TourPoint } = {};
+  accordionState: boolean[] = [];
   private pollingInterval: any;
   @Output() positionUpdated=new EventEmitter<null>();
   currentPosition: TourExecutionPosition ={
@@ -46,23 +50,32 @@ export class ActiveTourComponent implements OnChanges{
              
       ){
         this.startPolling();
+        this.executionPoints.forEach(() => this.accordionState.push(false));
       }
 
   ngOnInit(): void {
     this.checkUserPosition();
     this.getTourExecutionByUser(this.userId);
-
+    this.getTourExecutionPoints();
+    this.getTourPoints();
+    console.log("lol: ",this.activeTour.id)
+    
   }
 
   private startPolling(): void {
     this.pollingInterval = setInterval(() => {
       this.updatePosition();
       this.getTourExecution(this.activeTour.id);
+      this.getTourExecutionPoints();
+
+      
+
+
       if(this.execution.status == "Completed" && this.isNotified){
         console.log("zavrsili ste turu");
         this.isNotified = false;
       }
-    }, 10000);
+    }, 5000);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -195,6 +208,57 @@ export class ActiveTourComponent implements OnChanges{
       }
     );
   }
+
+  getTourExecutionPoints(): void{
+    this.service.getPointsByExecution(this.userId).subscribe(
+      (data) => {
+        //console.log(data);
+        this.executionPoints = data.results;
+        console.log('points', this.executionPoints);
+      },
+      (error) => {
+        console.error(error);
+      }
+    );
+    this.getTourPoints();
+
+  }
+
+  getTourPoints(): void{
+    this.service.getTourPointsByTourId(this.activeTour.tourId).subscribe(
+      (data) => {
+        // Handle the response data here
+        this.tourPoints = data.results;
+        console.log("TourPoint: ",this.tourPoints);
+
+        this.populateTourPointsMap();
+
+        // Log the tourPointsMap to the console
+        console.log('test');
+        console.log('tourPointsMap:', this.tourPointsMap);
+      },
+      (error) => {
+        // Handle errors here
+        console.error(error);
+      }
+    );
+  }
+
+  private populateTourPointsMap(): void {
+    this.tourPoints.forEach((point) => {
+      this.tourPointsMap[point.id] = point;
+    });
+  }
+
+  toggleAccordion(index: number): void {
+    // Toggle the state of the accordion item
+    this.accordionState[index] = !this.accordionState[index];
+  }
+
+  isAccordionOpen(index: number): boolean {
+    return this.accordionState[index];
+  }
+  
 
   ngOnDestroy(): void {
     clearInterval(this.pollingInterval);

@@ -27,6 +27,7 @@ export class MapComponent implements AfterViewInit {
   private map: any;
   tourId: string;
   objects: { latitude: number; longitude: number }[];
+  touristTourId: Subscription | undefined = undefined;
   tourIdSubscription: Subscription | undefined = undefined;
   tourIdSubscriptionFP: Subscription | undefined = undefined;
   tourPointAddSubscription: Subscription | undefined = undefined;
@@ -34,7 +35,7 @@ export class MapComponent implements AfterViewInit {
   tourStartPointSubscription: Subscription | undefined = undefined;
   viewForTourisSubs: Subscription | undefined = undefined;
   routeWaypoints: any[] = [];
-  @Input() tourIdEx: number=0;
+  @Input() tourIdEx: number = 0;
   tourIdexS: string;
   routeControl: any;
 
@@ -72,14 +73,11 @@ export class MapComponent implements AfterViewInit {
       if (path.includes('activeTour')) {
         this.setExecuteRoute();
         this.setPosition();
-      }
-      else if(path.includes('user-position')){
+      } else if (path.includes('user-position')) {
         this.setPosition();
-      }
-      else if(path.includes('tourMapFirstPoint')){
+      } else if (path.includes('tourMapFirstPoint')) {
         this.setFirstPoint();
-      }
-      else if (path.includes('tourSearch')) {
+      } else if (path.includes('tourSearch')) {
         //
       }
       else if(path.includes('encounters')){
@@ -89,16 +87,18 @@ export class MapComponent implements AfterViewInit {
         this.setRoute();
         this.setObjects();
       }
-    })
 
-
-
+    });
 
   }
 
   ngOnDestroy(): void {
     if (this.tourStartPointSubscription != undefined) {
       this.tourStartPointSubscription.unsubscribe();
+    }
+
+    if (this.touristTourId != undefined) {
+      this.touristTourId.unsubscribe();
     }
   }
 
@@ -118,43 +118,38 @@ export class MapComponent implements AfterViewInit {
       this.transportTypechanged.unsubscribe();
     }
 
-
     this.route.url.subscribe((segments) => {
       const path = segments.map((segment) => segment.path).join('/');
 
       if (path.includes('tourMapFirstPoint')) {
-        this.tourIdSubscriptionFP = this.marketplaceService.currentTourId.subscribe(
-          (tourId) => {
-            console.log(tourId)
+        this.tourIdSubscriptionFP =
+          this.marketplaceService.currentTourId.subscribe((tourId) => {
+            console.log(tourId);
             this.tourId = tourId.split('|#$%@$%|')[0];
             if (tourId.split('|#$%@$%|').length > 1) {
               if (tourId.split('|#$%@$%|')[1] === 'same') {
                 this.ngAfterViewInit();
               }
             }
-
+          });
+      } else if (path.includes('tourMapFirstPoint')) {
+        this.touristTourId = this.tourAuthoringService.currentTourId.subscribe(
+          (tourId) => {
+            this.tourId = tourId;
           }
         );
       } else {
-
-
-        this.tourIdSubscription = this.tourAuthoringService.currentTourId.subscribe(
-          (tourId) => {
+        this.tourIdSubscription =
+          this.tourAuthoringService.currentTourId.subscribe((tourId) => {
             this.tourId = tourId.split('|#$%@$%|')[0];
             if (tourId.split('|#$%@$%|').length > 1) {
               if (tourId.split('|#$%@$%|')[1] === 'same') {
                 this.ngAfterViewInit();
               }
             }
-          }
-        );
+          });
       }
     });
-
-
-
-
-
 
     this.tourPointAddSubscription =
       this.tourAuthoringService.tourPointAdded.subscribe(() => {
@@ -164,14 +159,15 @@ export class MapComponent implements AfterViewInit {
         this.setRoute();
       });
 
-      this.viewForTourisSubs = this.marketplaceService.viewForTourist.subscribe(() => {
+    this.viewForTourisSubs = this.marketplaceService.viewForTourist.subscribe(
+      () => {
         if (this.routeControl) {
           this.routeControl.remove();
-
         }
         this.setFirstPoint();
-      });
 
+      }
+    );
 
 
 
@@ -183,8 +179,6 @@ export class MapComponent implements AfterViewInit {
         this.setRoute();
       });
   }
-
-
 
   registerOnClick(): void {
     this.map.on('click', (e: any) => {
@@ -201,7 +195,6 @@ export class MapComponent implements AfterViewInit {
           }
         });
       }
-
       this.service.reverseSearch(lat, lng).subscribe((res) => {
         console.log(res.display_name);
       });
@@ -223,21 +216,27 @@ export class MapComponent implements AfterViewInit {
     });
 
     this.tourAuthoringService
-      .getObjInTourByTourId(parseInt(this.tourId))
-      .subscribe(
-        (objects: any) => {
-          this.objects = objects;
+    .getObjInTourByTourId(parseInt(this.tourId))
+    .subscribe(
+      (objects: any) => {
+        this.objects = objects;
+  
+        if (this.objects && this.objects.length > 0) {
           this.objects.forEach((object) => {
             L.marker([object.latitude, object.longitude], {
               icon: specialTourIcon,
             }).addTo(this.map);
           });
           console.log('Dohvaćeni objekti:', objects);
-        },
-        (error) => {
-          console.error('Greška prilikom dohvatanja objekata:', error);
+        } else {
+          console.log('No objects to display.');
         }
-      );
+      },
+      (error) => {
+        console.error('Greška prilikom dohvatanja objekata:', error);
+      }
+  );
+  
   }
 
   setFirstPoint(): void {
@@ -306,9 +305,6 @@ export class MapComponent implements AfterViewInit {
       console.error('Invalid tourId:', tourId);
     }
   }
-
-
-
 
   setPosition() {
     this.administrationService
