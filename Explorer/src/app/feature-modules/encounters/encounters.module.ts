@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { EncountersMapComponent } from './encounters-map/encounters-map.component';
 import { ActivatedExecutionComponent } from './activated-execution/activated-execution.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -25,7 +26,8 @@ import { ActivatedExecutionComponent } from './activated-execution/activated-exe
     MatButtonModule,
     MatSelectModule,
     MatIconModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SharedModule
     
   ],
   exports: [

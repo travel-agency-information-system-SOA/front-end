@@ -82,6 +82,9 @@ export class MapComponent implements AfterViewInit {
       else if (path.includes('tourSearch')) {
         //
       }
+      else if(path.includes('encounters')){
+          //
+      }
       else{
         this.setRoute();
         this.setObjects();
