@@ -76,5 +76,8 @@ export class PurchasedToursComponent implements OnInit{
     this.router.navigate(['purchasedTours', tourId]);
   
   }
+  startTour(tourId: number | undefined) : void{
+    this.router.navigate(['purchasedTours/' + tourId]);
+  }
 
 }

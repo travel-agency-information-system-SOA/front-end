@@ -44,18 +44,7 @@ export class BlogComponent {
     })
   }
 
-  getTour(tourId:number): any{
-    this.tourService.getTourByTourId(tourId).subscribe({
-      next: (result: Tour) => {
-        return result;
-        
-      },
-      error: (error: any) => {
-        console.log(error);
-      }
-    });
-  }
-
+  
   navigateToPostCreation() {
     this.router.navigate(['/blog/create-post']);
   }

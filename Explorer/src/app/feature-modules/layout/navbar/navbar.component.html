@@ -17,6 +17,7 @@
                 <div class="ddc">
                     <a *ngIf="user && user.role === 'tourist'" href="purchasedTours">Purchased Tours</a>
                     <a *ngIf="user && user.role === 'tourist'" href="my-ended-tours">Ended Tours</a>
+                    <a *ngIf="user && user.role === 'tourist'" href="my-tours">Tours I created</a>
                     <a *ngIf="user && user.role === 'tourist'" href="tours-show">Rate Visited Tours</a>
                     <a *ngIf="user && user.role === 'tourist'" href="problems">Tour Problems</a>
                 </div>

@@ -18,7 +18,7 @@
       </ng-template>
       
       <div>
-        <ul *ngIf="shouldDisplayTourData(post.tourId)">
+        <ul *ngIf="shouldDisplayTourData()">
           <p><b>Informations about tour:</b></p>
           <li *ngFor="let characteristic of tourCharacteristics">
             

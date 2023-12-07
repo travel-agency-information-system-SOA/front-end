@@ -53,6 +53,7 @@ import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-exec
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
 import { MyEndedToursComponent } from 'src/app/feature-modules/tour-execution/my-ended-tours/my-ended-tours.component';
 import { BlogpostFormComponent } from 'src/app/feature-modules/blog/blogpost-form/blogpost-form.component';
+import { MyToursComponent } from 'src/app/feature-modules/tour-execution/my-tours/my-tours.component';
 
 
 const routes: Routes = [
@@ -110,6 +111,7 @@ const routes: Routes = [
   },
   { path: 'tourReviewForm/:id', component: TourReviewFormComponent },
   { path: 'my-ended-tours', component: MyEndedToursComponent },
+  { path: 'my-tours', component: MyToursComponent },
   { path: 'tourReviewShow', component: TourReviewsShowComponent },
   { path: 'tourist-equipment', component: TouristEquipmentComponent },
   { path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },

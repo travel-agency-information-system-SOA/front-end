@@ -7,6 +7,7 @@ import { ActiveTourComponent } from './active-tour/active-tour.component';
 import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
 import { PurchasedTourDetailsComponent } from './purchased-tour-details/purchased-tour-details.component';
 import { MyEndedToursComponent } from './my-ended-tours/my-ended-tours.component';
+import { MyToursComponent } from './my-tours/my-tours.component';
 
 
 
@@ -17,6 +18,7 @@ import { MyEndedToursComponent } from './my-ended-tours/my-ended-tours.component
     PurchasedToursComponent,
     PurchasedTourDetailsComponent,
     MyEndedToursComponent,
+    MyToursComponent,
   ],
   imports: [
     CommonModule,

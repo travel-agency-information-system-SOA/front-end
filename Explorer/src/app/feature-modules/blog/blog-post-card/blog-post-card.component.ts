@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { BlogPost } from '../model/blogpost.model';
 import { Router } from '@angular/router';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
@@ -13,9 +13,14 @@ import { TourCharacteristic } from '../../tour-authoring/tour/model/tourCharacte
   styleUrls: ['./blog-post-card.component.css']
 })
 
-export class BlogPostCardComponent {
+export class BlogPostCardComponent implements OnInit {
 
   constructor(private router: Router,private tourService:TourAuthoringService) {}
+  ngOnInit(): void {
+    if (this.post && this.post.tourId !== 0) {
+      this.getTourCharacteristics(this.post.tourId);
+    }
+  }
   tourCharacteristics:TourCharacteristic[] = [];
   tour:Tour;
   @Input() post: BlogPost;
@@ -45,19 +50,15 @@ export class BlogPostCardComponent {
     this.router.navigate(['/blog/', post.id]);
   }
 
-  shouldDisplayTourData(tourId: number): boolean {
-    if (tourId !== 0) {
-      this.getTourCharacteristics(tourId);
-      return true; // Prikazujemo podatke o turi ako id nije 0
-    }
-    return false; // Ne prikazujemo podatke o turi ako je id 0
+  shouldDisplayTourData(): boolean {
+    return this.tourCharacteristics && this.tourCharacteristics.length > 0;
   }
 
   getTourCharacteristics(tourId: number): void {
     this.tourService.getTourByTourId(tourId).subscribe({
       next: (result: Tour) => {
         this.tour = result;
-        this.tourCharacteristics = this.tour.tourCharacteristics; // Postavljanje karakteristika ture
+        this.tourCharacteristics = this.tour.tourCharacteristics; 
       },
       error: (error: any) => {
         console.log(error);

@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
-import { Router } from '@angular/router';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import { Router } from '@angular/router';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
-  selector: 'xp-my-ended-tours',
-  templateUrl: './my-ended-tours.component.html',
-  styleUrls: ['./my-ended-tours.component.css']
+  selector: 'xp-my-tours',
+  templateUrl: './my-tours.component.html',
+  styleUrls: ['./my-tours.component.css']
 })
-export class MyEndedToursComponent implements OnInit{
-
+export class MyToursComponent {
 
   tours: Tour[] = [];
   selectedTour: Tour;
@@ -37,7 +36,7 @@ export class MyEndedToursComponent implements OnInit{
     console.log('Id usera:' +userId)
     this.service.getTourByGuide(userId, this.page, this.pageSize).subscribe({
       next: (result: PagedResults<Tour>) => {
-        this.tours = result.results.filter(tura => tura.status=== 'Archived');
+        this.tours = result.results;
         console.log('Sadržaj result.results:', result.results);
       },
       error(err: any) {
@@ -46,8 +45,12 @@ export class MyEndedToursComponent implements OnInit{
     });
   }
 
-  createBlog(tourId: number | undefined): void {
-    this.router.navigate(['blog-form/'+ tourId]);
+  
+  startTour(tourId: number | undefined) : void{
+    this.router.navigate(['purchasedTours/' + tourId]);
   }
-
+  showTourDetails(tourId: number | undefined): void {
+    this.router.navigate(['purchasedTours', tourId]);
+  
+  }
 }

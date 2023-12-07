@@ -1,10 +1,16 @@
 import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BlogService } from '../blog.service';
 import { BlogPost } from '../model/blogpost.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { ActivatedRoute, Router } from '@angular/router';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { Equipment } from '../../tour-authoring/tour/model/equipment.model';
+import { Tour } from '../../tour-authoring/tour/model/tour.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { TourEquipmentService } from '../../tour-authoring/tour_equipment.service';
+import { AdministrationService } from '../../administration/administration.service';
 
 @Component({
   selector: 'xp-blogpost-form',
@@ -21,13 +27,21 @@ export class BlogpostFormComponent implements OnChanges,OnInit {
   @Input() shouldEdit: boolean = false;
   @Input() shouldEditDraft: boolean = false;
   
+  tour:Tour;
+    tourId:number;
+    equipmentLIst:Equipment[]=[];
+    equipment:String[]=[];
 
-  tourId:number;
-  constructor(private service: BlogService, private tokenStorage: TokenStorage, private router: Router, private route: ActivatedRoute) { }
+
+  constructor(private a: AdministrationService,private equipmentService: TourEquipmentService,private formBuilder: FormBuilder,private tourService:TourAuthoringService,private service: BlogService, private tokenStorage: TokenStorage, private router: Router, private route: ActivatedRoute) { }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
       this.tourId = params['id']; 
       console.log('ID ture:', this.tourId);
+      if(this.tourId !==0){
+        this.getTourEquipment(this.tourId);
+      }
+      
     });
   }
 
@@ -44,6 +58,7 @@ export class BlogpostFormComponent implements OnChanges,OnInit {
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     imageURLs: new FormControl(''),
+    equipment: this.buildEquipmentChecklist() // Dodajte polje za opremu
   })
 
 
@@ -69,7 +84,9 @@ export class BlogpostFormComponent implements OnChanges,OnInit {
       ratings: [],
       status: 'PUBLISHED'
     }
-
+    this.selectedEquipment.forEach(e => {
+      console.log("Opis " +e.description);
+    });
     this.service.addBlogPost(blogPost).subscribe({
       next: (_) => {
         this.blogPostsUpdated.emit();
@@ -188,5 +205,47 @@ export class BlogpostFormComponent implements OnChanges,OnInit {
     
 
   }
+
+  
+
+  shouldDisplayEquipment(): boolean {
+    return this.equipmentLIst && this.equipmentLIst.length > 0; // Vraća true ako postoji oprema
+  }
+
+  getTourEquipment(tourId: number) {
+    this.a.getEquipment().subscribe({
+      next: (result:PagedResults<Equipment>) => {
+        this.equipmentLIst = result.results; 
+        this.equipmentLIst.forEach(e => {
+          this.equipment.push(e.name);
+        });
+        console.log(this.equipmentLIst);
+        this.equipmentLIst.forEach(e => {
+          console.log(e);
+        });
+      this.blogPostForm.setControl('equipment', this.buildEquipmentChecklist());
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+  }
+  private buildEquipmentChecklist(): FormArray {
+    const controls = this.equipmentLIst.map(() => {
+      return this.formBuilder.control(false);
+    });
+    return this.formBuilder.array(controls);
+  }
+  
+  get selectedEquipment(): Equipment[] {
+    const selectedIndexes = this.blogPostForm.value.equipment
+      .map((checked: boolean, index: number) => checked ? index : -1)
+      .filter((index: number) => index !== -1);
+  
+    const selectedEquipment = selectedIndexes.map((index: number) => this.equipmentLIst[index]);
+    return selectedEquipment;
+  }
+
+
     
 }
