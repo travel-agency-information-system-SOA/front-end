@@ -6,6 +6,7 @@ import { EncountersExecutionService } from '../encounters-execution.service';
 import { EncounterExecution } from '../model/encounter-execution.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { Router } from '@angular/router';
+import { MapService } from 'src/app/shared/map/map.service';
 
 
 @Component({
@@ -16,7 +17,11 @@ import { Router } from '@angular/router';
 export class EncountersMapComponent implements OnInit {
   activeEncounters: Encounter[] = [];
   encounterExecution: EncounterExecution;
-  constructor(private router: Router, private tokenStorage: TokenStorage, private encounterService: EncountersService, private executionService: EncountersExecutionService){ }
+  constructor(private router: Router, 
+              private tokenStorage: TokenStorage, 
+              private encounterService: EncountersService, 
+              private executionService: EncountersExecutionService,
+              private mapService: MapService){ }
 
   ngOnInit(): void {
     this.getActiveEncounters(); 
