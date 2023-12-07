@@ -5,6 +5,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable } from 'rxjs';
 import { environment } from 'src/env/environment';
 import { EncounterExecution } from './model/encounter-execution.model';
+import { HiddenLocationEncounter } from './model/hidden-location-encounter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -51,12 +52,16 @@ export class EncountersService {
     return this.http.get<boolean>(url);
   }
 
-  completeExecution(userId: number): Observable<boolean> {
+  completeExecution(userId: number): Observable<EncounterExecution> {
     console.log("usao u servis")
-    const url = `${environment.apiHost+ 'encounterExecution/completeExecution'}/${userId}`;
+    const url = `${environment.apiHost}encounterExecution/completeExecution/${userId}`;
     console.log(url);
-    return this.http.put<boolean>(url, null);
+    return this.http.get<EncounterExecution>(url);
   }
 
+  getHiddenLocationEncounterByEncounterId(encounterId: number): Observable<HiddenLocationEncounter> {
+    const url = `${environment.apiHost}encounters/hiddenLocation/${encounterId}`;
+    return this.http.get<HiddenLocationEncounter>(url);
+  }
   
 }

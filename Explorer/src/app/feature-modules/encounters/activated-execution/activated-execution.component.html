@@ -1,31 +1,35 @@
-<div class="map-container">
-    <app-map (click)="updatePositions($event)"></app-map>
-</div>
-<p>{{encounter.name}}</p>
-<p>{{encounter.description}}</p>
-<ng-container *ngIf="isSocial">   
-    
+<div class="window">
+    <div class="map-container">
+        <app-map (click)="updatePositions($event)"></app-map>
+    </div>
 
-    
-    
-    <p *ngIf="!activeEncounter.isCompleted">You completed the encounter</p>
-</ng-container>
-<ng-container *ngIf="isMisc">
-    <!-- Show HTML view for miscellaneous encounter -->
-    <div>
-      <!-- Your HTML content for miscellaneous encounter -->
-      <button 
+    <div class="encounter-details">
+        <div>
+            <h1>{{encounter.name}}</h1>
+        </div>
+        <div>
+            <p>{{encounter.description}}</p>
+        </div>
+    </div>
+
+    <div class="location-details" *ngIf="isLocation">
+        <p>Place to find: </p>
+        <button (click)="togglePicture()" mat-raised-button
+        type="submit"
+        color="primary">Toggle Picture</button>
+        <div class="tour-image" *ngIf="showPicture">
+            <img [src]="hiddenLocationEncounter.imageURL" alt="{{ encounter.name }} Image">
+        </div>
+        
+    </div>
+
+    <div class="misc-details" *ngIf="isMisc">
+        <button 
       mat-raised-button
       type="submit"
       color="primary"
-      
+      (click)="completeExecution()"
       >Done</button>
     </div>
-</ng-container>
-<ng-container *ngIf="isLocation">
-    <!-- Show HTML view for location encounter -->
-    <div class="tour-image">
-        <img [src]="hiddenLocationEncounter.imageURL" alt="{{ encounter.name }} Image">
-    </div>
-</ng-container>
 
+</div>

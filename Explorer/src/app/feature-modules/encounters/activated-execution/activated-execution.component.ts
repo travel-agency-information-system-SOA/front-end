@@ -30,7 +30,9 @@ export class ActivatedExecutionComponent implements OnChanges {
   isMisc:boolean=false;
   isHiddenInRange: boolean;
   hiddenCount: number = 0;
-  hiddenLocationEncounter:HiddenLocationEncounter
+  hiddenLocationEncounter:HiddenLocationEncounter;
+  showPicture: boolean = false;
+
 
   constructor(private service:EncountersService,
     private tokenStorage: TokenStorage,
@@ -39,7 +41,6 @@ export class ActivatedExecutionComponent implements OnChanges {
     private administrationService:AdministrationService
    
 ){
-  //this.hiddenLocationEncounter.imageURL ="https://www.wheregoesrose.com/wp-content/uploads/2022/02/Callanish-Standing-Stones-2.jpg";
 }
 
   userPositionForm = new FormGroup({
@@ -58,13 +59,12 @@ export class ActivatedExecutionComponent implements OnChanges {
     this.getEncounterExecutionByUser(this.userId);
     
     this.startPolling();
-    
   }
 
   ngAfterInit(): void{
     this.getEncounterById(this.activeEncounter.id);
     this.checkEncounterType();
-
+    
   }
 
   private startPolling(): void {
@@ -77,7 +77,9 @@ export class ActivatedExecutionComponent implements OnChanges {
     if(this.encounter.type === "LOCATION"){
       
       this.checkHiddenEncounter();
+      console.log(this.hiddenLocationEncounter.imageURL)
     }
+    
       
     }, 5000);
   }
@@ -153,6 +155,7 @@ export class ActivatedExecutionComponent implements OnChanges {
       }
     );
     this.checkEncounterType();
+    this.fetchHiddenLocation(this.encounter.id);
   }
 
   checkSocialEncounter(encounterId: number) : void{
@@ -191,7 +194,14 @@ export class ActivatedExecutionComponent implements OnChanges {
   }
 
   completeExecution():void{
-    this.service.completeExecution(this.userId);
+    this.service.completeExecution(this.userId).subscribe(
+      (result) => {
+        console.log("Executionss: ",this.executions); 
+      },
+      (error) => {
+        console.error('Error', error);
+      }
+    );
     alert('You completed this challenge ! ');
     this.router.navigate(['/encounterMap']);
   }
@@ -230,4 +240,24 @@ export class ActivatedExecutionComponent implements OnChanges {
     }
   }
 
+  fetchHiddenLocation(encounterId: number): void {
+    if(this.encounter.type=="LOCATION"){
+    this.service.getHiddenLocationEncounterByEncounterId(encounterId)
+      .subscribe(
+        (result) => {
+          this.hiddenLocationEncounter=result;
+          console.log(this.hiddenLocationEncounter);
+        },
+        (error) => {
+          // Handle errors if any
+          console.error('Error fetching hidden location encounter:', error);
+        }
+      );
+      }
+    }
+
+
+    togglePicture() {
+      this.showPicture = !this.showPicture;
+    }
 }
