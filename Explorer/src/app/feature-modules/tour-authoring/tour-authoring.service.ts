@@ -15,7 +15,11 @@ import { BehaviorSubject } from 'rxjs';
 import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 import { TourPointRequest } from '../administration/model/tourpoint-request.model';
 import { PublicTourPoint } from './model/publicTourPoint.model';
+
+import { TourBundle } from './model/tourBundle.model';
+
 import { Equipment } from './tour/model/equipment.model';
+
 
 @Injectable({
   providedIn: 'root',
@@ -239,6 +243,44 @@ export class TourAuthoringService {
     );
   }
 
+
+  getAllTours(): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost + 'administration/tour/allTours'
+    );
+  }
+  createTourBundle(tourBundle: TourBundle){
+    return this.http.post<PagedResults<TourBundle>>(
+      environment.apiHost + 'author/tourBundle', tourBundle
+    );
+  }
+
+  getAllBundles(): Observable<PagedResults<TourBundle>>{
+    return this.http.get<PagedResults<TourBundle>>(
+      environment.apiHost+ 'author/tourBundle'
+    )
+  }
+
+  getToursByBundle(tourIds: number[]){
+    let params = new HttpParams();
+    tourIds.forEach((id) => {
+      params = params.append('tourIds', id.toString());
+    });
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost+ 'author/tourBundle/toursByBundle', { params: params }
+    );
+  }
+
+  updateBundle(bundle: TourBundle): Observable<TourBundle>{
+    return this.http.put<TourBundle>(
+      environment.apiHost+ 'author/tourBundle/'+ bundle.id, bundle
+    );
+  }
+
+  deleteBundle(id:number): Observable<TourBundle>{
+    return this.http.delete<TourBundle>(
+      environment.apiHost+ 'author/tourBundle/'+ id);
+  }
   findTours(publicTPs: PublicTourPoint[], page: number, pageSize: number) {
     const publicTourPointsString = JSON.stringify(publicTPs);
     console.log('Public Tour Points:', publicTourPointsString);
@@ -259,6 +301,7 @@ export class TourAuthoringService {
   findLastTourId(page: number, pageSize: number): Observable<number> {
     return this.http.get<number>(
       environment.apiHost + 'administration/tour/lastId'
+
     );
   }
 }

@@ -50,6 +50,10 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
+
+import { TourBundleCreateComponent } from 'src/app/feature-modules/tour-authoring/tour-bundle-create/tour-bundle-create.component';
+import { TourBundlesShowComponent } from 'src/app/feature-modules/tour-authoring/tour-bundles-show/tour-bundles-show.component';
+
 import { MyEndedToursComponent } from 'src/app/feature-modules/tour-execution/my-ended-tours/my-ended-tours.component';
 import { BlogpostFormComponent } from 'src/app/feature-modules/blog/blogpost-form/blogpost-form.component';
 import { MyToursComponent } from 'src/app/feature-modules/tour-execution/my-tours/my-tours.component';
@@ -61,6 +65,7 @@ import { TourSaleComponent } from 'src/app/feature-modules/marketplace/tour-sale
 import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tour-tourist/tour-tourist.component';
 
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
+
 
 
 
@@ -178,6 +183,10 @@ const routes: Routes = [
   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
+
+  { path: 'tourBundleCreate', component: TourBundleCreateComponent},
+  { path: 'tourBundlesShow', component: TourBundlesShowComponent},
+
   { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent},
 
 
@@ -190,6 +199,7 @@ const routes: Routes = [
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent },
   { path: 'tour-tourist', component: TourTouristComponent },
      { path: 'compositeTours', component: CompositeToursComponent},
+
 
 ];
 
