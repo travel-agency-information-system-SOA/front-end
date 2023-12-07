@@ -50,6 +50,9 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
+
+import { PublishedBundlesShowComponent } from 'src/app/feature-modules/payment-record/published-bundles-show/published-bundles-show.component';
+
 import { TourSaleComponent } from 'src/app/feature-modules/marketplace/tour-sale/tour-sale.component';
 
 import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tour-tourist/tour-tourist.component';
@@ -163,6 +166,13 @@ const routes: Routes = [
   { path: 'tours-show', component: ToursShowComponent },
   { path: 'marketplace', component: TourMarketplaceComponent },
   { path: 'marketplace/:id', component: TourDetailsComponent },
+
+  { path: 'private-tour-points', component: PrivateTourPointsComponent},
+  { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
+  { path: 'purchasedTours', component: PurchasedToursComponent},
+  { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
+  { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent}
+
 
   { path: 'private-tour-points', component: PrivateTourPointsComponent },
   {
