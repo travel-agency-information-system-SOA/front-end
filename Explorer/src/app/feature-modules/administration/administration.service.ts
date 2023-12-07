@@ -12,7 +12,6 @@ import { Profile } from './model/profile.model';
 import { TourPointRequest } from './model/tourpoint-request.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { RequestResponseNotification } from './model/request-response-notification.model';
-import { TouristXP } from './model/touristXP.model';
 
 import { UserPosition } from './model/userPosition.model';
 
@@ -116,9 +115,5 @@ export class AdministrationService {
   }
   deleteNotification(notification: RequestResponseNotification): Observable<RequestResponseNotification> {
     return this.http.delete<RequestResponseNotification>(environment.apiHost + 'administration/requestResponseNotification/' + notification.id);
-  }
-  getTouristXPByID(touristId: Number): Observable<PagedResults<TouristXP>>{
-    console.log("Doslo je do ovde");
-    return this.http.get<PagedResults<TouristXP>>(environment.apiHost + 'tourist/touristXP/' + touristId);
   }
 }

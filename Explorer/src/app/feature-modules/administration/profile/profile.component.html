@@ -25,14 +25,6 @@
     <label for="quote">Quote:</label>
     <input id="quote" [(ngModel)]="userProfile.quote" [disabled]="!isEditMode">
   </div>
-  <div>
-    <label>XP:</label>
-    <label *ngFor="let txp of touristXP">{{txp.experience}}</label>
-  </div>
-  <div>
-    <label>Level:</label>
-    <label *ngFor="let txp of touristXP">{{txp.level}}</label>
-  </div>
   <button (click)="toggleEditMode()">{{ isEditMode ? 'Save' : 'Edit' }}</button>
   <div>
   <mat-icon (click)="onBellClicked()">notifications</mat-icon>

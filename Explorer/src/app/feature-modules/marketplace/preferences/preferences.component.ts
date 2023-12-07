@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {DifficultyLevel, Preferences} from "../model/preferences.model";
+import { Preferences } from "../model/preferences.model";
 import {MarketplaceService} from "../marketplace.service";
 import {PagedResults} from "../../../shared/model/paged-results.model";
 import {AuthService} from 'src/app/infrastructure/auth/auth.service';
@@ -17,7 +17,6 @@ export class PreferencesComponent implements OnInit {
   selectedPreferences: Preferences;
   shouldEdit: boolean;
   shouldRenderPreferencesForm: boolean = false;
-  usersPreferences: Preferences;
 
   constructor(private service: MarketplaceService, private authService: AuthService) {
   }
@@ -37,35 +36,7 @@ export class PreferencesComponent implements OnInit {
       error: (err: any) => {
         console.log(err);
       }
-    });
-
-    this.service.getUserPreferences(this.user.id).subscribe({
-      next: (result) => {
-        this.renderSettingsSucc(result);
-      },
-      error: (err) => {
-        this.renderSettingsUnsucc();
-        //console.log(err);
-      }
     })
-  }
-
-  renderSettingsSucc(p: Preferences) {
-    this.usersPreferences = p;
-    this.shouldEdit = true;
-    this.shouldRenderPreferencesForm = true;
-  }
-
-  renderSettingsUnsucc() {
-    let test = {
-      userId: this.user.id,
-      preferredDifficulty: DifficultyLevel.EASY,
-      transportationPreferences: [0, 0, 0, 0],
-      interestTags: []
-    };
-    this.usersPreferences = test;
-    this.shouldEdit = false;
-    this.shouldRenderPreferencesForm = true;
   }
 
   onEditClicked(preferences: Preferences): void {

@@ -19,7 +19,6 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TourMapComponent } from './tour-map/tour-map.component';
 import { PrivateTourPointsComponent } from './private-tour-points/private-tour-points.component';
-import { TourTouristComponent } from './tour-tourist/tour-tourist.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { TourTouristComponent } from './tour-tourist/tour-tourist.component';
     TourMapComponent,
     EquipmentDialogComponent,
     PrivateTourPointsComponent,
-    TourTouristComponent,
   ],
 
   imports: [
