@@ -52,7 +52,7 @@ import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
 import { ActivatedExecutionComponent } from 'src/app/feature-modules/encounters/activated-execution/activated-execution.component';
-
+import { EncountersMapComponent } from 'src/app/feature-modules/encounters/encounters-map/encounters-map.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -141,7 +141,8 @@ const routes: Routes = [
   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
-  { path: 'activeEncounter', component:ActivatedExecutionComponent}
+  { path: 'activeEncounter', component:ActivatedExecutionComponent},
+  { path: 'encounterMap', component: EncountersMapComponent}
 ];
 
 @NgModule({

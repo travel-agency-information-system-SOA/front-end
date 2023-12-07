@@ -1,2 +1,10 @@
-<p>activated-execution works!</p>
-<app-map (click)="updatePositions($event)"></app-map>
+<p>{{encounter.name}}</p>
+<p>{{encounter.description}}</p>
+
+<div class="map-container">
+    <app-map (click)="updatePositions($event)"></app-map>
+</div>
+<p> {{ activeEncounter.id }} </p>
+<p> {{ activeEncounter.encounterId }} </p>
+<p *ngIf="!activeEncounter.isCompleted">aaa</p>
+
