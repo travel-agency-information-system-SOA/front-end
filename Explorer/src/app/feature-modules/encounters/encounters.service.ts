@@ -45,5 +45,18 @@ export class EncountersService {
     return this.http.get<PagedResults<EncounterExecution>>(url);
   }
 
+  checkHiddenEncounter(executionId: number, encounterId: number): Observable<boolean> {
+    const url = `${environment.apiHost+ 'encounterExecution/checkHidden'}/${executionId}/${encounterId}`;
+    console.log(url);
+    return this.http.get<boolean>(url);
+  }
+
+  completeExecution(userId: number): Observable<boolean> {
+    console.log("usao u servis")
+    const url = `${environment.apiHost+ 'encounterExecution/completeExecution'}/${userId}`;
+    console.log(url);
+    return this.http.put<boolean>(url, null);
+  }
+
   
 }

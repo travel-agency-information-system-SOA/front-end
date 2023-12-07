@@ -28,6 +28,8 @@ export class ActivatedExecutionComponent implements OnChanges {
   isSocial:boolean=false;
   isLocation:boolean=false;
   isMisc:boolean=false;
+  isHiddenInRange: boolean;
+  hiddenCount: number = 0;
   hiddenLocationEncounter:HiddenLocationEncounter
 
   constructor(private service:EncountersService,
@@ -36,7 +38,9 @@ export class ActivatedExecutionComponent implements OnChanges {
     private mapService:MapService,
     private administrationService:AdministrationService
    
-){}
+){
+  //this.hiddenLocationEncounter.imageURL ="https://www.wheregoesrose.com/wp-content/uploads/2022/02/Callanish-Standing-Stones-2.jpg";
+}
 
   userPositionForm = new FormGroup({
     latitude: new FormControl(0, [Validators.required]),
@@ -61,15 +65,18 @@ export class ActivatedExecutionComponent implements OnChanges {
     this.getEncounterById(this.activeEncounter.id);
     this.checkEncounterType();
 
-    console.log("aaa",this.encounter);
   }
 
   private startPolling(): void {
     this.pollingInterval = setInterval(() => {
     this.getEncounterById(this.activeEncounter.encounterId);
-    if(this.encounter.type == "SOCIAL"){
+    if(this.encounter.type === "SOCIAL"){
       
       this.checkSocialEncounter(this.activeEncounter.encounterId);
+    }
+    if(this.encounter.type === "LOCATION"){
+      
+      this.checkHiddenEncounter();
     }
       
     }, 5000);
@@ -159,6 +166,34 @@ export class ActivatedExecutionComponent implements OnChanges {
         console.error('Error fetching TourExecution', error);
       }
     );
+  }
+
+  checkHiddenEncounter(){
+    this.service.checkHiddenEncounter(this.activeEncounter.id, this.encounter.id).subscribe(
+      (result: boolean) => {
+        this.isHiddenInRange = result;
+        console.log("Is Hidden: ", this.isHiddenInRange);
+        if(this.isHiddenInRange){
+          this.hiddenCount += 1;
+          console.log("Hidden count:", this.hiddenCount)
+          if(this.hiddenCount == 2){
+            this.completeExecution();
+          }
+        }else{
+          this.hiddenCount = 0;
+          console.log("Hidden count:", this.hiddenCount)
+        }
+      },
+      (error: any) => {
+        console.error('Error checking boolean value', error);
+      }
+    );
+  }
+
+  completeExecution():void{
+    this.service.completeExecution(this.userId);
+    alert('You completed this challenge ! ');
+    this.router.navigate(['/encounterMap']);
   }
 
   updateSocialExecution() : void{
