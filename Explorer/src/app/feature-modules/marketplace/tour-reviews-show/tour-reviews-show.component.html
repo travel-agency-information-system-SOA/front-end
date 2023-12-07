@@ -1,25 +1,50 @@
 <div class="container">
-<div class="reviews">
+  
+   
+
+  
+
+  <div class="slide-content">
     <h1>My Reviews</h1>
-    <ng-container *ngFor="let review of _observableList| async" >
-        <mat-label>Grade: <span><mat-label>{{review.grade}}</mat-label></span></mat-label>
-        <div>
-        <mat-label>Comment: <span><mat-label>{{review.comment}}</mat-label></span></mat-label>
+    <div class="card-wrapper">
+    
+      <div class="card" *ngFor="let review of _observableList| async">
+        <div class="image-content">
+
+
+          <div class="card-image">
+            <div *ngFor="let image of review.images">
+              <img [src]="image">
+            </div>
+          </div>
         </div>
-        <div *ngFor="let image of review.images" >
-       <img [src]="image" >
-     </div>
-     <div class="button">
-      <button mat-raised-button type="submit" color="primary" (click)="delete(review)" >Delete</button>
-      <button mat-raised-button type="submit" color="primary" (click)="update(review)">Update</button>
+
+        <div class="card-content">
+          <h2 class="name">Review Details </h2>
+          <div class="eq-app">
+            <div class="desc-container">
+
+              <p class="description">&#9733;{{review.grade}} </p>
+              <p class="description">Comment: {{review.comment}} </p>
+             
+              <button mat-raised-button type="submit" color="primary" (click)="delete(review)">Delete</button>
+            </div>
+
+
+          </div>
+
+
+
+        </div>
+
+      </div>
+
     </div>
-
-    </ng-container>
-   </div>
+  </div>
 
 
-   <div *ngIf="showUpdate">
-    <xp-update-review   [reviewForUpdate]="selectedReview"></xp-update-review>
+  <div *ngIf="showUpdate">
+    <xp-update-review [reviewForUpdate]="selectedReview"></xp-update-review>
 
-   </div>
+  </div>
 </div>

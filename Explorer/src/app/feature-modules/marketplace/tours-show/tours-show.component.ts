@@ -75,9 +75,9 @@ export class ToursShowComponent {
 
   rateTour(tour: ReviewTour) {
     this.getTourExecution(tour);
-    if (this.hasPassed35Percent(tour) && this.isDateWithinLastWeek()) {
+    //if (this.hasPassed35Percent(tour) && this.isDateWithinLastWeek()) {
       this.router.navigate(['/tourReviewForm', tour.id]);
-    }
+   // }
   }
 
   calculateAverageGrade(tour: ReviewTour) {
