@@ -68,7 +68,7 @@
   
   .card {
     flex: 1 0 calc(50% - 16px);
-    max-width: calc(30% - 6px);
+    max-width: calc(40% - 6px);
     height: 350px;
     margin-bottom: 16px;
     margin-top: 20px;
