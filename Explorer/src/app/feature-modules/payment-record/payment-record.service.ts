@@ -14,12 +14,20 @@ import { HttpClient } from '@angular/common/http';
 export class PaymentRecordService {
 
   constructor(private http:HttpClient) {
-   }
+   
+  }
 
    
-   getPublishedBundles(): Observable<PagedResults<Bundle>>{
-    return this.http.get<PagedResults<Bundle>>(environment.apiHost+'author/tourBundle/publishedTourBundles');
-   }
+  getPublishedBundles(): Observable<PagedResults<Bundle>> {
+    return this.http.get<PagedResults<Bundle>>(
+      environment.apiHost + 'author/tourBundle/publishedTourBundles'
+    );
+  }
    
- 
+  tourBundlePurchase(tourBundleId: number, touristId: number): Observable<Bundle>{
+    return this.http.post<Bundle>(
+      environment.apiHost + 'bundlepayrecord',
+      null
+    );
+  } 
 }
