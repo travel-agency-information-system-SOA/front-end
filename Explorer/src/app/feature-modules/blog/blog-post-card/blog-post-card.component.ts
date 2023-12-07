@@ -5,6 +5,9 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { Observable, catchError, map, of } from 'rxjs';
 import { TourCharacteristic } from '../../tour-authoring/tour/model/tourCharacteristic.model';
+import { Equipment } from '../../tour-authoring/tour/model/equipment.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { AdministrationService } from '../../administration/administration.service';
 
 
 @Component({
@@ -15,10 +18,12 @@ import { TourCharacteristic } from '../../tour-authoring/tour/model/tourCharacte
 
 export class BlogPostCardComponent implements OnInit {
 
-  constructor(private router: Router,private tourService:TourAuthoringService) {}
+  equipmentList:Equipment[]=[];
+  constructor(private a:AdministrationService,private router: Router,private tourService:TourAuthoringService) {}
   ngOnInit(): void {
     if (this.post && this.post.tourId !== 0) {
       this.getTourCharacteristics(this.post.tourId);
+      this.getTourEquipment(this.post.tourId);
     }
   }
   tourCharacteristics:TourCharacteristic[] = [];
@@ -65,6 +70,21 @@ export class BlogPostCardComponent implements OnInit {
       }
     });
   }
+
+  getTourEquipment(tourId: number) {
+    this.a.getEquipment().subscribe({
+      next: (result:PagedResults<Equipment>) => {
+        this.equipmentList = result.results; 
+        console.log("Oporema:" + this.equipmentList)
+        this.equipmentList.forEach(e => {
+          console.log(e.description);
+        });
+      },
+      error: (error: any) => {
+        console.log(error);
+      }
+    });
+
   
-  
+}
 }
