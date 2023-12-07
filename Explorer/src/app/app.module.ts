@@ -58,7 +58,8 @@ import { PublishedBundlesShowComponent } from './feature-modules/payment-record/
     MatDialogModule,
     MatButtonModule,
     CommonModule,
-    EncountersModule
+    EncountersModule,
+    
   ],
   providers: [
     {

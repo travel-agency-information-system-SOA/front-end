@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 import { TourPointRequest } from '../administration/model/tourpoint-request.model';
 import { PublicTourPoint } from './model/publicTourPoint.model';
+import { Equipment } from './tour/model/equipment.model';
 
 @Injectable({
   providedIn: 'root',
@@ -166,6 +167,13 @@ export class TourAuthoringService {
     );
   }
 
+  getTourEquipment(id: number): Observable<PagedResults<Equipment>> {
+    return this.http.get<PagedResults<Equipment>>(
+      environment.apiHost + `administration/tourequipment/`+id
+    );
+  }
+  
+
   emitTourPointAdded(): void {
     this.tourPointAdded.emit();
   }
@@ -176,9 +184,9 @@ export class TourAuthoringService {
 
   getTourByTourId(id: number): Observable<Tour> {
     return this.http.get<Tour>(
-      `https://localhost:44333/api/administration/tour/onetour/${id}`
-    );
-  }
+      environment.apiHost+ `administration/tour/onetour/${id}`
+    );}
+
 
   AcceptRequest(
     requestId: number,

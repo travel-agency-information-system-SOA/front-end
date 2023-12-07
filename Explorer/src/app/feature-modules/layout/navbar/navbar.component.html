@@ -6,19 +6,26 @@
         Home
       </button>
 
-      <div *ngIf="user && user.role === 'tourist'" class="dd">
-        <button raised-button [routerLink]="['marketplace']" class="nbutton">
-          Marketplace <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="ddc">
-          <a *ngIf="user && user.role === 'tourist'" href="marketplace"
-            >Marketplace</a
-          >
-          <a *ngIf="user && user.role === 'tourist'" href="shoppingcart"
-            >Shopping Cart</a
-          >
-        </div>
-      </div>
+
+            <div *ngIf="user && user.role === 'tourist'" class="dd">
+                <button raised-button [routerLink]="['marketplace']" class="nbutton">Marketplace <i class="fa fa-caret-down"></i></button>
+                <div class="ddc">
+                    <a *ngIf="user && user.role === 'tourist'" href="marketplace">Marketplace</a>
+                    <a *ngIf="user && user.role === 'tourist'" href="shoppingcart">Shopping Cart</a>
+                </div>
+            </div> 
+
+            <div *ngIf="user && user.role === 'tourist'" class="dd">
+                <button raised-button [routerLink]="['purchasedTours']" class="nbutton">My Tours <i class="fa fa-caret-down"></i></button>
+                <div class="ddc">
+                    <a *ngIf="user && user.role === 'tourist'" href="purchasedTours">Purchased Tours</a>
+                    <a *ngIf="user && user.role === 'tourist'" href="my-ended-tours">Ended Tours</a>
+                    <a *ngIf="user && user.role === 'tourist'" href="my-tours">Tours I created</a>
+                    <a *ngIf="user && user.role === 'tourist'" href="tours-show">Rate Visited Tours</a>
+                    <a *ngIf="user && user.role === 'tourist'" href="problems">Tour Problems</a>
+                </div>
+            </div> 
+
 
 
       <div *ngIf="user && user.role === 'tourist'" class="dd">
