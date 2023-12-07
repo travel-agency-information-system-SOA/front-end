@@ -171,7 +171,7 @@ const routes: Routes = [
   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
-  { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent}
+  { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent},
 
 
   { path: 'private-tour-points', component: PrivateTourPointsComponent },
