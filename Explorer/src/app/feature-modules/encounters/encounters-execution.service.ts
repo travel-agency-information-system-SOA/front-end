@@ -15,4 +15,7 @@ export class EncountersExecutionService {
   addEncounterExecution(execution: EncounterExecution): Observable<EncounterExecution>{
     return this.http.post<EncounterExecution>(environment.apiHost + 'encounterExecution', execution);
   }
+  getExecutions(): Observable<PagedResults<EncounterExecution>> {
+    return this.http.get<PagedResults<EncounterExecution>>(environment.apiHost + 'encounterExecution');
+  }
 }
