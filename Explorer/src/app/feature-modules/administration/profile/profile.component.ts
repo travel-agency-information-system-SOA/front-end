@@ -4,6 +4,9 @@ import { AdministrationService } from '../administration.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
+import { TouristXP } from '../model/touristXP.model';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-profile',
@@ -13,10 +16,12 @@ import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/g
 export class ProfileComponent implements OnInit {
 
   userProfile: Profile = {} as Profile;
+  touristXP: TouristXP[] = [];
   isEditMode: boolean = false;
   shouldRenderNotifications: boolean = false;
 
-  constructor(private service: AdministrationService,
+  constructor(private tokenStorage: TokenStorage,
+              private service: AdministrationService,
               private auth: AuthService,
               private googleAnalytics: GoogleAnalyticsService
   ){}
@@ -25,6 +30,7 @@ export class ProfileComponent implements OnInit {
     this.googleAnalytics.sendPageView(window.location.pathname);
 
     this.loadProfileData();
+    this.loadTouristXP();
   }
 
   loadProfileData(){
@@ -54,6 +60,19 @@ export class ProfileComponent implements OnInit {
       }
     });
     }
+  
+  loadTouristXP()
+  {
+    const userId = this.tokenStorage.getUserId();
+    this.service.getTouristXPByID(userId).subscribe({
+      next: (result: PagedResults<TouristXP>) => {
+        this.touristXP = result.results;
+      },
+      error: () => {
+      }
+    })
+  }
+  
 
   toggleEditMode() {
     if(this.isEditMode == false)

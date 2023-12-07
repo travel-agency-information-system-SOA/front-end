@@ -1,13 +1,19 @@
 <div class="body">
-
+ 
+  
     <div class="slide-container">
   
       <div class="title">Purchased tours</div>
-  
+    <div class="flexCol">
+        
+
+      <button class="startTour" [disabled]="selectedTours.length < 2" (click)="createComposite()">Connect these tours</button>
+      
       <div class="slide-content">
+
         <div class="card-wrapper">
-          <button *ngFor="let tour of tours" (click)="showTourDetails(tour.id)">
-          <div class="card">
+          <button *ngFor="let tour of tours" (click)="selectTour(tour)">
+          <div class="card" [ngClass]="{ 'card-selected': tour.selected == true }">
   
             <div class="image-content">
                 <span class="overlay" *ngIf="tour.tags && tour.tags.length > 0">
@@ -36,7 +42,7 @@
                 <p *ngIf="tour.difficultyLevel==='Moderate'" class="difficulty moderate">{{ tour.difficultyLevel }}</p>
                 <p *ngIf="tour.difficultyLevel==='Difficult'" class="difficulty difficult">{{ tour.difficultyLevel }}</p>
               </div>
-              <button class="startTour">
+              <button class="startTour" (click)="startTour(tour.id)">
                 Start tour
               </button>
             </div>
@@ -45,6 +51,8 @@
           </button>
         </div>
       </div>
+      
     </div>
+  </div>
   
   </div>
