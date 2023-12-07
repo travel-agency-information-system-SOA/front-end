@@ -94,7 +94,10 @@
                   (click)="publishTour(t)"
                 >
                   Publish
-                </button>
+                </button>           
+              </div>
+              <div class="isPublished">
+                <button mat-button color="blue" (click)="onCreateCoupon(t.id)">Create coupon</button>
               </div>
             </div>
           </mat-card-actions>

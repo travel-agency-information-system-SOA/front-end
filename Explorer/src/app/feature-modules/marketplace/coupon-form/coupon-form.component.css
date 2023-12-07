@@ -1,0 +1,18 @@
+.form-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px; /* Adjust the vertical spacing between rows */
+  }
+  
+  mat-form-field {
+    width: 50%;
+  }
+  
+  label {
+    font-size: 16px;
+  }
+  
+  /* Optional: Adjust the width of the form fields as needed */
+  input {
+    max-width: 300px;
+  }

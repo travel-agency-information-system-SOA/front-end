@@ -6,6 +6,10 @@
         <div class="order-item">
           <p class="tour-name">{{ orderItem.tourName }}</p>
           <p class="price">Price: {{ orderItem.price | currency:'USD':'symbol':'1.2-2' }}</p>
+          <div class="coupon-container">
+            <input #couponInput type="text" placeholder="Enter coupon code" />
+            <button class="coupon-button" (click)="checkCoupon(couponInput.value, orderItem.idTour)">OK</button>
+          </div>
           <button class="remove-button" (click)="removeOrderItem(shoppingCart.id, orderItem.idTour)">Remove</button>
         </div>
       </li>

@@ -60,4 +60,24 @@
     margin-top: 20px;
     color: #777;
   }
+
+
+.coupon-container {
+  display: flex;
+  gap: 10px; 
+  margin-bottom: 10px; 
+}
+
+.coupon-container input {
+  padding: 5px;
+  border: 1px solid #ccc;
+}
+
+.coupon-container button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
   
