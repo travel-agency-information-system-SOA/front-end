@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ShoppingCart, OrderItem } from '../model/shopping-cart.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { Coupon } from '../model/coupon.model';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -12,6 +13,7 @@ export class ShoppingCartComponent {
 
   shoppingCart: ShoppingCart;
   orderItem: OrderItem;
+  usedCoupons: number[] = []
 
   constructor(
     private marketplaceService: MarketplaceService,
@@ -67,12 +69,60 @@ export class ShoppingCartComponent {
 
   purchase(cartId: number ): void {
        
+    for (const couponId of this.usedCoupons) {
+      
+      this.marketplaceService.deleteCoupon(couponId).subscribe({
+        next: () => {
+        },
+        error: () => {
+        }
+      })      
+    }
+    
+    this.marketplaceService.updateShoppingCart(this.shoppingCart)
+    .subscribe(updatedShoppingCart => {
+      this.shoppingCart = updatedShoppingCart;
+    }, error => {
+      console.error('Error updating cart', error);
+    });
+
     this.marketplaceService.purchase(cartId)
       .subscribe(updatedShoppingCart => {
         this.shoppingCart = updatedShoppingCart;
       }, error => {
         console.error('Error purchasing items', error);
       });
+  }
+
+  checkCoupon(code: string, tourId: number): void {
+
+    if(!code){
+      return
+    }
+
+    this.marketplaceService.getCouponByCodeAndTourId(code, tourId).subscribe({
+      next: (coupon: Coupon) => {
+        if(!coupon){
+          alert("Coupon you entered is ether invalid, expired or for a wrong tour!")
+          return
+        }
+
+        for (const orderItem of this.shoppingCart.orderItems) {
+          if(orderItem.idTour === tourId) {
+            orderItem.price -= (coupon.discount/100)*orderItem.price
+          }
+        }
+
+        this.shoppingCart.total = this.calculateTotal();
+        this.usedCoupons.push(coupon.id)
+        alert("Coupon successfuly used!")
+
+      },
+      error: () => {
+      }
+    })
+
+
   }
   
 }

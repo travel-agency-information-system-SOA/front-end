@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
-
 import { MarketplaceService } from '../marketplace.service';
 import { Router } from '@angular/router';
 import { ReviewTour } from './ReviewTour.model';
@@ -76,9 +75,9 @@ export class ToursShowComponent {
 
   rateTour(tour: ReviewTour) {
     this.getTourExecution(tour);
-    if (this.hasPassed35Percent(tour) && this.isDateWithinLastWeek()) {
+    //if (this.hasPassed35Percent(tour) && this.isDateWithinLastWeek()) {
       this.router.navigate(['/tourReviewForm', tour.id]);
-    }
+   // }
   }
 
   calculateAverageGrade(tour: ReviewTour) {

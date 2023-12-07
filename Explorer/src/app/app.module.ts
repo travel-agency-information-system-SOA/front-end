@@ -28,9 +28,11 @@ import { AdministrationModule } from './feature-modules/administration/administr
 import { ClubModule } from './feature-modules/club/club.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { GoogleAnalyticsService } from "./infrastructure/google-analytics/google-analytics.service";
+import { EncountersModule } from './feature-modules/encounters/encounters.module';
+import { PublishedBundlesShowComponent } from './feature-modules/payment-record/published-bundles-show/published-bundles-show.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, PublishedBundlesShowComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -56,6 +58,8 @@ import { GoogleAnalyticsService } from "./infrastructure/google-analytics/google
     MatDialogModule,
     MatButtonModule,
     CommonModule,
+    EncountersModule,
+    
   ],
   providers: [
     {
