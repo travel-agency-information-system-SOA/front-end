@@ -12,6 +12,7 @@ export class TourEquipmentService {
   constructor(private http: HttpClient) { }
 
   addEquipment(tourId: number, equipmentId: number): Observable<any> {
+    console.log("ID: ", tourId, equipmentId)
     const requestBody = {
       tourId: tourId,
       equipmentId: equipmentId

@@ -1,6 +1,6 @@
 <div class="container">
 <div>
-<h1>Create TourReview</h1>
+<h1>Leave a review</h1>
   
   <form [formGroup]="inputForm">
     <div class="grade" >
@@ -12,17 +12,20 @@
     </div>
     <div>
       <mat-form-field>
-        <textarea matInput  rows="4" placeholder="comment" formControlName="comment"></textarea>
+        <mat-label>Comment</mat-label>
+        <textarea matInput  rows="4"  formControlName="comment"></textarea>
         <mat-hint>Please enter a comment</mat-hint>
         </mat-form-field>
     
       </div>
-      <div class="images">
+      <div class="images" >
+        <mat-form-field>
+          <mat-label>Images</mat-label>
         <input matInput type="text"   formControlName="images"  >
-
+      </mat-form-field>
       </div>
       <div class="buttonClass">
-        <button mat-raised-button type="submit" color="primary" (click)="onSubmit()">Add</button>
+        <button mat-raised-button type="submit" color="primary" (click)="onSubmit()">Submit</button>
         
       </div>
 
