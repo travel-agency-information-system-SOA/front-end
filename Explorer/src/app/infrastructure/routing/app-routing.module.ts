@@ -171,7 +171,7 @@ const routes: Routes = [
   { path: 'purchasedTours', component: PurchasedToursComponent },
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent },
   { path: 'encountersMap', component: EncountersMapComponent},
-  { path: 'encountersMap/activatedEncouter', component: ActivatedExecutionComponent}
+  { path: 'encountersMap/activatedEncouter', component: ActivatedExecutionComponent},
   { path: 'tour-tourist', component: TourTouristComponent },
      { path: 'compositeTours', component: CompositeToursComponent},
 
