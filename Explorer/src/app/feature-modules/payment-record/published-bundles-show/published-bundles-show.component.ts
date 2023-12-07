@@ -16,6 +16,7 @@ export class PublishedBundlesShowComponent {
 
   constructor(private paymentRecordService: PaymentRecordService,private authService:AuthService){
     this.getPublishedBundles()
+    this.getLoggedInUser()
   }
 
   getLoggedInUser(){
@@ -32,13 +33,22 @@ export class PublishedBundlesShowComponent {
       next:(response)=>{
         this.publishedBundles=response.results;
         console.log('Publishovani paketi', this.publishedBundles)
-      }
+      },
+      
     })
   }
 
   
-  tourBundlePurchase(tourBundleId: number, touristId: number): void {   
-    this.paymentRecordService.tourBundlePurchase(tourBundleId, this.loggedInUser);
+  tourBundlePurchase(tourBundleId: number): void {   
+    this.paymentRecordService.tourBundlePurchase(tourBundleId, this.loggedInUser).subscribe({
+
+      next:(response)=>{
+        console.log('Response', response)
+      },
+      error:(error)=>{
+        console.log(error)
+      }
+    })
     
   }
 

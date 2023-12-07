@@ -25,8 +25,9 @@ export class PaymentRecordService {
   }
    
   tourBundlePurchase(tourBundleId: number, touristId: number): Observable<Bundle>{
+    console.log('nestooo')
     return this.http.post<Bundle>(
-      environment.apiHost + 'bundlepayrecord',
+      environment.apiHost + 'bundlepayrecord/'+ tourBundleId + '/'+touristId ,
       null
     );
   } 
