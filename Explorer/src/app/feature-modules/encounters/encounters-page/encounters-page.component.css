@@ -14,16 +14,18 @@ p {
     font-size: 20px;
 }
 
+/* Updated styles for the container div */
 div {
-    margin: 15px 15px 0; 
+    margin: 15px 15px 0; /* 15px top margin, 15px left and right margins, 0 bottom margin */
 }
 
 table {
     border-collapse: collapse;
     font-size: 0.9em;
     font-family: sans-serif;
-    min-width: 300px;
+    width: 98%; /* 100% width minus the sum of left and right margins (15px + 15px) */
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    margin-left: 20px;
 }
 
 thead tr {
