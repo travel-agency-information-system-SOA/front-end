@@ -49,6 +49,11 @@ table {
     width: 10%;
   }
   
+  /* Exclude border for the last cell in each row (around the Activate button) */
+  td:last-child, th:last-child {
+    border: none;
+  }
+  
   /* Apply some spacing to the table */
   div {
     margin: 20px;
