@@ -60,12 +60,12 @@ export class EncountersMapComponent implements OnInit {
             }
             this.executionService.addEncounterExecution(this.encounterExecution).subscribe({
               next: (_) => {
-                this.router.navigate(['/encountersMap/activatedEncouter']);
+                this.router.navigate(['/activeEncounter']);
               }
             })
           }
           else {
-            this.router.navigate(['/encountersMap/activatedEncouter']);
+            this.router.navigate(['/activeEncounter']);
           }
         }
       })
