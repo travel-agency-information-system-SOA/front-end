@@ -11,13 +11,15 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { FormsModule } from '@angular/forms'; 
 import { MatDialogModule } from '@angular/material/dialog'; 
 import { MatSelectModule } from '@angular/material/select';
+import { ClubCardComponent } from './club-card/club-card.component';
 
 
 
 @NgModule({
   declarations: [
     ClubComponent,
-    ClubFormComponent
+    ClubFormComponent,
+    ClubCardComponent
   ],
   imports: [
     CommonModule,
