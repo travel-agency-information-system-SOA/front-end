@@ -24,9 +24,8 @@
 </ng-container>
 <ng-container *ngIf="isLocation">
     <!-- Show HTML view for location encounter -->
-    <div>
-      <!-- Your HTML content for location encounter -->
-      <p>Location Encounter View</p>
+    <div class="tour-image">
+        <img [src]="hiddenLocationEncounter.imageURL" alt="{{ encounter.name }} Image">
     </div>
 </ng-container>
 

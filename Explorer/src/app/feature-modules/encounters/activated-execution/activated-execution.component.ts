@@ -9,6 +9,7 @@ import { EncountersService } from '../encounters.service';
 import { AdministrationService } from '../../administration/administration.service';
 import { FormControl, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { Encounter } from '../model/encounter.model';
+import { HiddenLocationEncounter } from '../model/hidden-location-encounter.model';
 @Component({
   selector: 'xp-activated-execution',
   templateUrl: './activated-execution.component.html',
@@ -27,6 +28,7 @@ export class ActivatedExecutionComponent implements OnChanges {
   isSocial:boolean=false;
   isLocation:boolean=false;
   isMisc:boolean=false;
+  hiddenLocationEncounter:HiddenLocationEncounter
 
   constructor(private service:EncountersService,
     private tokenStorage: TokenStorage,
