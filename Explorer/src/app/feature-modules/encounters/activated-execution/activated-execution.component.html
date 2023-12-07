@@ -1,10 +1,32 @@
-<p>{{encounter.name}}</p>
-<p>{{encounter.description}}</p>
-
 <div class="map-container">
     <app-map (click)="updatePositions($event)"></app-map>
 </div>
-<p> {{ activeEncounter.id }} </p>
-<p> {{ activeEncounter.encounterId }} </p>
-<p *ngIf="!activeEncounter.isCompleted">aaa</p>
+<p>{{encounter.name}}</p>
+<p>{{encounter.description}}</p>
+<ng-container *ngIf="isSocial">   
+    
+
+    
+    
+    <p *ngIf="!activeEncounter.isCompleted">You completed the encounter</p>
+</ng-container>
+<ng-container *ngIf="isMisc">
+    <!-- Show HTML view for miscellaneous encounter -->
+    <div>
+      <!-- Your HTML content for miscellaneous encounter -->
+      <button 
+      mat-raised-button
+      type="submit"
+      color="primary"
+      
+      >Done</button>
+    </div>
+</ng-container>
+<ng-container *ngIf="isLocation">
+    <!-- Show HTML view for location encounter -->
+    <div>
+      <!-- Your HTML content for location encounter -->
+      <p>Location Encounter View</p>
+    </div>
+</ng-container>
 

@@ -24,6 +24,9 @@ export class ActivatedExecutionComponent implements OnChanges {
   executions: EncounterExecution[] = [];
   private pollingInterval: any;
   @Output() positionUpdated=new EventEmitter<null>();
+  isSocial:boolean=false;
+  isLocation:boolean=false;
+  isMisc:boolean=false;
 
   constructor(private service:EncountersService,
     private tokenStorage: TokenStorage,
@@ -47,12 +50,14 @@ export class ActivatedExecutionComponent implements OnChanges {
   ngOnInit(): void {
     this.checkUserPosition();
     this.getEncounterExecutionByUser(this.userId);
-    console.log("ngoninit");
+    
     this.startPolling();
+    
   }
 
   ngAfterInit(): void{
     this.getEncounterById(this.activeEncounter.id);
+    this.checkEncounterType();
 
     console.log("aaa",this.encounter);
   }
@@ -60,8 +65,8 @@ export class ActivatedExecutionComponent implements OnChanges {
   private startPolling(): void {
     this.pollingInterval = setInterval(() => {
     this.getEncounterById(this.activeEncounter.encounterId);
-
     if(this.encounter.type == "SOCIAL"){
+      
       this.checkSocialEncounter(this.activeEncounter.encounterId);
     }
       
@@ -138,6 +143,7 @@ export class ActivatedExecutionComponent implements OnChanges {
         console.error('Error fetching TourExecution', error);
       }
     );
+    this.checkEncounterType();
   }
 
   checkSocialEncounter(encounterId: number) : void{
@@ -161,6 +167,25 @@ export class ActivatedExecutionComponent implements OnChanges {
       }
     });
   }
+
+   checkEncounterType():void{
+    if(this.encounter.type=="SOCIAL"){
+        this.isSocial=true;
+        this.isLocation=false;
+        this.isMisc=false;
+    }
+    else if(this.encounter.type=="LOCATION"){
+        this.isLocation=true;
+        this.isSocial=false;
+        this.isMisc=false;
+    }
+    else{
+      this.isMisc=true;
+      this.isSocial=false;
+      this.isLocation=false;
+    }
+   }
+
 
   ngOnDestroy(): void {
     if (this.pollingInterval) {
