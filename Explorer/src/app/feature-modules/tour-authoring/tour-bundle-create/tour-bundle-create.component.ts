@@ -12,6 +12,7 @@ import { TourBundle } from '../model/tourBundle.model';
 })
 export class TourBundleCreateComponent {
 
+  sumPrice:number=0
   tourBundle: TourBundle={
     id:11,
     name:'',
@@ -38,6 +39,8 @@ export class TourBundleCreateComponent {
       },
      
     })
+
+    
   }
 
  
@@ -52,6 +55,7 @@ export class TourBundleCreateComponent {
     } else {
       // Inače, dodaj je u listu selektovanih kartica
       this.selectedTourNames.push(tour.name);
+      this.sumPrice+=tour.price
       this.selectedTours.push(tour.id as number)
     }
   }

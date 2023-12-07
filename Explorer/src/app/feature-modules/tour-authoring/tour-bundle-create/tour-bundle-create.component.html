@@ -9,13 +9,16 @@
     <div>
     <mat-form-field>
         <input matInput type="number" placeholder="Bundle Price " formControlName="price" >
+        <mat-label >*Total Price{{sumPrice}}</mat-label>
     </mat-form-field>
 </div>
+
 </form>
 </div>
 <div class="hint">
 <mat-hint>*Select Tours to add in  Bundle</mat-hint>
 </div>
+
 <div class="slide-content">
     <div class="card-wrapper">
         <div class="card" *ngFor="let tour of tours"  [style.background-color]="selectedTourNames.includes(tour.name) ? 'lightblue' : 'transparent'"

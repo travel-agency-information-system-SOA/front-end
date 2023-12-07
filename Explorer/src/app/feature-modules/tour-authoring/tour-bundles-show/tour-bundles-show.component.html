@@ -9,7 +9,7 @@
                 <div class="desc-container">
                     <p class="price-text">Status:{{bundle.status}} </p>
                     
-                    <p *ngIf="bundle.status!='Published'">
+                    <p *ngIf="bundle.status=='Draft'">
                         <button mat-raised-button type="submit" color="primary"
                             (click)="publish(bundle)">Publish</button>
                     </p>
