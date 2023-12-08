@@ -51,6 +51,7 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
+import { EncountersMapComponent } from 'src/app/feature-modules/encounters/encounters-map/encounters-map.component';
 
 
 const routes: Routes = [
@@ -114,6 +115,7 @@ const routes: Routes = [
   { path: 'blog/update-post/:id', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
   { path: 'blog/:id', component: BlogPostDetailComponent },
   { path: 'encounters', component: EncountersPageComponent},
+  { path: 'encountersMap', component: EncountersMapComponent},
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'app-ratings', component: AppRatingsComponent },
 

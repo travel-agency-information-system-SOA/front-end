@@ -24,6 +24,14 @@
             <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['blog']">Blog</button>
             <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['club']">Clubs</button>
 
+            <div *ngIf="user && ((user.role === 'tourist' && isLevelTen) || user.role === 'administrator')"
+              class = "dd"
+        >
+        <button raised-button [routerLink]="['encounters']" class="nbutton">
+          Manage encounters <i class="fa fa-caret-down"></i>
+        </button>
+        </div>
+
             <div *ngIf="user && user.role === 'administrator'" class="dd">
                 <button raised-button [routerLink]="['accounts']" class="nbutton">Manage <i class="fa fa-caret-down"></i></button>
                 <div class="ddc">

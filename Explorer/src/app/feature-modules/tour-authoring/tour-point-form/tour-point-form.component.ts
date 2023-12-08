@@ -20,6 +20,7 @@ import { MapService } from 'src/app/shared/map/map.service';
 import { TransportType } from '../tour/model/tourCharacteristic.model';
 import { Router } from '@angular/router';
 import { EncountersService } from '../../encounters/encounters.service';
+import { TourKeyPointEncounter } from '../model/TourKeyPointEncounter.model';
 
 @Component({
   selector: 'xp-tour-point-form',
@@ -44,13 +45,14 @@ export class TourPointFormComponent implements OnChanges, OnInit {
   longitude: number;
   isSocial : boolean;
   isLocation: boolean;
+  tempTourPoint: TourPoint;
 
   constructor(
     private service: TourAuthoringService,
     private mapService: MapService,
     private formBuilder: FormBuilder,
     private router: Router,
-    private encounterService: EncountersService
+    private encounterService: EncountersService,
   ) {}
   ngOnInit(): void {
     this.yourFormGroup = this.formBuilder.group({
@@ -92,10 +94,10 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     });
 
     this.service.addTourPoint(tourPoint).subscribe({
-      next: () => {
+      next: (result: TourPoint) => {
         this.tourPointUpdated.emit();
         this.service.emitTourPointAdded();
-
+        this.tempTourPoint = result;
         this.tourPointForm.reset();
       },
     });
@@ -236,6 +238,18 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       });
       this.encounterService.addSocialEncounter(socialEncounter).subscribe({
         next: (_) => {
+          const tourKeyPointEncounter: TourKeyPointEncounter = {
+            encounterId: socialEncounter.id,
+            keyPointId: this.tempTourPoint.id || 0,
+            isMandatory: false
+          };
+      
+          this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
+            next:(_) =>
+            {
+              console.log("mozda je uspelo");
+            }
+          })
           this.encountersUpdated.emit();
           this.encounterForm.reset();
         }
@@ -264,6 +278,18 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       });
       this.encounterService.addHiddenLocationEncounter(hiddenLocationEncounter).subscribe({
         next: (_) => {
+          const tourKeyPointEncounter: TourKeyPointEncounter = {
+            encounterId: hiddenLocationEncounter.id,
+            keyPointId: this.tempTourPoint.id || 0,
+            isMandatory: false
+          };
+      
+          this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
+            next:(_) =>
+            {
+              console.log("mozda je uspelo");
+            }
+          })
           this.encountersUpdated.emit();
           this.encounterForm.reset();
         }
@@ -286,6 +312,19 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       });
       this.encounterService.addEncounter(encounter).subscribe({
         next: (_) => {
+          const tourKeyPointEncounter: TourKeyPointEncounter = {
+            encounterId: encounter.id,
+            keyPointId: this.tempTourPoint.id || 0,
+            isMandatory: false
+          };
+      
+          console.log("Doslo je do createTourKeyPointencounter")
+          this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
+            next:(_) =>
+            {
+              console.log("mozda je uspelo");
+            }
+          })
           this.encountersUpdated.emit();
           this.encounterForm.reset();
         }

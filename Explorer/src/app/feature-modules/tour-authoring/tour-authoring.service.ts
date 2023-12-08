@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 import { TourPointRequest } from '../administration/model/tourpoint-request.model';
 import { PublicTourPoint } from './model/publicTourPoint.model';
+import { TourKeyPointEncounter } from './model/TourKeyPointEncounter.model';
 
 @Injectable({
   providedIn: 'root',
@@ -199,4 +200,8 @@ export class TourAuthoringService {
       tour
     );
   }
+  createTourKeyPointEncounter(tourKeyPointEncounter: TourKeyPointEncounter): Observable<TourKeyPointEncounter>{
+    return this.http.post<TourKeyPointEncounter>(environment.apiHost + 'encounters/tourKeyPointEncounter', tourKeyPointEncounter);
+  }
+
 }
