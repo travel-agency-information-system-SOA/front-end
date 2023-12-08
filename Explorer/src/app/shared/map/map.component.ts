@@ -15,6 +15,9 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { AdministrationService } from 'src/app/feature-modules/administration/administration.service';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketplace.service';
+import { EncountersService } from 'src/app/feature-modules/encounters/encounters.service';
+import { PagedResults } from '../model/paged-results.model';
+import { Encounter } from 'src/app/feature-modules/encounters/model/encounter.model';
 
 @Component({
   selector: 'app-map',
@@ -45,7 +48,8 @@ export class MapComponent implements AfterViewInit {
     private tourAuthoringService: TourAuthoringService,
     private marketplaceService: MarketplaceService,
     private administrationService: AdministrationService,
-    private tokenStorage: TokenStorage
+    private tokenStorage: TokenStorage,
+    private encounterService: EncountersService
   ) {}
 
   private initMap(): void {
@@ -82,8 +86,15 @@ export class MapComponent implements AfterViewInit {
       else if (path.includes('tourSearch')) {
         //
       }
-      else if(path.includes('encounters')){
-          //
+      else if (path.includes('encounters')){
+        //
+      }
+      else if(path.includes('activeEncounter')){
+        this.setPosition();
+      }
+      else if(path.includes('encounterMap')){
+        this.setEncounterPosition();
+        this.setPosition();
       }
       else{
         this.setRoute();
@@ -310,12 +321,20 @@ export class MapComponent implements AfterViewInit {
 
 
 
-  setPosition() {
+  setPosition():void {
+    let specialTourIcon = L.icon({
+      iconUrl:
+      'https://www.wanderfinder.com/wp-content/uploads/leaflet-maps-marker-icons/MapMarker_Marker_Inside_Azure.png',
+      iconAnchor: [12, 41],
+    });
+
     this.administrationService
       .getByUserId(this.tokenStorage.getUserId(), 0, 0)
       .subscribe(
         (result) => {
-          L.marker([result.latitude, result.longitude]).addTo(this.map);
+          L.marker([result.latitude, result.longitude],{
+            icon: specialTourIcon,
+          }).addTo(this.map);
 
           // Handle the result as needed
         },
@@ -362,5 +381,32 @@ export class MapComponent implements AfterViewInit {
           });
         });
     }
+  }
+
+  setEncounterPosition():void{
+    let specialTourIcon = L.icon({
+      iconUrl:
+        'https://www.wanderfinder.com/wp-content/uploads/leaflet-maps-marker-icons/MapMarker_Marker_Outside_Green.png',
+      iconAnchor: [12, 41],
+    });
+
+    this.encounterService.getEncounters().subscribe(
+      (pagedResults: PagedResults<Encounter>) => {
+        if (Array.isArray(pagedResults.results)) {
+          this.objects = pagedResults.results;
+          this.objects.forEach((object) => {
+            L.marker([object.latitude, object.longitude], {
+              icon: specialTourIcon,
+            }).addTo(this.map);
+          });
+          console.log('Dohvaćeni objekti:', pagedResults.results);
+        } else {
+          console.error('Results received are not in an array format.');
+        }
+      },
+      (error) => {
+        console.error('Greška prilikom dohvatanja objekata:', error);
+      }
+    );
   }
 }

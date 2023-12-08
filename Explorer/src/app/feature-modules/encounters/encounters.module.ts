@@ -9,6 +9,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { EncountersMapComponent } from './encounters-map/encounters-map.component';
+import { ActivatedExecutionComponent } from './activated-execution/activated-execution.component';
+
+
 
 
 
@@ -16,7 +19,9 @@ import { EncountersMapComponent } from './encounters-map/encounters-map.componen
   declarations: [
     EncountersPageComponent,
     EncountersFormComponent,
-    EncountersMapComponent
+    EncountersMapComponent,
+    ActivatedExecutionComponent
+   
   ],
   imports: [
     CommonModule,
