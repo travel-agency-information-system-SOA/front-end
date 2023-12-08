@@ -10,6 +10,7 @@ import { AdministrationService } from '../../administration/administration.servi
 import { FormControl, FormGroup, Validators,AbstractControl } from '@angular/forms';
 import { Encounter } from '../model/encounter.model';
 import { HiddenLocationEncounter } from '../model/hidden-location-encounter.model';
+import { ShortHiddenLocationEncounter } from '../model/short-hidden-location-encounter.model';
 @Component({
   selector: 'xp-activated-execution',
   templateUrl: './activated-execution.component.html',
@@ -30,7 +31,7 @@ export class ActivatedExecutionComponent implements OnChanges {
   isMisc:boolean=false;
   isHiddenInRange: boolean;
   hiddenCount: number = 0;
-  hiddenLocationEncounter:HiddenLocationEncounter;
+  hiddenLocationEncounter:ShortHiddenLocationEncounter;
   showPicture: boolean = false;
 
 
@@ -73,6 +74,10 @@ export class ActivatedExecutionComponent implements OnChanges {
     if(this.encounter.type === "SOCIAL"){
       
       this.checkSocialEncounter(this.activeEncounter.encounterId);
+      if(this.activeEncounter.isCompleted){
+        alert('You completed this challenge ! ');
+        this.router.navigate(['/encounterMap']);
+      }
     }
     if(this.encounter.type === "LOCATION"){
       

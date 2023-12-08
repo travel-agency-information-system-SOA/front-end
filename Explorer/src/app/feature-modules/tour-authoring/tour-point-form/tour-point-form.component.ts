@@ -318,13 +318,13 @@ export class TourPointFormComponent implements OnChanges, OnInit {
             isMandatory: false
           };
       
-          console.log("Doslo je do createTourKeyPointencounter")
+          console.log("Doslo je do createTourKeyPointencounter");
           this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
             next:(_) =>
             {
               console.log("mozda je uspelo");
             }
-          })
+          });
           this.encountersUpdated.emit();
           this.encounterForm.reset();
         }

@@ -19,6 +19,7 @@ import { EncountersService } from 'src/app/feature-modules/encounters/encounters
 import { PagedResults } from '../model/paged-results.model';
 import { Encounter } from 'src/app/feature-modules/encounters/model/encounter.model';
 
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -93,8 +94,8 @@ export class MapComponent implements AfterViewInit {
         this.setPosition();
       }
       else if(path.includes('encounterMap')){
-        this.setEncounterPosition();
         this.setPosition();
+        this.setEncounterPosition();
       }
       else{
         this.setRoute();

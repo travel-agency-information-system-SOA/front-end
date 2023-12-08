@@ -143,7 +143,7 @@ const routes: Routes = [
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
   { path: 'activeEncounter', component:ActivatedExecutionComponent},
-  { path: 'encountersMap', component: EncountersMapComponent}
+  { path: 'encounterMap', component: EncountersMapComponent}
 ];
 
 @NgModule({

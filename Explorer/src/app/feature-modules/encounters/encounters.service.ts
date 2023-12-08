@@ -7,6 +7,7 @@ import { environment } from 'src/env/environment';
 import { SocialEncounter } from './model/social-encounter.model';
 import { EncounterExecution } from './model/encounter-execution.model';
 import { HiddenLocationEncounter } from './model/hidden-location-encounter.model';
+import { ShortHiddenLocationEncounter } from './model/short-hidden-location-encounter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -84,9 +85,9 @@ export class EncountersService {
     return this.http.get<EncounterExecution>(url);
   }
 
-  getHiddenLocationEncounterByEncounterId(encounterId: number): Observable<HiddenLocationEncounter> {
+  getHiddenLocationEncounterByEncounterId(encounterId: number): Observable<ShortHiddenLocationEncounter> {
     const url = `${environment.apiHost}encounters/hiddenLocation/${encounterId}`;
-    return this.http.get<HiddenLocationEncounter>(url);
+    return this.http.get<ShortHiddenLocationEncounter>(url);
   }
   
 }
