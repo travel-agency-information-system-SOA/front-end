@@ -15,6 +15,7 @@ import { RequestResponseNotification } from './model/request-response-notificati
 
 import { UserPosition } from './model/userPosition.model';
 import { TouristXP } from './model/tourist-xp.model';
+import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 
 
 @Injectable({
@@ -23,12 +24,12 @@ import { TouristXP } from './model/tourist-xp.model';
 export class AdministrationService {
   constructor(private http: HttpClient) {}
 
-  /*getEquipment(): Observable<PagedResults<Equipment>> {
+  getEquipment(): Observable<PagedResults<Equipment>> {
     return this.http.get<PagedResults<Equipment>>(
       environment.apiHost + 'administration/equipment'
     );
   }
-
+/*
   deleteEquipment(id: number): Observable<Equipment> {
     return this.http.delete<Equipment>(
       environment.apiHost + 'administration/equipment/' + id

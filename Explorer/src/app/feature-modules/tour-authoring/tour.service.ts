@@ -17,7 +17,7 @@ export class TourService {
     pageSize: number
   ): Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(
-      `https://localhost:44333/api/administration/tour/${userId}?page=${page}&pageSize=${pageSize}`
+      environment.apiHost+ `administration/tour/${userId}?page=${page}&pageSize=${pageSize}`
     );
   }
 

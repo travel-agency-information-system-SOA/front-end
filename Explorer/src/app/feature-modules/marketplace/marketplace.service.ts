@@ -27,6 +27,8 @@ import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 import { TourPoint } from '../tour-authoring/model/tourPoints.model';
 
 import { ShoppingCart } from './model/shopping-cart.model';
+import { TourSale } from './model/tour-sale.model';
+import { Coupon } from './model/coupon.model';
 
 @Injectable({
   providedIn: 'root',
@@ -353,6 +355,61 @@ export class MarketplaceService {
     return this.http.get<Tour>(
       environment.apiHost + 'administration/tour/onetour/' + id
     );
+  }
+
+
+  getTourSales(id: number): Observable<PagedResults<TourSale>> {
+    return this.http.get<PagedResults<TourSale>>(
+      environment.apiHost + 'administration/tourSale/' + id
+    );
+  }
+
+  addTourSale(ts: TourSale): Observable<TourSale> {
+    return this.http.post<TourSale>(
+      environment.apiHost + 'administration/tourSale',
+      ts
+    ); 
+  }
+
+  updateTourSale(ts: TourSale): Observable<TourSale> {
+    return this.http.put<TourSale>(
+      environment.apiHost + 'administration/tourSale/' + ts.id,
+      ts
+    );
+  }
+
+  deleteTourSale(ts: TourSale): Observable<TourSale> {
+    return this.http.delete<TourSale>(
+      environment.apiHost + 'administration/tourSale/' + ts.id
+    ); 
+  }
+
+  getPubToursForAut(authorId: number): Observable<PagedResults<Tour>> {
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost + 'administration/tour/sales/' + authorId
+    ); 
+  }
+
+  getTourDiscount(id: number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourSale/tour/' + id
+    ); 
+  }
+  getCouponByCodeAndTourId(code: string, tourId: number): Observable<Coupon> {
+    const params = { tourId: tourId.toString(), code: code };
+    return this.http.get<Coupon>('https://localhost:44333/api/authoring/coupon/getByCode', {params: params});
+  }
+
+  updateShoppingCart(cart: ShoppingCart): Observable<ShoppingCart> {
+    return this.http.put<ShoppingCart>(environment.apiHost + 'shoppingcart/update', cart)
+  }
+
+  deleteCoupon(id: number): any {
+    return this.http.delete<any>(environment.apiHost + 'authoring/coupon/' + id.toString())
+  }
+
+  createCoupon(coupon: Coupon): Observable<Coupon> {
+    return this.http.post<Coupon>(environment.apiHost + 'authoring/coupon', coupon)
   }
 
 }

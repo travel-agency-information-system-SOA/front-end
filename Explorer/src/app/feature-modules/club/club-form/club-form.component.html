@@ -16,7 +16,7 @@
             <mat-label>Image</mat-label>
             <input matInput formControlName="image" type="text">
         </mat-form-field>
-          <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addClub()">Done</button>
-          <button *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateClub()">Done</button>
+          <button class="button" *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" (click)="addClub()">Done</button>
+          <button class="button" *ngIf="shouldEdit" mat-raised-button type="submit" color="primary" (click)="updateClub()">Done</button>
     </div>
 </form>

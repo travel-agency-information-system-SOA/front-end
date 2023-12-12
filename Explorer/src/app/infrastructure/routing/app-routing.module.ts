@@ -53,6 +53,25 @@ import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-exec
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
 import { ActivatedExecutionComponent } from 'src/app/feature-modules/encounters/activated-execution/activated-execution.component';
 import { EncountersMapComponent } from 'src/app/feature-modules/encounters/encounters-map/encounters-map.component';
+import { CouponFormComponent } from 'src/app/feature-modules/marketplace/coupon-form/coupon-form.component';
+
+import { TourBundleCreateComponent } from 'src/app/feature-modules/tour-authoring/tour-bundle-create/tour-bundle-create.component';
+import { TourBundlesShowComponent } from 'src/app/feature-modules/tour-authoring/tour-bundles-show/tour-bundles-show.component';
+
+import { MyEndedToursComponent } from 'src/app/feature-modules/tour-execution/my-ended-tours/my-ended-tours.component';
+import { BlogpostFormComponent } from 'src/app/feature-modules/blog/blogpost-form/blogpost-form.component';
+import { MyToursComponent } from 'src/app/feature-modules/tour-execution/my-tours/my-tours.component';
+
+import { PublishedBundlesShowComponent } from 'src/app/feature-modules/payment-record/published-bundles-show/published-bundles-show.component';
+
+import { TourSaleComponent } from 'src/app/feature-modules/marketplace/tour-sale/tour-sale.component';
+
+import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tour-tourist/tour-tourist.component';
+
+import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
+
+
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -69,45 +88,18 @@ const routes: Routes = [
     canActivate: [AuthGuard],
   },
   {
-    path: 'privateTourPoints', component: PrivateTourPointsComponent},
-   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
-  { path: 'objects', component: TourObjectComponent },
-  { path: 'tourMap/:id', component: TourMapComponent },
-  {path: 'accounts', component: AccountComponent, canActivate: [AuthGuard],},
-  {path: 'club', component: ClubComponent},
-  {
-    path: 'guideReview',
-    component: GuideReviewComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'preferences',
-    component: PreferencesComponent,
-    canActivate: [AuthGuard],
-  },
-  { path: 'shoppingcart', component: ShoppingCartComponent },
-  { path: 'tour', component: TourComponent, canActivate: [AuthGuard] },
-  {
-    path: 'tourPoint',
-    component: TourPointsComponent,
-    canActivate: [AuthGuard],
+    path: 'privateTourPoints',
+    component: PrivateTourPointsComponent,
   },
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
-  { path:'tourMapFirstPoint/:id',component: FirstPointMap},
   { path: 'club', component: ClubComponent },
-  {
-    path: 'guideReview',
-    component: GuideReviewComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'preferences',
-    component: PreferencesComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: 'shoppingcart', component: ShoppingCartComponent },
+  { path: 'tourMapFirstPoint/:id', component: FirstPointMap },
   { path: 'tourReviewForm/:id', component: TourReviewFormComponent },
+  { path: 'my-ended-tours', component: MyEndedToursComponent },
+  { path: 'my-tours', component: MyToursComponent },
   { path: 'tourReviewShow', component: TourReviewsShowComponent },
   { path: 'tourist-equipment', component: TouristEquipmentComponent },
   { path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },
@@ -116,14 +108,11 @@ const routes: Routes = [
   { path: 'blog/:id', component: BlogPostDetailComponent },
   { path: 'encounters', component: EncountersPageComponent},
   { path: 'encountersMap', component: EncountersMapComponent},
+  { path: 'blog-form/:id', component: BlogpostFormComponent },
+  
+
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'app-ratings', component: AppRatingsComponent },
-
-  { path: 'app-rating-form', component: AppRatingFormComponent },
-  { path: 'tours-show', component: ToursShowComponent },
-
-  { path: 'problems', component: ProblemComponent },
-
   {
     path: 'tour-execution-position',
     component: TourExecutionPositionComponent,
@@ -132,8 +121,8 @@ const routes: Routes = [
   { path: 'activeTour', component: ActiveTourComponent },
   { path: 'app-rating-form', component: AppRatingFormComponent },
   { path: 'problems', component: ProblemComponent },
-  { path: 'app-rating-form', component: AppRatingFormComponent },
   { path: 'tourSearch', component: TourSearchComponent },
+  { path: 'tourSale', component: TourSaleComponent },
 
   { path: 'tours-show', component: ToursShowComponent },
   { path: 'marketplace', component: TourMarketplaceComponent },
@@ -143,7 +132,15 @@ const routes: Routes = [
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
   { path: 'activeEncounter', component:ActivatedExecutionComponent},
-  { path: 'encounterMap', component: EncountersMapComponent}
+  { path: 'createCoupon/:id', component: CouponFormComponent},
+
+  { path: 'tourBundleCreate', component: TourBundleCreateComponent},
+  { path: 'tourBundlesShow', component: TourBundlesShowComponent},
+  { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent},
+  { path: 'tour-tourist', component: TourTouristComponent },
+  { path: 'compositeTours', component: CompositeToursComponent},
+
+
 ];
 
 @NgModule({
