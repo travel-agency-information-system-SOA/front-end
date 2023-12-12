@@ -23,13 +23,7 @@
                     <a *ngIf="user && user.role === 'tourist'" href="problems">Tour Problems</a>
                     <a *ngIf="user && user.role === 'tourist'" href="tour-tourist">Personalized tour</a>
                     <a *ngIf="user && user.role === 'tourist'" href="compositeTours">Composite tours</a>
-                    <div *ngIf="user && ((user.role === 'tourist' && isLevelTen) || user.role === 'administrator')"
-                          class = "dd"
-                    >
-                        <button raised-button [routerLink]="['encounters']" class="nbutton">
-                             Manage encounters <i class="fa fa-caret-down"></i>
-                        </button>
-                    </div>
+                    
                 </div>
             </div> 
 
@@ -75,10 +69,7 @@
             </div> 
 
         </div>
-        <div id="buttons">
-            <button class="nbutton" *ngIf="user && user.username === ''" raised-button [routerLink]="['login']">Login</button>
-            <button class="nbutton" *ngIf="user && user.username !== ''" raised-button (click)="onLogout()">Logout</button>
-        </div>
+       
 
       <!-- <div *ngIf="user && user.role === 'tourist'" class="dd">
         <button raised-button [routerLink]="['purchasedTours']" class="nbutton">
@@ -199,5 +190,9 @@
           >
         </div>
       </div>
+      <div id="buttons">
+        <button class="nbutton" *ngIf="user && user.username === ''" raised-button [routerLink]="['login']">Login</button>
+        <button class="nbutton" *ngIf="user && user.username !== ''" raised-button (click)="onLogout()">Logout</button>
+    </div>
     </div>
 </div>

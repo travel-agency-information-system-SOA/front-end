@@ -206,6 +206,15 @@ export class TourAuthoringService {
     return this.http.get<PagedResults<PublicTourPoint>>(environment.apiHost + 'administration/publicTourPoint');
   }
 
+  getPublicPoints(
+    page: number,
+    pageSize: number
+  ): Observable<PagedResults<PublicTourPoint>> {
+    return this.http.get<PagedResults<PublicTourPoint>>(
+      environment.apiHost + 'administration/publicTourPoint'
+    );
+  }
+
   archiveTour(tour: Tour): Observable<Tour> {
     return this.http.put<Tour>(
       environment.apiHost + 'administration/tour/archive/' + tour.id,

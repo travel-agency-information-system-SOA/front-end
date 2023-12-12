@@ -107,7 +107,7 @@ const routes: Routes = [
   { path: 'blog/update-post/:id', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
   { path: 'blog/:id', component: BlogPostDetailComponent },
   { path: 'encounters', component: EncountersPageComponent},
-  { path: 'encountersMap', component: EncountersMapComponent},
+  { path: 'encounterMap', component: EncountersMapComponent},
   { path: 'blog-form/:id', component: BlogpostFormComponent },
   
 
