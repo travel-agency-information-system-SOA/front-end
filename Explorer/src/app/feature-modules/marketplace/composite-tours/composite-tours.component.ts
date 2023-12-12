@@ -61,7 +61,7 @@ constructor(
 
   viewMap(idTour: number | undefined): void {
     if (idTour !== undefined) {
-      this.router.navigate([`/tourMap/${idTour}`]); // Use backticks for template literals
+      this.router.navigate(['/tourMap/${idTour}']); // Use backticks for template literals
     } else {
       console.error('ID nije definisan.');
     }

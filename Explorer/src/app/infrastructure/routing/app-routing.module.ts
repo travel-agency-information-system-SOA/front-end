@@ -29,6 +29,7 @@ import { AppRatingFormComponent } from 'src/app/feature-modules/administration/a
 import { PrivateTourPointsComponent } from 'src/app/feature-modules/tour-authoring/private-tour-points/private-tour-points.component';
 import { PublicTourPointRequestComponent } from 'src/app/feature-modules/administration/public-tour-point-request/public-tour-point-request.component';
 
+
 import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-show/tours-show.component';
 
 import { FirstPointMap } from 'src/app/feature-modules/marketplace/first-point-map/first_point.component';
@@ -50,6 +51,8 @@ import { ShoppingCartComponent } from 'src/app/feature-modules/marketplace/shopp
 import { BlogPostUpdateComponent } from 'src/app/feature-modules/blog/blog-post-update/blog-post-update.component';
 import { PurchasedTourDetailsComponent } from 'src/app/feature-modules/tour-execution/purchased-tour-details/purchased-tour-details.component';
 import { EncountersPageComponent } from 'src/app/feature-modules/encounters/encounters-page/encounters-page.component';
+import { ActivatedExecutionComponent } from 'src/app/feature-modules/encounters/activated-execution/activated-execution.component';
+import { EncountersMapComponent } from 'src/app/feature-modules/encounters/encounters-map/encounters-map.component';
 import { CouponFormComponent } from 'src/app/feature-modules/marketplace/coupon-form/coupon-form.component';
 
 import { TourBundleCreateComponent } from 'src/app/feature-modules/tour-authoring/tour-bundle-create/tour-bundle-create.component';
@@ -71,21 +74,13 @@ import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/com
 
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistrationComponent },
+  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegistrationComponent},
   //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
-  {
-    path: 'guideReview',
-    component: GuideReviewComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'preferences',
-    component: PreferencesComponent,
-    canActivate: [AuthGuard],
-  },
+  {path: 'guideReview', component: GuideReviewComponent, canActivate: [AuthGuard]},
+  {path: 'preferences', component: PreferencesComponent, canActivate: [AuthGuard]},
   { path: 'tour', component: TourComponent, canActivate: [AuthGuard] },
   {
     path: 'tourPoint',
@@ -108,19 +103,13 @@ const routes: Routes = [
   { path: 'tourReviewShow', component: TourReviewsShowComponent },
   { path: 'tourist-equipment', component: TouristEquipmentComponent },
   { path: 'blog', component: BlogComponent, canActivate: [AuthGuard] },
-  {
-    path: 'blog/create-post',
-    component: BlogPostCreationComponent,
-    canActivate: [AuthGuard],
-  },
-  {
-    path: 'blog/update-post/:id',
-    component: BlogPostUpdateComponent,
-    canActivate: [AuthGuard],
-  },
+  { path: 'blog/create-post', component: BlogPostCreationComponent, canActivate: [AuthGuard]},
+  { path: 'blog/update-post/:id', component: BlogPostUpdateComponent, canActivate: [AuthGuard]},
   { path: 'blog/:id', component: BlogPostDetailComponent },
-  { path: 'blog-form/:id', component: BlogpostFormComponent },
   { path: 'encounters', component: EncountersPageComponent},
+  { path: 'encounterMap', component: EncountersMapComponent},
+  { path: 'blog-form/:id', component: BlogpostFormComponent },
+  
 
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'app-ratings', component: AppRatingsComponent },
@@ -138,11 +127,11 @@ const routes: Routes = [
   { path: 'tours-show', component: ToursShowComponent },
   { path: 'marketplace', component: TourMarketplaceComponent },
   { path: 'marketplace/:id', component: TourDetailsComponent },
-
   { path: 'private-tour-points', component: PrivateTourPointsComponent},
   { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
+  { path: 'activeEncounter', component:ActivatedExecutionComponent},
   { path: 'createCoupon/:id', component: CouponFormComponent},
 
   { path: 'tourBundleCreate', component: TourBundleCreateComponent},

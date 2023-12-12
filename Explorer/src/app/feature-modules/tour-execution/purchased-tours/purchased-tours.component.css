@@ -214,25 +214,3 @@
     white-space: pre-wrap;
   }
   
-  .flexCol {
-   display: flex;
-   flex-direction: column;
-   justify-content: center;
-   align-items: center;
-   margin-bottom: 20px;
-  }
-
-  .card-selected {
-    width: auto;
-    flex: 1;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    box-shadow: 0 2px 16px 3px rgb(91, 234, 25);
-    transition: box-shadow 0.7s ease;
-  }
-
-.startTour{
-  margin-bottom: 20px;
-}

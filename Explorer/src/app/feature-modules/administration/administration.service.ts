@@ -14,6 +14,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { RequestResponseNotification } from './model/request-response-notification.model';
 
 import { UserPosition } from './model/userPosition.model';
+import { TouristXP } from './model/tourist-xp.model';
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 
 
@@ -116,5 +117,8 @@ export class AdministrationService {
   }
   deleteNotification(notification: RequestResponseNotification): Observable<RequestResponseNotification> {
     return this.http.delete<RequestResponseNotification>(environment.apiHost + 'administration/requestResponseNotification/' + notification.id);
+  }
+  getTouristXPByID(touristId: Number): Observable<PagedResults<TouristXP>>{
+    return this.http.get<PagedResults<TouristXP>>(environment.apiHost + 'tourist/touristXP/' + touristId);
   }
 }
