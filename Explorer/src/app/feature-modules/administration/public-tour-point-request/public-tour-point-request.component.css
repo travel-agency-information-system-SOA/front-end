@@ -20,6 +20,7 @@
   font-weight: bold;
   font-style: normal;
   font-display: swap;
+
 }
 
 
@@ -43,10 +44,10 @@ input[type="text"] {
   display: flexbox;
   flex-direction: column;
   gap: 20px;
+
   max-width: 800px; /* Postavljanje maksimalne širine */
   margin: 0 auto; /* Centriranje kartica */
   font-family: 'Trip', sans-serif; /* Primenjivanje fonta 'Trip' na naslov h2 s klasom 'title' */
-
 }
 h1.title {
   text-align: center; /* Centriranje teksta */
@@ -54,13 +55,16 @@ h1.title {
   margin-bottom: 60px; /* Dodavanje razmaka ispod naslova */
   margin-top: 30px;
   font-family: 'Trip', sans-serif; /* Primenjivanje fonta 'Trip' na naslov h2 s klasom 'title' */
-
+  
 }
 
-
+p{
+  color: #ffffff; /* Bijela boja teksta */
+}
 
 .notification {
-  
+  background-color: #131745;
+
   border: 1px solid #1a237e; /* Promenjena nijansa tamno plave boje */
   padding: 15px;
   border-radius: 8px;
