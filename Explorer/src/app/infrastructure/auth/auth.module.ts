@@ -4,13 +4,15 @@ import { LoginComponent } from './login/login.component';
 import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
+import { ConfirmationComponent } from './confirmation/confirmation.component';
 
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegistrationComponent
+    RegistrationComponent,
+    ConfirmationComponent
   ],
   imports: [
     CommonModule,

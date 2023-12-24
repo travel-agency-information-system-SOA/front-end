@@ -69,6 +69,7 @@ import { TourSaleComponent } from 'src/app/feature-modules/marketplace/tour-sale
 import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tour-tourist/tour-tourist.component';
 
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
+import { ConfirmationComponent } from "../auth/confirmation/confirmation.component";
 
 
 
@@ -78,6 +79,7 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  {path: 'confirm', component: ConfirmationComponent},
   //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
   {path: 'guideReview', component: GuideReviewComponent, canActivate: [AuthGuard]},
   {path: 'preferences', component: PreferencesComponent, canActivate: [AuthGuard]},
@@ -109,7 +111,7 @@ const routes: Routes = [
   { path: 'encounters', component: EncountersPageComponent},
   { path: 'encounterMap', component: EncountersMapComponent},
   { path: 'blog-form/:id', component: BlogpostFormComponent },
-  
+
 
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   { path: 'app-ratings', component: AppRatingsComponent },

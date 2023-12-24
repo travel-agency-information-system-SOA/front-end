@@ -38,20 +38,10 @@ export class AuthService {
     .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
     .pipe(
       tap((authenticationResponse) => {
-        this.tokenStorage.saveAccessToken(authenticationResponse.accessToken, authenticationResponse.id);
-        this.setUser();
+        //this.tokenStorage.saveAccessToken(authenticationResponse.accessToken, authenticationResponse.id);
+        //this.setUser();
       })
     );
-      return this.http.post<AuthenticationResponse>(environment.apiHost + 'users', registration)
-      .pipe(
-        tap((authenticationResponse) => {
-          this.tokenStorage.saveAccessToken(
-            authenticationResponse.accessToken,
-            authenticationResponse.id
-          );
-          this.setUser();
-        })
-      );
   }
 
   logout(): void {
@@ -80,5 +70,9 @@ export class AuthService {
       ],
     };
     this.user$.next(user);
+  }
+
+  confirmRegistration(link: string): Observable<string> {
+    return this.http.get<string>(environment.apiHost + link);
   }
 }
