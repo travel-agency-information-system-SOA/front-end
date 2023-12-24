@@ -56,6 +56,8 @@
                     <a *ngIf="user && user.role === 'tourist'" href="tourist-equipment">My Equipment</a>
                     <a *ngIf="user && user.role === 'tourist'" href="preferences">My Preferences</a>
                     <a *ngIf="user && (user.role === 'tourist' || user.role === 'author')" href="app-rating-form">Rate The App</a>
+                    <a *ngIf="user && (user.role === 'tourist')" href="statistics">Statistics</a>
+
                 </div>
             </div> 
 
