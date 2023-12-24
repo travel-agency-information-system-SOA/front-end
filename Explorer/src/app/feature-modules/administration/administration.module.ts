@@ -14,6 +14,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { PublicTourPointRequestComponent } from './public-tour-point-request/public-tour-point-request.component';
 import { RequestResponseNotificationComponent } from './request-response-notification/request-response-notification.component';
+import { UserStatisticsComponent } from './user-statistics/user-statistics.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { RequestResponseNotificationComponent } from './request-response-notific
     AppRatingsComponent,
     PublicTourPointRequestComponent,
     RequestResponseNotificationComponent,
-    UserPositionComponent
+    UserPositionComponent,
+    UserStatisticsComponent
   ],
   imports: [
     CommonModule,

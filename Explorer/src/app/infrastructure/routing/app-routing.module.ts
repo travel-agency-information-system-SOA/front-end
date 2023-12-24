@@ -69,6 +69,7 @@ import { TourSaleComponent } from 'src/app/feature-modules/marketplace/tour-sale
 import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tour-tourist/tour-tourist.component';
 
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
+import { UserStatisticsComponent } from 'src/app/feature-modules/administration/user-statistics/user-statistics.component';
 
 
 
@@ -139,6 +140,8 @@ const routes: Routes = [
   { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent},
   { path: 'tour-tourist', component: TourTouristComponent },
   { path: 'compositeTours', component: CompositeToursComponent},
+  { path: 'statistics', component: UserStatisticsComponent}
+
 
 
 ];
