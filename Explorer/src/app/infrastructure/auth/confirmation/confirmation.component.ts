@@ -16,9 +16,20 @@ export class ConfirmationComponent implements OnInit{
     const confirmationToken = this.route.snapshot.queryParams['token'];
     const confirmationUrl = `user/confirm-account?token=${confirmationToken}`;
 
-    this.authService.confirmRegistration(confirmationUrl).subscribe(result => {
-      this.confirmationMessage = 'Mrk steifane sineeeee';
-      console.log(result);
-    });
+    this.authService.confirmRegistration(confirmationUrl).subscribe(
+      result => {
+        // Handle successful response
+        this.confirmationMessage = 'Registration confirmed successfully.';
+      },
+      error => {
+        // Handle error response
+        if (error.status === 400) {
+          this.confirmationMessage = 'Error: Unable to confirm registration.';
+        } else {
+          // Handle other error cases
+          this.confirmationMessage = 'Error: Registration already confirmed.';
+          console.error('Unexpected error:', error);
+        }
+      });
   }
 }

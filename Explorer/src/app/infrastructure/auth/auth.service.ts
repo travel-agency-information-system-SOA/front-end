@@ -72,7 +72,7 @@ export class AuthService {
     this.user$.next(user);
   }
 
-  confirmRegistration(link: string): Observable<string> {
-    return this.http.get<string>(environment.apiHost + link);
+  confirmRegistration(link: string): Observable<User> {
+    return this.http.get<User>(environment.apiHost + link);
   }
 }
