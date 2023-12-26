@@ -38,20 +38,10 @@ export class AuthService {
     .post<AuthenticationResponse>(environment.apiHost + 'users', registration)
     .pipe(
       tap((authenticationResponse) => {
-        this.tokenStorage.saveAccessToken(authenticationResponse.accessToken, authenticationResponse.id);
-        this.setUser();
+        //this.tokenStorage.saveAccessToken(authenticationResponse.accessToken, authenticationResponse.id);
+        //this.setUser();
       })
     );
-      return this.http.post<AuthenticationResponse>(environment.apiHost + 'users', registration)
-      .pipe(
-        tap((authenticationResponse) => {
-          this.tokenStorage.saveAccessToken(
-            authenticationResponse.accessToken,
-            authenticationResponse.id
-          );
-          this.setUser();
-        })
-      );
   }
 
   logout(): void {
@@ -80,5 +70,17 @@ export class AuthService {
       ],
     };
     this.user$.next(user);
+  }
+
+  confirmRegistration(link: string): Observable<User> {
+    return this.http.get<User>(environment.apiHost + link);
+  }
+
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post(environment.apiHost + `users/request`, { email });
+  }
+
+  resetPassword(token: string, password: string): Observable<any> {
+    return this.http.post(environment.apiHost + `users/reset`, { token, password });
   }
 }
