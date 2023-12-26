@@ -17,6 +17,7 @@ export class ClubComponent implements OnInit{
   selectedClub: Club;
   shouldEdit: boolean;
   shouldRenderClubForm: boolean = false;
+  shouldPutBorder: boolean = false;
 
   constructor( private tokenStorage: TokenStorage,
                private service: ClubService,
@@ -38,18 +39,19 @@ export class ClubComponent implements OnInit{
     })
   }
 
-  onEditClicked(club: Club): void{
-    this.shouldEdit = true;
-    this.selectedClub = club;
-  }
-
   onAddClicked(): void{
     this.shouldRenderClubForm = true;
     this.shouldEdit = false;
   }
 
-  deleteClub(club: Club): void{
-    this.service.deleteClub(club).subscribe({
+  onEditClickedFromChild(value: Club): void {
+    this.shouldRenderClubForm = true;
+    this.shouldEdit = true;
+    this.selectedClub = value;
+  }
+
+  ondDeleteClubClicked(value: Club): void{
+    this.service.deleteClub(value).subscribe({
       next: (_) => {
         this.getClubs();
       }

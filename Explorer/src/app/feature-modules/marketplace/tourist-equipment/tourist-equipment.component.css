@@ -1,50 +1,108 @@
-#equipment {
-    margin-top: 20px;
-    margin-left: 20px;
+@font-face {
+    font-family: 'Trip-Regular';
+    src: url('src/assets/Fonts/TripSans-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
 }
 
-#equipment-details {
-    display: flex;
-    flex-direction: row;
-    gap: 50px;
-    align-items: flex-start;
+@font-face {
+    font-family: 'Trip-Medium';
+    src: url('src/assets/Fonts/TripSans-Medium.ttf') format('truetype');
+    font-weight: medium;
+    font-style: normal;
+    font-display: swap;
 }
 
-p {
-    font-size: 20px;
-}
-
-table {
-    border-collapse: collapse;
-    font-size: 0.9em;
-    font-family: sans-serif;
-    min-width: 300px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-thead tr {
-    background-color: #3f51b5;
-    color: #ffffff;
-    text-align: left;
-}
-
-th, td {
-    padding: 12px 15px;
-}
-
-tbody tr {
-    border-bottom: 1px solid #dddddd;
-}
-
-tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-tbody tr:last-of-type {
-    border-bottom: 2px solid #3f51b5;
-}
-
-tbody tr.active-row {
+@font-face {
+    font-family: 'Trip-Bold';
+    src: url('src/assets/Fonts/TripSans-Bold.ttf') format('truetype');
     font-weight: bold;
-    color: #3f51b5;
+    font-style: normal;
+    font-display: swap;
+}
+
+h2 {
+    font-family: 'Trip-Bold', sans-serif;
+    text-align: center; /* Centriranje teksta */
+    margin-bottom: 60px; /* Povećanje donje margine */
+    margin-top: 70px;
+    font: size 30px; ;
+  }
+
+body {
+    font-family: 'Trip-Regular', sans-serif;
+}
+.table-wrapper {
+    margin: 0px 0;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.table-container {
+    border: 1px solid #707070;
+    border-radius: 5px;
+    overflow: hidden;
+    width: 100%; /* Prilagodite širinu prema potrebi */
+
+    max-width: 1000px;
+   
+}
+
+.table-header {
+    display: flex;
+    background-color: #312378;
+    color: white;
+    font-family: 'Trip-Bold'; 
+}
+
+.table-cell {
+    padding: 10px;
+    flex: 1;
+}
+
+.header {
+    font-weight: bold;
+    font-family: 'Trip-Bold'; 
+}
+
+.table-row {
+    display: flex;
+    border-bottom: 1px solid #707070;
+    font-family: 'Trip-Regular'; 
+}
+
+.button {
+    font-family: 'Trip-Medium';
+    font-weight: medium;
+    background-color: #0a83cb;
+    color: #fff;
+    border: none;
+    padding: 7px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+    width: 130px; /* Prilagodite dimenzije prema potrebi */
+    height: 50px;
+}
+.buttonDelete {
+    font-family: 'Trip-Medium';
+    font-weight: medium;
+    background-color: #e23a55;
+    color: #fff;
+    border: none;
+    padding: 7px 7px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: all 0.3s ease;
+    width: 130px; /* Prilagodite dimenzije prema potrebi */
+    height: 50px;
+}
+
+.button:hover {
+    background-color: #2f2175;
+    box-shadow: 0 2px 5px 1px #333333;
 }

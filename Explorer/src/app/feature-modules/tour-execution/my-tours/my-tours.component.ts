@@ -36,7 +36,7 @@ export class MyToursComponent {
     console.log('Id usera:' +userId)
     this.service.getTourByGuide(userId, this.page, this.pageSize).subscribe({
       next: (result: PagedResults<Tour>) => {
-        this.tours = result.results;
+        this.tours = result.results.filter(tour=>tour.status !== 'Archived');
         console.log('Sadržaj result.results:', result.results);
       },
       error(err: any) {

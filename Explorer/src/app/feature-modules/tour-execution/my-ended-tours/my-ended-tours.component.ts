@@ -37,7 +37,7 @@ export class MyEndedToursComponent implements OnInit{
     console.log('Id usera:' +userId)
     this.service.getTourByGuide(userId, this.page, this.pageSize).subscribe({
       next: (result: PagedResults<Tour>) => {
-        this.tours = result.results.filter(tura => tura.status=== 'Archived');
+        this.tours = result.results;
         console.log('Sadržaj result.results:', result.results);
       },
       error(err: any) {

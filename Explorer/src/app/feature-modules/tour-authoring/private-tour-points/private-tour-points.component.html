@@ -1,26 +1,18 @@
-<div class="table-wrapper">
-        <table>
-            <thead>
-                <tr>
-                    <th>Name: </th>
-                    <th>Description: </th>
-                    <th>Longitude: </th>
-                    <th>Latitude: </th>
-                    <th>Send request: </th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let t of filteredPrivateTourPoints">
-                    <td>{{t.name}}</td>
-                    <td>{{t.description}}</td>
-                    <td>{{t.longitude}}</td>
-                    <td>{{t.latitude}}</td>
-                    <td>
-                        <button (click)="sendRequest(t)" color="accent" mat-icon-button>
-                            <mat-icon>send</mat-icon>
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-  </div>
+<h1>Create public tour points</h1>
+
+<div class="card-wrapper">
+    <div *ngFor="let t of filteredPrivateTourPoints" class="card">
+        <div class="card-header">
+            <h3> {{t.name}}</h3>
+        </div>
+        <div class="card-body">
+            <p>Description: {{t.description}}</p>
+            <p>Longitude: {{t.longitude}}</p>
+            <p>Latitude: {{t.latitude}}</p>
+            <button (click)="sendRequest(t)" class="button">
+                <mat-icon>send</mat-icon>
+                    Send Request
+            </button>
+        </div>
+    </div>
+</div>

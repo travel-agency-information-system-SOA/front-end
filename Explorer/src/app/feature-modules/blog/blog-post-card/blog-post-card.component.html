@@ -27,6 +27,14 @@
             <!-- Dodajte ostale podatke o karakteristikama ture koje želite prikazati -->
           </li>
         </ul>
+        <ul *ngIf="shouldDisplayTourData()">
+          <p><b>Tour equipment:</b></p>
+          <li *ngFor="let e of equipmentList">
+            <p>Name: {{ e.name }}</p>
+            <p>Description: {{ e.name }}</p>
+            
+          </li>
+        </ul>
       </div>
 
       <div class="author-date-container">

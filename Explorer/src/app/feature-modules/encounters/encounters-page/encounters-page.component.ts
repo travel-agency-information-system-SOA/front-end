@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Encounter } from '../model/encounter.model';
 import { EncountersService } from '../encounters.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { SocialEncounter } from '../model/social-encounter.model';
+import { HiddenLocationEncounter } from '../model/hidden-location-encounter.model';
 
 @Component({
   selector: 'xp-encounters-page',
@@ -14,6 +16,8 @@ export class EncountersPageComponent implements OnInit {
   selectedEncounter: Encounter;
   shouldEdit: boolean = false;
   shouldEditDraft: boolean = false;
+  Social: boolean = false;
+  Location: boolean = false;
 
   constructor(private service: EncountersService){ }
 
@@ -33,8 +37,13 @@ export class EncountersPageComponent implements OnInit {
   }
 
   onEditClicked(encounter: Encounter): void{
+    console.log(encounter);
     this.selectedEncounter = encounter;
-    console.log(this.selectedEncounter);
+    this.Social = encounter.type === "SOCIAL";
+    this.Location = encounter.type === "LOCATION";
+    console.log(this.Location)
+    console.log(this.Social);
+    console.log("WOW");
     this.shouldEdit = true;
     this.shouldEditDraft = true;
     if(encounter.status != 'DRAFT'){
