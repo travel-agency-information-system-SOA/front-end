@@ -5,6 +5,8 @@ import { MaterialModule } from '../material/material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RegistrationComponent } from './registration/registration.component';
 import { ConfirmationComponent } from './confirmation/confirmation.component';
+import { RequestComponent } from './password-reset/request/request.component';
+import { ResetComponent } from './password-reset/reset/reset.component';
 
 
 
@@ -12,7 +14,9 @@ import { ConfirmationComponent } from './confirmation/confirmation.component';
   declarations: [
     LoginComponent,
     RegistrationComponent,
-    ConfirmationComponent
+    ConfirmationComponent,
+    RequestComponent,
+    ResetComponent
   ],
   imports: [
     CommonModule,

@@ -70,6 +70,8 @@ import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tou
 
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
 import { ConfirmationComponent } from "../auth/confirmation/confirmation.component";
+import {RequestComponent} from "../auth/password-reset/request/request.component";
+import {ResetComponent} from "../auth/password-reset/reset/reset.component";
 
 
 
@@ -79,6 +81,8 @@ const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'login', component: LoginComponent},
   {path: 'register', component: RegistrationComponent},
+  {path: 'requestReset', component: RequestComponent},
+  {path: 'reset', component: ResetComponent},
   {path: 'confirm', component: ConfirmationComponent},
   //{path: 'equipment', component: EquipmentComponent, canActivate: [AuthGuard]}, khm, khm..
   {path: 'guideReview', component: GuideReviewComponent, canActivate: [AuthGuard]},

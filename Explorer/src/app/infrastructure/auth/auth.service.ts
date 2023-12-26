@@ -75,4 +75,12 @@ export class AuthService {
   confirmRegistration(link: string): Observable<User> {
     return this.http.get<User>(environment.apiHost + link);
   }
+
+  requestPasswordReset(email: string): Observable<any> {
+    return this.http.post(environment.apiHost + `users/request`, { email });
+  }
+
+  resetPassword(token: string, password: string): Observable<any> {
+    return this.http.post(environment.apiHost + `users/reset`, { token, password });
+  }
 }
