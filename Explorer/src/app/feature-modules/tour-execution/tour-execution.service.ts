@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { environment } from 'src/env/environment';
 import { TourExecutionPosition } from './model/tourExecutionPosition.model';
-import { TourExecution } from './model/tourExecution.model';
+import { TourExecution,TourExecutionTourPoint,TourPoint } from './model/tourExecution.model';
 import { map } from 'rxjs';
 import { catchError } from 'rxjs';
 import { Tour } from '../tour-authoring/tour/model/tour.model';
@@ -62,6 +62,16 @@ export class TourExecutionService {
 
   getPurchasedTours(touristId: number): Observable<Tour[]> {
     return this.http.get<Tour[]>(environment.apiHost + 'tokens/purchasedTours/' + touristId)
+  }
+
+  getPointsByExecution(executionId: number): Observable<PagedResults<TourExecutionTourPoint>> {
+    const url = `${environment.apiHost}tourExecution/getPoints/${executionId}`;
+    return this.http.get<PagedResults<TourExecutionTourPoint>>(url);
+  }
+
+  getTourPointsByTourId(tourId: number): Observable<PagedResults<TourPoint>> {
+    const url = `${environment.apiHost}administration/tourPoint/${tourId}`;
+    return this.http.get<PagedResults<TourPoint>>(url);
   }
   
 }
