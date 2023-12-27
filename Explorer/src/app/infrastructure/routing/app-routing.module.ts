@@ -79,6 +79,7 @@ import { UserStatisticsComponent } from 'src/app/feature-modules/administration/
 
 
 
+import { CreateCompetitionComponent } from 'src/app/feature-modules/competition/create-competition/create-competition.component';
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -149,10 +150,12 @@ const routes: Routes = [
   { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent},
   { path: 'tour-tourist', component: TourTouristComponent },
   { path: 'compositeTours', component: CompositeToursComponent},
-  { path: 'statistics', component: UserStatisticsComponent}
-
-
-
+  { path: 'statistics', component: UserStatisticsComponent},
+  { path: 'compositeTours', component: CompositeToursComponent },
+  {
+    path: 'create-competition',
+    component: CreateCompetitionComponent,
+  },
 ];
 
 @NgModule({
