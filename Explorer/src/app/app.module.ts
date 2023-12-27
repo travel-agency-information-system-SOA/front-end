@@ -29,9 +29,11 @@ import { ClubModule } from './feature-modules/club/club.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { GoogleAnalyticsService } from "./infrastructure/google-analytics/google-analytics.service";
 import { EncountersModule } from './feature-modules/encounters/encounters.module';
+import { CreateCompetitionComponent } from './feature-modules/competition/create-competition/create-competition.component';
+import { ShowCompetitionComponent } from './feature-modules/competition/show-competition/show-competition.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

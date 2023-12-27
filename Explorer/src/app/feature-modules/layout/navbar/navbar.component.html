@@ -20,7 +20,6 @@
         </div>
       </div>
 
-
       <div *ngIf="user && user.role === 'tourist'" class="dd">
         <button raised-button [routerLink]="['purchasedTours']" class="nbutton">
           My Tours <i class="fa fa-caret-down"></i>
@@ -38,7 +37,9 @@
           <a *ngIf="user && user.role === 'tourist'" href="tour-tourist"
             >Personalized tour</a
           >
-          <a *ngIf="user && user.role === 'tourist'" href="compositeTours">Composite tours</a>
+          <a *ngIf="user && user.role === 'tourist'" href="compositeTours"
+            >Composite tours</a
+          >
         </div>
       </div>
 
@@ -57,6 +58,15 @@
         [routerLink]="['club']"
       >
         Clubs
+      </button>
+
+      <button
+        class="nbutton"
+        *ngIf="user && user.role === 'author'"
+        raised-button
+        [routerLink]="['create-competition']"
+      >
+        Competitions
       </button>
 
       <div *ngIf="user && user.role === 'administrator'" class="dd">
@@ -110,10 +120,38 @@
       <!-- <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['purchasedTours']">Purchased Tours</button> -->
       <!-- <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['problems']">Solve problems</button> -->
 
-      <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tour']">Add Tour</button>
-      <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['private-tour-points']">Private Tour Points</button>
-      <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['problems']">Problem Chats</button>
-      <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tourSale']">Tour Sales</button>
+      <button
+        class="nbutton"
+        *ngIf="user && user.role === 'author'"
+        raised-button
+        [routerLink]="['tour']"
+      >
+        Add Tour
+      </button>
+      <button
+        class="nbutton"
+        *ngIf="user && user.role === 'author'"
+        raised-button
+        [routerLink]="['private-tour-points']"
+      >
+        Private Tour Points
+      </button>
+      <button
+        class="nbutton"
+        *ngIf="user && user.role === 'author'"
+        raised-button
+        [routerLink]="['problems']"
+      >
+        Problem Chats
+      </button>
+      <button
+        class="nbutton"
+        *ngIf="user && user.role === 'author'"
+        raised-button
+        [routerLink]="['tourSale']"
+      >
+        Tour Sales
+      </button>
 
       <div
         *ngIf="user && (user.role === 'tourist' || user.role === 'author')"
