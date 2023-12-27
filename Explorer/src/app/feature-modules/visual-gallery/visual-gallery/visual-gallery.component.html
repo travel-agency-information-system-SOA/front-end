@@ -1,0 +1,14 @@
+<!-- image-search.component.html -->
+
+<div class="search-container">
+    <mat-form-field>
+      <input matInput placeholder="Search for inspiration" [(ngModel)]="query" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="searchImages()">Search</button>
+  </div>
+  
+  <div class="image-container">
+    <div class="image-card" *ngFor="let image of images">
+      <img [src]="image.urls.small" alt="{{ image.alt_description }}" />
+    </div>
+  </div>
