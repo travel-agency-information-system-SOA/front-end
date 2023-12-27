@@ -25,6 +25,8 @@ export class TourSearchComponent implements OnInit {
   toursDiscMap = new Map<number, number>();
   brTura: number = 0;
 
+  selectedValue = '0';
+
   constructor(private service: MarketplaceService,
               private cordinateService: MapService,
               private googleAnalytics: GoogleAnalyticsService
@@ -32,6 +34,8 @@ export class TourSearchComponent implements OnInit {
 
   searchForm = new FormGroup({
     range: new FormControl(0, [Validators.min(0), Validators.required]),
+    searchType: new FormControl('', Validators.required),
+    length: new FormControl(0, [Validators.min(0), Validators.required]),
   });
 
   ngOnInit() {
@@ -54,13 +58,27 @@ export class TourSearchComponent implements OnInit {
     this.toursfil = [];
     if (this.searchForm.valid && this.latitude != 0 && this.longitude != 0) {
 
-      this.service.getToursByLocation(this.latitude, this.longitude, this.searchForm.value.range || 0).subscribe({
+      this.service.getToursByLocation(this.latitude, this.longitude, this.searchForm.value.range || 0, this.searchForm.value.searchType || '0').subscribe({
         next: (result: PagedResults<Tour>) => {
           this.isListVisible = true;
-          this.tours = result.results;
-          this.brTura = this.tours.length;
+          this.tours = result.results; // ture koje odgovaraju prema udaljenosti
+          this.brTura = this.tours.length; // njihov broj
+          
+          // dodao sam textbox i za distancu ali jos nisam napravio da po njoj filtrira
+          // mozes ovde na frontu da izfiltriras po tome sto hoces
+
+
+
+
+
+          //
           this.getDiscounts();
           console.log(this.brTura);
+
+          if(this.searchForm.value.range) {
+            this.cordinateService.setRadius(this.searchForm.value.range);
+            this.cordinateService.setArrayCoordinates(this.tours);
+          }
         },
         error: (err) => {
           this.isListVisible = false;

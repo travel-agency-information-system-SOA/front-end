@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import * as L from 'leaflet';
+import { Tour } from 'src/app/feature-modules/tour-authoring/tour/model/tour.model';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,24 @@ export class MapService {
   totalDistance$ = this.totalDistanceSubject.asObservable();
   totalTime$ = this.totalTimeSubject.asObservable();
   private transportMode: string = 'walking';
+  private radiusSubject = new Subject<number>();
+  private coordinatesArraySubject = new Subject<Tour[]>();
+
+  setArrayCoordinates(coordinates: Tour[]): void {
+    this.coordinatesArraySubject.next(coordinates);
+  }
+
+  getArrayCoordinates(): Observable<Tour[]> {
+    return this.coordinatesArraySubject.asObservable();
+  }
+
+  setRadius(radius: number): void {
+    this.radiusSubject.next(radius);
+  }
+
+  getRadius(): Observable<number> {
+    return this.radiusSubject.asObservable();
+  }
 
   setTransportMode(mode: string) {
     this.transportMode = mode;

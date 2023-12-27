@@ -16,6 +16,22 @@
           <p class="p-value">{{ latitude }}</p>
           <p class="p-header">Longitude:</p>
           <p class="p-value">{{ longitude }}</p>
+
+          <p>Circle contains...</p>
+          <mat-form-field>
+            <mat-select formControlName="searchType" [(value)]="selectedValue">
+              <mat-option value="0">Any</mat-option>
+              <mat-option value="1">Starting</mat-option>
+              <mat-option value="2">Ending</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>Checkpoint</p>
+
+          <p>Max length</p>
+          <mat-form-field>
+            <mat-label>Length (km)</mat-label>
+            <input matInput formControlName="length" type="number">
+          </mat-form-field>
         </div>
       </div>
       <span class="slider">
