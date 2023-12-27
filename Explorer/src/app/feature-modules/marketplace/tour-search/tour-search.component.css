@@ -125,10 +125,32 @@
   transition: all 0.3s ease;
 }
 
+.button2:hover {
+  background-color: #221853;
+  box-shadow: 0 2px 5px 1px #333333;
+}
+
+.button2 {
+  font-family: 'Trip', sans-serif;
+  font-weight: medium;
+  font-size: 18px;
+  background-color: #0a83cb;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  height: 48px;
+  width: 100px;
+  transition: all 0.3s ease;
+  margin-left: 20px;
+}
+
 .button:hover {
   background-color: #221853;
   box-shadow: 0 2px 5px 1px #333333;
 }
+
+
 
 .tours-view {
   width: 100%;
@@ -326,6 +348,14 @@
 .desc-container {
   overflow: hidden;
   height: 150px;
+}
+
+.horizontal{
+  display: flex;
+}
+
+p{
+  margin-left: 30px;
 }
 
 .description {

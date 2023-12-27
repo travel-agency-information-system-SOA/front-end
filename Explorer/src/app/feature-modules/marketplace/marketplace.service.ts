@@ -315,6 +315,16 @@ export class MarketplaceService {
     );
   }
 
+  getToursByFilters(level: string, price: number): Observable<PagedResults<Tour>>{
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost +
+        'administration/tour/filter/' + 
+        level +
+        '/' +
+        price
+    );
+  }
+
   getAllTourExecutions(): Observable<PagedResults<TourExecution>> {
     return this.http.get<PagedResults<TourExecution>>(
       environment.apiHost + 'tourExecution/allExecutions'

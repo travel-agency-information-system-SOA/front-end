@@ -26,6 +26,8 @@ export class TourSearchComponent implements OnInit {
   brTura: number = 0;
 
   selectedValue = '0';
+  selectedLevel = '';
+  selectedPrice = '';
 
   constructor(private service: MarketplaceService,
               private cordinateService: MapService,
@@ -37,6 +39,11 @@ export class TourSearchComponent implements OnInit {
     searchType: new FormControl('', Validators.required),
     length: new FormControl(0, [Validators.min(0), Validators.required]),
   });
+
+  filterForm = new FormGroup({
+    selectedLevel: new FormControl(''),
+    selectedPrice: new FormControl(''),
+  })
 
   ngOnInit() {
     this.googleAnalytics.sendPageView(window.location.pathname);
@@ -124,5 +131,34 @@ export class TourSearchComponent implements OnInit {
     } else {
       return price;
     }
+  }
+
+  filter(): void {
+    var level = "None";
+    var price = 0;
+      if(this.selectedLevel === '0')
+        level = "Easy"
+      else if(this.selectedLevel === '1')
+        level = "Moderate"
+      else if(this.selectedLevel === '2')
+        level = 'Difficult'
+
+      if(this.selectedPrice == '0')
+        price = 100;
+      else if(this.selectedPrice === '1')
+        price = 200;
+      else if(this.selectedPrice === '2')
+        price = 10000;
+
+      console.log("LEVEL: ", level);
+      console.log("PRICE", price);
+      this.service.getToursByFilters(level, price).subscribe({
+        next: (result: PagedResults<Tour>) => {
+          this.isListVisible = true;
+          this.tours = result.results;
+          this.brTura = this.tours.length;
+        }
+      });
+
   }
 }
