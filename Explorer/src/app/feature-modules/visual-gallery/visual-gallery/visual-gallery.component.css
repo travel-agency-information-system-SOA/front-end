@@ -143,3 +143,14 @@
 .cancel-icon:hover {
   background-color: #ddd; /* Adjust the background color as needed */
 }
+
+.background {
+  
+  
+  
+  background-image: url("/assets/images/backgroundGallery.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  min-height: 150vh;
+  height: 100%;
+}
