@@ -1,16 +1,42 @@
-.grade{
-    margin-bottom: 25px;
+.grade {
+  margin-bottom: 25px;
 }
 
-.images{
-    margin-top: 25px;
+.images {
+  margin-top: 25px;
+  padding-top: 20px;
 }
 
-.buttonClass{
-    margin-top: 25px;
+.buttonClass {
+  margin-top: 25px;
 }
-.container{
-    display: flex;
-    margin-top: 25px;
-    margin-left: 400px;
+.container {
+  margin-top: 150px;
+  display: flex;
+  margin-right: auto;
+  margin-left: auto;
+  width: 500px;
+}
+
+.container h1 {
+  font-size: 36px; /* Prilagodite veličinu slova naslova prema potrebi */
+}
+
+mat-form-field,
+mat-input {
+  height: 100px;
+  width: 300px;
+}
+
+mat-form-field,
+mat-input {
+  padding-top: 30px;
+}
+
+mat-hint {
+  font-size: 15px;
+}
+
+.container input[type="text"] {
+  font-size: 18px;
 }
