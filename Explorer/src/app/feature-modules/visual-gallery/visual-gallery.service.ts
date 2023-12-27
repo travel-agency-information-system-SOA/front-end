@@ -9,13 +9,15 @@ import { environment } from 'src/env/environment';
 })
 export class VisualGalleryService {
 
-  private unsplashApiUrl = 'http://localhost:44333/api/unsplash'; // Update with your backend URL
+  private unsplashApiUrl = 'https://localhost:44333/api/unisplash'; // Update with your backend URL
 
 
   constructor(private http: HttpClient) { }
 
   searchImages(query: string): Observable<any> {
+    console.log('Usao u service');
     const apiUrl = `${this.unsplashApiUrl}/search?query=${query}`;
+    console.log(apiUrl);
     return this.http.get(apiUrl);
   }
 

@@ -12,13 +12,16 @@ export class VisualGalleryComponent {
 
   constructor(private galleryService:VisualGalleryService ) {}
   searchImages() {
-    this.galleryService.searchImages(this.query).subscribe(
-      (data: any) => {
-        this.images = data.results;
+    console.log(this.query);
+    this.galleryService.searchImages(this.query).subscribe({
+      next: (result: any) => {
+        console.log('Evoo me');
+        this.images = result.results;
       },
-      (error) => {
-        console.error('Error fetching images', error);
-     }
+      error: (err: any) => {
+        console.error('Error fetching images', err);
+      }
+    }
    );
  }
 
