@@ -30,6 +30,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { GoogleAnalyticsService } from "./infrastructure/google-analytics/google-analytics.service";
 import { EncountersModule } from './feature-modules/encounters/encounters.module';
 import { PublishedBundlesShowComponent } from './feature-modules/payment-record/published-bundles-show/published-bundles-show.component';
+import { VisualGalleryModule } from './feature-modules/visual-gallery/visual-gallery.module';
 
 @NgModule({
   declarations: [AppComponent, PublishedBundlesShowComponent],
@@ -59,7 +60,7 @@ import { PublishedBundlesShowComponent } from './feature-modules/payment-record/
     MatButtonModule,
     CommonModule,
     EncountersModule,
-    
+    VisualGalleryModule,
   ],
   providers: [
     {
