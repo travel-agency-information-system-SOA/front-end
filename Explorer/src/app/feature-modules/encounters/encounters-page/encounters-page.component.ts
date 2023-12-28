@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { Encounter } from '../model/encounter.model';
 import { EncountersService } from '../encounters.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { SocialEncounter } from '../model/social-encounter.model';
+import { HiddenLocationEncounter } from '../model/hidden-location-encounter.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-encounters-page',
@@ -14,11 +18,18 @@ export class EncountersPageComponent implements OnInit {
   selectedEncounter: Encounter;
   shouldEdit: boolean = false;
   shouldEditDraft: boolean = false;
+  Social: boolean = false;
+  Location: boolean = false;
+  user: User | undefined;
+  approved: boolean = false;
 
-  constructor(private service: EncountersService){ }
+  constructor(private service: EncountersService, private authService: AuthService){ }
 
   ngOnInit(): void {
-    this.getEncounters();
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    });
+    this.getEncounters(); 
   }
 
   getEncounters(): void{
@@ -32,9 +43,35 @@ export class EncountersPageComponent implements OnInit {
     })
   }
 
+  onApproveClicked(encounter: Encounter): void{
+    const updatedEncounter = {
+      id: encounter.id,
+      name: encounter.name,
+      description: encounter.description,
+      xpPoints: encounter.xpPoints,
+      status: 'ACTIVE',
+      type: encounter.type,
+      latitude: encounter.latitude,
+      longitude: encounter.longitude,
+      shouldBeApproved: false
+    }
+
+    this.service.updateEncounter(updatedEncounter).subscribe({
+      next: (_) => {
+        this.getEncounters();
+      }
+    })
+    this.approved = true;
+  }
+
   onEditClicked(encounter: Encounter): void{
+    console.log(encounter);
     this.selectedEncounter = encounter;
-    console.log(this.selectedEncounter);
+    this.Social = encounter.type === "SOCIAL";
+    this.Location = encounter.type === "LOCATION";
+    console.log(this.Location)
+    console.log(this.Social);
+    console.log("WOW");
     this.shouldEdit = true;
     this.shouldEditDraft = true;
     if(encounter.status != 'DRAFT'){
@@ -65,7 +102,8 @@ export class EncountersPageComponent implements OnInit {
       status: 'ARCHIVED',
       type: encounter.type,
       latitude: encounter.latitude,
-      longitude: encounter.longitude
+      longitude: encounter.longitude,
+      shouldBeApproved: encounter.shouldBeApproved
     }
 
     this.service.updateEncounter(updatedEncounter).subscribe({

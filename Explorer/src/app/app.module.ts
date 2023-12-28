@@ -29,11 +29,18 @@ import { ClubModule } from './feature-modules/club/club.module';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { GoogleAnalyticsService } from "./infrastructure/google-analytics/google-analytics.service";
 import { EncountersModule } from './feature-modules/encounters/encounters.module';
+
 import { CreateCompetitionComponent } from './feature-modules/competition/create-competition/create-competition.component';
 import { ShowCompetitionComponent } from './feature-modules/competition/show-competition/show-competition.component';
+import { PublishedBundlesShowComponent } from './feature-modules/payment-record/published-bundles-show/published-bundles-show.component';
+import { VisualGalleryModule } from './feature-modules/visual-gallery/visual-gallery.module';
 
 @NgModule({
-  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent],
+  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent,PublishedBundlesShowComponent],
+
+
+
+
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -59,7 +66,8 @@ import { ShowCompetitionComponent } from './feature-modules/competition/show-com
     MatDialogModule,
     MatButtonModule,
     CommonModule,
-    EncountersModule
+    EncountersModule,
+    VisualGalleryModule,
   ],
   providers: [
     {

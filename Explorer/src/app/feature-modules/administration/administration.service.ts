@@ -14,6 +14,9 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { RequestResponseNotification } from './model/request-response-notification.model';
 
 import { UserPosition } from './model/userPosition.model';
+import { TouristXP } from './model/tourist-xp.model';
+import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+import { UserMileage } from './model/user-statistics.model';
 
 
 @Injectable({
@@ -22,12 +25,12 @@ import { UserPosition } from './model/userPosition.model';
 export class AdministrationService {
   constructor(private http: HttpClient) {}
 
-  /*getEquipment(): Observable<PagedResults<Equipment>> {
+  getEquipment(): Observable<PagedResults<Equipment>> {
     return this.http.get<PagedResults<Equipment>>(
       environment.apiHost + 'administration/equipment'
     );
   }
-
+/*
   deleteEquipment(id: number): Observable<Equipment> {
     return this.http.delete<Equipment>(
       environment.apiHost + 'administration/equipment/' + id
@@ -116,4 +119,21 @@ export class AdministrationService {
   deleteNotification(notification: RequestResponseNotification): Observable<RequestResponseNotification> {
     return this.http.delete<RequestResponseNotification>(environment.apiHost + 'administration/requestResponseNotification/' + notification.id);
   }
+  getTouristXPByID(touristId: Number): Observable<PagedResults<TouristXP>>{
+    return this.http.get<PagedResults<TouristXP>>(environment.apiHost + 'tourist/touristXP/' + touristId);
+  }
+
+  getAllUserMileages() : Observable<PagedResults<UserMileage>>{
+    return this.http.get<PagedResults<UserMileage>>(environment.apiHost + 'mileage/getAllSorted');
+  }
+
+  getAllUserMileagesByMonth() : Observable<PagedResults<UserMileage>>{
+    return this.http.get<PagedResults<UserMileage>>(environment.apiHost + 'mileage/getAllSortedByMonth');
+  }
+
+  getUserMileage(userId: number) : Observable<PagedResults<UserMileage>>{
+    return this.http.get<PagedResults<UserMileage>>(environment.apiHost + 'mileage/getByUser/' + userId);
+  }
+
+
 }

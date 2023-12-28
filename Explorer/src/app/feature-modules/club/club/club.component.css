@@ -5,8 +5,8 @@
 
 #club-details {
     display: flex;
-    flex-direction: row;
-    gap: 50px;
+    flex-direction: row; /* Change to column */
+    gap: 20px;
     align-items: flex-start;
 }
 
@@ -47,4 +47,41 @@ tbody tr:last-of-type {
 tbody tr.active-row {
     font-weight: bold;
     color: #3f51b5;
+}
+
+.title{
+    color: black;
+    font-family: 'Trip', sans-serif; 
+    font-weight: bold;
+    text-align: center;
+    margin-top: 38px;
+    margin-bottom: 50px;
+    font-size: 42px;
+}
+
+.club-container {
+    padding: 15px;
+    border: 5px solid #221853; 
+    max-height: 600px; 
+    overflow-y: auto; 
+  }
+
+
+.button {
+    color: #221853;
+    width: 38.8%;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 4px;
+    font-size: 20px;
+    font-family: 'Trip', sans-serif;
+    transition: background-color 0.3s ease; /* Add transition for hover effect */
+    cursor: text;
+    margin-bottom: 10px;
+}
+
+.form-container {
+    margin-left: 400px;
 }
