@@ -6,11 +6,13 @@ import { CompetitionApply } from '../model/competitionApply.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { AdministrationService } from '../../administration/administration.service';
 import { Profile } from '../../administration/model/profile.model';
+import {User} from "../../../infrastructure/auth/model/user.model";
 
 interface ExtendedCompetitionApply extends CompetitionApply {
   userName?: string;
   userLastName?: string;
   selected?: boolean;
+  notHis?: boolean;
 }
 
 @Component({
@@ -25,11 +27,21 @@ export class OneCompetitionComponent implements OnInit {
   isClicked: boolean = false;
   //apply: CompetitionApply;
   shouldRenderForm: boolean = false;
+  isTourist: boolean = false;
+  user: User | undefined;
+  userId: number | 0;
 
-  constructor(private route: ActivatedRoute, private competitionService: CompetitionServiceService, private userService: AdministrationService, private router: Router){}
+  constructor(private route: ActivatedRoute, private competitionService: CompetitionServiceService, private userService: AdministrationService, private router: Router, private authService: AuthService){}
 
   ngOnInit(): void {
     this.competitionId = +this.route.snapshot.paramMap.get('id')!;
+    this.authService.user$.subscribe((user) => {
+      this.user = user;
+      this.userId = user.id;
+    });
+    if(this.user?.role == "tourist"){
+      this.isTourist = true;
+    }
     this.getApplies();
   }
 
@@ -43,6 +55,12 @@ export class OneCompetitionComponent implements OnInit {
                 apply.userName = data.name;
                 apply.userLastName = data.surname;
                 apply.selected = false;
+                if(apply.userId == this.userId){
+                  apply.notHis = false;
+                }
+                else{
+                  apply.notHis = true;
+                }
               }
             })
         });
@@ -74,7 +92,7 @@ export class OneCompetitionComponent implements OnInit {
     }
   }
 
-  
+
   closeForm(): void{
     this.shouldRenderForm = false;
   }

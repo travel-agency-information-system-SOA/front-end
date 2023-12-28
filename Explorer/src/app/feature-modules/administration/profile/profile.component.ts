@@ -95,7 +95,7 @@ export class ProfileComponent implements OnInit {
 
   onBellClicked(): void{
     this.shouldRenderMessages = false;
-    this.shouldRenderNotifications = true;
+    this.shouldRenderNotifications = !this.shouldRenderNotifications;
   }
 
   onMessagesClicked(): void{

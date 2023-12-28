@@ -20,13 +20,13 @@
         </div>
       </div>
 
-            <div *ngIf="user && user.role === 'tourist'" class="dd">
-                <button raised-button [routerLink]="['marketplace']" class="nbutton">Marketplace <i class="fa fa-caret-down"></i></button>
-                <div class="ddc">
-                    <a *ngIf="user && user.role === 'tourist'" href="marketplace">Marketplace</a>
-                    <a *ngIf="user && user.role === 'tourist'" href="shoppingcart">Shopping Cart</a>
-                </div>
-            </div> 
+<!--            <div *ngIf="user && user.role === 'tourist'" class="dd">-->
+<!--                <button raised-button [routerLink]="['marketplace']" class="nbutton">Marketplace <i class="fa fa-caret-down"></i></button>-->
+<!--                <div class="ddc">-->
+<!--                    <a *ngIf="user && user.role === 'tourist'" href="marketplace">Marketplace</a>-->
+<!--                    <a *ngIf="user && user.role === 'tourist'" href="shoppingcart">Shopping Cart</a>-->
+<!--                </div>-->
+<!--            </div>-->
 
             <div *ngIf="user && user.role === 'tourist'" class="dd">
                 <button raised-button [routerLink]="['purchasedTours']" class="nbutton">My Tours <i class="fa fa-caret-down"></i></button>
@@ -39,13 +39,13 @@
                     <a *ngIf="user && user.role === 'tourist'" href="problems">Tour Problems</a>
                     <a *ngIf="user && user.role === 'tourist'" href="tour-tourist">Personalized tour</a>
                     <a *ngIf="user && user.role === 'tourist'" href="compositeTours">Composite tours</a>
-                    
+
                 </div>
-            </div> 
+            </div>
 
-          
 
-            
+
+
             <!-- Premestena dugmad u dropdaunove (ako nesto nije dobro prebaceno)-->
             <!-- <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['equipment']">Manage Equipment (!)</button> -->
             <!-- <button class="nbutton" *ngIf="user && user.role === 'administrator'" raised-button [routerLink]="['accounts']">Manage Accounts</button> -->
@@ -60,14 +60,14 @@
             <!-- <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['tours-show']">Rate Visited Tour</button> -->
             <!-- <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['purchasedTours']">Purchased Tours</button> -->
             <!-- <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['problems']">Solve problems</button> -->
-            
+
             <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tour']">Add Tour</button>
             <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['private-tour-points']">Private Tour Points</button>
             <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['problems']">Problem Chats</button>
             <button class="nbutton" *ngIf="user && user.role === 'author'" raised-button [routerLink]="['tourStatistics']">Tour statistics</button>
 
 
-            
+
             <div *ngIf="user && (user.role === 'tourist' || user.role === 'author')" class="dd">
                 <button raised-button [routerLink]="['profile']" class="nbutton">Profile <i class="fa fa-caret-down"></i></button>
                 <div class="ddc">
@@ -78,58 +78,58 @@
                     <a *ngIf="user && (user.role === 'tourist')" href="statistics">Statistics</a>
 
                 </div>
-            </div> 
+            </div>
 
-       
 
-      <!-- <div *ngIf="user && user.role === 'tourist'" class="dd">
 
-        <button raised-button [routerLink]="['purchasedTours']" class="nbutton">
-          My Tours <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="ddc">
-          <a *ngIf="user && user.role === 'tourist'" href="purchasedTours"
-            >Purchased Tours</a
-          >
-          <a *ngIf="user && user.role === 'tourist'" href="tours-show"
-            >Rate Visited Tours</a
-          >
-          <a *ngIf="user && user.role === 'tourist'" href="problems"
-            >Tour Problems</a
-          >
-          <a *ngIf="user && user.role === 'tourist'" href="tour-tourist"
-            >Personalized tour</a
-          >
-          <a *ngIf="user && user.role === 'tourist'" href="compositeTours"
-            >Composite tours</a
-          >
-        </div>
-      </div>
+<!--      <div *ngIf="user && user.role === 'tourist'" class="dd">-->
 
-      <button
-        class="nbutton"
-        *ngIf="user && user.role === 'tourist'"
-        raised-button
-        [routerLink]="['blog']"
-      >
-        Blog
-      </button>
-      <button
-      class="nbutton"
-      *ngIf="user && user.role === 'tourist'"
-      raised-button
-      [routerLink]="['gallery']"
-    >
-      Gallery
-    </button>
-      <button
-        class="nbutton"
-        *ngIf="user && user.role === 'tourist'"
-        raised-button
-        [routerLink]="['club']"
-      >
-        Clubs
-      </button>
+<!--        <button raised-button [routerLink]="['purchasedTours']" class="nbutton">-->
+<!--          My Tours <i class="fa fa-caret-down"></i>-->
+<!--        </button>-->
+<!--        <div class="ddc">-->
+<!--          <a *ngIf="user && user.role === 'tourist'" href="purchasedTours"-->
+<!--            >Purchased Tours</a-->
+<!--          >-->
+<!--          <a *ngIf="user && user.role === 'tourist'" href="tours-show"-->
+<!--            >Rate Visited Tours</a-->
+<!--          >-->
+<!--          <a *ngIf="user && user.role === 'tourist'" href="problems"-->
+<!--            >Tour Problems</a-->
+<!--          >-->
+<!--          <a *ngIf="user && user.role === 'tourist'" href="tour-tourist"-->
+<!--            >Personalized tour</a-->
+<!--          >-->
+<!--          <a *ngIf="user && user.role === 'tourist'" href="compositeTours"-->
+<!--            >Composite tours</a-->
+<!--          >-->
+<!--        </div>-->
+<!--      </div>-->
+
+<!--      <button-->
+<!--        class="nbutton"-->
+<!--        *ngIf="user && user.role === 'tourist'"-->
+<!--        raised-button-->
+<!--        [routerLink]="['blog']"-->
+<!--      >-->
+<!--        Blog-->
+<!--      </button>-->
+<!--      <button-->
+<!--      class="nbutton"-->
+<!--      *ngIf="user && user.role === 'tourist'"-->
+<!--      raised-button-->
+<!--      [routerLink]="['gallery']"-->
+<!--    >-->
+<!--      Gallery-->
+<!--    </button>-->
+<!--      <button-->
+<!--        class="nbutton"-->
+<!--        *ngIf="user && user.role === 'tourist'"-->
+<!--        raised-button-->
+<!--        [routerLink]="['club']"-->
+<!--      >-->
+<!--        Clubs-->
+<!--      </button>-->
 
       <button
         class="nbutton"
@@ -140,13 +140,22 @@
         Competitions
       </button>
 
-        <div *ngIf="user && ((user.role === 'tourist' && isLevelTen) || user.role === 'administrator')" class="dd">
-          <button raised-button [routerLink]="['encounters']" class="nbutton">Encounters <i class="fa fa-caret-down"></i></button>
-          <div class="ddc">
-              <a href="encounters">Manage encounters</a>
-              <a *ngIf="user && user.role === 'tourist'" href="encounterMap">Encounter map</a>
-          </div>
-      </div> 
+      <button
+        class="nbutton"
+        *ngIf="user && user.role === 'tourist'"
+        raised-button
+        [routerLink]="['show-competitions']"
+      >
+        Competitions
+      </button>
+
+<!--        <div *ngIf="user && ((user.role === 'tourist' && isLevelTen) || user.role === 'administrator')" class="dd">-->
+<!--          <button raised-button [routerLink]="['encounters']" class="nbutton">Encounters <i class="fa fa-caret-down"></i></button>-->
+<!--          <div class="ddc">-->
+<!--              <a href="encounters">Manage encounters</a>-->
+<!--              <a *ngIf="user && user.role === 'tourist'" href="encounterMap">Encounter map</a>-->
+<!--          </div>-->
+<!--      </div>-->
 
 
       <div *ngIf="user && user.role === 'administrator'" class="dd">
@@ -200,30 +209,30 @@
       <!-- <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['purchasedTours']">Purchased Tours</button> -->
       <!-- <button class="nbutton" *ngIf="user && user.role === 'tourist'" raised-button [routerLink]="['problems']">Solve problems</button> -->
 
-      <button
-        class="nbutton"
-        *ngIf="user && user.role === 'author'"
-        raised-button
-        [routerLink]="['tour']"
-      >
-        Add Tour
-      </button>
-      <button
-        class="nbutton"
-        *ngIf="user && user.role === 'author'"
-        raised-button
-        [routerLink]="['private-tour-points']"
-      >
-        Private Tour Points
-      </button>
-      <button
-        class="nbutton"
-        *ngIf="user && user.role === 'author'"
-        raised-button
-        [routerLink]="['problems']"
-      >
-        Problem Chats
-      </button>
+<!--      <button-->
+<!--        class="nbutton"-->
+<!--        *ngIf="user && user.role === 'author'"-->
+<!--        raised-button-->
+<!--        [routerLink]="['tour']"-->
+<!--      >-->
+<!--        Add Tour-->
+<!--      </button>-->
+<!--      <button-->
+<!--        class="nbutton"-->
+<!--        *ngIf="user && user.role === 'author'"-->
+<!--        raised-button-->
+<!--        [routerLink]="['private-tour-points']"-->
+<!--      >-->
+<!--        Private Tour Points-->
+<!--      </button>-->
+<!--      <button-->
+<!--        class="nbutton"-->
+<!--        *ngIf="user && user.role === 'author'"-->
+<!--        raised-button-->
+<!--        [routerLink]="['problems']"-->
+<!--      >-->
+<!--        Problem Chats-->
+<!--      </button>-->
       <button
         class="nbutton"
         *ngIf="user && user.role === 'author'"
@@ -233,32 +242,32 @@
         Tour Sales
       </button>
 
-      <div
-        *ngIf="user && (user.role === 'tourist' || user.role === 'author')"
-        class="dd"
-      >
-        <button raised-button [routerLink]="['profile']" class="nbutton">
-          Profile <i class="fa fa-caret-down"></i>
-        </button>
-        <div class="ddc">
-          <a
-            *ngIf="user && (user.role === 'tourist' || user.role === 'author')"
-            href="profile"
-            >Profile Page</a
-          >
-          <a *ngIf="user && user.role === 'tourist'" href="tourist-equipment"
-            >My Equipment</a
-          >
-          <a *ngIf="user && user.role === 'tourist'" href="preferences"
-            >My Preferences</a
-          >
-          <a
-            *ngIf="user && (user.role === 'tourist' || user.role === 'author')"
-            href="app-rating-form"
-            >Rate The App</a
-          >
-        </div>
-      </div>
+<!--      <div-->
+<!--        *ngIf="user && (user.role === 'tourist' || user.role === 'author')"-->
+<!--        class="dd"-->
+<!--      >-->
+<!--        <button raised-button [routerLink]="['profile']" class="nbutton">-->
+<!--          Profile <i class="fa fa-caret-down"></i>-->
+<!--        </button>-->
+<!--        <div class="ddc">-->
+<!--          <a-->
+<!--            *ngIf="user && (user.role === 'tourist' || user.role === 'author')"-->
+<!--            href="profile"-->
+<!--            >Profile Page</a-->
+<!--          >-->
+<!--          <a *ngIf="user && user.role === 'tourist'" href="tourist-equipment"-->
+<!--            >My Equipment</a-->
+<!--          >-->
+<!--          <a *ngIf="user && user.role === 'tourist'" href="preferences"-->
+<!--            >My Preferences</a-->
+<!--          >-->
+<!--          <a-->
+<!--            *ngIf="user && (user.role === 'tourist' || user.role === 'author')"-->
+<!--            href="app-rating-form"-->
+<!--            >Rate The App</a-->
+<!--          >-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
     <div id="buttons">
       <button
