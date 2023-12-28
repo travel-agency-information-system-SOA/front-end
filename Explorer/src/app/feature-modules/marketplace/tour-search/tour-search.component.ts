@@ -71,11 +71,21 @@ export class TourSearchComponent implements OnInit {
     const value = (event.target as HTMLInputElement).value;
     this.discount = parseInt(value);
   }
-  
+
   getPurchasedTours(): void {
     this.service.getAllTokens().subscribe({
       next: (result) => {
         this.tokens = result.results;
+        this.auth.user$.subscribe((user) => {
+          if (user.username) {
+            if(user.role === "tourist") {
+              this.isTourist = true;
+            }
+            const userId = user.id;
+
+            this.tokens = result.results.filter((item) => item.touristId === userId);
+          }
+        });
         console.log(this.tokens.length);
       },
       error: () => {
