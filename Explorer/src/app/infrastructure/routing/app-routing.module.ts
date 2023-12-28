@@ -75,7 +75,12 @@ import {RequestComponent} from "../auth/password-reset/request/request.component
 import {ResetComponent} from "../auth/password-reset/reset/reset.component";
 
 import { UserStatisticsComponent } from 'src/app/feature-modules/administration/user-statistics/user-statistics.component';
+
+import { TourStatisticsComponent } from 'src/app/feature-modules/tour-authoring/tour-statistics/tour-statistics.component';
+
+
 import { VisualGalleryComponent } from 'src/app/feature-modules/visual-gallery/visual-gallery/visual-gallery.component';
+
 
 
 
@@ -102,6 +107,7 @@ const routes: Routes = [
     component: PrivateTourPointsComponent,
   },
   { path: 'objects', component: TourObjectComponent },
+  { path: 'tourStatistics', component: TourStatisticsComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'club', component: ClubComponent },
