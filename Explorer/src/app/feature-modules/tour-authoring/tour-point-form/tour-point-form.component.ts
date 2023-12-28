@@ -179,6 +179,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     distanceTreshold: new FormControl(200, []),
     touristsRequiredForCompletion: new FormControl(1, []),
     imageURL: new FormControl('', []),
+    includeCheckbox: new FormControl(false),
   })
   closePopup() {
     this.showPopup = false;
@@ -245,7 +246,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
           const tourKeyPointEncounter: TourKeyPointEncounter = {
             encounterId: socialEncounter.id,
             keyPointId: this.tempTourPoint.id || 0,
-            isMandatory: false
+            isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
       
           this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
@@ -286,7 +287,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
           const tourKeyPointEncounter: TourKeyPointEncounter = {
             encounterId: hiddenLocationEncounter.id,
             keyPointId: this.tempTourPoint.id || 0,
-            isMandatory: false
+            isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
       
           this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
@@ -321,7 +322,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
           const tourKeyPointEncounter: TourKeyPointEncounter = {
             encounterId: encounter.id,
             keyPointId: this.tempTourPoint.id || 0,
-            isMandatory: false
+            isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
       
           console.log("Doslo je do createTourKeyPointencounter");
