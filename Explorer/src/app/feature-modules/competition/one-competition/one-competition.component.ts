@@ -10,6 +10,7 @@ import { Profile } from '../../administration/model/profile.model';
 interface ExtendedCompetitionApply extends CompetitionApply {
   userName?: string;
   userLastName?: string;
+  selected?: boolean;
 }
 
 @Component({
@@ -21,6 +22,8 @@ export class OneCompetitionComponent implements OnInit {
 
   competitionId: number | 0;
   competitionApplies: ExtendedCompetitionApply[] = [];
+  isClicked: boolean = false;
+  apply: CompetitionApply;
 
   constructor(private route: ActivatedRoute, private competitionService: CompetitionServiceService, private userService: AdministrationService){}
 
@@ -38,10 +41,37 @@ export class OneCompetitionComponent implements OnInit {
               next: (data: Profile) => {
                 apply.userName = data.name;
                 apply.userLastName = data.surname;
+                apply.selected = false;
               }
             })
         });
       }
     })
   }
+
+  selectApply(apply: ExtendedCompetitionApply) : void {
+    if(apply.selected == true){
+      apply.selected = false;
+      console.log(apply.numLikes);
+      apply.numLikes -= 1;
+      this.competitionService.updateApply(apply).subscribe({
+        next: (apply : CompetitionApply) => {
+          console.log(apply.numLikes);
+        }
+      })
+    }
+    else if(apply.selected == false){
+      apply.selected = true;
+      console.log(apply.numLikes);
+      apply.numLikes += 1;
+      this.competitionService.updateApply(apply).subscribe({
+        next: (apply : CompetitionApply) => {
+          console.log(apply.numLikes);
+        }
+      })
+      //this.selectedTours.push(tour);
+    }
+  }
+
+  
 }

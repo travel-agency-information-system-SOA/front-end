@@ -59,10 +59,10 @@ export class ShowCompetitionComponent implements OnInit{
         },
       error(err: any) {
         console.log(err);
-      }
-    })
+      }
+   })
 
-  }
+  }
 
   getAllCompetitionsByAuthorId(id: number) : void {
     this.competitionService.getAllCompetitionsByAuthorId(id).subscribe({
@@ -84,7 +84,12 @@ export class ShowCompetitionComponent implements OnInit{
 
 
   selectCompetition(competition: Competition): void {
-    this.router.navigate(['/oneCompetition/', competition.id]);
+    if(competition.status=='Open'){
+      this.router.navigate(['/oneCompetition/', competition.id]);
+    }else{
+      this.router.navigate(['/winnerApply/', competition.id]);
+    }
+    
   }
 
 
