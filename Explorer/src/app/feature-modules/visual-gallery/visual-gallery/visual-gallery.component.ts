@@ -29,6 +29,7 @@ export class VisualGalleryComponent implements OnInit {
     this.galleryService.searchImages(this.query).subscribe({
       next: (result: any) => {
         console.log('Evoo me');
+        console.log(result.results)
         this.images = result.results;
       },
       error: (err: any) => {
