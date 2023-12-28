@@ -6,6 +6,9 @@ import { Tour } from "../../tour-authoring/tour/model/tour.model";
 import { PagedResults } from "../../../shared/model/paged-results.model";
 import { GoogleAnalyticsService } from "../../../infrastructure/google-analytics/google-analytics.service";
 import { forkJoin } from "rxjs";
+import { TourPurchaseToken } from '../model/TourPurchaseToken.model';
+import { OrderItem, ShoppingCart } from '../model/shopping-cart.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-tour-search',
@@ -32,10 +35,14 @@ export class TourSearchComponent implements OnInit {
   selectedValue = '0';
   selectedLevel = '';
   selectedPrice = '';
+  tokens: TourPurchaseToken[] = [];
+  shoppingCart: ShoppingCart = {} as ShoppingCart;
+  isTourist = false;
 
   constructor(private service: MarketplaceService,
               private cordinateService: MapService,
-              private googleAnalytics: GoogleAnalyticsService
+              private googleAnalytics: GoogleAnalyticsService,
+              private auth: AuthService
   ) {}
 
   searchForm = new FormGroup({
@@ -52,7 +59,8 @@ export class TourSearchComponent implements OnInit {
   ngOnInit() {
     this.googleAnalytics.sendPageView(window.location.pathname);
     console.log(window.location.pathname);
-
+    this.getShoppingCart();
+    this.getPurchasedTours();
     this.cordinateService.coordinate$.subscribe((coordinates) => {
       this.latitude = coordinates.lat;
       this.longitude = coordinates.lng;
@@ -62,6 +70,79 @@ export class TourSearchComponent implements OnInit {
   updateSliderValue(event: Event): void {
     const value = (event.target as HTMLInputElement).value;
     this.discount = parseInt(value);
+  }
+  
+  getPurchasedTours(): void {
+    this.service.getAllTokens().subscribe({
+      next: (result) => {
+        this.tokens = result.results;
+        console.log(this.tokens.length);
+      },
+      error: () => {
+      }
+    })
+  }
+
+  getShoppingCart(): void{
+    this.auth.user$.subscribe((user) => {
+      if (user.username) {
+        if(user.role === "tourist") {
+          this.isTourist = true;
+        }
+        const userId = user.id;
+
+        this.service.getShoppingCart(userId).subscribe({
+          next: (data: ShoppingCart) => {
+            this.shoppingCart = data;
+          },
+          error: (err: any) => {
+            console.log(err);
+          }
+        });
+      }
+    });
+
+  }
+
+  isInCart(id: number | undefined): number {
+    if (id === undefined) {
+      return -1;
+    }
+    if (this.shoppingCart.orderItems.some(item => item.idTour === id)) {
+      return 1;
+    }
+    for (let i = 0; i < this.tokens.length; i++) {
+      if (this.tokens[i].idTour === id) {
+        return 2;
+      }
+    }
+    return 0;
+  }
+
+  getDiscc(price: number, discount: number): number {
+    return Math.floor((100 - discount) * price / 100);
+  }
+
+  addToCart(id: number | undefined, name: string, price: number): void {
+    if(true){
+      this.service.getTourDiscount(id || -1).subscribe(result => {
+        const ggg = this.getDiscc(price, result);
+        const newOrderItem: OrderItem = {
+          tourName: name,
+          price: ggg,
+        idTour: id!
+      };
+      this.shoppingCart.orderItems.push(newOrderItem);
+      this.service.addOrderItem(this.shoppingCart).subscribe({
+        next: (data: ShoppingCart) => {
+          console.log(this.shoppingCart);
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      });
+    });
+    }
   }
 
   search(): void {

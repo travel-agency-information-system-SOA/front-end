@@ -110,6 +110,9 @@
               <p class="difficulty" [ngClass]="{'easy': tour.difficultyLevel === 'Easy', 'moderate': tour.difficultyLevel === 'Moderate', 'difficult': tour.difficultyLevel === 'Difficult'}">
                 {{ tour.difficultyLevel }}
               </p>
+              <button *ngIf="isTourist && isInCart(tour.id) == 0" (click)="addToCart(tour.id, tour.name, tour.price)">Add to Cart</button>
+                <p *ngIf="isTourist && isInCart(tour.id) == 1">Tour in cart</p>
+                <p *ngIf="isTourist && isInCart(tour.id) == 2">Tour owned</p>
             </div>
           </div>
         </div>
