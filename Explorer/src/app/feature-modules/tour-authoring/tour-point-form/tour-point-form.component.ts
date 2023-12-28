@@ -21,6 +21,8 @@ import { TransportType } from '../tour/model/tourCharacteristic.model';
 import { Router } from '@angular/router';
 import { EncountersService } from '../../encounters/encounters.service';
 import { TourKeyPointEncounter } from '../model/TourKeyPointEncounter.model';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-tour-point-form',
@@ -53,6 +55,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private encounterService: EncountersService,
+    private authService: AuthService
   ) {}
   ngOnInit(): void {
     this.yourFormGroup = this.formBuilder.group({
@@ -176,6 +179,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     distanceTreshold: new FormControl(200, []),
     touristsRequiredForCompletion: new FormControl(1, []),
     imageURL: new FormControl('', []),
+    includeCheckbox: new FormControl(false),
   })
   closePopup() {
     this.showPopup = false;
@@ -231,6 +235,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
         touristsRequiredForCompletion: this.encounterForm.value.touristsRequiredForCompletion || 1,
         distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
         touristIDs: [],
+        shouldBeApproved: false
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         socialEncounter.latitude = coordinates.lat;
@@ -241,7 +246,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
           const tourKeyPointEncounter: TourKeyPointEncounter = {
             encounterId: socialEncounter.id,
             keyPointId: this.tempTourPoint.id || 0,
-            isMandatory: false
+            isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
       
           this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
@@ -270,7 +275,8 @@ export class TourPointFormComponent implements OnChanges, OnInit {
         imageURL: this.encounterForm.value.imageURL || '',
         imageLatitude: 0,
         imageLongitude:  0,
-        distanceTreshold: this.encounterForm.value.distanceTreshold || 200
+        distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
+        shouldBeApproved: false
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         hiddenLocationEncounter.latitude = coordinates.lat;
@@ -281,7 +287,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
           const tourKeyPointEncounter: TourKeyPointEncounter = {
             encounterId: hiddenLocationEncounter.id,
             keyPointId: this.tempTourPoint.id || 0,
-            isMandatory: false
+            isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
       
           this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
@@ -304,7 +310,8 @@ export class TourPointFormComponent implements OnChanges, OnInit {
         status: 'ACTIVE',
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
-        longitude:  0
+        longitude:  0,
+        shouldBeApproved: false
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         encounter.latitude = coordinates.lat;
@@ -315,7 +322,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
           const tourKeyPointEncounter: TourKeyPointEncounter = {
             encounterId: encounter.id,
             keyPointId: this.tempTourPoint.id || 0,
-            isMandatory: false
+            isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
       
           console.log("Doslo je do createTourKeyPointencounter");

@@ -70,11 +70,21 @@ import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tou
 
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
 
+
+
+
 import { ConfirmationComponent } from "../auth/confirmation/confirmation.component";
 import {RequestComponent} from "../auth/password-reset/request/request.component";
 import {ResetComponent} from "../auth/password-reset/reset/reset.component";
 
 import { UserStatisticsComponent } from 'src/app/feature-modules/administration/user-statistics/user-statistics.component';
+import { AuthorCouponFormComponent } from 'src/app/feature-modules/marketplace/author-coupon-form/author-coupon-form.component';
+
+import { TourStatisticsComponent } from 'src/app/feature-modules/tour-authoring/tour-statistics/tour-statistics.component';
+
+
+import { VisualGalleryComponent } from 'src/app/feature-modules/visual-gallery/visual-gallery/visual-gallery.component';
+
 
 
 
@@ -109,6 +119,7 @@ const routes: Routes = [
     component: PrivateTourPointsComponent,
   },
   { path: 'objects', component: TourObjectComponent },
+  { path: 'tourStatistics', component: TourStatisticsComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
   { path: 'club', component: ClubComponent },
@@ -150,6 +161,7 @@ const routes: Routes = [
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
   { path: 'activeEncounter', component:ActivatedExecutionComponent},
   { path: 'createCoupon/:id', component: CouponFormComponent},
+  { path: 'createAuthorCoupon', component: AuthorCouponFormComponent},
 
   { path: 'tourBundleCreate', component: TourBundleCreateComponent},
   { path: 'tourBundlesShow', component: TourBundlesShowComponent},
@@ -157,6 +169,7 @@ const routes: Routes = [
   { path: 'tour-tourist', component: TourTouristComponent },
   { path: 'compositeTours', component: CompositeToursComponent},
   { path: 'statistics', component: UserStatisticsComponent},
+
   { path: 'compositeTours', component: CompositeToursComponent },
   {
     path: 'create-competition',
@@ -165,7 +178,13 @@ const routes: Routes = [
   { path: 'show-competitions', component: ShowCompetitionComponent},
   { path: 'oneCompetition/:id', component: OneCompetitionComponent},
   { path: 'winnerApply/:id', component: WinnerApplyComponent },
-  { path: 'apply/:id', component: ApplyFormComponent}
+  { path: 'apply/:id', component: ApplyFormComponent},
+
+
+  { path: 'statistics', component: UserStatisticsComponent},
+  { path: 'gallery', component: VisualGalleryComponent}
+
+
 ];
 
 @NgModule({

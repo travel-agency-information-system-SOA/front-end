@@ -36,15 +36,21 @@
       <label for="quote">Quote:</label>
       <input id="quote" [(ngModel)]="userProfile.quote" [disabled]="!isEditMode">
     </div>
-    <!--<div class="form-group">
+    <div class="form-group">
       <label>XP:</label>
       <label *ngFor="let txp of touristXP">{{txp.experience}}</label>
     </div>
     <div class="form-group">
       <label>Level:</label>
       <label *ngFor="let txp of touristXP">{{txp.level}}</label>
-    </div>-->
+    </div>
     <button class="edit-button" (click)="toggleEditMode()">{{ isEditMode ? 'Save' : 'Edit' }}</button>
-    
+    <div>
+      <mat-icon (click)="onMessagesClicked()">mail_outline</mat-icon>
+      </div>
+      <div>
+        <xp-follower-messages *ngIf="shouldRenderMessages"></xp-follower-messages>
+      </div>
   </div>
 </div>
+

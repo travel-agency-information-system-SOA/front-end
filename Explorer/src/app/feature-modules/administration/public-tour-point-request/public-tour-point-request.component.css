@@ -61,7 +61,10 @@ h1.title {
 p{
   color: #ffffff; /* Bijela boja teksta */
 }
-
+.schedule{
+  display: flex;
+  flex-direction: column;
+}
 .notification {
   background-color: #131745;
 
