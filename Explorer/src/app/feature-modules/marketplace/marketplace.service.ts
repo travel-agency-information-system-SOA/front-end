@@ -394,8 +394,13 @@ export class MarketplaceService {
       environment.apiHost + 'administration/tourSale/tour/' + id
     ); 
   }
-  getCouponByCodeAndTourId(code: string, tourId: number): Observable<Coupon> {
+  /*getCouponByCodeAndTourId(code: string, tourId: number): Observable<Coupon> {
     const params = { tourId: tourId.toString(), code: code };
+    return this.http.get<Coupon>('https://localhost:44333/api/authoring/coupon/getByCode', {params: params});
+  }*/
+
+  getCouponByCode(code: string): Observable<Coupon> {
+    const params = { code: code };
     return this.http.get<Coupon>('https://localhost:44333/api/authoring/coupon/getByCode', {params: params});
   }
 
@@ -409,6 +414,10 @@ export class MarketplaceService {
 
   createCoupon(coupon: Coupon): Observable<Coupon> {
     return this.http.post<Coupon>(environment.apiHost + 'authoring/coupon', coupon)
+  }
+
+  getCouponsByAuthor(authorId: number): Observable<Coupon[]> {
+    return this.http.get<Coupon[]>(environment.apiHost + 'authoring/coupon/' + authorId.toString())
   }
 
 }

@@ -20,6 +20,7 @@ import { TourPoint } from '../model/tourPoints.model';
   styleUrls: ['./tour.component.css'],
 })
 export class TourComponent implements OnInit {
+
   tour: Tour[] = [];
   selectedTour: Tour;
   page: number = 1;
@@ -232,5 +233,9 @@ export class TourComponent implements OnInit {
   onCreateCoupon(tourId: number | undefined): void {
     this.router.navigate(['createCoupon', tourId]);
   
+  }
+
+  onCreateAuthorCoupon() {
+    this.router.navigate(['createAuthorCoupon']);;
   }
 }

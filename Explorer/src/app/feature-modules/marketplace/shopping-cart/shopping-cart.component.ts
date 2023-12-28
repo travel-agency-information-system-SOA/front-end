@@ -7,6 +7,9 @@ import { Account } from '../../administration/model/account.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { AdministrationService } from '../../administration/administration.service';
 import { CurrencyService } from 'src/app/currency.service';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { Tour } from '../../tour-authoring/tour/model/tour.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -19,6 +22,8 @@ export class ShoppingCartComponent {
   orderItem: OrderItem;
   usedCoupons: number[] = []
   account: Account[] = []
+  tours: Tour[] = [];
+  isValidAuthor : boolean;
   currency: string[] = ['USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RSD', 'INR'];
   selectedCurrency: string = 'USD';
   previousSelectedCurrency: string;
@@ -28,6 +33,7 @@ export class ShoppingCartComponent {
   constructor(
     private marketplaceService: MarketplaceService,
     private authService: AuthService,
+    private tourService: TourAuthoringService,
     private tokenStorage: TokenStorage,
     private adminService: AdministrationService,
     private currencyService: CurrencyService,
@@ -129,22 +135,68 @@ export class ShoppingCartComponent {
       return
     }
 
-    this.marketplaceService.getCouponByCodeAndTourId(code, tourId).subscribe({
+    this.marketplaceService.getCouponByCode(code).subscribe({
       next: (coupon: Coupon) => {
         if(!coupon){
-          alert("Coupon you entered is ether invalid, expired or for a wrong tour!")
+          alert("Code is invalid or the coupon is expired!")
           return
         }
 
-        for (const orderItem of this.shoppingCart.orderItems) {
-          if(orderItem.idTour === tourId) {
-            orderItem.price -= (coupon.discount/100)*orderItem.price
-          }
-        }
+        if(coupon.tourId === -1) {
+          this.tourService.getTourByGuide(coupon.authorId, 1, 100).subscribe({
+            next: (result: PagedResults<Tour>) => {
+              if(!result || result.totalCount === 0){
+                alert("The coupon you entered does not belong to the author of this tour!")
+                return
+              }
 
-        this.shoppingCart.total = this.calculateTotal();
-        this.usedCoupons.push(coupon.id)
-        alert("Coupon successfuly used!")
+              this.isValidAuthor = false
+              this.tours = result.results
+              for (const tour of this.tours) {
+                if(tourId === tour.id){
+                  this.isValidAuthor = true
+                  break
+                }
+
+              }
+
+              if(this.isValidAuthor){
+                this.isValidAuthor = false
+                for (const orderItem of this.shoppingCart.orderItems) {
+                  if(orderItem.idTour === tourId) {
+                    orderItem.price -= (coupon.discount/100)*orderItem.price
+                  }
+                }
+        
+                this.shoppingCart.total = this.calculateTotal();
+                this.usedCoupons.push(coupon.id)
+                alert("Coupon successfuly used!")
+              }else{
+                alert("The coupon you entered does not belong to the author of this tour!")
+              }
+
+
+            },
+            error(err: any) {
+              console.log(err);
+            },
+          });
+        }else if(coupon.tourId !== tourId) {
+          alert("The coupon you entered is not for this tour!")
+          return
+        }else {
+
+          for (const orderItem of this.shoppingCart.orderItems) {
+            if(orderItem.idTour === tourId) {
+              orderItem.price -= (coupon.discount/100)*orderItem.price
+            }
+          }
+  
+          this.shoppingCart.total = this.calculateTotal();
+          this.usedCoupons.push(coupon.id)
+          alert("Coupon successfuly used!")
+
+        }
 
       },
       error: () => {

@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   userProfile: Profile = {} as Profile;
   isEditMode: boolean = false;
   shouldRenderNotifications: boolean = false;
+  shouldRenderMessages: boolean = false;
   touristXP: TouristXP[] = [];
 
   constructor(private tokenStorage: TokenStorage,
@@ -93,7 +94,13 @@ export class ProfileComponent implements OnInit {
   }
 
   onBellClicked(): void{
+    this.shouldRenderMessages = false;
     this.shouldRenderNotifications = true;
+  }
+
+  onMessagesClicked(): void{
+    this.shouldRenderNotifications = false;
+    this.shouldRenderMessages = true;
   }
 
 }
