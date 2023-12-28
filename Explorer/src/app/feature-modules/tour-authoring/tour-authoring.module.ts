@@ -24,6 +24,9 @@ import { TourBundleCreateComponent } from './tour-bundle-create/tour-bundle-crea
 import { TourBundlesShowComponent } from './tour-bundles-show/tour-bundles-show.component';
 
 import { TourTouristComponent } from './tour-tourist/tour-tourist.component';
+import { TourStatisticsComponent } from './tour-statistics/tour-statistics.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { BrowserModule } from '@angular/platform-browser';
 
 
 @NgModule({
@@ -42,6 +45,7 @@ import { TourTouristComponent } from './tour-tourist/tour-tourist.component';
     TourBundlesShowComponent,
 
     TourTouristComponent,
+      TourStatisticsComponent,
 
   ],
 
@@ -51,7 +55,8 @@ import { TourTouristComponent } from './tour-tourist/tour-tourist.component';
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
-
+    BrowserModule,
+    CanvasJSAngularChartsModule,
     FormsModule,
     MatDialogModule,
 
