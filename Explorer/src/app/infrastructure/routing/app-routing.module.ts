@@ -70,7 +70,7 @@ import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tou
 
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
 
-import { CreateCompetitionComponent } from 'src/app/feature-modules/competition/create-competition/create-competition.component';
+
 
 
 import { ConfirmationComponent } from "../auth/confirmation/confirmation.component";
@@ -88,6 +88,13 @@ import { VisualGalleryComponent } from 'src/app/feature-modules/visual-gallery/v
 
 
 
+
+import { CreateCompetitionComponent } from 'src/app/feature-modules/competition/create-competition/create-competition.component';
+
+import { ShowCompetitionComponent } from 'src/app/feature-modules/competition/show-competition/show-competition.component';
+import { OneCompetitionComponent } from 'src/app/feature-modules/competition/one-competition/one-competition.component';
+import { WinnerApplyComponent } from 'src/app/feature-modules/competition/winner-apply/winner-apply.component';
+import { ApplyFormComponent } from 'src/app/feature-modules/competition/apply-form/apply-form.component';
 
 
 const routes: Routes = [
@@ -160,12 +167,18 @@ const routes: Routes = [
   { path: 'tourBundlesShow', component: TourBundlesShowComponent},
   { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent},
   { path: 'tour-tourist', component: TourTouristComponent },
+  { path: 'compositeTours', component: CompositeToursComponent},
+  { path: 'statistics', component: UserStatisticsComponent},
 
   { path: 'compositeTours', component: CompositeToursComponent },
   {
     path: 'create-competition',
     component: CreateCompetitionComponent,
   },
+  { path: 'show-competitions', component: ShowCompetitionComponent},
+  { path: 'oneCompetition/:id', component: OneCompetitionComponent},
+  { path: 'winnerApply/:id', component: WinnerApplyComponent },
+  { path: 'apply/:id', component: ApplyFormComponent},
 
 
   { path: 'statistics', component: UserStatisticsComponent},

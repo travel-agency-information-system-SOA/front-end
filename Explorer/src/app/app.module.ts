@@ -32,13 +32,16 @@ import { EncountersModule } from './feature-modules/encounters/encounters.module
 
 import { CreateCompetitionComponent } from './feature-modules/competition/create-competition/create-competition.component';
 import { ShowCompetitionComponent } from './feature-modules/competition/show-competition/show-competition.component';
+import { OneCompetitionComponent } from './feature-modules/competition/one-competition/one-competition.component';
+
+import { WinnerApplyComponent } from './feature-modules/competition/winner-apply/winner-apply.component';
+import { ApplyFormComponent } from './feature-modules/competition/apply-form/apply-form.component';
 import { PublishedBundlesShowComponent } from './feature-modules/payment-record/published-bundles-show/published-bundles-show.component';
 import { VisualGalleryModule } from './feature-modules/visual-gallery/visual-gallery.module';
-
 @NgModule({
-  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent,PublishedBundlesShowComponent],
 
 
+  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent, OneCompetitionComponent, ApplyFormComponent, WinnerApplyComponent, PublishedBundlesShowComponent],
 
 
   imports: [

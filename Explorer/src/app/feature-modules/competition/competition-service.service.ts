@@ -5,6 +5,7 @@ import { Tour } from '../tour-authoring/tour/model/tour.model';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from 'src/env/environment';
 import { Competition } from './model/competition.model';
+import { CompetitionApply } from './model/competitionApply.model';
 
 @Injectable({
   providedIn: 'root',
@@ -29,5 +30,33 @@ export class CompetitionServiceService {
       environment.apiHost + 'competition',
       competition
     );
+  }
+
+  getAllCompetitionsByAuthorId(id: number): Observable<PagedResults<Competition>> {
+    return this.http.get<PagedResults<Competition>>(
+      environment.apiHost + 'competition/getAllCompetitionAuthorId/' + id
+    );
+  }
+
+  getAll(): Observable<PagedResults<Competition>> {
+    return this.http.get<PagedResults<Competition>>(
+      environment.apiHost + 'competition/allCompetitions'
+   );
+  }
+
+  getAppliesByComp(id: number): Observable<PagedResults<CompetitionApply>>{
+    return this.http.get<PagedResults<CompetitionApply>>(environment.apiHost + 'competitionApply/getApplies/'+ id);
+  }
+
+  getWinnersByComp(id: number): Observable<PagedResults<CompetitionApply>>{
+    return this.http.get<PagedResults<CompetitionApply>>(environment.apiHost + 'competitionApply/getWinner/'+ id);
+  }
+
+  updateApply(apply: CompetitionApply): Observable<CompetitionApply>{
+    return this.http.put<CompetitionApply>(environment.apiHost + 'competitionApply/' + apply.id, apply)
+  }
+
+  addApply(apply: CompetitionApply):  Observable<CompetitionApply> {
+    return this.http.post<CompetitionApply>(environment.apiHost + 'competitionApply', apply);
   }
 }

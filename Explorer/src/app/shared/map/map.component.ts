@@ -104,8 +104,36 @@ export class MapComponent implements AfterViewInit {
     })
 
 
-
-
+    /////////////////
+    this.service.getRadius().subscribe((radius) => {
+      this.service.coordinate$.subscribe((coordinates) => {
+        this.map.eachLayer((layer: any) => {
+          if (layer instanceof L.Marker || layer instanceof L.Circle || layer instanceof L.Tooltip) {
+            this.map.removeLayer(layer);
+          }
+        });
+        const circle = L.circle([coordinates.lat, coordinates.lng], {
+          color: '#0a83cb',
+          fillColor: '#0a83cb',
+          fillOpacity: 0.5,
+          radius: radius * 1000,
+        }).addTo(this.map);
+        const tours = this.service.getArrayCoordinates();
+        this.service.getArrayCoordinates().subscribe((tours) => {    
+          tours.forEach((t) => {
+            if(t.tourPoints[0].latitude && t.tourPoints[0].longitude) {
+              const tooltip = L.tooltip({
+                permanent: true,
+                direction: 'top'
+              })
+              .setLatLng([t.tourPoints[0].latitude, t.tourPoints[0].longitude])
+              .setContent(t.name)
+              .addTo(this.map);
+            }
+          });
+        });
+      });
+    });
   }
 
   ngOnDestroy(): void {
@@ -208,7 +236,7 @@ export class MapComponent implements AfterViewInit {
       if (this.saveOnlyLatest) {
         // ovaj if radi za tour search
         this.map.eachLayer((layer: any) => {
-          if (layer instanceof L.Marker) {
+          if (layer instanceof L.Marker || layer instanceof L.Circle) {
             this.map.removeLayer(layer);
           }
         });

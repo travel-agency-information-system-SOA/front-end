@@ -16,6 +16,22 @@
           <p class="p-value">{{ latitude }}</p>
           <p class="p-header">Longitude:</p>
           <p class="p-value">{{ longitude }}</p>
+
+          <p>Circle contains...</p>
+          <mat-form-field>
+            <mat-select formControlName="searchType" [(value)]="selectedValue">
+              <mat-option value="0">Any</mat-option>
+              <mat-option value="1">Starting</mat-option>
+              <mat-option value="2">Ending</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <p>Checkpoint</p>
+
+          <p>Max length</p>
+          <mat-form-field>
+            <mat-label>Length (km)</mat-label>
+            <input matInput formControlName="length" type="number">
+          </mat-form-field>
         </div>
       </div>
       <span class="slider">
@@ -35,11 +51,33 @@
 
     <h1 class="results-title">Search results</h1>
     <p class="results-number">{{ brTura }}</p>
+    <form [formGroup]="filterForm">
+    <div class="horizontal">
+    <p>Difficulty: </p>
+          <mat-form-field>
+            <mat-select [(value)]="selectedLevel">
+              <mat-option value="0">Easy</mat-option>
+              <mat-option value="1">Moderate</mat-option>
+              <mat-option value="2">Difficult</mat-option>
+            </mat-select>
+          </mat-form-field>
 
+    <p>Price: </p>
+          <mat-form-field>
+            <mat-select  [(value)]="selectedPrice">
+              <mat-option value="0">0-100$</mat-option>
+              <mat-option value="1">100$-200$</mat-option>
+              <mat-option value="2">200$+</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+    <button class="button2" raised-button type="submit" (click)="filter()">Filter</button>
+    </div>
+    </form>
     <div class="slide-content">
     <div class="card-wrapper">
 
-      <div class="card" *ngFor="let tour of toursfil">
+      <div class="card" *ngFor="let tour of tours">
 
         <div class="image-content">
             <span class="overlay">

@@ -299,7 +299,8 @@ export class MarketplaceService {
   getToursByLocation(
     latitude: number,
     longitude: number,
-    range: number
+    range: number,
+    searchType: string
   ): Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(
       environment.apiHost +
@@ -308,7 +309,19 @@ export class MarketplaceService {
         '/' +
         longitude +
         '/' +
-        range
+        range +
+        '/' +
+        searchType
+    );
+  }
+
+  getToursByFilters(level: string, price: number): Observable<PagedResults<Tour>>{
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost +
+        'administration/tour/filter/' + 
+        level +
+        '/' +
+        price
     );
   }
 
