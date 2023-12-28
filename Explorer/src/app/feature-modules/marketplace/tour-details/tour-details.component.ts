@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { ShoppingCart, OrderItem } from '../model/shopping-cart.model';
+import {forkJoin} from "rxjs";
 //import { TourOrderItem } from '../model/TourOrderItem.model';
 
 @Component({
@@ -27,6 +28,7 @@ export class TourDetailsComponent implements OnInit{
     this.service.getSelectedTour(this.tourId).subscribe({
       next: (result: Tour)=>{
         this.tour = result;
+        this.getDiscount();
         console.log(this.tour.price);
       },
       error: (err: any) =>{
@@ -36,19 +38,29 @@ export class TourDetailsComponent implements OnInit{
      this.getShoppingCart();
   }
 
+  getDiscount(): void {
+    this.service.getTourDiscount(this.tourId || -1).subscribe(result => {
+      this.tour.price = this.getDisc(this.tour.price, result);
+    });
+  }
+
+  getDisc(price: number, discount: number): number {
+    return Math.floor((100 - discount) * price / 100);
+  }
+
   getShoppingCart(): void{
     this.auth.user$.subscribe((user) => {
       if (user.username) {
         const userId = user.id;
-        
+
         this.service.getShoppingCart(userId).subscribe({
           next: (data: ShoppingCart) => {
             this.shoppingCart = data;
-            console.log(this.shoppingCart); 
+            console.log(this.shoppingCart);
             console.log(this.tourId);
             console.log(this.shoppingCart.orderItems.some((orderItem) => {
               return orderItem.idTour === this.tourId;
-            })); 
+            }));
             this.buyButton = !this.shoppingCart.orderItems.some((orderItem) => {
               return orderItem.idTour === this.tourId;
             });
@@ -59,11 +71,11 @@ export class TourDetailsComponent implements OnInit{
         });
       }
     });
-    
+
   }
 
   addToCart(){
-    console.log('addToCart function called'); 
+    console.log('addToCart function called');
     if(this.buyButton == true){
       const newOrderItem: OrderItem = {
         tourName: this.tour.name,

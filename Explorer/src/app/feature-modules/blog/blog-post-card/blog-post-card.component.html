@@ -16,6 +16,27 @@
       <ng-template #descriptionSection>
           <p class="description" markdown>{{ post.description }}</p>
       </ng-template>
+      
+      <div>
+        <ul *ngIf="shouldDisplayTourData()">
+          <p><b>Informations about tour:</b></p>
+          <li *ngFor="let characteristic of tourCharacteristics">
+            
+            <p>Duzina: {{ characteristic?.distance }}</p>
+            <p>Trajanje: {{ characteristic?.duration }}</p>
+            <!-- Dodajte ostale podatke o karakteristikama ture koje želite prikazati -->
+          </li>
+        </ul>
+        <ul *ngIf="shouldDisplayTourData()">
+          <p><b>Tour equipment:</b></p>
+          <li *ngFor="let e of equipmentList">
+            <p>Name: {{ e.name }}</p>
+            <p>Description: {{ e.name }}</p>
+            
+          </li>
+        </ul>
+      </div>
+
       <div class="author-date-container">
         <small class="author" *ngIf="post.authorUsername">Posted by u/{{ post.authorUsername }}, </small>
         <small class="date">{{ post.creationDate | date: 'medium' }}</small>

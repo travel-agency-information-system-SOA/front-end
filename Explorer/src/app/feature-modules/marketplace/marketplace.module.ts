@@ -31,6 +31,10 @@ import { FirstPointMap } from './first-point-map/first_point.component';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { TourSaleComponent } from './tour-sale/tour-sale.component';
 import { CompositeToursComponent } from './composite-tours/composite-tours.component';
+import { CouponFormComponent } from './coupon-form/coupon-form.component';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatNativeDateModule } from '@angular/material/core';
 
 @NgModule({
   declarations: [
@@ -58,6 +62,7 @@ import { CompositeToursComponent } from './composite-tours/composite-tours.compo
     ShoppingCartComponent,
     TourSaleComponent,
     CompositeToursComponent,
+    CouponFormComponent,
   ],
   imports: [
     CommonModule,
@@ -69,6 +74,9 @@ import { CompositeToursComponent } from './composite-tours/composite-tours.compo
  
     FormsModule,
     MatTableModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
   ],
   exports: [
     GuideReviewComponent,

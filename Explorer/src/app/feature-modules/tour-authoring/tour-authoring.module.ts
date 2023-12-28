@@ -19,7 +19,15 @@ import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TourMapComponent } from './tour-map/tour-map.component';
 import { PrivateTourPointsComponent } from './private-tour-points/private-tour-points.component';
+
+import { TourBundleCreateComponent } from './tour-bundle-create/tour-bundle-create.component';
+import { TourBundlesShowComponent } from './tour-bundles-show/tour-bundles-show.component';
+
 import { TourTouristComponent } from './tour-tourist/tour-tourist.component';
+import { TourStatisticsComponent } from './tour-statistics/tour-statistics.component';
+import { CanvasJSAngularChartsModule } from '@canvasjs/angular-charts';
+import { BrowserModule } from '@angular/platform-browser';
+
 
 @NgModule({
   declarations: [
@@ -32,7 +40,13 @@ import { TourTouristComponent } from './tour-tourist/tour-tourist.component';
     TourMapComponent,
     EquipmentDialogComponent,
     PrivateTourPointsComponent,
+
+    TourBundleCreateComponent,
+    TourBundlesShowComponent,
+
     TourTouristComponent,
+      TourStatisticsComponent,
+
   ],
 
   imports: [
@@ -41,7 +55,8 @@ import { TourTouristComponent } from './tour-tourist/tour-tourist.component';
     MatInputModule,
     ReactiveFormsModule,
     MatSelectModule,
-
+    BrowserModule,
+    CanvasJSAngularChartsModule,
     FormsModule,
     MatDialogModule,
 

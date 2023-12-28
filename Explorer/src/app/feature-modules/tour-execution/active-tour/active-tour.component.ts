@@ -72,7 +72,7 @@ export class ActiveTourComponent implements OnChanges{
 
 
       if(this.execution.status == "Completed" && this.isNotified){
-        console.log("zavrsili ste turu");
+        alert("You completed tour");
         this.isNotified = false;
       }
     }, 5000);

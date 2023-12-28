@@ -9,15 +9,19 @@
   padding: 10px;
 }
 
+
 .star-icon {
   font-size: 32px;
   margin: 2px;
   padding: 5px;
+
+
 }
 
 .star-filled {
   color: rgb(233, 233, 110);
 }
+
 
 .wrap {
   background-image: url("/assets/images/main.jpg");
@@ -82,4 +86,5 @@
 
 .radio-buttons {
   font-size: 18px;
+
 }

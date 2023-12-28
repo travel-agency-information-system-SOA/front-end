@@ -6,6 +6,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ActiveTourComponent } from './active-tour/active-tour.component';
 import { PurchasedToursComponent } from './purchased-tours/purchased-tours.component';
 import { PurchasedTourDetailsComponent } from './purchased-tour-details/purchased-tour-details.component';
+import { MyEndedToursComponent } from './my-ended-tours/my-ended-tours.component';
+import { MyToursComponent } from './my-tours/my-tours.component';
 
 
 
@@ -14,18 +16,20 @@ import { PurchasedTourDetailsComponent } from './purchased-tour-details/purchase
     TourExecutionPositionComponent,
     ActiveTourComponent,
     PurchasedToursComponent,
-    PurchasedTourDetailsComponent
+    PurchasedTourDetailsComponent,
+    MyEndedToursComponent,
+    MyToursComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     ReactiveFormsModule
-    
   ],
   exports:[
     TourExecutionPositionComponent,
     PurchasedToursComponent,
-    PurchasedTourDetailsComponent
+    PurchasedTourDetailsComponent,
+    MyEndedToursComponent
   ]
 })
 export class TourExecutionModule { }
