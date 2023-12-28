@@ -9,6 +9,8 @@ import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { CompetitionServiceService } from '../competition-service.service';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Competition, Status } from '../model/competition.model';
 
 @Component({
   selector: 'xp-create-competition',
@@ -16,10 +18,11 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
   styleUrls: ['./create-competition.component.css'],
 })
 export class CreateCompetitionComponent implements OnInit {
-  yourFormGroup: FormGroup;
+  selectedDate = new FormControl(new Date());
   tourOptions: Tour[] = [];
   page: number = 1;
   pageSize: number = 5;
+  showForm = false;
 
   constructor(
     private fb: FormBuilder,
@@ -28,11 +31,16 @@ export class CreateCompetitionComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.yourFormGroup = this.fb.group({
-      selectedTour: [''],
-    });
-
     this.loadTourOptions();
+  }
+
+  toggleForm(): void {
+    this.showForm = !this.showForm;
+    console.log(this.showForm);
+
+    if (this.showForm) {
+      this.selectedDate.setValue(new Date());
+    }
   }
 
   loadTourOptions() {
@@ -52,10 +60,26 @@ export class CreateCompetitionComponent implements OnInit {
       });
   }
 
-  onTourChange(): void {
-    const selectedTourId = this.yourFormGroup.get('selectedTour')!.value;
-    console.log('Selected Tour ID:', selectedTourId);
-  }
+  competitionForm = new FormGroup({
+    tours: new FormControl('', [Validators.required]),
+    startDate: new FormControl(new Date()),
+    duration: new FormControl(0, [Validators.required]),
+  });
 
-  competitionForm = new FormGroup({});
+  addCompetition(): void {
+    const competition: Competition = {
+      tourId: this.competitionForm.value.tours as unknown as number,
+      startDate: this.competitionForm.value.startDate as Date,
+      duration: this.competitionForm.value.duration ?? 0,
+      competitionApplies: [],
+      status: Status.Open,
+    };
+
+    this.competitionService.addCompetition(competition).subscribe({
+      next: () => {
+        console.log(competition);
+        this.competitionForm.reset();
+      },
+    });
+  }
 }
