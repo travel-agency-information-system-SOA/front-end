@@ -3,6 +3,7 @@ import { ShoppingCart, OrderItem } from '../model/shopping-cart.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Coupon } from '../model/coupon.model';
+import { CurrencyService } from 'src/app/currency.service';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -14,11 +15,20 @@ export class ShoppingCartComponent {
   shoppingCart: ShoppingCart;
   orderItem: OrderItem;
   usedCoupons: number[] = []
+  currency: string[] = ['USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RSD', 'INR'];
+  selectedCurrency: string = 'USD';
+  previousSelectedCurrency: string;
+  exchangeRate: number;
+  shouldShowOriginal: boolean;
 
   constructor(
     private marketplaceService: MarketplaceService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private currencyService: CurrencyService,
+  ) {
+    this.shouldShowOriginal = true
+    this.previousSelectedCurrency = 'USD'
+  }
 
   get total(): number {
     return this.calculateTotal();
@@ -123,6 +133,32 @@ export class ShoppingCartComponent {
     })
 
 
+  }
+
+  onCurrencyChange(newCurrency: string): void {
+    this.selectedCurrency = newCurrency;
+    console.log(this.previousSelectedCurrency + " u " + this.selectedCurrency)
+    // Fetch the new exchange rate
+    this.currencyService.getExchangeRate(this.selectedCurrency).subscribe(
+      (exchangeRate: number) => {
+        // Use the exchange rate here
+        this.exchangeRate = exchangeRate;
+        console.log(this.exchangeRate)
+        // Set the flag to show the converted price
+        this.shouldShowOriginal = false;
+      },
+      (error: any) => {
+        // Handle errors if needed
+        console.error('Error fetching exchange rate:', error);
+      }
+    );
+    this.previousSelectedCurrency = this.selectedCurrency
+  }
+
+  convertedCurrency(originalPrice: number): string {
+    const convertedPrice = originalPrice * this.exchangeRate;
+    console.log(originalPrice)    // Format the converted price as needed
+    return convertedPrice.toFixed(2);
   }
   
 }

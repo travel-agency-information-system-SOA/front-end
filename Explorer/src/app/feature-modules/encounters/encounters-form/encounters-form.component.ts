@@ -10,6 +10,8 @@ import { ShortHiddenLocationEncounter } from '../model/short-hidden-location-enc
 import { SocialEncounter } from '../model/social-encounter.model';
 import { HiddenLocationEncounter } from '../model/hidden-location-encounter.model';
 import { take } from 'rxjs/operators';
+import { User } from 'src/app/infrastructure/auth/model/user.model';
+import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
 @Component({
   selector: 'xp-encounters-form',
@@ -26,12 +28,14 @@ export class EncountersFormComponent implements OnChanges {
   @Input() isLocation: boolean;
   temporaryLatitude: number = 0;
   temporaryLongitude: number = 0;
+  shouldBeApproved: boolean = false;
+  status: string = 'ACTIVE';
   inputSocialEncounter: SocialEncounter = {
     encounterId: 0,
     name: '',
     description: '',
     xpPoints: 0,
-    status: 'ACTIVE',
+    status: this.status,
     type: 'SOCIAL',
     latitude: 0,
     longitude: 0,
@@ -39,13 +43,14 @@ export class EncountersFormComponent implements OnChanges {
     touristsRequiredForCompletion: 1,
     distanceTreshold: 200,
     touristIDs:  [],
+    shouldBeApproved: this.shouldBeApproved
   };
   inputHiddenLocationEncounter: HiddenLocationEncounter = {
     id: 0,
     name: '',
     description: '',
     xpPoints: 0,
-    status: 'ACTIVE',
+    status: this.status,
     type: 'LOCATION',
     latitude: 0,
     longitude: 0,
@@ -53,11 +58,23 @@ export class EncountersFormComponent implements OnChanges {
     imageURL: '',
     imageLatitude: 0,
     imageLongitude: 0,
-    distanceTreshold: 200
+    distanceTreshold: 200,
+    shouldBeApproved: this.shouldBeApproved
   }
 
-  constructor(private service: EncountersService, private router: Router, private mapService:MapService){}
+  user: User | undefined;
+  constructor(private service: EncountersService, private router: Router, private mapService:MapService, private authService: AuthService){}
   
+  ngOnInit(): void {
+    this.authService.user$.subscribe(user => {
+      this.user = user;
+    }); 
+    if(this.user && this.user.role=='tourist'){
+      this.shouldBeApproved = true;
+      this.status = 'DRAFT';
+    }
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if(this.isSocial){
       this.service.getSocialEncounters().subscribe({
@@ -134,7 +151,7 @@ export class EncountersFormComponent implements OnChanges {
         name: this.encounterForm.value.name || '',
         description: this.encounterForm.value.description || '',
         xpPoints: this.encounterForm.value.xpPoints || 0,
-        status: 'ACTIVE',
+        status: this.status,
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
         longitude:  0,
@@ -142,6 +159,7 @@ export class EncountersFormComponent implements OnChanges {
         touristsRequiredForCompletion: this.encounterForm.value.touristsRequiredForCompletion || 1,
         distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
         touristIDs: [],
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         socialEncounter.latitude = coordinates.lat;
@@ -160,7 +178,7 @@ export class EncountersFormComponent implements OnChanges {
         name: this.encounterForm.value.name || '',
         description: this.encounterForm.value.description || '',
         xpPoints: this.encounterForm.value.xpPoints || 0,
-        status: 'ACTIVE',
+        status: this.status,
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
         longitude:  0,
@@ -168,7 +186,8 @@ export class EncountersFormComponent implements OnChanges {
         imageURL: this.encounterForm.value.imageURL || '',
         imageLatitude: 0,
         imageLongitude:  0,
-        distanceTreshold: this.encounterForm.value.distanceTreshold || 200
+        distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         hiddenLocationEncounter.latitude = this.temporaryLatitude;
@@ -188,10 +207,11 @@ export class EncountersFormComponent implements OnChanges {
         name: this.encounterForm.value.name || '',
         description: this.encounterForm.value.description || '',
         xpPoints: this.encounterForm.value.xpPoints || 0,
-        status: 'ACTIVE',
+        status: this.status,
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
-        longitude:  0
+        longitude:  0,
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         encounter.latitude = coordinates.lat;
@@ -225,6 +245,7 @@ export class EncountersFormComponent implements OnChanges {
         touristsRequiredForCompletion: this.encounterForm.value.touristsRequiredForCompletion || 1,
         distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
         touristIDs: [],
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         socialEncounter.latitude = coordinates.lat;
@@ -251,7 +272,8 @@ export class EncountersFormComponent implements OnChanges {
         imageURL: this.encounterForm.value.imageURL || '',
         imageLatitude: 0,
         imageLongitude:  0,
-        distanceTreshold: this.encounterForm.value.distanceTreshold || 200
+        distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         hiddenLocationEncounter.latitude = this.temporaryLatitude;
@@ -274,7 +296,8 @@ export class EncountersFormComponent implements OnChanges {
         status: 'DRAFT',
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
-        longitude:  0
+        longitude:  0,
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         encounter.latitude = coordinates.lat;
@@ -306,6 +329,7 @@ export class EncountersFormComponent implements OnChanges {
         touristsRequiredForCompletion: this.encounterForm.value.touristsRequiredForCompletion || 1,
         distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
         touristIDs: [] as number[],
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         socialEncounter.latitude = coordinates.lat;
@@ -345,7 +369,8 @@ export class EncountersFormComponent implements OnChanges {
         imageURL: this.encounterForm.value.imageURL || '',
         imageLatitude: 0,
         imageLongitude:  0,
-        distanceTreshold: this.encounterForm.value.distanceTreshold || 200
+        distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         hiddenLocationEncounter.latitude = this.temporaryLatitude;
@@ -381,7 +406,8 @@ export class EncountersFormComponent implements OnChanges {
         status: 'ACTIVE',
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
-        longitude:  0
+        longitude:  0,
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         encounter.latitude = coordinates.lat;
@@ -411,6 +437,7 @@ export class EncountersFormComponent implements OnChanges {
         touristsRequiredForCompletion: this.encounterForm.value.touristsRequiredForCompletion || 1,
         distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
         touristIDs: [] as number[],
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         socialEncounter.latitude = coordinates.lat;
@@ -450,7 +477,8 @@ export class EncountersFormComponent implements OnChanges {
         imageURL: this.encounterForm.value.imageURL || '',
         imageLatitude: 0,
         imageLongitude:  0,
-        distanceTreshold: this.encounterForm.value.distanceTreshold || 200
+        distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
+        shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
         hiddenLocationEncounter.latitude = this.temporaryLatitude;
@@ -485,7 +513,8 @@ export class EncountersFormComponent implements OnChanges {
         status: this.encounter.status,
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
-        longitude:  0
+        longitude:  0,
+        shouldBeApproved: this.shouldBeApproved
         }
       this.mapService.coordinate$.subscribe((coordinates) => {
         encounter.latitude = coordinates.lat;

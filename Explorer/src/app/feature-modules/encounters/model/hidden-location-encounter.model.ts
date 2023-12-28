@@ -11,5 +11,6 @@ export interface HiddenLocationEncounter {
     imageURL: string,
     imageLatitude: number,
     imageLongitude: number,
-    distanceTreshold: number
+    distanceTreshold: number,
+    shouldBeApproved: boolean
 }
