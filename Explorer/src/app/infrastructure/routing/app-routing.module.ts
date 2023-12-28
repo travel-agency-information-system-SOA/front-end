@@ -70,6 +70,9 @@ import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tou
 
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
 
+import { CreateCompetitionComponent } from 'src/app/feature-modules/competition/create-competition/create-competition.component';
+
+
 import { ConfirmationComponent } from "../auth/confirmation/confirmation.component";
 import {RequestComponent} from "../auth/password-reset/request/request.component";
 import {ResetComponent} from "../auth/password-reset/reset/reset.component";
@@ -80,6 +83,7 @@ import { TourStatisticsComponent } from 'src/app/feature-modules/tour-authoring/
 
 
 import { VisualGalleryComponent } from 'src/app/feature-modules/visual-gallery/visual-gallery/visual-gallery.component';
+
 
 
 
@@ -154,7 +158,14 @@ const routes: Routes = [
   { path: 'tourBundlesShow', component: TourBundlesShowComponent},
   { path: 'publishedBundlesShow', component: PublishedBundlesShowComponent},
   { path: 'tour-tourist', component: TourTouristComponent },
-  { path: 'compositeTours', component: CompositeToursComponent},
+
+  { path: 'compositeTours', component: CompositeToursComponent },
+  {
+    path: 'create-competition',
+    component: CreateCompetitionComponent,
+  },
+
+
   { path: 'statistics', component: UserStatisticsComponent},
   { path: 'gallery', component: VisualGalleryComponent}
 
