@@ -109,6 +109,14 @@
         Blog
       </button>
       <button
+      class="nbutton"
+      *ngIf="user && user.role === 'tourist'"
+      raised-button
+      [routerLink]="['gallery']"
+    >
+      Gallery
+    </button>
+      <button
         class="nbutton"
         *ngIf="user && user.role === 'tourist'"
         raised-button
