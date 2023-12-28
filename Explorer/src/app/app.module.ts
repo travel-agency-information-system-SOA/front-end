@@ -32,9 +32,10 @@ import { EncountersModule } from './feature-modules/encounters/encounters.module
 import { CreateCompetitionComponent } from './feature-modules/competition/create-competition/create-competition.component';
 import { ShowCompetitionComponent } from './feature-modules/competition/show-competition/show-competition.component';
 import { OneCompetitionComponent } from './feature-modules/competition/one-competition/one-competition.component';
+import { ApplyFormComponent } from './feature-modules/competition/apply-form/apply-form.component';
 
 @NgModule({
-  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent, OneCompetitionComponent],
+  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent, OneCompetitionComponent, ApplyFormComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

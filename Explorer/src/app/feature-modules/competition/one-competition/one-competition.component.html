@@ -2,7 +2,7 @@
 
     <div class="slide-container">
   
-      <div class="title">ALL APLLIES</div>
+      <div class="title">ALL APPLIES</div>
   
       <div class="slide-content">
         <div class="card-wrapper">
@@ -28,6 +28,12 @@
         </div>
         
       </div>
+      
     </div>
-  
+    
+    <div class="column">
+        <button class="button" (click)="apply()">APPLY</button>
+        <xp-apply-form *ngIf="shouldRenderForm" (objectUpdated)="getApplies()" (closeForm)="closeForm()" [competitionId]="competitionId"></xp-apply-form>
+    </div>
+    
   </div>

@@ -1,0 +1,9 @@
+<!-- competition-apply-form.component.html -->
+<form (ngSubmit)="submitForm()" #applyForm="ngForm">
+    <div>
+      <label for="imageUrl">Image URL:</label>
+      <input type="text" id="imageUrl" name="imageUrl" [(ngModel)]="imageUrl" required>
+    </div>
+    <button type="submit" [disabled]="!applyForm.valid">Submit</button>
+  </form>
+  

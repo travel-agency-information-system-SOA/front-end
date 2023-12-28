@@ -213,4 +213,22 @@
     overflow: hidden;
     white-space: pre-wrap;
   }
+
+  .button{
+    width: 100px;
+    background-color: #E23A55;
+    color: white;
+    font-size: large;
+    height: 50px;
+    margin-right: 50px;
+  }
+
+  body.disable-scroll {
+    overflow: hidden;
+  }
+
+  .column{
+    display: flex;
+    flex-direction: column;
+  }
   
