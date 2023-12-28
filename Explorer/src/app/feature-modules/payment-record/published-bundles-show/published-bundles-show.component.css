@@ -214,3 +214,10 @@
     white-space: pre-wrap;
   }
   
+  .custom-width {
+    width: 350px; /* Adjust the width as needed */
+  }
+
+  .currency {
+    padding-right: 70px;
+  }

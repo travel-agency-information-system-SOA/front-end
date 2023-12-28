@@ -14,6 +14,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { FormsModule } from '@angular/forms';
 import { PublicTourPointRequestComponent } from './public-tour-point-request/public-tour-point-request.component';
 import { RequestResponseNotificationComponent } from './request-response-notification/request-response-notification.component';
+import { UserStatisticsComponent } from './user-statistics/user-statistics.component';
+import { FollowerMessagesComponent } from './follower-messages/follower-messages.component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 
 @NgModule({
@@ -26,14 +29,17 @@ import { RequestResponseNotificationComponent } from './request-response-notific
     AppRatingsComponent,
     PublicTourPointRequestComponent,
     RequestResponseNotificationComponent,
-    UserPositionComponent
+    UserPositionComponent,
+    UserStatisticsComponent,
+    FollowerMessagesComponent
   ],
   imports: [
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
     FormsModule,
-    SharedModule
+    SharedModule,
+    MatTooltipModule,
   ],
   exports: [
     //EquipmentComponent,

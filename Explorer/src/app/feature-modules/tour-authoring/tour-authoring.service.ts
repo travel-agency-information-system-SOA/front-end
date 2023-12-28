@@ -15,6 +15,7 @@ import { BehaviorSubject } from 'rxjs';
 import { TourCharacteristic } from './tour/model/tourCharacteristic.model';
 import { TourPointRequest } from '../administration/model/tourpoint-request.model';
 import { PublicTourPoint } from './model/publicTourPoint.model';
+import { TourKeyPointEncounter } from './model/TourKeyPointEncounter.model';
 
 import { TourBundle } from './model/tourBundle.model';
 
@@ -105,8 +106,7 @@ export class TourAuthoringService {
     pageSize: number
   ): Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(
-      environment.apiHost +
-        `administration/tour/${userId}?page=${page}&pageSize=${pageSize}`
+      environment.apiHost + `administration/tour/${userId}?page=${page}&pageSize=${pageSize}`
     );
   }
 
@@ -192,39 +192,18 @@ export class TourAuthoringService {
     );}
 
 
-  AcceptRequest(
-    requestId: number,
-    tourPointId: number,
-    comment: string
-  ): Observable<PublicTourPoint> {
+ 
+  AcceptRequest(requestId:number,tourPointId:number,comment:string):Observable<PublicTourPoint>{
+    
     return this.http.post<PublicTourPoint>(
-      environment.apiHost +
-        'administration/publicTourPoint/createPublicTourPoint/' +
-        requestId +
-        '/' +
-        tourPointId +
-        '/' +
-        'comment',
-      null
-    );
+      environment.apiHost + 'administration/publicTourPoint/createPublicTourPoint/' + requestId+ '/' + tourPointId+ '/' + 'comment',null);
   }
-  RejectRequest(
-    requestId: number,
-    comment: string
-  ): Observable<PublicTourPoint> {
+  RejectRequest(requestId:number,comment:string):Observable<PublicTourPoint>{
     return this.http.put<PublicTourPoint>(
-      environment.apiHost +
-        'tourist/publicTourPointRequest/rejectRequest/' +
-        requestId +
-        '/' +
-        'comment',
-      null
-    );
+      environment.apiHost + 'tourist/publicTourPointRequest/rejectRequest/' + requestId+'/'+'comment',null);
   }
   getPublicTourPoints(): Observable<PagedResults<PublicTourPoint>> {
-    return this.http.get<PagedResults<PublicTourPoint>>(
-      environment.apiHost + 'administration/publicTourPoint'
-    );
+    return this.http.get<PagedResults<PublicTourPoint>>(environment.apiHost + 'administration/publicTourPoint');
   }
 
   getPublicPoints(
@@ -242,6 +221,10 @@ export class TourAuthoringService {
       tour
     );
   }
+  createTourKeyPointEncounter(tourKeyPointEncounter: TourKeyPointEncounter): Observable<TourKeyPointEncounter>{
+    return this.http.post<TourKeyPointEncounter>(environment.apiHost + 'encounters/tourKeyPointEncounter', tourKeyPointEncounter);
+  }
+
 
 
   getAllTours(): Observable<PagedResults<Tour>> {
@@ -304,4 +287,72 @@ export class TourAuthoringService {
 
     );
   }
+
+  //------------------------------------------------------------------------
+  findAllPurchasedToursByAuthor(authorId:number): Observable<Tour[]> {
+    return this.http.get<Tour[]>(
+      environment.apiHost + 'administration/tourStatistics/getPurchasedToursByAuthorId/'+authorId
+    );
+  }
+
+  getNumberOfPurchasedToursByAuthor(authorId:number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourStatistics/getAllPurchasedNumber/'+authorId
+    );
+  }
+
+  getNumberOfStartedToursByAuthor(authorId:number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourStatistics/getAllStartedNumber/'+authorId
+    );
+  }
+  getNumberOfCompletedToursByAuthor(authorId:number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourStatistics/getAllCompletedNumber/'+authorId
+    );
+  }
+  //---------ZA JEDNU TURU --------------------------------------------------------------------
+
+  getNumberOfPurchaseByTour(authorId:number,tourId:number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourStatistics/getPurchasedNumberByTour/'+authorId+'/' + tourId
+    );
+  }
+  getNumberOfStartedByTour(authorId:number,tourId:number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourStatistics/getStartedNumberByTour/'+authorId+'/' + tourId
+    );
+  }
+
+  getNumberOfCompletedByTour(authorId:number,tourId:number): Observable<number> {
+    return this.http.get<number>(
+      environment.apiHost + 'administration/tourStatistics/getCompletedNumberByTour/'+authorId+'/' + tourId
+    );
+  }
+
+
+  getVisitedTourPointPercentage(authorId:number,tourId:number): Observable<number[]> {
+    console.log('u servisu id ture', tourId)
+    return this.http.get<number[]>(
+      environment.apiHost + 'administration/tourStatistics/getVisitedTourPointPercentage/' +authorId+'/'+ tourId
+    );
+  }
+
+
+  
+  getMaxPercentage(authorId:number): Observable<number[]> {
+    return this.http.get<number[]>(
+      environment.apiHost + 'administration/tourStatistics/getMaxPercentage/' + authorId
+    );
+  }
+
+  
+  getTourPointEncounterPercentage(authorId:number,tourId:number): Observable<number[]> {
+
+    return this.http.get<number[]>(
+      environment.apiHost + 'administration/tourStatistics/getTourPointEncounterPercentage/'  +authorId+'/'+ tourId
+    );
+  }
+
+
 }

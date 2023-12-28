@@ -14,7 +14,10 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { RequestResponseNotification } from './model/request-response-notification.model';
 
 import { UserPosition } from './model/userPosition.model';
+import { TouristXP } from './model/tourist-xp.model';
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
+import { UserMileage } from './model/user-statistics.model';
+import { FollowerMessage } from './model/follower-message.model';
 
 
 @Injectable({
@@ -117,4 +120,32 @@ export class AdministrationService {
   deleteNotification(notification: RequestResponseNotification): Observable<RequestResponseNotification> {
     return this.http.delete<RequestResponseNotification>(environment.apiHost + 'administration/requestResponseNotification/' + notification.id);
   }
+  getTouristXPByID(touristId: Number): Observable<PagedResults<TouristXP>>{
+    return this.http.get<PagedResults<TouristXP>>(environment.apiHost + 'tourist/touristXP/' + touristId);
+  }
+
+  getAllUserMileages() : Observable<PagedResults<UserMileage>>{
+    return this.http.get<PagedResults<UserMileage>>(environment.apiHost + 'mileage/getAllSorted');
+  }
+
+  getAllUserMileagesByMonth() : Observable<PagedResults<UserMileage>>{
+    return this.http.get<PagedResults<UserMileage>>(environment.apiHost + 'mileage/getAllSortedByMonth');
+  }
+
+  getUserMileage(userId: number) : Observable<PagedResults<UserMileage>>{
+    return this.http.get<PagedResults<UserMileage>>(environment.apiHost + 'mileage/getByUser/' + userId);
+  }
+
+  getMessagesByFollowerId(followerId: number) : Observable<FollowerMessage[]>{
+    return this.http.get<FollowerMessage[]>(environment.apiHost + 'followerMessage/' + followerId);
+  }
+
+  markAsRead(message: FollowerMessage) : Observable<FollowerMessage> {
+    return this.http.put<FollowerMessage>(environment.apiHost + 'followerMessage/markAsRead/' + message.followerId, message)
+  }
+
+  deleteFollowerMessage(messageId: number): any {
+    return this.http.delete<any>(environment.apiHost + 'followerMessage/' + messageId)
+  }
+
 }

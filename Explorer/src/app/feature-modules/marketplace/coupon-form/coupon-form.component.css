@@ -1,11 +1,11 @@
 .form-row {
     display: flex;
     flex-direction: column;
-    margin-bottom: 10px; /* Adjust the vertical spacing between rows */
+    margin: 10px
   }
   
   mat-form-field {
-    width: 50%;
+    width: 40%;
   }
   
   label {

@@ -1,41 +1,50 @@
-@font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
-  font-weight: medium;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
-  font-weight: bold;
-  font-style: normal;
-  font-display: swap;
-}
-
 #preferences {
-  margin: 0 22%;
-  padding: 0;
+  margin-top: 20px;
+  margin-left: 20px;
 }
 
-.title {
-  font-family: 'Trip';
+#preferences-details {
+  display: flex;
+  flex-direction: row;
+  gap: 50px;
+  align-items: flex-start;
+}
+
+p {
+  font-size: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  font-size: 0.9em;
+  font-family: sans-serif;
+  min-width: 300px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+  background-color: #3f51b5;
+  color: #ffffff;
+  text-align: left;
+}
+
+th, td {
+  padding: 12px 15px;
+}
+
+tbody tr {
+  border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+  border-bottom: 2px solid #3f51b5;
+}
+
+tbody tr.active-row {
   font-weight: bold;
-  text-align: center;
-  font-size: 42px;
-  margin-top: 48px;
-  margin-bottom: 56px;
-}
-
-.preferences-details {
-  width: 100%;
+  color: #3f51b5;
 }

@@ -4,6 +4,9 @@ import { AdministrationService } from '../administration.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import {GoogleAnalyticsService} from "../../../infrastructure/google-analytics/google-analytics.service";
+import { TouristXP } from '../model/tourist-xp.model';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-profile',
@@ -15,16 +18,19 @@ export class ProfileComponent implements OnInit {
   userProfile: Profile = {} as Profile;
   isEditMode: boolean = false;
   shouldRenderNotifications: boolean = false;
+  shouldRenderMessages: boolean = false;
+  touristXP: TouristXP[] = [];
 
-  constructor(private service: AdministrationService,
-              private auth: AuthService,
-              private googleAnalytics: GoogleAnalyticsService
-  ){}
+  constructor(private tokenStorage: TokenStorage,
+    private service: AdministrationService,
+    private auth: AuthService,
+    private googleAnalytics: GoogleAnalyticsService
+){}
 
   ngOnInit(): void {
     this.googleAnalytics.sendPageView(window.location.pathname);
-
     this.loadProfileData();
+    this.loadTouristXP();
   }
 
   loadProfileData(){
@@ -75,8 +81,26 @@ export class ProfileComponent implements OnInit {
     }
   }
 
+  loadTouristXP()
+  {
+    const userId = this.tokenStorage.getUserId();
+    this.service.getTouristXPByID(userId).subscribe({
+      next: (result: PagedResults<TouristXP>) => {
+        this.touristXP = result.results;
+      },
+      error: () => {
+      }
+    })
+  }
+
   onBellClicked(): void{
-    this.shouldRenderNotifications = true;
+    this.shouldRenderMessages = false;
+    this.shouldRenderNotifications = !this.shouldRenderNotifications;
+  }
+
+  onMessagesClicked(): void{
+    this.shouldRenderNotifications = false;
+    this.shouldRenderMessages = true;
   }
 
 }

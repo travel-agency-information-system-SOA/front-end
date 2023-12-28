@@ -15,6 +15,10 @@ import { mergeMap, tap } from 'rxjs/operators';
 import { AdministrationService } from 'src/app/feature-modules/administration/administration.service';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { MarketplaceService } from 'src/app/feature-modules/marketplace/marketplace.service';
+import { EncountersService } from 'src/app/feature-modules/encounters/encounters.service';
+import { PagedResults } from '../model/paged-results.model';
+import { Encounter } from 'src/app/feature-modules/encounters/model/encounter.model';
+
 
 @Component({
   selector: 'app-map',
@@ -27,7 +31,6 @@ export class MapComponent implements AfterViewInit {
   private map: any;
   tourId: string;
   objects: { latitude: number; longitude: number }[];
-  touristTourId: Subscription | undefined = undefined;
   tourIdSubscription: Subscription | undefined = undefined;
   tourIdSubscriptionFP: Subscription | undefined = undefined;
   tourPointAddSubscription: Subscription | undefined = undefined;
@@ -35,7 +38,7 @@ export class MapComponent implements AfterViewInit {
   tourStartPointSubscription: Subscription | undefined = undefined;
   viewForTourisSubs: Subscription | undefined = undefined;
   routeWaypoints: any[] = [];
-  @Input() tourIdEx: number = 0;
+  @Input() tourIdEx: number=0;
   tourIdexS: string;
   routeControl: any;
 
@@ -46,7 +49,8 @@ export class MapComponent implements AfterViewInit {
     private tourAuthoringService: TourAuthoringService,
     private marketplaceService: MarketplaceService,
     private administrationService: AdministrationService,
-    private tokenStorage: TokenStorage
+    private tokenStorage: TokenStorage,
+    private encounterService: EncountersService
   ) {}
 
   private initMap(): void {
@@ -73,28 +77,68 @@ export class MapComponent implements AfterViewInit {
       if (path.includes('activeTour')) {
         this.setExecuteRoute();
         this.setPosition();
-      } else if (path.includes('user-position')) {
+      }
+      else if(path.includes('user-position')){
         this.setPosition();
-      } else if (path.includes('tourMapFirstPoint')) {
+      }
+      else if(path.includes('tourMapFirstPoint')){
         this.setFirstPoint();
-      } else if (path.includes('tourSearch')) {
+      }
+      else if (path.includes('tourSearch')) {
         //
-      } else {
+      }
+      else if (path.includes('encounters')){
+        //
+      }
+      else if(path.includes('activeEncounter')){
+        this.setPosition();
+      }
+      else if(path.includes('encounterMap')){
+        this.setPosition();
+        this.setEncounterPosition();
+      }
+      else{
         this.setRoute();
         this.setObjects();
       }
+    })
 
+
+    /////////////////
+    this.service.getRadius().subscribe((radius) => {
+      this.service.coordinate$.subscribe((coordinates) => {
+        this.map.eachLayer((layer: any) => {
+          if (layer instanceof L.Marker || layer instanceof L.Circle || layer instanceof L.Tooltip) {
+            this.map.removeLayer(layer);
+          }
+        });
+        const circle = L.circle([coordinates.lat, coordinates.lng], {
+          color: '#0a83cb',
+          fillColor: '#0a83cb',
+          fillOpacity: 0.5,
+          radius: radius * 1000,
+        }).addTo(this.map);
+        const tours = this.service.getArrayCoordinates();
+        this.service.getArrayCoordinates().subscribe((tours) => {    
+          tours.forEach((t) => {
+            if(t.tourPoints[0].latitude && t.tourPoints[0].longitude) {
+              const tooltip = L.tooltip({
+                permanent: true,
+                direction: 'top'
+              })
+              .setLatLng([t.tourPoints[0].latitude, t.tourPoints[0].longitude])
+              .setContent(t.name)
+              .addTo(this.map);
+            }
+          });
+        });
+      });
     });
-
   }
 
   ngOnDestroy(): void {
     if (this.tourStartPointSubscription != undefined) {
       this.tourStartPointSubscription.unsubscribe();
-    }
-
-    if (this.touristTourId != undefined) {
-      this.touristTourId.unsubscribe();
     }
   }
 
@@ -114,38 +158,43 @@ export class MapComponent implements AfterViewInit {
       this.transportTypechanged.unsubscribe();
     }
 
+
     this.route.url.subscribe((segments) => {
       const path = segments.map((segment) => segment.path).join('/');
 
       if (path.includes('tourMapFirstPoint')) {
-        this.tourIdSubscriptionFP =
-          this.marketplaceService.currentTourId.subscribe((tourId) => {
-            console.log(tourId);
+        this.tourIdSubscriptionFP = this.marketplaceService.currentTourId.subscribe(
+          (tourId) => {
+            console.log(tourId)
             this.tourId = tourId.split('|#$%@$%|')[0];
             if (tourId.split('|#$%@$%|').length > 1) {
               if (tourId.split('|#$%@$%|')[1] === 'same') {
                 this.ngAfterViewInit();
               }
             }
-          });
-      } else if (path.includes('tourMapFirstPoint')) {
-        this.touristTourId = this.tourAuthoringService.currentTourId.subscribe(
-          (tourId) => {
-            this.tourId = tourId;
+
           }
         );
       } else {
-        this.tourIdSubscription =
-          this.tourAuthoringService.currentTourId.subscribe((tourId) => {
+
+
+        this.tourIdSubscription = this.tourAuthoringService.currentTourId.subscribe(
+          (tourId) => {
             this.tourId = tourId.split('|#$%@$%|')[0];
             if (tourId.split('|#$%@$%|').length > 1) {
               if (tourId.split('|#$%@$%|')[1] === 'same') {
                 this.ngAfterViewInit();
               }
             }
-          });
+          }
+        );
       }
     });
+
+
+
+
+
 
     this.tourPointAddSubscription =
       this.tourAuthoringService.tourPointAdded.subscribe(() => {
@@ -155,15 +204,14 @@ export class MapComponent implements AfterViewInit {
         this.setRoute();
       });
 
-    this.viewForTourisSubs = this.marketplaceService.viewForTourist.subscribe(
-      () => {
+      this.viewForTourisSubs = this.marketplaceService.viewForTourist.subscribe(() => {
         if (this.routeControl) {
           this.routeControl.remove();
+
         }
         this.setFirstPoint();
+      });
 
-      }
-    );
 
 
 
@@ -176,6 +224,8 @@ export class MapComponent implements AfterViewInit {
       });
   }
 
+
+
   registerOnClick(): void {
     this.map.on('click', (e: any) => {
       const coord = e.latlng;
@@ -186,11 +236,12 @@ export class MapComponent implements AfterViewInit {
       if (this.saveOnlyLatest) {
         // ovaj if radi za tour search
         this.map.eachLayer((layer: any) => {
-          if (layer instanceof L.Marker) {
+          if (layer instanceof L.Marker || layer instanceof L.Circle) {
             this.map.removeLayer(layer);
           }
         });
       }
+
       this.service.reverseSearch(lat, lng).subscribe((res) => {
         console.log(res.display_name);
       });
@@ -212,27 +263,21 @@ export class MapComponent implements AfterViewInit {
     });
 
     this.tourAuthoringService
-    .getObjInTourByTourId(parseInt(this.tourId))
-    .subscribe(
-      (objects: any) => {
-        this.objects = objects;
-  
-        if (this.objects && this.objects.length > 0) {
+      .getObjInTourByTourId(parseInt(this.tourId))
+      .subscribe(
+        (objects: any) => {
+          this.objects = objects;
           this.objects.forEach((object) => {
             L.marker([object.latitude, object.longitude], {
               icon: specialTourIcon,
             }).addTo(this.map);
           });
           console.log('Dohvaćeni objekti:', objects);
-        } else {
-          console.log('No objects to display.');
+        },
+        (error) => {
+          console.error('Greška prilikom dohvatanja objekata:', error);
         }
-      },
-      (error) => {
-        console.error('Greška prilikom dohvatanja objekata:', error);
-      }
-  );
-  
+      );
   }
 
   setFirstPoint(): void {
@@ -302,12 +347,23 @@ export class MapComponent implements AfterViewInit {
     }
   }
 
-  setPosition() {
+
+
+
+  setPosition():void {
+    let specialTourIcon = L.icon({
+      iconUrl:
+      'https://www.wanderfinder.com/wp-content/uploads/leaflet-maps-marker-icons/MapMarker_Marker_Inside_Azure.png',
+      iconAnchor: [12, 41],
+    });
+
     this.administrationService
       .getByUserId(this.tokenStorage.getUserId(), 0, 0)
       .subscribe(
         (result) => {
-          L.marker([result.latitude, result.longitude]).addTo(this.map);
+          L.marker([result.latitude, result.longitude],{
+            icon: specialTourIcon,
+          }).addTo(this.map);
 
           // Handle the result as needed
         },
@@ -354,5 +410,32 @@ export class MapComponent implements AfterViewInit {
           });
         });
     }
+  }
+
+  setEncounterPosition():void{
+    let specialTourIcon = L.icon({
+      iconUrl:
+        'https://www.wanderfinder.com/wp-content/uploads/leaflet-maps-marker-icons/MapMarker_Marker_Outside_Green.png',
+      iconAnchor: [12, 41],
+    });
+
+    this.encounterService.getEncounters().subscribe(
+      (pagedResults: PagedResults<Encounter>) => {
+        if (Array.isArray(pagedResults.results)) {
+          this.objects = pagedResults.results;
+          this.objects.forEach((object) => {
+            L.marker([object.latitude, object.longitude], {
+              icon: specialTourIcon,
+            }).addTo(this.map);
+          });
+          console.log('Dohvaćeni objekti:', pagedResults.results);
+        } else {
+          console.error('Results received are not in an array format.');
+        }
+      },
+      (error) => {
+        console.error('Greška prilikom dohvatanja objekata:', error);
+      }
+    );
   }
 }

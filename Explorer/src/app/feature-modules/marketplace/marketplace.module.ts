@@ -35,6 +35,7 @@ import { CouponFormComponent } from './coupon-form/coupon-form.component';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatNativeDateModule } from '@angular/material/core';
+import { AuthorCouponFormComponent } from './author-coupon-form/author-coupon-form.component';
 
 @NgModule({
   declarations: [
@@ -63,6 +64,7 @@ import { MatNativeDateModule } from '@angular/material/core';
     TourSaleComponent,
     CompositeToursComponent,
     CouponFormComponent,
+    AuthorCouponFormComponent,
   ],
   imports: [
     CommonModule,

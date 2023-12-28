@@ -299,7 +299,8 @@ export class MarketplaceService {
   getToursByLocation(
     latitude: number,
     longitude: number,
-    range: number
+    range: number,
+    searchType: string
   ): Observable<PagedResults<Tour>> {
     return this.http.get<PagedResults<Tour>>(
       environment.apiHost +
@@ -308,7 +309,19 @@ export class MarketplaceService {
         '/' +
         longitude +
         '/' +
-        range
+        range +
+        '/' +
+        searchType
+    );
+  }
+
+  getToursByFilters(level: string, price: number): Observable<PagedResults<Tour>>{
+    return this.http.get<PagedResults<Tour>>(
+      environment.apiHost +
+        'administration/tour/filter/' + 
+        level +
+        '/' +
+        price
     );
   }
 
@@ -350,7 +363,6 @@ export class MarketplaceService {
     const url = `https://localhost:44333/purchase/${cartId}`;
     return this.http.put<ShoppingCart>(url, null);
   }
-
   getTourByTourId(id: number): Observable<Tour> {
     return this.http.get<Tour>(
       environment.apiHost + 'administration/tour/onetour/' + id
@@ -395,8 +407,13 @@ export class MarketplaceService {
       environment.apiHost + 'administration/tourSale/tour/' + id
     ); 
   }
-  getCouponByCodeAndTourId(code: string, tourId: number): Observable<Coupon> {
+  /*getCouponByCodeAndTourId(code: string, tourId: number): Observable<Coupon> {
     const params = { tourId: tourId.toString(), code: code };
+    return this.http.get<Coupon>('https://localhost:44333/api/authoring/coupon/getByCode', {params: params});
+  }*/
+
+  getCouponByCode(code: string): Observable<Coupon> {
+    const params = { code: code };
     return this.http.get<Coupon>('https://localhost:44333/api/authoring/coupon/getByCode', {params: params});
   }
 
@@ -410,6 +427,10 @@ export class MarketplaceService {
 
   createCoupon(coupon: Coupon): Observable<Coupon> {
     return this.http.post<Coupon>(environment.apiHost + 'authoring/coupon', coupon)
+  }
+
+  getCouponsByAuthor(authorId: number): Observable<Coupon[]> {
+    return this.http.get<Coupon[]>(environment.apiHost + 'authoring/coupon/' + authorId.toString())
   }
 
 }

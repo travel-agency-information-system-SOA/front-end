@@ -1,22 +1,9 @@
 
 
 
-<div class="bundleDetails" >
-    <form [formGroup]="inputForm">
-    <mat-form-field>
-        <input matInput type="text" placeholder="Bundle Name " formControlName="name"  >
-    </mat-form-field>
-    <div>
-    <mat-form-field>
-        <input matInput type="number" placeholder="Bundle Price " formControlName="price" >
-        <mat-label >*Total Price{{sumPrice}}</mat-label>
-    </mat-form-field>
-</div>
-
-</form>
-</div>
 <div class="hint">
-<mat-hint>*Select Tours to add in  Bundle</mat-hint>
+
+<h1>Select tours to add in bundle</h1>
 </div>
 
 <div class="slide-content">
@@ -53,6 +40,21 @@
         </div>
 
     </div>
+</div>
+
+<div class="bundleDetails" >
+    <form [formGroup]="inputForm">
+    <mat-form-field>
+        <input matInput type="text" placeholder="Bundle Name " formControlName="name"  >
+    </mat-form-field>
+    <div>
+    <mat-form-field>
+        <input matInput type="number" placeholder="Bundle Price " formControlName="price" >
+        <mat-label >*Total Price{{sumPrice}}</mat-label>
+    </mat-form-field>
+</div>
+
+</form>
 </div>
 
     <button mat-raised-button type="submit" color="primary" style="margin-left:10%" (click)="createBundle()">Create</button>

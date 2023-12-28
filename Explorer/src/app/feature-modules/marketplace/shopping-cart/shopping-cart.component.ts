@@ -3,6 +3,13 @@ import { ShoppingCart, OrderItem } from '../model/shopping-cart.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Coupon } from '../model/coupon.model';
+import { Account } from '../../administration/model/account.model';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import { AdministrationService } from '../../administration/administration.service';
+import { CurrencyService } from 'src/app/currency.service';
+import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
+import { Tour } from '../../tour-authoring/tour/model/tour.model';
+import { PagedResults } from 'src/app/shared/model/paged-results.model';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -14,11 +21,26 @@ export class ShoppingCartComponent {
   shoppingCart: ShoppingCart;
   orderItem: OrderItem;
   usedCoupons: number[] = []
+  account: Account[] = []
+  tours: Tour[] = [];
+  isValidAuthor : boolean;
+  currency: string[] = ['USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RSD', 'INR'];
+  selectedCurrency: string = 'USD';
+  previousSelectedCurrency: string;
+  exchangeRate: number;
+  shouldShowOriginal: boolean;
 
   constructor(
     private marketplaceService: MarketplaceService,
-    private authService: AuthService
-  ) {}
+    private authService: AuthService,
+    private tourService: TourAuthoringService,
+    private tokenStorage: TokenStorage,
+    private adminService: AdministrationService,
+    private currencyService: CurrencyService,
+  ) {
+    this.shouldShowOriginal = true
+    this.previousSelectedCurrency = 'USD'
+  }
 
   get total(): number {
     return this.calculateTotal();
@@ -42,6 +64,19 @@ export class ShoppingCartComponent {
         this.loadShoppingCart(user.id); 
       }
     });
+
+    const userId = this.tokenStorage.getUserId();
+    this.adminService.getAccounts().subscribe({
+      next: (accounts: Account[]) => {
+        this.account = accounts.filter(account => account.userId === userId);
+        console.log(this.account);
+      },
+      error: (error) => {
+        // Handle errors here
+        console.error('Error fetching accounts:', error);
+      }
+    });
+
   }
 
   loadShoppingCart(userId: number): void {
@@ -100,22 +135,68 @@ export class ShoppingCartComponent {
       return
     }
 
-    this.marketplaceService.getCouponByCodeAndTourId(code, tourId).subscribe({
+    this.marketplaceService.getCouponByCode(code).subscribe({
       next: (coupon: Coupon) => {
         if(!coupon){
-          alert("Coupon you entered is ether invalid, expired or for a wrong tour!")
+          alert("Code is invalid or the coupon is expired!")
           return
         }
 
-        for (const orderItem of this.shoppingCart.orderItems) {
-          if(orderItem.idTour === tourId) {
-            orderItem.price -= (coupon.discount/100)*orderItem.price
-          }
-        }
+        if(coupon.tourId === -1) {
+          this.tourService.getTourByGuide(coupon.authorId, 1, 100).subscribe({
+            next: (result: PagedResults<Tour>) => {
+              if(!result || result.totalCount === 0){
+                alert("The coupon you entered does not belong to the author of this tour!")
+                return
+              }
 
-        this.shoppingCart.total = this.calculateTotal();
-        this.usedCoupons.push(coupon.id)
-        alert("Coupon successfuly used!")
+              this.isValidAuthor = false
+              this.tours = result.results
+              for (const tour of this.tours) {
+                if(tourId === tour.id){
+                  this.isValidAuthor = true
+                  break
+                }
+
+              }
+
+              if(this.isValidAuthor){
+                this.isValidAuthor = false
+                for (const orderItem of this.shoppingCart.orderItems) {
+                  if(orderItem.idTour === tourId) {
+                    orderItem.price -= (coupon.discount/100)*orderItem.price
+                  }
+                }
+        
+                this.shoppingCart.total = this.calculateTotal();
+                this.usedCoupons.push(coupon.id)
+                alert("Coupon successfuly used!")
+              }else{
+                alert("The coupon you entered does not belong to the author of this tour!")
+              }
+
+
+            },
+            error(err: any) {
+              console.log(err);
+            },
+          });
+        }else if(coupon.tourId !== tourId) {
+          alert("The coupon you entered is not for this tour!")
+          return
+        }else {
+
+          for (const orderItem of this.shoppingCart.orderItems) {
+            if(orderItem.idTour === tourId) {
+              orderItem.price -= (coupon.discount/100)*orderItem.price
+            }
+          }
+  
+          this.shoppingCart.total = this.calculateTotal();
+          this.usedCoupons.push(coupon.id)
+          alert("Coupon successfuly used!")
+
+        }
 
       },
       error: () => {
@@ -123,6 +204,32 @@ export class ShoppingCartComponent {
     })
 
 
+  }
+
+  onCurrencyChange(newCurrency: string): void {
+    this.selectedCurrency = newCurrency;
+    console.log(this.previousSelectedCurrency + " u " + this.selectedCurrency)
+    // Fetch the new exchange rate
+    this.currencyService.getExchangeRate(this.selectedCurrency).subscribe(
+      (exchangeRate: number) => {
+        // Use the exchange rate here
+        this.exchangeRate = exchangeRate;
+        console.log(this.exchangeRate)
+        // Set the flag to show the converted price
+        this.shouldShowOriginal = false;
+      },
+      (error: any) => {
+        // Handle errors if needed
+        console.error('Error fetching exchange rate:', error);
+      }
+    );
+    this.previousSelectedCurrency = this.selectedCurrency
+  }
+
+  convertedCurrency(originalPrice: number): string {
+    const convertedPrice = originalPrice * this.exchangeRate;
+    console.log(originalPrice)    // Format the converted price as needed
+    return convertedPrice.toFixed(2);
   }
   
 }
