@@ -6,6 +6,7 @@ import { Coupon } from '../model/coupon.model';
 import { Account } from '../../administration/model/account.model';
 import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
 import { AdministrationService } from '../../administration/administration.service';
+import { CurrencyService } from 'src/app/currency.service';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -18,13 +19,22 @@ export class ShoppingCartComponent {
   orderItem: OrderItem;
   usedCoupons: number[] = []
   account: Account[] = []
+  currency: string[] = ['USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RSD', 'INR'];
+  selectedCurrency: string = 'USD';
+  previousSelectedCurrency: string;
+  exchangeRate: number;
+  shouldShowOriginal: boolean;
 
   constructor(
     private marketplaceService: MarketplaceService,
     private authService: AuthService,
     private tokenStorage: TokenStorage,
-    private adminService: AdministrationService
-  ) {}
+    private adminService: AdministrationService,
+    private currencyService: CurrencyService,
+  ) {
+    this.shouldShowOriginal = true
+    this.previousSelectedCurrency = 'USD'
+  }
 
   get total(): number {
     return this.calculateTotal();
@@ -142,6 +152,32 @@ export class ShoppingCartComponent {
     })
 
 
+  }
+
+  onCurrencyChange(newCurrency: string): void {
+    this.selectedCurrency = newCurrency;
+    console.log(this.previousSelectedCurrency + " u " + this.selectedCurrency)
+    // Fetch the new exchange rate
+    this.currencyService.getExchangeRate(this.selectedCurrency).subscribe(
+      (exchangeRate: number) => {
+        // Use the exchange rate here
+        this.exchangeRate = exchangeRate;
+        console.log(this.exchangeRate)
+        // Set the flag to show the converted price
+        this.shouldShowOriginal = false;
+      },
+      (error: any) => {
+        // Handle errors if needed
+        console.error('Error fetching exchange rate:', error);
+      }
+    );
+    this.previousSelectedCurrency = this.selectedCurrency
+  }
+
+  convertedCurrency(originalPrice: number): string {
+    const convertedPrice = originalPrice * this.exchangeRate;
+    console.log(originalPrice)    // Format the converted price as needed
+    return convertedPrice.toFixed(2);
   }
   
 }
