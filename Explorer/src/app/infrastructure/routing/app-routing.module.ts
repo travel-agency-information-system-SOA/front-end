@@ -81,6 +81,10 @@ import { UserStatisticsComponent } from 'src/app/feature-modules/administration/
 
 import { CreateCompetitionComponent } from 'src/app/feature-modules/competition/create-competition/create-competition.component';
 
+import { ShowCompetitionComponent } from 'src/app/feature-modules/competition/show-competition/show-competition.component';
+import { OneCompetitionComponent } from 'src/app/feature-modules/competition/one-competition/one-competition.component';
+
+
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
@@ -156,6 +160,8 @@ const routes: Routes = [
     path: 'create-competition',
     component: CreateCompetitionComponent,
   },
+  { path: 'show-competitions', component: ShowCompetitionComponent},
+  { path: 'oneCompetition/:id', component: OneCompetitionComponent}
 ];
 
 @NgModule({

@@ -31,9 +31,10 @@ import { GoogleAnalyticsService } from "./infrastructure/google-analytics/google
 import { EncountersModule } from './feature-modules/encounters/encounters.module';
 import { CreateCompetitionComponent } from './feature-modules/competition/create-competition/create-competition.component';
 import { ShowCompetitionComponent } from './feature-modules/competition/show-competition/show-competition.component';
+import { OneCompetitionComponent } from './feature-modules/competition/one-competition/one-competition.component';
 
 @NgModule({
-  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent],
+  declarations: [AppComponent, CreateCompetitionComponent, ShowCompetitionComponent, OneCompetitionComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -1,0 +1,40 @@
+.form-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 65%;
+  padding: 70px 50px 50px 50px;
+}
+
+.wraper{
+  display: flex;
+  flex-direction: row;
+
+}
+
+.label {
+  font-size: 1.7em;
+  text-transform: uppercase;
+  color: #4e79a7;
+  font-family: Georgia, serif;
+  background-color: rgba(246, 245, 245, 0.8);
+  border-radius: 10px;
+
+  padding: 5px 10px;
+}
+
+.button {
+  border-radius: 8px;
+  background-color: #124174;
+  color: #ffffff;
+  font-size: 1.2em;
+  width: 400px;
+  height: 40px;
+}
+
+.wraper {
+  background-image: url("/assets/images/main.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  min-height: 150vh;
+}
