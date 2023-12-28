@@ -54,7 +54,7 @@
             </div> 
             <div>     
                 <span >
-                    <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" class="button" (click)="addEncounterDraft()">Save to draft</button>
+                    <button *ngIf="!shouldEdit && user && user.role != 'tourist'" mat-raised-button type="submit" color="primary" class="button" (click)="addEncounterDraft()">Save to draft</button>
                     <button *ngIf="!shouldEdit" mat-raised-button type="submit" color="primary" class="button" (click)="addEncounter()">Post</button>
                     <button *ngIf="shouldEdit && !shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="updateEncounter()">Update</button>
                     <button *ngIf="shouldEdit && shouldEditDraft" mat-raised-button type="submit" color="primary" class="button" (click)="updateEncounter()">Update draft</button>

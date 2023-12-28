@@ -5,7 +5,8 @@
       <li *ngFor="let orderItem of shoppingCart.orderItems">
         <div class="order-item">
           <p class="tour-name">{{ orderItem.tourName }}</p>
-          <p class="price">Price: {{ orderItem.price | currency:'USD':'symbol':'1.2-2' }}</p>
+          <p class="price" *ngIf="shouldShowOriginal; else convertedPrice">Price: {{ orderItem.price }}</p>
+          <ng-template #convertedPrice><p class="price">Price: {{ convertedCurrency(orderItem.price) }}</p></ng-template>
           <div class="coupon-container">
             <input #couponInput type="text" placeholder="Enter coupon code" />
             <button class="coupon-button" (click)="checkCoupon(couponInput.value, orderItem.idTour)">OK</button>
@@ -16,8 +17,14 @@
     </ul>
     
     <div class="total-purchase-container">
-      <p class="total">Total: {{ shoppingCart.total | currency:'USD':'symbol':'1.2-2' }}</p>
+      <p class="total" *ngIf="shouldShowOriginal; else convertedPrice">Total: {{ shoppingCart.total }}</p>
+      <ng-template #convertedPrice><p class="total">Total: {{ convertedCurrency(shoppingCart.total) }}</p></ng-template>
       <button class="purchase-button" (click)="purchase(shoppingCart.id ?? 0)">Purchase</button>
+    </div>
+    <div>
+      <mat-select class="currency" [(ngModel)]="selectedCurrency" (ngModelChange)="onCurrencyChange($event)">
+        <mat-option *ngFor="let cr of currency"  value={{cr}}>{{cr}}</mat-option>
+      </mat-select>
     </div>
   </div>
   <div *ngIf="shoppingCart.orderItems.length === 0" class="empty-cart-message">

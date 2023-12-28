@@ -19,7 +19,11 @@
               <div class="card-footer">
                 <div class="price">
                   <p class="price-text">Price</p>
-                  <p class="price-number">{{ publishedBundle.price }}$</p>
+                  <p class="price-number" *ngIf="shouldShowOriginal; else convertedPrice">{{ publishedBundle.price }}</p>
+                  <ng-template #convertedPrice>{{ convertedCurrency(publishedBundle.price) }}</ng-template>
+                  <mat-select class="currency" [(ngModel)]="selectedCurrency" (ngModelChange)="onCurrencyChange($event)">
+                    <mat-option *ngFor="let cr of currency"  value={{cr}}>{{cr}}</mat-option>
+                  </mat-select>
                 </div>
                 <button class="tourBundlePurchase-button" (click)="tourBundlePurchase(publishedBundle.id )">Purchase</button>
                

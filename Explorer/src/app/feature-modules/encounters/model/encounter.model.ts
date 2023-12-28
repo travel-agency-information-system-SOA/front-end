@@ -7,4 +7,5 @@ export interface Encounter {
     type: string,
     latitude: number,
     longitude: number,
+    shouldBeApproved: boolean
 }
