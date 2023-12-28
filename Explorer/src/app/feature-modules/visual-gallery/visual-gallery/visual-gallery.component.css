@@ -89,6 +89,7 @@
   .popup-container {
     position: fixed;
     margin-top: 20px;
+    margin-bottom: 20px;
     top: 0;
     left: 0;
     width: 100%;
