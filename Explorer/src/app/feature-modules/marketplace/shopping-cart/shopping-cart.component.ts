@@ -3,6 +3,9 @@ import { ShoppingCart, OrderItem } from '../model/shopping-cart.model';
 import { MarketplaceService } from '../marketplace.service';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Coupon } from '../model/coupon.model';
+import { Account } from '../../administration/model/account.model';
+import { TokenStorage } from 'src/app/infrastructure/auth/jwt/token.service';
+import { AdministrationService } from '../../administration/administration.service';
 import { CurrencyService } from 'src/app/currency.service';
 
 @Component({
@@ -15,6 +18,7 @@ export class ShoppingCartComponent {
   shoppingCart: ShoppingCart;
   orderItem: OrderItem;
   usedCoupons: number[] = []
+  account: Account[] = []
   currency: string[] = ['USD', 'EUR', 'JPY', 'GBP', 'CNY', 'AUD', 'CAD', 'CHF', 'SEK', 'NZD', 'RSD', 'INR'];
   selectedCurrency: string = 'USD';
   previousSelectedCurrency: string;
@@ -24,6 +28,8 @@ export class ShoppingCartComponent {
   constructor(
     private marketplaceService: MarketplaceService,
     private authService: AuthService,
+    private tokenStorage: TokenStorage,
+    private adminService: AdministrationService,
     private currencyService: CurrencyService,
   ) {
     this.shouldShowOriginal = true
@@ -52,6 +58,19 @@ export class ShoppingCartComponent {
         this.loadShoppingCart(user.id); 
       }
     });
+
+    const userId = this.tokenStorage.getUserId();
+    this.adminService.getAccounts().subscribe({
+      next: (accounts: Account[]) => {
+        this.account = accounts.filter(account => account.userId === userId);
+        console.log(this.account);
+      },
+      error: (error) => {
+        // Handle errors here
+        console.error('Error fetching accounts:', error);
+      }
+    });
+
   }
 
   loadShoppingCart(userId: number): void {
