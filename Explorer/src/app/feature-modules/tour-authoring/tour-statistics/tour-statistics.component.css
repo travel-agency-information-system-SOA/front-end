@@ -117,13 +117,14 @@ p{
     display: flex;
   flex-direction: column;
     gap: 16px;
-    width: 850px;
+    width: 1500px;
+    height: 400px;
   }
   .dijagrami{
     display: flex;
   flex-direction: column;
     gap: 16px;
-    width: 750px;
+    width: 1500px;
   }
   .container {
     display: flex;

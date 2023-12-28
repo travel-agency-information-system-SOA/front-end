@@ -192,14 +192,20 @@ export class TourStatisticsComponent {
   this.percentageForTourPoints.length = 0
   this.tourPoints.length = 0;
   this.tourPointsName.length = 0;
+  this.chartOptions={
+
+  }
   this.chartOptionsForTour ={
 
   }
   this.chartOptionsForTourPoints ={
 
   }
-  this.encounterPercentage.length = 0
-  this.encountrsPercentageChartOptions = {
+  this.percentages={
+
+  }
+
+  this.encountrsPercentageChartOptions={
 
   }
   this.tourPoints = tour.tourPoints;
@@ -368,23 +374,5 @@ export class TourStatisticsComponent {
 
   
 
-  chartOptions1 = {
-	  animationEnabled: true,
-	  title: {
-		text: "Sales by Department"
-	  },
-	  data: [{
-		type: "pie",
-		startAngle: -90,
-		indexLabel: "{name}: {y}",
-		yValueFormatString: "#,###.##'%'",
-		dataPoints: [
-		  { y: 14.1, name: "Toys" },
-		  { y: 28.2, name: "Electronics" },
-		  { y: 14.4, name: "Groceries" },
-		  { y: 43.3, name: "Furniture" }
-		]
-	  }]
-	}	
   }
   
