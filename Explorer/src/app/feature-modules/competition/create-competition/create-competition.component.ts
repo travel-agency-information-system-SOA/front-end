@@ -18,7 +18,7 @@ import { Competition, Status } from '../model/competition.model';
   styleUrls: ['./create-competition.component.css'],
 })
 export class CreateCompetitionComponent implements OnInit {
-  selectedDate = new FormControl(new Date());
+  selectedDate = new FormControl();
   tourOptions: Tour[] = [];
   page: number = 1;
   pageSize: number = 5;
@@ -35,11 +35,13 @@ export class CreateCompetitionComponent implements OnInit {
   }
 
   toggleForm(): void {
+    console.log('Toggle form called!');
     this.showForm = !this.showForm;
     console.log(this.showForm);
 
     if (this.showForm) {
-      this.selectedDate.setValue(new Date());
+      this.selectedDate.setValue(null);
+      console.log(this.selectedDate.value);
     }
   }
 
@@ -62,14 +64,18 @@ export class CreateCompetitionComponent implements OnInit {
 
   competitionForm = new FormGroup({
     tours: new FormControl('', [Validators.required]),
-    startDate: new FormControl(new Date()),
+    startDate: this.selectedDate,
     duration: new FormControl(0, [Validators.required]),
   });
 
   addCompetition(): void {
+    console.log(this.competitionForm.value.startDate);
+
+    const selectedStartDate: Date | null | undefined =
+      this.competitionForm.value.startDate;
     const competition: Competition = {
       tourId: this.competitionForm.value.tours as unknown as number,
-      startDate: this.competitionForm.value.startDate as Date,
+      startDate: selectedStartDate ?? new Date(),
       duration: this.competitionForm.value.duration ?? 0,
       competitionApplies: [],
       status: Status.Open,

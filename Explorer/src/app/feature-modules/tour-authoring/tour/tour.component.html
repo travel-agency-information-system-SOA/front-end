@@ -94,10 +94,12 @@
                   (click)="publishTour(t)"
                 >
                   Publish
-                </button>           
+                </button>
               </div>
               <div class="isPublished">
-                <button mat-button color="blue" (click)="onCreateCoupon(t.id)">Create coupon</button>
+                <button mat-button color="blue" (click)="onCreateCoupon(t.id)">
+                  Create coupon
+                </button>
               </div>
             </div>
           </mat-card-actions>
@@ -109,30 +111,34 @@
       <div>
         <div class="table-wrapper">
           <table>
-              <thead>
-                  <tr>
-                      <th>Name</th>
-                      <th>Description</th>
-                      <th>Longitude</th>
-                      <th>Latitude</th>
-                      <th>Add</th>
-                  </tr>
-              </thead>
-              <tbody>
-                  <tr *ngFor="let ptp of publicTourPointsForTour">
-                      <td>{{ptp.name}}</td>
-                      <td>{{ptp.description}}</td>
-                      <td>{{ptp.longitude}}</td>
-                      <td>{{ptp.latitude}}</td>
-                      <button (click)="onAddPublicPoint(selectedTour,ptp)" color="primary" mat-icon-button>
-                        <mat-icon>add</mat-icon>
-                      </button>
-                  </tr>
-              </tbody>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Longitude</th>
+                <th>Latitude</th>
+                <th>Add</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let ptp of publicTourPointsForTour">
+                <td>{{ ptp.name }}</td>
+                <td>{{ ptp.description }}</td>
+                <td>{{ ptp.longitude }}</td>
+                <td>{{ ptp.latitude }}</td>
+                <button
+                  (click)="onAddPublicPoint(selectedTour, ptp)"
+                  color="primary"
+                  mat-icon-button
+                >
+                  <mat-icon>add</mat-icon>
+                </button>
+              </tr>
+            </tbody>
           </table>
+        </div>
       </div>
-      </div>
-  </div>
+    </div>
     <div class="wrapper-form">
       <xp-tour-point-form
         *ngIf="shouldAddPoint"

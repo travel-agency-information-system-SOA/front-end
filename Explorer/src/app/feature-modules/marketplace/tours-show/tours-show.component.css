@@ -1,82 +1,77 @@
 @font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Regular.ttf) format('truetype');
+  font-family: "Trip";
+  src: url(src\assets\Fonts\TripSans-Regular.ttf) format("truetype");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Medium.ttf) format('truetype');
+  font-family: "Trip";
+  src: url(src\assets\Fonts\TripSans-Medium.ttf) format("truetype");
   font-weight: medium;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: 'Trip';
-  src: url(src\assets\Fonts\TripSans-Bold.ttf) format('truetype');
+  font-family: "Trip";
+  src: url(src\assets\Fonts\TripSans-Bold.ttf) format("truetype");
   font-weight: bold;
   font-style: normal;
   font-display: swap;
 }
 
-
-.search-bar{
+.search-bar {
   display: flex;
   flex-direction: column;
   gap: 15px;
   padding-top: 20px;
 }
 
-.filter-button{
+.filter-button {
   width: 20%;
   text-align: center;
   color: #28a785;
   border: 3px solid #28a785;
-  
 }
 
-.button-final{
+.button-final {
   font-size: 10px;
   height: 30px;
 }
 
-
-
-.search{
+.search {
   display: flex;
   justify-content: center;
 }
 
-
 .search-bar input:focus {
-  box-shadow: 0 0 10px rgba(40, 167, 133, 0.8); 
+  box-shadow: 0 0 10px rgba(40, 167, 133, 0.8);
 }
 
-.search-bar input, .search-bar button {
-  transition: all 0.3s ease; 
+.search-bar input,
+.search-bar button {
+  transition: all 0.3s ease;
 }
 
 .search-bar button:focus {
   outline: none;
-  box-shadow: 0 0 10px rgba(40, 167, 133, 0.8); 
+  box-shadow: 0 0 10px rgba(40, 167, 133, 0.8);
 }
 
 .search-bar button:hover {
-font-size: 30px;}
-
-
-.search-bar input {
-  border: 3px solid #28a785; 
-  border-radius: 25px; 
-  font-size: 25px;
-  width: 35%;
-  padding: 8px; 
-  outline: none; 
+  font-size: 30px;
 }
 
+.search-bar input {
+  border: 3px solid #28a785;
+  border-radius: 25px;
+  font-size: 25px;
+  width: 35%;
+  padding: 8px;
+  outline: none;
+}
 
 .search-bar button {
   background: none;
@@ -86,24 +81,22 @@ font-size: 30px;}
   font-size: 25px;
 }
 
-
-
 .p-header {
   margin: 0;
-  font-family: 'Trip', sans-serif;
+  font-family: "Trip", sans-serif;
   font-weight: normal;
   font-size: 14px;
 }
 
 .p-value {
-  font-family: 'Trip', sans-serif;
+  font-family: "Trip", sans-serif;
   font-weight: medium;
   font-size: 16px;
 }
 
 .button {
   align-self: flex-end;
-  font-family: 'Trip', sans-serif;
+  font-family: "Trip", sans-serif;
   font-weight: medium;
   font-size: 18px;
   background-color: #0a83cb;
@@ -144,7 +137,6 @@ font-size: 30px;}
 /* Companies cards style */
 .slide-content {
   border-radius: 10px;
-
 }
 
 .card-wrapper {
@@ -176,7 +168,6 @@ font-size: 30px;}
   display: flex;
   flex-direction: column;
   align-items: center;
-
 }
 
 .card-content {
@@ -208,12 +199,11 @@ font-size: 30px;}
 .tag {
   font-size: 12px;
   font-weight: medium;
-  color: #FFF;
+  color: #fff;
   background-color: rgb(30, 119, 183);
   border-radius: 15px;
   padding: 3px 9px;
 }
-
 
 .card-image {
   position: relative;
@@ -274,9 +264,7 @@ font-size: 30px;}
   font-size: 14px;
   border-radius: 6px;
   padding: 2px 4px;
-
-  color: #FFF;
-
+  color: #fff;
 }
 
 .easy {
@@ -311,21 +299,15 @@ font-size: 30px;}
   white-space: pre-wrap;
 }
 
-
-.eq-app{
-
+.eq-app {
   display: flex;
   flex-direction: row;
 }
 
-
-.backImage{
-  
-
+.backImage {
   margin-left: auto;
   margin-right: auto;
   width: 50%;
   height: 300px;
   display: block;
 }
-
