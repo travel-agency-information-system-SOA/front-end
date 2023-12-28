@@ -36,8 +36,12 @@
   <button (click)="toggleEditMode()">{{ isEditMode ? 'Save' : 'Edit' }}</button>
   <div>
   <mat-icon (click)="onBellClicked()">notifications</mat-icon>
+  <mat-icon (click)="onMessagesClicked()">mail_outline</mat-icon>
   </div>
   <div>
     <xp-request-response-notification *ngIf="shouldRenderNotifications"></xp-request-response-notification>
+  </div>
+  <div>
+    <xp-follower-messages *ngIf="shouldRenderMessages"></xp-follower-messages>
   </div>
 </div>  

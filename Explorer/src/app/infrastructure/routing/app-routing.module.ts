@@ -75,6 +75,7 @@ import {RequestComponent} from "../auth/password-reset/request/request.component
 import {ResetComponent} from "../auth/password-reset/reset/reset.component";
 
 import { UserStatisticsComponent } from 'src/app/feature-modules/administration/user-statistics/user-statistics.component';
+import { AuthorCouponFormComponent } from 'src/app/feature-modules/marketplace/author-coupon-form/author-coupon-form.component';
 
 
 
@@ -143,6 +144,7 @@ const routes: Routes = [
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
   { path: 'activeEncounter', component:ActivatedExecutionComponent},
   { path: 'createCoupon/:id', component: CouponFormComponent},
+  { path: 'createAuthorCoupon', component: AuthorCouponFormComponent},
 
   { path: 'tourBundleCreate', component: TourBundleCreateComponent},
   { path: 'tourBundlesShow', component: TourBundlesShowComponent},

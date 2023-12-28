@@ -17,6 +17,7 @@ import { UserPosition } from './model/userPosition.model';
 import { TouristXP } from './model/tourist-xp.model';
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 import { UserMileage } from './model/user-statistics.model';
+import { FollowerMessage } from './model/follower-message.model';
 
 
 @Injectable({
@@ -135,5 +136,16 @@ export class AdministrationService {
     return this.http.get<PagedResults<UserMileage>>(environment.apiHost + 'mileage/getByUser/' + userId);
   }
 
+  getMessagesByFollowerId(followerId: number) : Observable<FollowerMessage[]>{
+    return this.http.get<FollowerMessage[]>(environment.apiHost + 'followerMessage/' + followerId);
+  }
+
+  markAsRead(message: FollowerMessage) : Observable<FollowerMessage> {
+    return this.http.put<FollowerMessage>(environment.apiHost + 'followerMessage/markAsRead/' + message.followerId, message)
+  }
+
+  deleteFollowerMessage(messageId: number): any {
+    return this.http.delete<any>(environment.apiHost + 'followerMessage/' + messageId)
+  }
 
 }
