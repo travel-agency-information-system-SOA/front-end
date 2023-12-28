@@ -21,9 +21,13 @@ export class TourSearchComponent implements OnInit {
   isListVisible: boolean = false;
 
   tours: Tour[] = [];
+  tours1: Tour[] = [];
+  tours2: Tour[] = [];
   toursfil: Tour[] = [];
   toursDiscMap = new Map<number, number>();
   brTura: number = 0;
+  brTura1: number = 0;
+  brTura2: number = 0;
 
   selectedValue = '0';
   selectedLevel = '';
@@ -36,8 +40,8 @@ export class TourSearchComponent implements OnInit {
 
   searchForm = new FormGroup({
     range: new FormControl(0, [Validators.min(0), Validators.required]),
-    searchType: new FormControl('', Validators.required),
-    length: new FormControl(0, [Validators.min(0), Validators.required]),
+    searchType: new FormControl('0', Validators.required),
+    length: new FormControl(100, [Validators.min(0), Validators.required]),
   });
 
   filterForm = new FormGroup({
@@ -63,29 +67,25 @@ export class TourSearchComponent implements OnInit {
   search(): void {
     this.tours = [];
     this.toursfil = [];
+    this.selectedLevel = '';
+    this.selectedPrice = '';
     if (this.searchForm.valid && this.latitude != 0 && this.longitude != 0) {
 
       this.service.getToursByLocation(this.latitude, this.longitude, this.searchForm.value.range || 0, this.searchForm.value.searchType || '0').subscribe({
         next: (result: PagedResults<Tour>) => {
           this.isListVisible = true;
-          this.tours = result.results; // ture koje odgovaraju prema udaljenosti
-          this.brTura = this.tours.length; // njihov broj
-          
-          // dodao sam textbox i za distancu ali jos nisam napravio da po njoj filtrira
-          // mozes ovde na frontu da izfiltriras po tome sto hoces
-
-
-
-
-
-          //
-          this.getDiscounts();
-          console.log(this.brTura);
+          this.tours = result.results;
+          this.brTura = this.tours.length;
+          this.tours2 = result.results;
 
           if(this.searchForm.value.range) {
             this.cordinateService.setRadius(this.searchForm.value.range);
             this.cordinateService.setArrayCoordinates(this.tours);
+            console.log(this.tours);
           }
+          this.getDiscounts();
+          console.log(this.brTura);
+
         },
         error: (err) => {
           this.isListVisible = false;
@@ -117,6 +117,16 @@ export class TourSearchComponent implements OnInit {
         });
 
         this.toursfil.sort((a, b) => a.id! - b.id!);
+        this.tours = this.toursfil;
+
+        if(this.searchForm.value.length) {console.log('---lll---'); this.tours = this.tours.filter(tour => tour.tourCharacteristics[0].distance < this.searchForm.value.length!);}
+        this.tours2 = this.tours;
+        this.brTura = this.tours.length;
+        if(this.searchForm.value.range) {
+          this.cordinateService.setRadius(this.searchForm.value.range);
+          this.cordinateService.setArrayCoordinates(this.tours);
+          console.log(this.tours);
+        }
       },
       error: (err) => {
         console.error('Error: ', err);
@@ -136,29 +146,43 @@ export class TourSearchComponent implements OnInit {
   filter(): void {
     var level = "None";
     var price = 0;
-      if(this.selectedLevel === '0')
-        level = "Easy"
-      else if(this.selectedLevel === '1')
-        level = "Moderate"
-      else if(this.selectedLevel === '2')
-        level = 'Difficult'
+    if(this.selectedLevel === '0')
+      level = "Easy"
+    else if(this.selectedLevel === '1')
+      level = "Moderate"
+    else if(this.selectedLevel === '2')
+      level = 'Difficult'
 
-      if(this.selectedPrice == '0')
-        price = 100;
-      else if(this.selectedPrice === '1')
-        price = 200;
-      else if(this.selectedPrice === '2')
-        price = 10000;
+    if(this.selectedPrice == '0')
+      price = 100;
+    else if(this.selectedPrice === '1')
+      price = 200;
+    else if(this.selectedPrice === '2')
+      price = 10000;
 
-      console.log("LEVEL: ", level);
-      console.log("PRICE", price);
-      this.service.getToursByFilters(level, price).subscribe({
-        next: (result: PagedResults<Tour>) => {
-          this.isListVisible = true;
-          this.tours = result.results;
-          this.brTura = this.tours.length;
+    console.log("LEVEL: ", level);
+    console.log("PRICE", price);
+    this.service.getToursByFilters(level, price).subscribe({
+      next: (result: PagedResults<Tour>) => {
+        this.isListVisible = true;
+        this.tours1 = result.results;
+        this.brTura1 = this.tours1.length;
+
+        this.tours = [];
+
+        for (let i = 0; i < this.tours1.length; i++) {
+          const commonTour = this.tours2.find(tour => tour.id === this.tours1[i].id);
+          if (commonTour) {
+            this.tours.push(commonTour);
+          }
         }
-      });
+        this.brTura = this.tours.length;
+        if(this.searchForm.value.range) {
+          this.cordinateService.setRadius(this.searchForm.value.range);
+          this.cordinateService.setArrayCoordinates(this.tours);
+        }
+      }
+    });
 
   }
 }

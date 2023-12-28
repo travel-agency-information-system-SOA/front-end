@@ -68,17 +68,7 @@
 
 
 
-            <div *ngIf="user && (user.role === 'tourist' || user.role === 'author')" class="dd">
-                <button raised-button [routerLink]="['profile']" class="nbutton">Profile <i class="fa fa-caret-down"></i></button>
-                <div class="ddc">
-                    <a *ngIf="user && (user.role === 'tourist' || user.role === 'author')" href="profile">Profile Page</a>
-                    <a *ngIf="user && user.role === 'tourist'" href="tourist-equipment">My Equipment</a>
-                    <a *ngIf="user && user.role === 'tourist'" href="preferences">My Preferences</a>
-                    <a *ngIf="user && (user.role === 'tourist' || user.role === 'author')" href="app-rating-form">Rate The App</a>
-                    <a *ngIf="user && (user.role === 'tourist')" href="statistics">Statistics</a>
 
-                </div>
-            </div>
 
 
 
@@ -242,6 +232,18 @@
         Tour Sales
       </button>
 
+      <div *ngIf="user && (user.role === 'tourist' || user.role === 'author')" class="dd">
+        <button raised-button [routerLink]="['profile']" class="nbutton">Profile <i class="fa fa-caret-down"></i></button>
+        <div class="ddc">
+          <a *ngIf="user && (user.role === 'tourist' || user.role === 'author')" href="profile">Profile Page</a>
+          <a *ngIf="user && user.role === 'tourist'" href="tourist-equipment">My Equipment</a>
+          <a *ngIf="user && user.role === 'tourist'" href="preferences">My Preferences</a>
+          <a *ngIf="user && (user.role === 'tourist' || user.role === 'author')" href="app-rating-form">Rate The App</a>
+          <a *ngIf="user && (user.role === 'tourist')" href="statistics">Statistics</a>
+
+        </div>
+      </div>
+
 <!--      <div-->
 <!--        *ngIf="user && (user.role === 'tourist' || user.role === 'author')"-->
 <!--        class="dd"-->
@@ -286,6 +288,8 @@
       >
         Logout
       </button>
+
+
     </div>
   </div>
 </div>

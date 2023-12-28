@@ -352,9 +352,11 @@
 
 .horizontal{
   display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-p{
+.aaa{
   margin-left: 30px;
 }
 
