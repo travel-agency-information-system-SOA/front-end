@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -23,6 +23,8 @@ export class CreateCompetitionComponent implements OnInit {
   page: number = 1;
   pageSize: number = 5;
   showForm = false;
+  @Output() competitionAdded = new EventEmitter<void>();
+
 
   constructor(
     private fb: FormBuilder,
@@ -84,6 +86,7 @@ export class CreateCompetitionComponent implements OnInit {
     this.competitionService.addCompetition(competition).subscribe({
       next: () => {
         console.log(competition);
+        this.competitionAdded.emit();
         this.competitionForm.reset();
       },
     });

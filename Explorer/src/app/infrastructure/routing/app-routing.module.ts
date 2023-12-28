@@ -84,6 +84,8 @@ import { CreateCompetitionComponent } from 'src/app/feature-modules/competition/
 import { ShowCompetitionComponent } from 'src/app/feature-modules/competition/show-competition/show-competition.component';
 import { OneCompetitionComponent } from 'src/app/feature-modules/competition/one-competition/one-competition.component';
 import { WinnerApplyComponent } from 'src/app/feature-modules/competition/winner-apply/winner-apply.component';
+import { ApplyFormComponent } from 'src/app/feature-modules/competition/apply-form/apply-form.component';
+
 
 const routes: Routes = [
   {path: '', component: HomeComponent},
@@ -162,7 +164,8 @@ const routes: Routes = [
   },
   { path: 'show-competitions', component: ShowCompetitionComponent},
   { path: 'oneCompetition/:id', component: OneCompetitionComponent},
-  { path: 'winnerApply/:id', component: WinnerApplyComponent }
+  { path: 'winnerApply/:id', component: WinnerApplyComponent },
+  { path: 'apply/:id', component: ApplyFormComponent}
 ];
 
 @NgModule({

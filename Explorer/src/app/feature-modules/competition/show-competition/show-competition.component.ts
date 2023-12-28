@@ -37,6 +37,15 @@ export class ShowCompetitionComponent implements OnInit{
     this.authService.user$.subscribe(user => {
       this.user = user;
     })
+    this.get();
+    
+  }
+
+  onCompetitionAdded(): void {
+    this.get(); // Call the get() method when the competition is added
+  }
+
+  get() : void{
     if(this.user?.role == 'author'){
       this.getAllCompetitionsByAuthorId(this.user?.id || -1)
     }

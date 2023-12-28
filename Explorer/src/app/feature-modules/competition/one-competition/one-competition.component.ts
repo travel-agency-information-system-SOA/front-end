@@ -23,9 +23,10 @@ export class OneCompetitionComponent implements OnInit {
   competitionId: number | 0;
   competitionApplies: ExtendedCompetitionApply[] = [];
   isClicked: boolean = false;
-  apply: CompetitionApply;
+  //apply: CompetitionApply;
+  shouldRenderForm: boolean = false;
 
-  constructor(private route: ActivatedRoute, private competitionService: CompetitionServiceService, private userService: AdministrationService){}
+  constructor(private route: ActivatedRoute, private competitionService: CompetitionServiceService, private userService: AdministrationService, private router: Router){}
 
   ngOnInit(): void {
     this.competitionId = +this.route.snapshot.paramMap.get('id')!;
@@ -74,4 +75,12 @@ export class OneCompetitionComponent implements OnInit {
   }
 
   
+  closeForm(): void{
+    this.shouldRenderForm = false;
+  }
+
+  apply(): void {
+    //this.router.navigate(['/apply/', this.competitionId]);
+    this.shouldRenderForm = true;
+  }
 }

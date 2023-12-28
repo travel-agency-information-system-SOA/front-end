@@ -56,4 +56,7 @@ export class CompetitionServiceService {
     return this.http.put<CompetitionApply>(environment.apiHost + 'competitionApply/' + apply.id, apply)
   }
 
+  addApply(apply: CompetitionApply):  Observable<CompetitionApply> {
+    return this.http.post<CompetitionApply>(environment.apiHost + 'competitionApply', apply);
+  }
 }
