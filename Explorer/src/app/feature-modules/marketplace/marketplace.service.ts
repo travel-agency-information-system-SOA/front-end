@@ -350,7 +350,6 @@ export class MarketplaceService {
     const url = `https://localhost:44333/purchase/${cartId}`;
     return this.http.put<ShoppingCart>(url, null);
   }
-
   getTourByTourId(id: number): Observable<Tour> {
     return this.http.get<Tour>(
       environment.apiHost + 'administration/tour/onetour/' + id
