@@ -11,4 +11,5 @@ export interface SocialEncounter {
     touristsRequiredForCompletion: number,
     distanceTreshold: number,
     touristIDs:  number[] | null,
+    shouldBeApproved: boolean
 }

@@ -23,7 +23,9 @@ export class EncountersMapComponent implements OnInit {
   encounterExecution: EncounterExecution;
   idPosition:number|undefined
   userPosition:UserPosition;
-  shouldEdit:boolean
+  shouldEdit:boolean;
+  showPopup = false;
+  backupEncounters: Encounter[] = [];
   @Output() positionUpdated=new EventEmitter<null>();
   constructor(private router: Router, 
               private tokenStorage: TokenStorage, 
@@ -35,6 +37,7 @@ export class EncountersMapComponent implements OnInit {
   ngOnInit(): void {
     this.getActiveEncounters(); 
     this.checkUserPosition();
+    
   }
   getActiveEncounters(): void {
     this.executionService.getExecutions().subscribe({
@@ -51,35 +54,50 @@ export class EncountersMapComponent implements OnInit {
       }
     });
     }
+    arePositionsClose(lat1: number, lon1: number, lat2: number, lon2: number, radius: number = 100): boolean {
+      // Convert degrees to radians
+      const toRadians = (degrees: number) => degrees * (Math.PI / 180);
+  
+      // Earth radius in meters (for a more accurate calculation, you might want to use a more precise value)
+      const earthRadius = 6371000;
+  
+      // Calculate the differences in latitude and longitude
+      const dLat = toRadians(lat2 - lat1);
+      const dLon = toRadians(lon2 - lon1);
+  
+      // Calculate distance using Euclidean distance formula
+      const distance = Math.sqrt(Math.pow(dLat * earthRadius, 2) + Math.pow(dLon * earthRadius * Math.cos(toRadians(lat1)), 2));
+  
+      // Check if the distance is within the radius
+      return distance <= radius;
+  }
     activateEncounter(selectedEncounter:Encounter) {
-      this.executionService.getExecutions().subscribe({
-        next: (result: PagedResults<EncounterExecution>) => {
-          this.executions = result.results;
-          const foundExecution = this.executions.find(
-            execution => execution.userId === this.tokenStorage.getUserId() && execution.encounterId === selectedEncounter.id && execution.isCompleted == false
-          );
-          if(foundExecution == null) {
-            this.encounterExecution = {
-              id: 0,
-              userId: this.tokenStorage.getUserId(),
-              encounterId: selectedEncounter.id,
-              completionTime: undefined,
-              isCompleted: false
-            }
-            this.executionService.addEncounterExecution(this.encounterExecution).subscribe({
-              next: (_) => {
-                this.router.navigate(['/activeEncounter']);
+      console.log(this.userPosition.latitude);
+        this.executionService.getExecutions().subscribe({
+          next: (result: PagedResults<EncounterExecution>) => {
+            this.executions = result.results;
+            const foundExecution = this.executions.find(
+              execution => execution.userId === this.tokenStorage.getUserId() && execution.encounterId === selectedEncounter.id && execution.isCompleted == false
+            );
+            if(foundExecution == null) {
+              this.encounterExecution = {
+                id: 0,
+                userId: this.tokenStorage.getUserId(),
+                encounterId: selectedEncounter.id,
+                completionTime: undefined,
+                isCompleted: false
               }
-            })
+              this.executionService.addEncounterExecution(this.encounterExecution).subscribe({
+                next: (_) => {
+                  this.router.navigate(['/activeEncounter']);
+                }
+              })
+            }
+            else {
+              this.router.navigate(['/activeEncounter']);
+            }
           }
-          else {
-            this.router.navigate(['/activeEncounter']);
-          }
-        }
-      })
-      
-      
-      
+        })
       
     }
 
@@ -106,6 +124,8 @@ export class EncountersMapComponent implements OnInit {
         userPosition.latitude = coordinates.lat;
         userPosition.longitude = coordinates.lng;
       });
+      this.userPosition = userPosition;
+      console.log(userPosition.latitude);
       this.administrationService.updateUserPosition(userPosition).subscribe({
         next: (_) => {
           this.positionUpdated.emit();
@@ -116,6 +136,33 @@ export class EncountersMapComponent implements OnInit {
     
     updatePositions(event:MouseEvent):void{
       this.updateUserPosition();
+      this.filterEncounters();
+    }
+    filterEncounters() : void {
+      this.backupEncounters = this.displayEncounters;
+      this.displayEncounters.splice(0, this.displayEncounters.length);
+      console.log(this.userPosition.longitude);
+      this.executionService.getExecutions().subscribe({
+        next: (result: PagedResults<EncounterExecution>) => {
+          this.executions = result.results.filter(execution => (execution.userId === this.tokenStorage.getUserId() && execution.isCompleted));
+          console.log(this.executions);
+          this.encounterService.getEncounters().subscribe({
+            next: (result: PagedResults<Encounter>) => {
+              this.displayEncounters = result.results.filter(encounter =>
+                encounter.status === 'ACTIVE' &&
+                !this.executions.some(execution => execution.encounterId === encounter.id) &&
+                this.arePositionsClose(
+                  this.userPosition.latitude,
+                  this.userPosition.longitude,
+                  encounter.latitude,
+                  encounter.longitude,
+                  100 // Adjust the radius as needed
+                )
+              );
+            }
+          });
+        }
+      });
     }
 
     checkUserPosition(): void {

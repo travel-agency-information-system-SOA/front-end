@@ -1,5 +1,5 @@
 <div>
-    <table>
+    <table *ngIf="user && user.role != 'tourist'">
         <thead>
             <tr>
                 <th>Title</th>
@@ -31,10 +31,15 @@
                         <mat-icon>archive</mat-icon>
                     </button>
                 </td>
+                <td *ngIf="enc.shouldBeApproved && !approved">
+                    <button (click)="onApproveClicked(enc)" color="primary" mat-icon-button>
+                        <mat-icon>check</mat-icon>
+                    </button>
+                </td>
             </tr>
         </tbody>
     </table>
-    <button (click)="onAddClicked()" color="primary" mat-icon-button>
+    <button *ngIf="user && user.role != 'tourist'" (click)="onAddClicked()" color="primary" mat-icon-button>
         <mat-icon>add</mat-icon>
     </button>
     <div>
