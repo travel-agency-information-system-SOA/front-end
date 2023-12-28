@@ -1,42 +1,85 @@
-.grade {
-  margin-bottom: 25px;
+.stars2 {
+  display: inline;
+  color: #828282;
+  padding: 1px;
+  margin-left: 5px;
+  font-size: 17px;
+  font-weight: lighter;
+  margin-left: 50px;
+  padding: 10px;
 }
 
-.images {
-  margin-top: 25px;
-  padding-top: 20px;
+.star-icon {
+  font-size: 32px;
+  margin: 2px;
+  padding: 5px;
 }
 
-.buttonClass {
-  margin-top: 25px;
+.star-filled {
+  color: rgb(233, 233, 110);
 }
-.container {
-  margin-top: 150px;
+
+.wrap {
+  background-image: url("/assets/images/main.jpg");
+  background-size: cover;
+  background-repeat: repeat;
+  min-height: 150vh;
+}
+
+.form-wrap {
+  padding: 50px;
   display: flex;
-  margin-right: auto;
-  margin-left: auto;
-  width: 500px;
+  flex-direction: column;
+  gap: 25px;
+  margin-left: 600px;
+  width: 750px;
+  border: 5px solid #4e79a7;
+  border-radius: 10px;
+  background-color: rgba(246, 245, 245, 0.4);
 }
 
-.container h1 {
-  font-size: 36px; /* Prilagodite veličinu slova naslova prema potrebi */
+.labels {
+  font-size: 1.5em;
+
+  color: #4e79a7;
+  font-family: Georgia, serif;
+  background-color: rgba(246, 245, 245, 0.8);
+  border-radius: 10px;
+
+  padding: 5px 10px;
 }
 
-mat-form-field,
-mat-input {
-  height: 100px;
-  width: 300px;
+.mat-flex {
+  flex: 1;
 }
 
-mat-form-field,
-mat-input {
-  padding-top: 30px;
+.input {
+  width: 750px;
 }
 
-mat-hint {
-  font-size: 15px;
+.radio-buttons {
+  margin-left: 60px;
 }
 
-.container input[type="text"] {
+.helper {
+  padding-top: 50px;
+}
+
+.button {
+  margin-left: 150px;
+  border-radius: 8px;
+  background-color: #124174;
+  color: #ffffff;
+  padding: 10px;
+  width: 400px;
+  height: 40px;
+  font-size: 16px;
+}
+
+.button:hover {
+  color: #83b1e3;
+}
+
+.radio-buttons {
   font-size: 18px;
 }
