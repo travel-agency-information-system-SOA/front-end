@@ -57,6 +57,8 @@ import { TourTouristComponent } from 'src/app/feature-modules/tour-authoring/tou
 import { CompositeToursComponent } from 'src/app/feature-modules/marketplace/composite-tours/composite-tours.component';
 import { CreateCompetitionComponent } from 'src/app/feature-modules/competition/create-competition/create-competition.component';
 
+import { ShowCompetitionComponent } from 'src/app/feature-modules/competition/show-competition/show-competition.component';
+
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
@@ -176,6 +178,7 @@ const routes: Routes = [
     path: 'create-competition',
     component: CreateCompetitionComponent,
   },
+  { path: 'show-competitions', component: ShowCompetitionComponent}
 ];
 
 @NgModule({

@@ -30,4 +30,10 @@ export class CompetitionServiceService {
       competition
     );
   }
+
+  getAllCompetitionsByAuthorId(id: number): Observable<PagedResults<Competition>> {
+    return this.http.get<PagedResults<Competition>>(
+      environment.apiHost + 'competition/getAllCompetitionAuthorId/' + id
+    );
+  }
 }

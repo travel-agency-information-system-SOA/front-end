@@ -1,31 +1,13 @@
 <div id="notifications">
     <div id="notification-details">
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Comment</th>
-                        <th>Time</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr *ngFor="let rrn of requestResponseNotification">
-                        <td>{{rrn.comment}}</td>
-                        <td>{{rrn.creation | date:'medium'}}</td>
-                        <td>
-                            <button (click)="deleteNotification(rrn)" color="accent" mat-icon-button>
-                                <mat-icon>delete</mat-icon>
-                            </button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+      <div *ngFor="let rrn of requestResponseNotification" class="notification-item">
+        <div class="notification-content">
+          <div class="notification-comment">{{rrn.comment}}</div>
+          <div class="notification-time">{{rrn.creation | date:'medium'}}</div>
         </div>
+        <button (click)="deleteNotification(rrn)" color="accent" mat-icon-button class="delete-button">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
     </div>
-</div>
-
-
-
-
-
+  </div>
