@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Competition } from '../model/competition.model';
 
 @Component({
   selector: 'xp-show-competition',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./show-competition.component.css']
 })
 export class ShowCompetitionComponent {
+  competition: Competition[] = []
 
 }
