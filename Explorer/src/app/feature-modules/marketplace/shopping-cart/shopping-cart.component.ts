@@ -117,13 +117,17 @@ export class ShoppingCartComponent {
     this.marketplaceService.updateShoppingCart(this.shoppingCart)
     .subscribe(updatedShoppingCart => {
       this.shoppingCart = updatedShoppingCart;
+      this.shoppingCart.orderItems.length = 0;
     }, error => {
       console.error('Error updating cart', error);
     });
 
+
+
     this.marketplaceService.purchase(cartId)
       .subscribe(updatedShoppingCart => {
         this.shoppingCart = updatedShoppingCart;
+        console.log("Purchased")
       }, error => {
         console.error('Error purchasing items', error);
       });
