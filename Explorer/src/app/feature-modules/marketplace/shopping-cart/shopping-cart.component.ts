@@ -104,7 +104,7 @@ export class ShoppingCartComponent {
 
   purchase(cartId: number ): void {
        
-    for (const couponId of this.usedCoupons) {
+    /*for (const couponId of this.usedCoupons) {
       
       this.marketplaceService.deleteCoupon(couponId).subscribe({
         next: () => {
@@ -112,7 +112,7 @@ export class ShoppingCartComponent {
         error: () => {
         }
       })      
-    }
+    }*/
     
     this.marketplaceService.updateShoppingCart(this.shoppingCart)
     .subscribe(updatedShoppingCart => {
