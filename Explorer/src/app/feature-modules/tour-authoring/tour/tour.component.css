@@ -14,6 +14,7 @@ body {
   align-items: flex-start;
   padding-left: 2rem;
 }
+
 .card-wrapper {
   display: flex;
   flex-direction: column;
@@ -22,28 +23,26 @@ body {
   padding-left: 20px;
 }
 
-
 mat-card-header{
   display: flex;
   flex-direction: column;
 }
-
 
 .card-wrapperB {
   width: 20%;
   height: 5%;
   display: flex;
   justify-content: flex-start;
+  margin-bottom: 24px;
 }
 
 .card-wrapperB button {
   height: 80%;
-  width: 40%;
+  width: 120px;
   border-radius: 8px;
   background-color: #124174;
   color: #ffffff;
   padding: 5px 10px;
-  width: 100px;
   margin: 10px;
 }
 
@@ -52,16 +51,16 @@ mat-card-header{
   justify-content: space-between;
   padding: 20px;
   text-align: center;
-  background-image: url("/assets/images/main.jpg");
+  /*background-image: url("/assets/images/main.jpg");*/
+  background-color: #FAF9F6;
   background-size: cover;
-  background-repeat: repeat;
+  /*background-repeat: repeat;*/
   min-height: 150vh;
   height: 100%;
 }
 
 .tours {
   display: flex;
-
   flex-wrap: wrap;
   gap: 16px;
 }
@@ -70,8 +69,7 @@ mat-card-header{
   flex: 1 0 calc(50% - 16px);
   max-width: calc(50% - 16px);
   height: 400px;
-  margin-bottom: 16px;
-  /* color: #ffffff; */
+  margin: 4px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }

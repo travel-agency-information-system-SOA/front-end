@@ -61,7 +61,6 @@
     height: auto;
 }
 
-
 .title {
     font-family: 'Trip';
     font-size: 42px;
@@ -69,10 +68,10 @@
     text-align: center;
     margin-bottom: 56px;
 }
+
 .top_margin {
     margin-top: 5%;
 }
-
 
 .b4 {
     font-family: 'Trip';
