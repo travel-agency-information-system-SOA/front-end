@@ -35,6 +35,7 @@ body {
   align-items: flex-start;
   padding-left: 2rem;
 }
+
 .card-wrapper {
   display: flex;
   flex-direction: column;
@@ -43,12 +44,10 @@ body {
   padding-left: 20px;
 }
 
-
 mat-card-header{
   display: flex;
   flex-direction: column;
 }
-
 
 .card-wrapperB {
   width: 100%;
@@ -56,27 +55,26 @@ mat-card-header{
   display: flex;
   justify-content: flex-start;
   align-items: center;
+  margin-bottom: 24px;
 }
 
-/*.card-wrapperB button {
+.card-wrapperB button {
   height: 80%;
-  width: 40%;
+  width: 120px;
   border-radius: 8px;
   background-color: #124174;
   color: #ffffff;
   padding: 5px 10px;
-  width: 100px;
   margin: 10px;
 }*/
 
 .card-wrapper-btn{
   height: 80%;
-  width: 40%;
+  width: 120px;
   border-radius: 8px;
   background-color: #124174;
   color: #ffffff;
   padding: 5px 10px;
-  width: 100px;
   margin: 10px;
 }
 
@@ -85,16 +83,16 @@ mat-card-header{
   justify-content: space-between;
   padding: 20px;
   text-align: center;
-  background-image: url("/assets/images/main.jpg");
+  /*background-image: url("/assets/images/main.jpg");*/
+  background-color: #FAF9F6;
   background-size: cover;
-  background-repeat: repeat;
+  /*background-repeat: repeat;*/
   min-height: 150vh;
   height: 100%;
 }
 
 .tours {
   display: flex;
-
   flex-wrap: wrap;
   gap: 16px;
 }
