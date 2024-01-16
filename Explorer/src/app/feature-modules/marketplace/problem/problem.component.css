@@ -8,12 +8,12 @@ body {
     display: flex;
     justify-content: space-between;
     padding: 20px;
-    text-align: center;
-    background-image: url("/assets/images/background.jpg");
+    text-align: start;
     background-size: cover;
     background-repeat: repeat;
     min-height: 140vh;
     height: 100%;
+    
   }
   
   #problem-details {
@@ -21,14 +21,12 @@ body {
     flex-direction: row;
     gap: 50px;
     align-items: flex-start;
-    gap: 10px;
-    
   }
   
   mat-card {
     transition: transform 0.3s ease-in-out;
     cursor: pointer;
-    background-color: #b3e0f2; 
+    background-color: #b3e0f2;
   }
   
   mat-card:hover {
@@ -62,7 +60,7 @@ button.mat-button.isAdministartor {
   
   
   p {
-    font-size: 20px;
+    font-size: 15px;
   }
   
   table {
@@ -77,6 +75,10 @@ button.mat-button.isAdministartor {
     background-color: #3f51b5;
     color: #ffffff;
     text-align: left;
+  }
+  
+  .mat-card-title{
+    margin-left: 18px;
   }
   
   th,
@@ -100,6 +102,7 @@ button.mat-button.isAdministartor {
     font-weight: bold;
     color: #3f51b5;
   }
+  
   
   .solved-row {
     background-color: lightgreen;
