@@ -220,19 +220,22 @@ export class TourComponent implements OnInit {
 
   onAddTourClicked() {
     this.showTourForm = false;
+    window.scrollTo(0, 0);
   }
 
   onClose() {
     this.shouldAddPoint = false;
+    window.scrollTo(0, 0);
   }
 
   onCloseObject() {
     this.shouldAddObject = false;
+    window.scrollTo(0, 0);
   }
 
   onCreateCoupon(tourId: number | undefined): void {
     this.router.navigate(['createCoupon', tourId]);
-  
+
   }
 
   onCreateAuthorCoupon() {

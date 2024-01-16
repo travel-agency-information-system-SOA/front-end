@@ -194,7 +194,7 @@
   border-radius: 10px;
   display: flex;
   flex-direction: column;
-  cursor: pointer;
+  /*cursor: pointer;*/
   box-shadow: 0 2px 16px 3px #dddddd;
   transition: box-shadow 0.3s ease;
 }
