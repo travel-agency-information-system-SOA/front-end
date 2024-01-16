@@ -43,15 +43,16 @@ mat-card-header{
   height: 52px;
   width: 124px;
   border-radius: 12px;
-  background-color: #124174;
-  color: #ffffff;
+  border: 2px solid #0a83cb;
+  background-color: white;
+  color: #0a83cb;
   padding: 5px 10px;
   margin: 10px;
-  border: none;
 }
 
 .top-buttons:hover {
   cursor: pointer;
+  background-color: whitesmoke;
 }
 
 .wrapper {
