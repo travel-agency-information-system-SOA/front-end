@@ -5,6 +5,7 @@ import { CompetitionServiceService } from '../competition-service.service';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 
+
 @Component({
   selector: 'xp-apply-form',
   templateUrl: './apply-form.component.html',
@@ -30,9 +31,10 @@ export class ApplyFormComponent implements OnInit {
     const fileList: FileList = event.target.files;
     if (fileList.length > 0) {
       this.imageFile = fileList[0];
-      this.imageUrl = URL.createObjectURL(this.imageFile);
+      this.imageUrl = 'assets/tourimages/' + this.imageFile.name;
     }
   }
+  
 
   submitForm(): void {
     if (!this.imageFile) {
