@@ -10,6 +10,7 @@ import { CurrencyService } from 'src/app/currency.service';
 import { TourAuthoringService } from '../../tour-authoring/tour-authoring.service';
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
+import { Profile } from '../../administration/model/profile.model';
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -18,6 +19,7 @@ import { PagedResults } from 'src/app/shared/model/paged-results.model';
 })
 export class ShoppingCartComponent {
 
+  profile: Profile;
   shoppingCart: ShoppingCart;
   orderItem: OrderItem;
   usedCoupons: number[] = []
@@ -61,7 +63,8 @@ export class ShoppingCartComponent {
   ngOnInit(): void {
     this.authService.user$.subscribe(user => {
       if (user) {
-        this.loadShoppingCart(user.id); 
+        this.loadShoppingCart(user.id);
+        this.loadProfile(user.id);
       }
     });
 
@@ -85,6 +88,17 @@ export class ShoppingCartComponent {
         this.shoppingCart = cart;
         this.shoppingCart.total = this.calculateTotal();
       });
+  }
+
+  loadProfile(userId: number): void {
+    this.adminService.getProfile(userId).subscribe({
+      next: (profile: Profile) => {
+        this.profile = profile
+      },
+      error: (error) => {
+        console.error('Error fetching profile:', error);
+      }
+    }); 
   }
 
   removeOrderItem(cartId: number | undefined, tourId: number | undefined): void {
@@ -113,11 +127,25 @@ export class ShoppingCartComponent {
         }
       })      
     }*/
+
+    if(this.shoppingCart.total > this.profile.balance){
+      alert("Your dont have enough funds for this purchase!")
+      return
+    }
     
     this.marketplaceService.updateShoppingCart(this.shoppingCart)
     .subscribe(updatedShoppingCart => {
+      this.profile.balance -= this.shoppingCart.total
       this.shoppingCart = updatedShoppingCart;
       this.shoppingCart.orderItems.length = 0;
+      this.adminService.updateProfile(this.profile, this.profile.userId).subscribe({
+        next: (profile: Profile) => {
+          this.profile = profile
+        },
+        error: (error) => {
+          console.error('Error updating profile:', error);
+        }
+      }); 
     }, error => {
       console.error('Error updating cart', error);
     });
@@ -130,7 +158,9 @@ export class ShoppingCartComponent {
         console.log("Purchased")
       }, error => {
         console.error('Error purchasing items', error);
-      });
+    });
+
+    alert("You have successfully purchased tours!")
   }
 
   checkCoupon(code: string, tourId: number): void {
