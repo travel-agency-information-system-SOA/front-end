@@ -59,7 +59,7 @@ export class ActiveTourComponent implements OnChanges{
     this.getTourExecutionPoints();
     this.getTourPoints();
     console.log("lol: ",this.activeTour.id)
-    
+    console.log("execution:", this.activeTour);
   }
 
   private startPolling(): void {
@@ -75,7 +75,7 @@ export class ActiveTourComponent implements OnChanges{
         alert("You completed tour");
         this.isNotified = false;
       }
-    }, 5000);
+    }, 1000);
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -214,6 +214,7 @@ export class ActiveTourComponent implements OnChanges{
       (data) => {
         //console.log(data);
         this.executionPoints = data.results;
+        this.executionPoints.sort((a, b) => a.id - b.id);
         console.log('points', this.executionPoints);
       },
       (error) => {
@@ -263,5 +264,18 @@ export class ActiveTourComponent implements OnChanges{
   ngOnDestroy(): void {
     clearInterval(this.pollingInterval);
   }
-
+  
+  getRelativeTime(completionTime: string): string {
+    const completionDate = new Date(completionTime);
+    const currentTime = new Date();
+    const timeDifference = currentTime.getTime() - completionDate.getTime();
+    
+    const minutesAgo = Math.floor(timeDifference / (1000 * 60));
+    
+    if (minutesAgo < 1) {
+      return 'just now';
+    } else {
+      return `${minutesAgo} ${minutesAgo === 1 ? 'minute' : 'minutes'} ago`;
+    }
+  }
 }
