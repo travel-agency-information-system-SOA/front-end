@@ -29,6 +29,7 @@ body {
 }
 
 .table-wrapper {
+  height: 54px;
   display: flex;
   flex-direction: row;
   gap: 70px;
@@ -41,7 +42,6 @@ body {
   flex-direction: column;
   gap: 10px;
   width: 100%;
-  padding-left: 20px;
 }
 
 mat-card-header{
@@ -51,10 +51,24 @@ mat-card-header{
 
 .card-wrapperB {
   width: 100%;
-  height: 6%;
+  height: 60px;
   display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+  gap: 24px;
+}
+
+.top-buttons {
+  font-family: 'Trip';
+  font-weight: medium;
+  font-size: 14px;
+  height: 52px;
+  width: 124px;
+  border-radius: 12px;
+  border: 2px solid #0a83cb;
+  background-color: white;
+  color: #0a83cb;
+  text-align: center;
 }
 
 /*.card-wrapperB button {
@@ -77,35 +91,233 @@ mat-card-header{
   margin: 10px;
 }
 
+.top-buttons:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+}
+
 .wrapper {
   display: flex;
   justify-content: space-between;
-  padding: 20px;
+  padding: 56px 12%;
   text-align: center;
-  /*background-image: url("/assets/images/main.jpg");*/
-  background-color: #FAF9F6;
-  background-size: cover;
-  /*background-repeat: repeat;*/
-  min-height: 150vh;
+  min-height: 100vh;
   height: 100%;
 }
 
 .tours {
   display: flex;
   flex-wrap: wrap;
-  gap: 16px;
 }
 
 .card {
-  flex: 1 0 calc(50% - 16px);
-  max-width: calc(50% - 16px);
-  height: 515px;
+  flex: 1 0 calc(50% - 24px);
+  max-width: calc(50% - 24px);
+  height: 400px;
+  margin: 12px;
+}
+
+.card-container {
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  /*flex: 1 0 calc(50% - 24px);*/
+  /*max-width: calc(50% - 24px);*/
+  /*height: 515px;*/
   margin-bottom: 16px;
   /* color: #ffffff; */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+  box-shadow: 0 4px 8px rgba(18, 65, 116, 0.6);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
+.card-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 8px;
+}
+
+.head-column {
+  flex: 1;
+  display: flex;
+}
+
+.head-title {
+  font-family: 'Trip';
+  font-weight: bold;
+  font-size: 28px;
+  margin-left: 14px;
+  margin-bottom: 0;
+}
+
+.head-status {
+  font-family: 'Trip';
+  font-weight: medium;
+  font-size: 18px;
+  margin: auto;
+  border-radius: 15px;
+  padding: 5px 10px;
+  color: #FAF9F6;
+}
+
+.draft-status {
+  background-color: #888; /* Light gray for draft */
+}
+
+.published-status {
+  background-color: #4CAF50; /* Green for published */
+}
+
+.btn-delete-tour {
+  margin-left: auto;
+}
+
+.card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  min-height: 200px;
+  margin: 20px 16px;
+}
+
+.det-subtitle {
+  display: flex;
+  flex-direction: row;
+  gap: 48px;
+  margin: 0 12px;
+}
+
+.det-price {
+  margin: 0;
+  font-family: 'Trip';
+  font-weight: medium;
+  font-size: 18px;
+  align-self: center;
+}
+
+.det-difficulty {
+  margin: 0;
+  font-family: 'Trip';
+  font-weight: medium;
+  font-size: 16px;
+  border-radius: 6px;
+  padding: 2px 4px;
+  color: #FFF;
+  align-self: center;
+}
+
+.easy {
+  border: 2px solid green;
+  color: green;
+}
+
+.moderate {
+  border: 2px solid darkorange;
+  color: darkorange;
+}
+
+.difficult {
+  border: 2px solid red;
+  color: red;
+}
+
+.det-description {
+  min-height: 150px;
+  max-height: 150px;
+  overflow-y: auto;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  padding: 4px;
+}
+
+.det-description-text {
+  font-family: 'Trip';
+  font-weight: normal;
+  align-self: center;
+  margin: 4px 8px;
+  text-align: left;
+}
+
+.card-footer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 6px 8px;
+}
+
+.foot-column {
+  flex: 1;
+}
+
+.icon-buttons {
+  display: flex;
+  flex-direction: row;
+}
+
+.eq-coup-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.publish-buttons {
+  margin-right: 14px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.btn-show-points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.equipment-coupon {
+  font-family: 'Trip';
+  font-weight: medium;
+  font-size: 14px;
+  border: 1px solid white;
+  color: #0a83cb;
+  background-color: white;
+  padding: 4px 6px;
+}
+
+.equipment-coupon:hover {
+  cursor: pointer;
+  background-color: whitesmoke;
+  border-radius: 12px;
+  transition: ease 0.1s;
+  border: 1px solid #0a83cb;
+}
+
+.publish-archive {
+  font-family: 'Trip';
+  font-weight: medium;
+  font-size: 16px;
+  background-color: #0a83cb;
+  color: white;
+  border-radius: 12px;
+  padding: 4px 8px;
+  border: 1px solid #0a83cb;
+}
+
+.publish-archive:hover {
+  cursor: pointer;
+  transition: ease-in 0.1s;
+  background-color: #FAF9F6;
+  border: 1px solid #0a83cb;
+  color: #0a83cb;
+}
+
+/*Old style*/
 mat-card {
   background-color: rgba(240, 246, 246, 0.7);
   height: 100%;
@@ -283,12 +495,27 @@ mat-card-title {
 
 .mat-card {
   background-color: #f0f0f0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(18, 65, 116, 0.1);
 }
 
 .mat-card-title,
 .mat-card-subtitle {
   color: #89295c;
+}
+
+.wrapper-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+xp-tour-form {
+  margin: auto;
+}
+
+xp-object-form {
+  margin: auto;
 }
 
 .coupon-details {
@@ -429,6 +656,3 @@ mat-card-title {
   margin-left: 20px;
   margin-right: 20px;
 }
-
-
-

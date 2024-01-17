@@ -45,9 +45,11 @@ export class TourPointFormComponent implements OnChanges, OnInit {
   showPopup = false;
   latitude: number;
   longitude: number;
-  isSocial : boolean;
+  isSocial: boolean;
   isLocation: boolean;
   tempTourPoint: TourPoint;
+  //imageUrl: string | '';
+  //imageFile: File | undefined;
 
   constructor(
     private service: TourAuthoringService,
@@ -56,7 +58,9 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     private router: Router,
     private encounterService: EncountersService,
     private authService: AuthService
-  ) {}
+  ) {
+  }
+
   ngOnInit(): void {
     this.yourFormGroup = this.formBuilder.group({
       selectedTransport: ['walking'],
@@ -69,6 +73,15 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       this.tourPointForm.patchValue(this.tourPoint);
     }
   }
+/*
+  onFileSelected(event: any): void {
+    const fileList: FileList = event.target.files;
+    if (fileList.length > 0) {
+      this.imageFile = fileList[0];
+      this.imageUrl = 'assets/tourimages/' + this.imageFile.name;
+    }
+  }
+*/
 
   tourPointForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -85,7 +98,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
 
       name: this.tourPointForm.value.name || '',
       description: this.tourPointForm.value.description || '',
-      imageUrl: this.tourPointForm.value.imageUrl || '',
+      imageUrl: this.tourPointForm.value.imageUrl || '', //this.imageUrl || '',
       latitude: 0,
       longitude: 0,
       secret: this.tourPointForm.value.secret || '',
@@ -220,7 +233,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
   }
   addEncounter(): void{
     console.log(this.encounterForm.value)
-    
+
     if(this.isSocial){
       const socialEncounter = {
         encounterId: 0,
@@ -248,7 +261,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
             keyPointId: this.tempTourPoint.id || 0,
             isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
-      
+
           this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
             next:(_) =>
             {
@@ -289,7 +302,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
             keyPointId: this.tempTourPoint.id || 0,
             isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
-      
+
           this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
             next:(_) =>
             {
@@ -324,7 +337,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
             keyPointId: this.tempTourPoint.id || 0,
             isMandatory: this.encounterForm.value.includeCheckbox ?  this.encounterForm.value.includeCheckbox : false
           };
-      
+
           console.log("Doslo je do createTourKeyPointencounter");
           this.service.createTourKeyPointEncounter(tourKeyPointEncounter).subscribe({
             next:(_) =>
@@ -339,6 +352,6 @@ export class TourPointFormComponent implements OnChanges, OnInit {
       this.showPopup = false;
     }
 
-    
+
   }
 }
