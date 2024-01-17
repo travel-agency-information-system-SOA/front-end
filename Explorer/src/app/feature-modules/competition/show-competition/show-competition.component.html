@@ -16,7 +16,7 @@
             <h2 class="name">{{ competition.name }}</h2>
 
             <div class="desc-container">
-              <p class="description">{{ competition.startDate }}</p>
+              <p class="description">{{ competition.startDate | date:'yyyy-MM-dd' }}</p>
             </div>
 
             <div class="desc-container">

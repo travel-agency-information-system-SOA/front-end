@@ -14,7 +14,7 @@ export class TourBundleCreateComponent {
 
   sumPrice:number=0
   tourBundle: TourBundle={
-    id:11,
+    id:0,
     name:'',
     price: 0,
     tourIds:[],
