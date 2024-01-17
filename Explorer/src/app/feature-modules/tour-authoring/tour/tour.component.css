@@ -55,6 +55,7 @@ mat-card-header{
   display: flex;
   justify-content: center;
   margin-bottom: 24px;
+  gap: 24px;
 }
 
 .top-buttons {
@@ -67,9 +68,7 @@ mat-card-header{
   border: 2px solid #0a83cb;
   background-color: white;
   color: #0a83cb;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
+  text-align: center;
 }
 
 /*.card-wrapperB button {
@@ -100,7 +99,7 @@ mat-card-header{
 .wrapper {
   display: flex;
   justify-content: space-between;
-  padding: 24px 12%;
+  padding: 56px 12%;
   text-align: center;
   min-height: 100vh;
   height: 100%;
@@ -122,13 +121,15 @@ mat-card-header{
   background-color: white;
   width: 100%;
   height: 100%;
-  flex: 1 0 calc(50% - 16px);
-  max-width: calc(50% - 16px);
-  height: 515px;
+  /*flex: 1 0 calc(50% - 24px);*/
+  /*max-width: calc(50% - 24px);*/
+  /*height: 515px;*/
   margin-bottom: 16px;
   /* color: #ffffff; */
   border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);*/
+  box-shadow: 0 4px 8px rgba(18, 65, 116, 0.6);
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -263,6 +264,7 @@ mat-card-header{
 .eq-coup-buttons {
   display: flex;
   flex-direction: row;
+  justify-content: center;
 }
 
 .publish-buttons {
@@ -285,6 +287,7 @@ mat-card-header{
   border: 1px solid white;
   color: #0a83cb;
   background-color: white;
+  padding: 4px 6px;
 }
 
 .equipment-coupon:hover {
@@ -492,7 +495,7 @@ mat-card-title {
 
 .mat-card {
   background-color: #f0f0f0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 8px rgba(18, 65, 116, 0.1);
 }
 
 .mat-card-title,
@@ -510,6 +513,11 @@ mat-card-title {
 xp-tour-form {
   margin: auto;
 }
+
+xp-object-form {
+  margin: auto;
+}
+
 .coupon-details {
   display: flex;
   flex-direction: row; /* Set it to row for horizontal layout */
