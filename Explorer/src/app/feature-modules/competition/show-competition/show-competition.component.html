@@ -1,15 +1,17 @@
 <div class="body">
 
+
   <div class="slide-container">
-
+    <div class="img-add">
+      <img src="../../../../assets/images/comp3.png">
+    </div>
     <div class="title">All competitions</div>
-
     <div class="flexCol">
 
       <div class="slide-content">
 
         <div class="card-wrapper">
-          <div *ngFor="let competition of competitions" (click)="selectCompetition(competition)">
+          <button *ngFor="let competition of competitions" (click)="selectCompetition(competition)">
             <div class="card">
 
               <div class="card-content">
@@ -22,11 +24,15 @@
                 <div class="desc-container">
                   <p class="description" [ngStyle]="{'color': competition.status === 'Open' ? 'green' : 'red'}">{{ competition.status }}</p>
                 </div>
+
               </div>
+
             </div>
-          </div>
+          </button>
         </div>
       </div>
+
     </div>
   </div>
+
 </div>
