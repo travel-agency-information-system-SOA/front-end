@@ -16,6 +16,7 @@ import { TourPoint } from '../model/tourPoints.model';
 import { Coupon } from '../../marketplace/model/coupon.model';
 import { FormGroup, FormControl } from '@angular/forms';
 import { UntypedFormArray } from '@angular/forms';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'xp-tour',
@@ -53,7 +54,8 @@ export class TourComponent implements OnInit {
     private service: TourAuthoringService,
     private dialog: MatDialog,
     private equipmentService: EquipmentService,
-    private router: Router
+    private router: Router,
+    private snackBar:MatSnackBar
   ) {
     this.editForm = new FormGroup({
       discount: new FormControl(''),
@@ -151,7 +153,7 @@ export class TourComponent implements OnInit {
   }
 
   saveEdit(tourId: number|undefined) {
-    
+
   const updatedDiscount = this.editForm.get('discount')?.value;
   const updatedExpirationDate = this.editForm.get('expirationDate')?.value;
 
@@ -190,7 +192,7 @@ export class TourComponent implements OnInit {
       }
     });
   }
-    
+
     // Save the edited expiry date to the coupon
     //const coupon = this.getCoupon(tourId);
     //if (coupon) {
@@ -293,7 +295,7 @@ export class TourComponent implements OnInit {
         });
       },
     });
-    
+
   }
   publishTour(tour: Tour): void {
 
@@ -382,5 +384,11 @@ export class TourComponent implements OnInit {
 
   onCreateAuthorCoupon() {
     this.router.navigate(['createAuthorCoupon']);;
+  }
+
+  private openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 30000,
+    });
   }
 }

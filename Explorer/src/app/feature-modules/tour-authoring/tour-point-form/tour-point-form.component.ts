@@ -23,6 +23,7 @@ import { EncountersService } from '../../encounters/encounters.service';
 import { TourKeyPointEncounter } from '../model/TourKeyPointEncounter.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Component({
   selector: 'xp-tour-point-form',
@@ -57,7 +58,8 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private encounterService: EncountersService,
-    private authService: AuthService
+    private authService: AuthService,
+    private snackBar:MatSnackBar
   ) {
   }
 
@@ -140,7 +142,7 @@ export class TourPointFormComponent implements OnChanges, OnInit {
         .subscribe({
           next: () => {
             this.closeTourPointForm.emit();
-            alert('Successfully set tour characteristics');
+            this.openSnackBar("Characteristics set successfully.");
           },
           error(err: any) {
             console.log(tourCharacteristic);
@@ -353,5 +355,11 @@ export class TourPointFormComponent implements OnChanges, OnInit {
     }
 
 
+  }
+
+  private openSnackBar(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 30000,
+    });
   }
 }
