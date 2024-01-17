@@ -176,6 +176,11 @@ export class ShoppingCartComponent {
           return
         }
 
+        if(this.usedCoupons.includes(coupon.id)){
+          alert("This coupon has already been used!")
+          return
+        }
+
         if(coupon.tourId === -1) {
           this.tourService.getTourByGuide(coupon.authorId, 1, 100).subscribe({
             next: (result: PagedResults<Tour>) => {
