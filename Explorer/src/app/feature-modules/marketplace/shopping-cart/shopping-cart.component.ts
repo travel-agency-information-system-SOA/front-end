@@ -177,7 +177,7 @@ export class ShoppingCartComponent {
         }
 
         if(this.usedCoupons.includes(coupon.id)){
-          alert("This coupon has already been used!")
+          //alert("This coupon has already been used!")
           return
         }
 
