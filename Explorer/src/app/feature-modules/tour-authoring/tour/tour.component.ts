@@ -29,7 +29,7 @@ export class TourComponent implements OnInit {
   tour: Tour[] = [];
   selectedTour: Tour;
   page: number = 1;
-  pageSize: number = 5;
+  pageSize: number = 20;
   tourCounter: number;
   equipment: Equipment[] = [];
   shouldAddPoint: boolean = false;

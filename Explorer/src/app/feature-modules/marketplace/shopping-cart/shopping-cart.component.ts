@@ -11,6 +11,7 @@ import { TourAuthoringService } from '../../tour-authoring/tour-authoring.servic
 import { Tour } from '../../tour-authoring/tour/model/tour.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Profile } from '../../administration/model/profile.model';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'xp-shopping-cart',
@@ -39,6 +40,7 @@ export class ShoppingCartComponent {
     private tokenStorage: TokenStorage,
     private adminService: AdministrationService,
     private currencyService: CurrencyService,
+    private router: Router,
   ) {
     this.shouldShowOriginal = true
     this.previousSelectedCurrency = 'USD'
@@ -98,7 +100,7 @@ export class ShoppingCartComponent {
       error: (error) => {
         console.error('Error fetching profile:', error);
       }
-    }); 
+    });
   }
 
   removeOrderItem(cartId: number | undefined, tourId: number | undefined): void {
@@ -107,7 +109,7 @@ export class ShoppingCartComponent {
       console.error('Invalid cartId or tourId');
       return;
     }
-  
+
     this.marketplaceService.removeOrderItem(cartId, tourId)
       .subscribe(updatedShoppingCart => {
         this.shoppingCart = updatedShoppingCart;
@@ -117,22 +119,22 @@ export class ShoppingCartComponent {
   }
 
   purchase(cartId: number ): void {
-       
+
     /*for (const couponId of this.usedCoupons) {
-      
+
       this.marketplaceService.deleteCoupon(couponId).subscribe({
         next: () => {
         },
         error: () => {
         }
-      })      
+      })
     }*/
 
     if(this.shoppingCart.total > this.profile.balance){
       alert("Your dont have enough funds for this purchase!")
       return
     }
-    
+
     this.marketplaceService.updateShoppingCart(this.shoppingCart)
     .subscribe(updatedShoppingCart => {
       this.profile.balance -= this.shoppingCart.total
@@ -145,7 +147,7 @@ export class ShoppingCartComponent {
         error: (error) => {
           console.error('Error updating profile:', error);
         }
-      }); 
+      });
     }, error => {
       console.error('Error updating cart', error);
     });
@@ -160,7 +162,8 @@ export class ShoppingCartComponent {
         console.error('Error purchasing items', error);
     });
 
-    alert("You have successfully purchased tours!")
+    //alert("You have successfully purchased tours!")
+    this.router.navigate(['purchasedTours']);
   }
 
   checkCoupon(code: string, tourId: number): void {
@@ -206,7 +209,7 @@ export class ShoppingCartComponent {
                     orderItem.price -= (coupon.discount/100)*orderItem.price
                   }
                 }
-        
+
                 this.shoppingCart.total = this.calculateTotal();
                 this.usedCoupons.push(coupon.id)
                 alert("Coupon successfuly used!")
@@ -230,7 +233,7 @@ export class ShoppingCartComponent {
               orderItem.price -= (coupon.discount/100)*orderItem.price
             }
           }
-  
+
           this.shoppingCart.total = this.calculateTotal();
           this.usedCoupons.push(coupon.id)
           alert("Coupon successfuly used!")
@@ -270,5 +273,5 @@ export class ShoppingCartComponent {
     console.log(originalPrice)    // Format the converted price as needed
     return convertedPrice.toFixed(2);
   }
-  
+
 }
