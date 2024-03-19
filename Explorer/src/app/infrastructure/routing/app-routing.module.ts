@@ -12,7 +12,7 @@ import { AccountComponent } from 'src/app/feature-modules/administration/account
 import { GuideReviewComponent } from 'src/app/feature-modules/marketplace/guide-review/guide-review.component';
 import { PreferencesComponent } from '../../feature-modules/marketplace/preferences/preferences.component';
 
-import { TourPointsComponent } from 'src/app/feature-modules/tour-authoring/tour-points/tour-points.component';
+import { TourPointsComponent } from 'src/app/feature-modules/tour-authoring/tour-points/tour-points.component';  //prikaz tour pointa ??
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
 import { TourObjectComponent } from 'src/app/feature-modules/tour-authoring/tour-object/tour-object.component';
 import { MapComponent } from 'src/app/shared/map/map.component';
@@ -26,8 +26,8 @@ import { ProfileComponent } from 'src/app/feature-modules/administration/profile
 
 import { AppRatingsComponent } from 'src/app/feature-modules/administration/app-ratings/app-ratings.component';
 import { AppRatingFormComponent } from 'src/app/feature-modules/administration/app-rating-form/app-rating-form.component';
-import { PrivateTourPointsComponent } from 'src/app/feature-modules/tour-authoring/private-tour-points/private-tour-points.component';
-import { PublicTourPointRequestComponent } from 'src/app/feature-modules/administration/public-tour-point-request/public-tour-point-request.component';
+import { PrivateTourPointsComponent } from 'src/app/feature-modules/tour-authoring/private-tour-points/private-tour-points.component'; //ovo za tour points 
+import { PublicTourPointRequestComponent } from 'src/app/feature-modules/administration/public-tour-point-request/public-tour-point-request.component'; //ovo za public tour points 
 
 
 import { ToursShowComponent } from 'src/app/feature-modules/marketplace/tours-show/tours-show.component';
@@ -116,7 +116,7 @@ const routes: Routes = [
   },
   {
     path: 'privateTourPoints',
-    component: PrivateTourPointsComponent,
+    component: PrivateTourPointsComponent, //OVO ZA SLANJE ZAHTEVA 
   },
   { path: 'objects', component: TourObjectComponent },
   { path: 'tourStatistics', component: TourStatisticsComponent },
@@ -154,9 +154,9 @@ const routes: Routes = [
 
   { path: 'tours-show', component: ToursShowComponent },
   { path: 'marketplace', component: TourMarketplaceComponent },
-  { path: 'marketplace/:id', component: TourDetailsComponent },
+  { path: 'marketplace/:id', component: TourDetailsComponent }, 
   { path: 'private-tour-points', component: PrivateTourPointsComponent},
-  { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},
+  { path: 'public-tour-point-request', component: PublicTourPointRequestComponent},//OVO ZA PRIHVATENJE ZAHTEVA AUTOR?
   { path: 'purchasedTours', component: PurchasedToursComponent},
   { path: 'purchasedTours/:id', component: PurchasedTourDetailsComponent},
   { path: 'activeEncounter', component:ActivatedExecutionComponent},
