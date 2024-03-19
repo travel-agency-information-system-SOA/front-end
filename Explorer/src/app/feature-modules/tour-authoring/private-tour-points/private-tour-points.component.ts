@@ -34,8 +34,8 @@ export class PrivateTourPointsComponent implements OnInit{
     });
   }
 
-  getUserTours(): void {
-    this.service.getTourByGuide(this.user,0,0).subscribe({
+  getUserTours(): void { //postoji
+    this.service.getTourByGuide(this.user,0,0).subscribe({ 
       next:(result:PagedResults<Tour>)=>{
         this.userTours = result.results;
         this.getAllExistingRequests();
@@ -43,10 +43,11 @@ export class PrivateTourPointsComponent implements OnInit{
      })
   }
 
-  getAllTourPoints(): void {
+  getAllTourPoints(): void { //napravila get all 
     this.service.getTourPoint().subscribe({
       next:(tourPoints: PagedResults<TourPoint>)=>{
         this.allTourPoints = tourPoints.results;
+        console.log(this.allTourPoints);
         this.findAllPrivateTourPoints();
       }
     })
@@ -56,18 +57,18 @@ export class PrivateTourPointsComponent implements OnInit{
    this.userTours.forEach(tour => {
     this.allTourPoints.forEach(tp => {
       if(tp.tourId === tour.id) {
-        this.filteredPrivateTourPoints.push(tp);
+        this.filteredPrivateTourPoints.push(tp);  //pronadji sve kljucne tacke za sve ture ulogovanog korisnika 
       }
     })
    })
-   this.filterPrivateTourPoints();
+   this.filterPrivateTourPoints(); //filtiriraj sve tako da dobijes one koji nemaju requestove 
   }
 
   getAllExistingRequests() : void {
-    this.adminService.getAllTourPointRequests().subscribe({
+    this.adminService.getAllTourPointRequests().subscribe({  //pronadji sve koji nemaju request
       next:(requests: PagedResults<TourPointRequest>)=>{
         this.tourPointRequests = requests.results;
-        this.getAllTourPoints();
+        this.getAllTourPoints(); //redolsed poziva ka beku
       }
     })
   }
@@ -79,7 +80,7 @@ export class PrivateTourPointsComponent implements OnInit{
   }
   
 
-  sendRequest(tP:TourPoint):void{
+  sendRequest(tP:TourPoint):void{ //posalji zahteve 
     if(tP.id !== undefined){
       this.adminService.sendPublicTourPointrequest(tP.id,this.user).subscribe({
         next:(result:TourPointRequest)=>{
