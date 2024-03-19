@@ -141,7 +141,7 @@ export class TourAuthoringService {
 
   deleteTour(tour: Tour): Observable<Tour> {
     return this.http.delete<Tour>(
-      environment.apiHost + 'administration/tour/deleteAggregate/' + tour.id
+      environment.apiHost + 'administration/tour/' + tour.id
     );
   }
 

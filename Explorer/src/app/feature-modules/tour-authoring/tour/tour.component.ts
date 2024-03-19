@@ -285,17 +285,19 @@ export class TourComponent implements OnInit {
   }
 
   deleteTour(tour: Tour): void {
-    this.service.deleteCoupon(this.getCoupon(tour.id).id).subscribe({
+    console.log('usao');
+    console.log(tour);
+    /*this.service.deleteCoupon(this.getCoupon(tour.id).id).subscribe({
       next: (_) => {
         this.loadCoupons();
-        this.service.deleteTour(tour).subscribe({
-          next: (_) => {
-            this.loadTours();
-          },
-        });
+  
+      },
+    });*/
+    this.service.deleteTour(tour).subscribe({
+      next: (_) => {
+        this.loadTours();
       },
     });
-
   }
   publishTour(tour: Tour): void {
 
