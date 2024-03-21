@@ -61,6 +61,7 @@ export class TourAuthoringService {
       object
     );
   }
+  //dodaj kljucne tacke 
   addTourPoint(tourPoint: TourPoint): Observable<TourPoint> {
     return this.http.post<TourPoint>(
       environment.apiHost + 'administration/tourPoint',
@@ -81,6 +82,7 @@ export class TourAuthoringService {
       objInTour
     );
   }
+
 
   getTourPoint(): Observable<PagedResults<TourPoint>> {
     return this.http.get<PagedResults<TourPoint>>(
@@ -125,6 +127,7 @@ export class TourAuthoringService {
     );
   }
 
+  //dobavi turu za mapu
   getObjInTourByTourId(tourId: number): Observable<TourObject[]> {
     return this.http.get<TourObject[]>(
       environment.apiHost + `administration/objInTour/${tourId}`
@@ -141,7 +144,7 @@ export class TourAuthoringService {
 
   deleteTour(tour: Tour): Observable<Tour> {
     return this.http.delete<Tour>(
-      environment.apiHost + 'administration/tour/deleteAggregate/' + tour.id
+      environment.apiHost + 'administration/tour/' + tour.id
     );
   }
 

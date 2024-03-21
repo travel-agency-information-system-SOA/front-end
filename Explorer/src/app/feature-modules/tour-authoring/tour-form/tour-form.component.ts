@@ -64,6 +64,8 @@ export class TourFormComponent implements OnChanges {
       tourCharacteristics: [],
       tourReviews: [],
     };
+    console.log('Tura koja se salje na kreiranje: ');
+    console.log(tour);
 
     this.service.addTour(tour).subscribe({
       next: () => {

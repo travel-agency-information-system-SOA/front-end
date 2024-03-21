@@ -6,7 +6,7 @@
             <p class="notification-info"><strong>Tour point name:</strong> {{r.name}}</p>
             <p class="notification-info"><strong>Tour point description:</strong> {{r.description}}</p>
             <p class="notification-info"><strong>Author username:</strong> {{r.username}}</p>
-            <input type="text" [(ngModel)]="r.comment" placeholder="Enter comment">
+            <!-- <input type="text" [(ngModel)]="r.comment" placeholder="Enter comment"> -->
         </div>
         <div class="notification-actions">
             <button (click)="AcceptRequest(r.request,r.comment)" class="accept-button">
