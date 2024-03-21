@@ -81,6 +81,7 @@ export class PrivateTourPointsComponent implements OnInit{
   
 
   sendRequest(tP:TourPoint):void{ //posalji zahteve 
+    console.log('Ovo je tour point koji saljes u SENDREQUEST:', tP)
     if(tP.id !== undefined){
       this.adminService.sendPublicTourPointrequest(tP.id,this.user).subscribe({
         next:(result:TourPointRequest)=>{

@@ -95,6 +95,7 @@ export class PublicTourPointRequestComponent implements OnInit {
 
     forkJoin(observables).subscribe((results: TourPoint[]) => {
       this.tourPointsInRequests = results;
+      console.log("tourPointsInRequests!!!!!!!!!!", this.tourPointsInRequests)
       this.getRequestsAuthors();
     });
   }
@@ -104,17 +105,18 @@ export class PublicTourPointRequestComponent implements OnInit {
 
     forkJoin(observables).subscribe((results: User[]) => {
       this.authors = results;
-
+      console.log("nesto cudno?", this.authors)
       this.fillBindingList();
     });
   }
 
   fillBindingList(): void {
     console.log("Usao");
+    console.log("Requests:", this.requests)
     this.requests.forEach(request => {
       const tp = this.tourPointsInRequests.find(tp => tp.id === request.tourPointId);
       const author = this.authors.find(author => author.id === request.authorId);
-
+      console.log("USAO")
       if (tp && author) {
         console.log("Pronađeni su odgovarajući podaci za zahtjev", request.id);
         this.bindingList.push({

@@ -114,7 +114,7 @@ export class TourComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadTours();
-    this.loadCoupons();
+    //this.loadCoupons();
   }
 
   loadCoupons(): void {
