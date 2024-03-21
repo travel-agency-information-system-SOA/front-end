@@ -442,6 +442,8 @@ export class EncountersFormComponent implements OnChanges {
       this.mapService.coordinate$.subscribe((coordinates) => {
         socialEncounter.latitude = coordinates.lat;
         socialEncounter.longitude = coordinates.lng;
+        //MOZDA OBRISATI
+        socialEncounter.touristIDs = [];
       });
       this.service.getSocialEncounters().subscribe({
         next: (result: PagedResults<ShortSocialEncounter>) => {
@@ -451,7 +453,13 @@ export class EncountersFormComponent implements OnChanges {
           );
           if(shortSocialEncounter){
             socialEncounter.id = shortSocialEncounter!.id;
-            socialEncounter.touristIDs = shortSocialEncounter!.touristIDs as number[];
+            //IZMENILA ANA
+            if (shortSocialEncounter.touristIDs == null) {
+              socialEncounter.touristIDs = []; 
+            }
+            else {
+              socialEncounter.touristIDs = shortSocialEncounter!.touristIDs as number[];
+            }
           }else{
             console.log('Cant find social encounter');
           }
@@ -460,7 +468,6 @@ export class EncountersFormComponent implements OnChanges {
               this.encountersUpdated.emit();
             }
           });
-            
         },
       })
     }else if(this.isLocation){
