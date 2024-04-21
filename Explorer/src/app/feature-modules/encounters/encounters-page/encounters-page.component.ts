@@ -6,6 +6,7 @@ import { SocialEncounter } from '../model/social-encounter.model';
 import { HiddenLocationEncounter } from '../model/hidden-location-encounter.model';
 import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
+import { EncounterMongo } from '../model/mongoModel/encounterMongo.model';
 
 @Component({
   selector: 'xp-encounters-page',
@@ -15,6 +16,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 export class EncountersPageComponent implements OnInit {
   
   encounters: Encounter[] = [];
+  encountersMongo: EncounterMongo[] = [];
   selectedEncounter: Encounter;
   shouldEdit: boolean = false;
   shouldEditDraft: boolean = false;
@@ -33,9 +35,10 @@ export class EncountersPageComponent implements OnInit {
   }
 
   getEncounters(): void{
-    this.service.getEncounters().subscribe({
-      next: (result: PagedResults<Encounter>) => {
-        this.encounters = result.results;
+    this.service.getEncountersMongo().subscribe({
+      next: (result: PagedResults<EncounterMongo>) => {
+        this.encountersMongo = result.results;
+        console.log(this.encountersMongo);
       },
       error: (err: any) => {
         console.log(err);

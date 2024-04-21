@@ -8,6 +8,9 @@ import { SocialEncounter } from './model/social-encounter.model';
 import { EncounterExecution } from './model/encounter-execution.model';
 import { HiddenLocationEncounter } from './model/hidden-location-encounter.model';
 import { ShortHiddenLocationEncounter } from './model/short-hidden-location-encounter.model';
+import { EncounterMongo } from './model/mongoModel/encounterMongo.model';
+import { SocialEncounterMongo } from './model/mongoModel/social-encounterMongo.model';
+import { HiddenLocationEncounterMongo } from './model/mongoModel/hidden-location-encounterMongo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +19,14 @@ export class EncountersService {
 
   constructor(private http: HttpClient) { }
 
+  //
   getEncounters(): Observable<PagedResults<Encounter>> {
     return this.http.get<PagedResults<Encounter>>(environment.apiHost + 'encounters');
+  }
+
+  //
+  getEncountersMongo(): Observable<PagedResults<EncounterMongo>> {
+    return this.http.get<PagedResults<EncounterMongo>>(environment.apiHost + 'encounters');
   }
 
   getSocialEncounters(): Observable<PagedResults<SocialEncounter>> {
@@ -28,16 +37,34 @@ export class EncountersService {
     return this.http.get<PagedResults<HiddenLocationEncounter>>(environment.apiHost + 'encounters/hiddenLocation');
   }
 
+  //
   addEncounter(encounter: Encounter): Observable<Encounter>{
     return this.http.post<Encounter>(environment.apiHost + 'encounters', encounter);
   }
 
+  //
+  addEncounterMongo(encounter: EncounterMongo): Observable<EncounterMongo>{
+    return this.http.post<EncounterMongo>(environment.apiHost + 'encounters', encounter);
+  }
+
+  //
   addSocialEncounter(encounter: SocialEncounter): Observable<SocialEncounter>{
     return this.http.post<SocialEncounter>(environment.apiHost + 'encounters/social', encounter);
   }
 
+  //
+  addSocialEncounterMongo(encounter: SocialEncounterMongo): Observable<SocialEncounterMongo>{
+    return this.http.post<SocialEncounterMongo>(environment.apiHost + 'encounters/social', encounter);
+  }
+
+  //
   addHiddenLocationEncounter(encounter: HiddenLocationEncounter): Observable<HiddenLocationEncounter>{
     return this.http.post<HiddenLocationEncounter>(environment.apiHost + 'encounters/hiddenLocation', encounter);
+  }
+
+  //
+  addHiddenLocationEncounterMongo(encounter: HiddenLocationEncounterMongo): Observable<HiddenLocationEncounterMongo>{
+    return this.http.post<HiddenLocationEncounterMongo>(environment.apiHost + 'encounters/hiddenLocation', encounter);
   }
 
   updateEncounter(encounter: Encounter): Observable<Encounter>{
