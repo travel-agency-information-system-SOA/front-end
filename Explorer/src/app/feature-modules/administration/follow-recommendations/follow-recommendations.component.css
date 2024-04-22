@@ -94,7 +94,6 @@
 }
 
 .overlay {
-    position: absolute;
     top: 30px;
     left: 0;
     width: 70%;
@@ -103,6 +102,7 @@
     flex-direction: column;
     align-items: left;
     justify-content: left;
+    margin-right: 500px;
     text-align: left;
     color: #000000;
     padding: 20px;
@@ -135,7 +135,6 @@
     margin-top: 20px;
     width: 200px;
     transition: all 0.3s ease;
-    margin-right: 500px;
 }
 
 .button:hover {
@@ -143,3 +142,37 @@
     box-shadow: 0 2px 5px 1px #333333;
 }
 
+table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+thead tr {
+    background-color: #3f51b5;
+    color: #ffffff;
+    text-align: left;
+}
+
+th, td {
+    padding: 12px 15px;
+}
+
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #3f51b5;
+}
+
+tbody tr.active-row {
+    font-weight: bold;
+    color: #3f51b5;
+}

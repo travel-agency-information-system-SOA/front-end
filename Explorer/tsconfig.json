@@ -25,6 +25,9 @@
       "dom"
     ]
   },
+  "files": [
+    "src/app/app.module.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

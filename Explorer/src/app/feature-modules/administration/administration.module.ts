@@ -17,6 +17,9 @@ import { RequestResponseNotificationComponent } from './request-response-notific
 import { UserStatisticsComponent } from './user-statistics/user-statistics.component';
 import { FollowerMessagesComponent } from './follower-messages/follower-messages.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { FollowersComponent } from './followers/followers.component';
+import { FollowRecommendationsComponent } from './follow-recommendations/follow-recommendations.component';
+import { FollowersBlogsComponent } from './followers-blogs/followers-blogs.component';
 
 
 @NgModule({
@@ -31,7 +34,10 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     RequestResponseNotificationComponent,
     UserPositionComponent,
     UserStatisticsComponent,
-    FollowerMessagesComponent
+    FollowerMessagesComponent,
+    FollowersComponent,
+    FollowRecommendationsComponent,
+    FollowersBlogsComponent
   ],
   imports: [
     CommonModule,

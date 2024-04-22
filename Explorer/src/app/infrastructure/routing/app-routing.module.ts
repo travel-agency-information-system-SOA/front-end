@@ -11,6 +11,9 @@ import { TourReviewsShowComponent } from 'src/app/feature-modules/marketplace/to
 import { AccountComponent } from 'src/app/feature-modules/administration/account/account.component';
 import { GuideReviewComponent } from 'src/app/feature-modules/marketplace/guide-review/guide-review.component';
 import { PreferencesComponent } from '../../feature-modules/marketplace/preferences/preferences.component';
+import { FollowersComponent } from 'src/app/feature-modules/administration/followers/followers.component';
+import { FollowRecommendationsComponent } from 'src/app/feature-modules/administration/follow-recommendations/follow-recommendations.component';
+import { FollowersBlogsComponent } from 'src/app/feature-modules/administration/followers-blogs/followers-blogs.component';
 
 import { TourPointsComponent } from 'src/app/feature-modules/tour-authoring/tour-points/tour-points.component';  //prikaz tour pointa ??
 import { TourComponent } from 'src/app/feature-modules/tour-authoring/tour/tour.component';
@@ -97,6 +100,7 @@ import { WinnerApplyComponent } from 'src/app/feature-modules/competition/winner
 import { ApplyFormComponent } from 'src/app/feature-modules/competition/apply-form/apply-form.component';
 
 
+
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'home', component: HomeComponent},
@@ -122,6 +126,9 @@ const routes: Routes = [
   { path: 'tourStatistics', component: TourStatisticsComponent },
   { path: 'tourMap/:id', component: TourMapComponent },
   { path: 'accounts', component: AccountComponent, canActivate: [AuthGuard] },
+  { path: 'followers', component: FollowersComponent},
+  { path: 'follow-recommendations', component: FollowRecommendationsComponent},
+  { path: 'followers-blogs', component: FollowersBlogsComponent},
   { path: 'club', component: ClubComponent },
   { path: 'shoppingcart', component: ShoppingCartComponent },
   { path: 'tourMapFirstPoint/:id', component: FirstPointMap },
