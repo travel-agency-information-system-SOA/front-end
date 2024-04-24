@@ -1,1 +1,26 @@
-<p>followers-blogs works!</p>
+<body>
+    <div class="top">
+      <h1 class="title">Blogs</h1>
+    </div>
+    <div class="content-container">
+        <div class="blog-container" *ngFor="let post of blogPosts">
+            <div class="blog-post-card">
+                <div class="post-content">
+                    <h2 class="title" >{{ post.title }}</h2>
+                    <hr class="line-divider">
+                    <ng-template #descriptionSection>
+                        <p class="description" markdown>{{ post.description }}</p>
+                    </ng-template>
+                    
+                    <div>
+                    </div>
+              
+                    <div class="author-date-container">
+                      <small class="author" *ngIf="post.authorUsername">Posted by u/{{ post.authorUsername }}, </small>
+                      <small class="date">{{ post.creationDate | date: 'medium' }}</small>
+                    </div>
+                </div>
+              </div>
+          </div>
+    </div>
+</body>

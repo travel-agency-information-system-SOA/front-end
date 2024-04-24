@@ -148,4 +148,8 @@ export class AdministrationService {
     return this.http.delete<any>(environment.apiHost + 'followerMessage/' + messageId)
   }
 
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(environment.apiHost + 'user/all')
+  }
+
 }

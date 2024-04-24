@@ -10,13 +10,10 @@
             </tr>
         </thead>
         <tbody>
-
-            <tr>
-                <td>Milica</td>
+            <tr *ngFor="let user of users">
+                <td>{{user.username}}</td>
                 <td><button class="button" raised-button (click)="followUser()">Follow</button></td>
             </tr>
-
-
         </tbody>
     </table>
     </div>
