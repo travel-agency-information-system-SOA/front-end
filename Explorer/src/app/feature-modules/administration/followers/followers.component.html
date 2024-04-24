@@ -3,7 +3,7 @@
       <p class="top_margin"></p>
       <p class="title">Follow new people</p>
       <table>
-        <thead>
+        <thead>d
             <tr>
                 <th>Username</th>
                 <th></th>
@@ -12,7 +12,7 @@
         <tbody>
             <tr *ngFor="let user of users">
                 <td>{{user.username}}</td>
-                <td><button class="button" raised-button (click)="followUser()">Follow</button></td>
+                <td><button class="button" raised-button (click)="followUser(user.id)">Follow</button></td>
             </tr>
         </tbody>
     </table>

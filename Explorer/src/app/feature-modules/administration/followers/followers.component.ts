@@ -41,6 +41,8 @@ export class FollowersComponent implements OnInit, OnDestroy {
         console.error('Error getting users:', error);
       }
     );
+    console.log('svi korisnici:');
+    console.log(this.users);
   }
   
 
@@ -52,9 +54,20 @@ export class FollowersComponent implements OnInit, OnDestroy {
     this.router.navigate(['/follow-recommendations']);
   }
 
-  followUser(){
-    // ovde u parametar treba id usera 
-    // poziv metode iz servisa za followanje usera
-    // obrisi tog usera iz liste usera i refreshuj stranicu 
+  followUser(followerId: number){
+    if(this.user)
+    {
+      this.service.followUser(this.user?.id, followerId).subscribe(
+        (data) => {
+          console.log('Successfully followed user:', data);
+          // Obrisi tog usera iz liste usera
+          this.users = this.users.filter(user => user.id !== followerId);
+        },
+        (error) => {
+          console.error('Error following user:', error);
+        }
+      );
+    }
   }
+  
 }

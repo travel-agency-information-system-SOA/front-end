@@ -18,6 +18,7 @@ import { TouristXP } from './model/tourist-xp.model';
 import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 import { UserMileage } from './model/user-statistics.model';
 import { FollowerMessage } from './model/follower-message.model';
+import { NeoFollower } from './model/neo-follower.model';
 
 
 @Injectable({
@@ -151,5 +152,12 @@ export class AdministrationService {
   getAllUsers(): Observable<User[]> {
     return this.http.get<User[]>(environment.apiHost + 'user/all')
   }
+  
+  followUser(userId: number, followerId: number): Observable<NeoFollower> {
+    return this.http.post<NeoFollower>(
+      environment.apiHost + 'follower/followers/' + userId + '/' + followerId, null
+    );
+  }
+  
 
 }

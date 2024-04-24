@@ -6,6 +6,7 @@ import { User } from 'src/app/infrastructure/auth/model/user.model';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { AdministrationService } from '../administration.service';
 import { Subscription } from 'rxjs';
+import { BlogService } from '../../blog/blog.service';
 
 @Component({
   selector: 'xp-followers-blogs',
@@ -18,7 +19,9 @@ export class FollowersBlogsComponent implements OnInit{
   userSubscription: Subscription;
   blogPosts: BlogPost[] = [];
 
-  constructor(private authService: AuthService, private router: Router, private service: AdministrationService) { }
+  constructor(private authService: AuthService, private router: Router, private service: AdministrationService,
+    private blogService: BlogService
+  ) { }
 
   ngOnInit(): void {
     this.userSubscription = this.authService.user$.subscribe(
@@ -35,8 +38,24 @@ export class FollowersBlogsComponent implements OnInit{
     this.userSubscription.unsubscribe();
   }
 
-  getBlogPosts(){
-    // ovde treba dobaviti sve blogove
+  getBlogPosts(): void{
+    // ovde treba dobaviti sve blogove - IZMENI
+    this.blogService.getBlogPosts().subscribe({
+      next: (result: PagedResults<BlogPost>) => {
+        this.blogPosts = result.results;
+  
+        this.blogPosts.forEach(post => {
+          console.log(post.creationDate);
+          post.creationDate = new Date(post.creationDate);
+          console.log(post);
+        });
+        console.log("Svi blogovi:");
+        console.log(this.blogPosts);
+      },
+      error: (err: any) => {
+        console.log(err);
+      }
+    });
   }
   
 }
