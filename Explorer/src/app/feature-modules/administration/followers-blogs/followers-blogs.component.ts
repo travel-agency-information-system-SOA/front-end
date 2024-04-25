@@ -39,23 +39,25 @@ export class FollowersBlogsComponent implements OnInit{
   }
 
   getBlogPosts(): void{
-    // ovde treba dobaviti sve blogove - IZMENI
-    this.blogService.getBlogPosts().subscribe({
-      next: (result: PagedResults<BlogPost>) => {
-        this.blogPosts = result.results;
+    if(this.user && this.user.id){
+      this.service.getFollowerBlogPosts(this.user.id).subscribe({
+        next: (result: BlogPost[]) => {
+          this.blogPosts = result;
   
-        this.blogPosts.forEach(post => {
-          console.log(post.creationDate);
-          post.creationDate = new Date(post.creationDate);
-          console.log(post);
-        });
-        console.log("Svi blogovi:");
-        console.log(this.blogPosts);
-      },
-      error: (err: any) => {
-        console.log(err);
-      }
-    });
+          this.blogPosts.forEach(post => {
+            console.log(post.creationDate);
+            post.creationDate = new Date(post.creationDate);
+            console.log(post);
+          });
+          console.log("Svi blogovi:");
+          console.log(this.blogPosts);
+        },
+        error: (err: any) => {
+          console.log(err);
+        }
+      });
+    }
   }
+  
   
 }

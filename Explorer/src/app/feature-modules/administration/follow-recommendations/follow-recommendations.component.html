@@ -13,7 +13,7 @@
 
             <tr *ngFor="let user of users">
                 <td>{{user.username}}</td>
-                <td><button class="button" raised-button (click)="followUser()">Follow</button></td>
+                <td><button class="button" raised-button (click)="followUser(user.id)">Follow</button></td>
             </tr>
 
 

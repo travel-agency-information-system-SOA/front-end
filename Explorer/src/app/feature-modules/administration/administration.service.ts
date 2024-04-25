@@ -19,6 +19,8 @@ import { Equipment } from '../tour-authoring/tour/model/equipment.model';
 import { UserMileage } from './model/user-statistics.model';
 import { FollowerMessage } from './model/follower-message.model';
 import { NeoFollower } from './model/neo-follower.model';
+import { NeoUser} from './model/neo-user.model';
+import { BlogPost } from '../blog/model/blogpost.model';
 
 
 @Injectable({
@@ -158,6 +160,13 @@ export class AdministrationService {
       environment.apiHost + 'follower/followers/' + userId + '/' + followerId, null
     );
   }
+
+  getAllRecommendations(userId : number): Observable<NeoUser[]> {
+    return this.http.get<NeoUser[]>(environment.apiHost + 'follower/getAllRecomodations/' + userId)
+  }
   
+  getFollowerBlogPosts(userId : number): Observable<BlogPost[]> {
+    return this.http.get<BlogPost[]>(environment.apiHost + 'follower/getFollowings/' + userId)
+  }
 
 }
