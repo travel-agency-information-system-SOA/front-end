@@ -67,20 +67,45 @@ export class EncountersService {
     return this.http.post<HiddenLocationEncounterMongo>(environment.apiHost + 'encounters/hiddenLocation', encounter);
   }
 
+  //
   updateEncounter(encounter: Encounter): Observable<Encounter>{
     return this.http.put<Encounter>(environment.apiHost + 'encounters', encounter);
   }
 
+  //
+  updateEncounterMongo(encounter: EncounterMongo): Observable<EncounterMongo>{
+    return this.http.put<EncounterMongo>(environment.apiHost + 'encounters', encounter);
+  }
+
+
+  //
   updateSocialEncounter(encounter: SocialEncounter): Observable<SocialEncounter>{
     return this.http.put<SocialEncounter>(environment.apiHost + 'encounters/social', encounter);
   }
 
+  //
+  updateSocialEncounterMongo(encounter: SocialEncounterMongo): Observable<SocialEncounterMongo>{
+    return this.http.put<SocialEncounterMongo>(environment.apiHost + 'encounters/social', encounter);
+  }
+
+  //
   updateHiddenLocationEncounter(encounter: HiddenLocationEncounter): Observable<HiddenLocationEncounter>{
     return this.http.put<HiddenLocationEncounter>(environment.apiHost + 'encounters/hiddenLocation', encounter);
   }
 
+  //
+  updateHiddenLocationEncounterMongo(encounter: HiddenLocationEncounterMongo): Observable<HiddenLocationEncounterMongo>{
+    return this.http.put<HiddenLocationEncounterMongo>(environment.apiHost + 'encounters/hiddenLocation', encounter);
+  }
+
+  //
   deleteEncounter(encounter: Encounter): Observable<Encounter>{
     return this.http.delete<Encounter>(environment.apiHost + 'encounters/' + encounter.id);
+  }
+
+  //
+  deleteEncounterMongo(encounter: EncounterMongo): Observable<EncounterMongo>{
+    return this.http.delete<EncounterMongo>(environment.apiHost + 'encounters/' + encounter.id);
   }
 
   getByUser(userId: number): Observable<EncounterExecution>{

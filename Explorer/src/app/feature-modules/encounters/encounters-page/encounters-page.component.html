@@ -22,7 +22,7 @@
                 <td>{{enc.latitude}}</td>
                 <td>{{enc.longitude}}</td>
                 <td>
-                    <!-- <button (click)="onDeleteClicked(enc)" color="accent" mat-icon-button>
+                  <button (click)="onDeleteClicked(enc)" color="accent" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
                     <button (click)="onEditClicked(enc)" color="primary" mat-icon-button>
@@ -30,7 +30,7 @@
                     </button>
                     <button (click)="onArchiveClicked(enc)" color="primary" mat-icon-button>
                         <mat-icon>archive</mat-icon>
-                    </button> -->
+                    </button> 
                 </td>
                 <td *ngIf="enc.shouldBeApproved && !approved">
                    <!--  <button (click)="onApproveClicked(enc)" color="primary" mat-icon-button>

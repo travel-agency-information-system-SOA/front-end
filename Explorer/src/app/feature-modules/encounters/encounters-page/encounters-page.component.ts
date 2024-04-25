@@ -18,6 +18,7 @@ export class EncountersPageComponent implements OnInit {
   encounters: Encounter[] = [];
   encountersMongo: EncounterMongo[] = [];
   selectedEncounter: Encounter;
+  selectedEncounterMongo: EncounterMongo;
   shouldEdit: boolean = false;
   shouldEditDraft: boolean = false;
   Social: boolean = false;
@@ -67,9 +68,9 @@ export class EncountersPageComponent implements OnInit {
     this.approved = true;
   }
 
-  onEditClicked(encounter: Encounter): void{
+  onEditClicked(encounter: EncounterMongo): void{
     console.log(encounter);
-    this.selectedEncounter = encounter;
+    this.selectedEncounterMongo = encounter;
     this.Social = encounter.type === "SOCIAL";
     this.Location = encounter.type === "LOCATION";
     console.log(this.Location)
@@ -82,8 +83,8 @@ export class EncountersPageComponent implements OnInit {
     }
   }
 
-  onDeleteClicked(encounter: Encounter): void{
-    this.service.deleteEncounter(encounter).subscribe({
+  onDeleteClicked(encounter: EncounterMongo): void{
+    this.service.deleteEncounterMongo(encounter).subscribe({
       next: (_) => {
         this.getEncounters();
       }
@@ -95,8 +96,7 @@ export class EncountersPageComponent implements OnInit {
     this.shouldEditDraft = false;
   }
 
-  onArchiveClicked(encounter: Encounter): void{
-
+  onArchiveClicked(encounter: EncounterMongo): void{
     const updatedEncounter = {
       id: encounter.id,
       name: encounter.name,
@@ -109,7 +109,7 @@ export class EncountersPageComponent implements OnInit {
       shouldBeApproved: encounter.shouldBeApproved
     }
 
-    this.service.updateEncounter(updatedEncounter).subscribe({
+    this.service.updateEncounterMongo(updatedEncounter).subscribe({
       next: (_) => {
         this.getEncounters();
       }
