@@ -37,23 +37,23 @@ export class FollowersComponent implements OnInit, OnDestroy {
 
   // getUsersToFollow(){
   //   //svi koje prati
-  //   if(this.user && this.user.id){
-  //     this.service.getUserFollowings(this.user?.id).subscribe(
-  //       (data) => {
-  //         this.userFollowings = data;
-  //         console.log('Svi koje prati:');
-  //         console.log(this.userFollowings);
-  //       },
-  //       (error) => {
-  //         console.error('Error getting user followings:', error);
-  //       }
-  //     );
-  //   }
+  //   // if(this.user && this.user.id){
+  //   //   this.service.getUserFollowings(this.user?.id).subscribe(
+  //   //     (data) => {
+  //   //       this.userFollowings = data;
+  //   //       console.log('Svi koje prati:');
+  //   //       console.log(this.userFollowings);
+  //   //     },
+  //   //     (error) => {
+  //   //       console.error('Error getting user followings:', error);
+  //   //     }
+  //   //   );
+  //   // }
 
   //   //svi
   //   this.service.getAllUsers().subscribe(
   //     (data) => {
-  //       this.users = data.filter(user => user.id !== this.user?.id);
+  //       this.userToShow = data.filter(user => user.id !== this.user?.id);
   //     },
   //     (error) => {
   //       console.error('Error getting users:', error);
@@ -120,7 +120,7 @@ export class FollowersComponent implements OnInit, OnDestroy {
         (data) => {
           console.log('Successfully followed user:', data);
           // Obrisi tog usera iz liste usera
-          this.userToShow = this.users.filter(user => user.id !== followerId); //izmenila na users to show listu
+          //this.userToShow = this.users.filter(user => user.id !== followerId); //izmenila na users to show listu
         },
         (error) => {
           console.error('Error following user:', error);
