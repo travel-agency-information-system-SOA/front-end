@@ -169,4 +169,8 @@ export class AdministrationService {
     return this.http.get<BlogPost[]>(environment.apiHost + 'follower/getFollowings/' + userId)
   }
 
+  getUserFollowings(userId : number): Observable<NeoUser[]> {
+    return this.http.get<NeoUser[]>(environment.apiHost + 'follower/findUserFollowings/' + userId)
+  }
+
 }

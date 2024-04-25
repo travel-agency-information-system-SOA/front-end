@@ -10,7 +10,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of userToShow"> <!--ovde izmenila sa user na userToShow-->
                 <td>{{user.username}}</td>
                 <td><button class="button" raised-button (click)="followUser(user.id)">Follow</button></td>
             </tr>
