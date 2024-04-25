@@ -1,5 +1,6 @@
 <div>
-    <table *ngIf="user && user.role != 'tourist'">
+    <!-- user.role != 'tourist'"-->
+    <table *ngIf="user">
         <thead>
             <tr>
                 <th>Title</th>
@@ -12,7 +13,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let enc of encounters">
+            <tr *ngFor="let enc of encountersMongo">
                 <td>{{enc.name}}</td>
                 <td>{{enc.description}}</td>
                 <td>{{enc.xpPoints}}</td>
@@ -21,7 +22,7 @@
                 <td>{{enc.latitude}}</td>
                 <td>{{enc.longitude}}</td>
                 <td>
-                    <button (click)="onDeleteClicked(enc)" color="accent" mat-icon-button>
+                  <button (click)="onDeleteClicked(enc)" color="accent" mat-icon-button>
                         <mat-icon>delete</mat-icon>
                     </button>
                     <button (click)="onEditClicked(enc)" color="primary" mat-icon-button>
@@ -29,12 +30,12 @@
                     </button>
                     <button (click)="onArchiveClicked(enc)" color="primary" mat-icon-button>
                         <mat-icon>archive</mat-icon>
-                    </button>
+                    </button> 
                 </td>
                 <td *ngIf="enc.shouldBeApproved && !approved">
-                    <button (click)="onApproveClicked(enc)" color="primary" mat-icon-button>
+                   <!--  <button (click)="onApproveClicked(enc)" color="primary" mat-icon-button>
                         <mat-icon>check</mat-icon>
-                    </button>
+                    </button> -->
                 </td>
             </tr>
         </tbody>

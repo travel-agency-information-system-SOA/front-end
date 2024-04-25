@@ -147,7 +147,7 @@ export class EncountersFormComponent implements OnChanges {
     
     if(this.isSocial){
       const socialEncounter = {
-        encounterId: 0,
+        encounterId: "", //
         name: this.encounterForm.value.name || '',
         description: this.encounterForm.value.description || '',
         xpPoints: this.encounterForm.value.xpPoints || 0,
@@ -155,7 +155,7 @@ export class EncountersFormComponent implements OnChanges {
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
         longitude:  0,
-        id: 0,
+        id: "",
         touristsRequiredForCompletion: this.encounterForm.value.touristsRequiredForCompletion || 1,
         distanceTreshold: this.encounterForm.value.distanceTreshold || 200,
         touristIDs: [],
@@ -165,7 +165,7 @@ export class EncountersFormComponent implements OnChanges {
         socialEncounter.latitude = coordinates.lat;
         socialEncounter.longitude = coordinates.lng;
       });
-      this.service.addSocialEncounter(socialEncounter).subscribe({
+      this.service.addSocialEncounterMongo(socialEncounter).subscribe({
         next: (_) => {
           this.encountersUpdated.emit();
           this.encounterForm.reset();
@@ -173,8 +173,8 @@ export class EncountersFormComponent implements OnChanges {
       });
 
     }else if(this.isLocation){
-      const hiddenLocationEncounter = {
-        id: 0,
+      const hiddenLocationEncounterMongo = {
+        id: "",
         name: this.encounterForm.value.name || '',
         description: this.encounterForm.value.description || '',
         xpPoints: this.encounterForm.value.xpPoints || 0,
@@ -182,7 +182,7 @@ export class EncountersFormComponent implements OnChanges {
         type: this.encounterForm.value.type || 'MISC',
         latitude: 0,
         longitude:  0,
-        encounterId: 0,
+        encounterId: "",
         imageURL: this.encounterForm.value.imageURL || '',
         imageLatitude: 0,
         imageLongitude:  0,
@@ -190,12 +190,12 @@ export class EncountersFormComponent implements OnChanges {
         shouldBeApproved: this.shouldBeApproved
       }
       this.mapService.coordinate$.subscribe((coordinates) => {
-        hiddenLocationEncounter.latitude = this.temporaryLatitude;
-        hiddenLocationEncounter.longitude = this.temporaryLongitude;
-        hiddenLocationEncounter.imageLatitude = coordinates.lat;
-        hiddenLocationEncounter.imageLongitude = coordinates.lng;
+        hiddenLocationEncounterMongo.latitude = this.temporaryLatitude;
+        hiddenLocationEncounterMongo.longitude = this.temporaryLongitude;
+        hiddenLocationEncounterMongo.imageLatitude = coordinates.lat;
+        hiddenLocationEncounterMongo.imageLongitude = coordinates.lng;
       });
-      this.service.addHiddenLocationEncounter(hiddenLocationEncounter).subscribe({
+      this.service.addHiddenLocationEncounterMongo(hiddenLocationEncounterMongo).subscribe({
         next: (_) => {
           this.encountersUpdated.emit();
           this.encounterForm.reset();
