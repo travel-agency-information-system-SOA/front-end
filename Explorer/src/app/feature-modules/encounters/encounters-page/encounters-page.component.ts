@@ -34,7 +34,7 @@ export class EncountersPageComponent implements OnInit {
     });
     this.getEncounters(); 
   }
-
+  
   getEncounters(): void{
     this.service.getEncountersMongo().subscribe({
       next: (result: PagedResults<EncounterMongo>) => {
@@ -46,7 +46,7 @@ export class EncountersPageComponent implements OnInit {
       }
     })
   }
-
+  
   onApproveClicked(encounter: Encounter): void{
     const updatedEncounter = {
       id: encounter.id,

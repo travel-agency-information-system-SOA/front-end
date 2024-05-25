@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Encounter } from './model/encounter.model';
 import { PagedResults } from 'src/app/shared/model/paged-results.model';
 import { Observable } from 'rxjs';
@@ -28,7 +28,7 @@ export class EncountersService {
   getEncountersMongo(): Observable<PagedResults<EncounterMongo>> {
     return this.http.get<PagedResults<EncounterMongo>>(environment.apiHost + 'encounters');
   }
-
+  
   getSocialEncounters(): Observable<PagedResults<SocialEncounter>> {
     return this.http.get<PagedResults<SocialEncounter>>(environment.apiHost + 'encounters/social');
   }

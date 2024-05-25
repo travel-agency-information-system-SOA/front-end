@@ -165,6 +165,7 @@ export class EncountersFormComponent implements OnChanges {
         socialEncounter.latitude = coordinates.lat;
         socialEncounter.longitude = coordinates.lng;
       });
+      console.log('SOCIAL ENCOUNTER KOJI SALJEM NA BEK: ', socialEncounter);
       this.service.addSocialEncounterMongo(socialEncounter).subscribe({
         next: (_) => {
           this.encountersUpdated.emit();
