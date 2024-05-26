@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { AdministrationService } from '../administration.service';
 import { Subscription } from 'rxjs';
 import { BlogService } from '../../blog/blog.service';
+import {ListBlogPostDto} from '../../blog/model/list-blog-post-dto.model';
 
 @Component({
   selector: 'xp-followers-blogs',
@@ -17,7 +18,7 @@ export class FollowersBlogsComponent implements OnInit{
   users: User[] = [];
   user: User | null = null;
   userSubscription: Subscription;
-  blogPosts: BlogPost[] = [];
+  blogPosts: ListBlogPostDto;
 
   constructor(private authService: AuthService, private router: Router, private service: AdministrationService,
     private blogService: BlogService
@@ -41,14 +42,14 @@ export class FollowersBlogsComponent implements OnInit{
   getBlogPosts(): void{
     if(this.user && this.user.id){
       this.service.getFollowerBlogPosts(this.user.id).subscribe({
-        next: (result: BlogPost[]) => {
+        next: (result: ListBlogPostDto) => {
           this.blogPosts = result;
-  
-          this.blogPosts.forEach(post => {
-            console.log(post.creationDate);
-            post.creationDate = new Date(post.creationDate);
-            console.log(post);
-          });
+          console.log("BLOGSSS", this.blogPosts);
+          // this.blogPosts.forEach(post => {
+          //   console.log(post.creationDate);
+          //   post.creationDate = new Date(post.creationDate);
+          //   console.log(post);
+          // });
           console.log("Svi blogovi:");
           console.log(this.blogPosts);
         },

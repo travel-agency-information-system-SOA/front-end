@@ -21,6 +21,8 @@ import { FollowerMessage } from './model/follower-message.model';
 import { NeoFollower } from './model/neo-follower.model';
 import { NeoUser} from './model/neo-user.model';
 import { BlogPost } from '../blog/model/blogpost.model';
+import { ListNeoUserDto } from './model/list-neo-user-dto.model';
+import { ListBlogPostDto } from '../blog/model/list-blog-post-dto.model';
 
 
 @Injectable({
@@ -156,17 +158,22 @@ export class AdministrationService {
   }
   
   followUser(userId: number, followerId: number): Observable<NeoFollower> {
+    const body = {
+      userId: userId,
+      followerId: followerId
+    };
+  
     return this.http.post<NeoFollower>(
-      environment.apiHost + 'follower/followers/' + userId + '/' + followerId, null
+      environment.apiHost + 'follower/followers/followUser', body
     );
   }
 
-  getAllRecommendations(userId : number): Observable<NeoUser[]> {
-    return this.http.get<NeoUser[]>(environment.apiHost + 'follower/getAllRecomodations/' + userId)
+  getAllRecommendations(userId : number): Observable<ListNeoUserDto> {
+    return this.http.get<ListNeoUserDto>(environment.apiHost + 'follower/getAllRecomodations/' + userId)
   }
   
-  getFollowerBlogPosts(userId : number): Observable<BlogPost[]> {
-    return this.http.get<BlogPost[]>(environment.apiHost + 'follower/getFollowings/' + userId)
+  getFollowerBlogPosts(userId : number): Observable<ListBlogPostDto> {
+    return this.http.get<ListBlogPostDto>(environment.apiHost + 'follower/getFollowings/' + userId)
   }
 
   getUserFollowings(userId : number): Observable<NeoUser[]> {

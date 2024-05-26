@@ -11,7 +11,7 @@
         </thead>
         <tbody>
 
-            <tr *ngFor="let user of users">
+            <tr *ngFor="let user of users.ResponseList">
                 <td>{{user.username}}</td>
                 <td><button class="button" raised-button (click)="followUser(user.id)">Follow</button></td>
             </tr>

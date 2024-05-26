@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from 'src/app/infrastructure/auth/auth.service';
 import { Subscription } from 'rxjs';
 import { NeoUser } from '../model/neo-user.model';
+import { ListNeoUserDto } from '../model/list-neo-user-dto.model';
 
 @Component({
   selector: 'xp-follow-recommendations',
@@ -12,7 +13,7 @@ import { NeoUser } from '../model/neo-user.model';
   styleUrls: ['./follow-recommendations.component.css']
 })
 export class FollowRecommendationsComponent implements OnInit{
-  users: NeoUser[] = [];
+  users: ListNeoUserDto;
   user: User | null = null;
   userSubscription: Subscription;
 
@@ -38,8 +39,12 @@ export class FollowRecommendationsComponent implements OnInit{
     if(this.user && this.user?.id){
       this.service.getAllRecommendations(this.user?.id).subscribe(
         (data) => {
+          console.log('RADI OVO BREE')
+          console.log(data);
           //this.users = data.filter(user => user.id !== this.user?.id);
           this.users = data;
+          console.log("users:", this.users);
+        
 
         },
         (error) => {
@@ -56,7 +61,7 @@ export class FollowRecommendationsComponent implements OnInit{
         (data) => {
           console.log('Successfully followed user:', data);
           // Obrisi tog usera iz liste usera
-          this.users = this.users.filter(user => user.id !== followerId);
+          this.users.ResponseList = this.users.ResponseList.filter(user => user.id !== followerId); //pogledaj ovo govno
         },
         (error) => {
           console.error('Error following user:', error);
