@@ -8,7 +8,7 @@ We divided the basic monolith into several sections that became separate applica
 
 We ran them together using Docker.
 
-## Front-end 
+# Front-end 
 
 The front-end represents the client-side component of our system. It provides the interface through which users interact with the back-end (API Gateway). The API Gateway processes requests from the front-end, routing them to the appropriate microservice or combination of microservices to return the correct response to the client.
 
